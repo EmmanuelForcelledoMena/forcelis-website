@@ -25,7 +25,10 @@ const englishHome = new URL(path('home', 'en'), site).href;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Forcelis Group — Financial &amp; Operational Intelligence</title>
+    <!-- Título propio, distinto del de `/en/`. Repetir el mismo en dos URL es
+         una señal de contenido duplicado, y esta página no compite: solo
+         reenvía. -->
+    <title>Forcelis Group — English / Español</title>
     <meta
       name="description"
       content="Forcelis combines financial intelligence, operational analytics and technology to help businesses understand performance and improve the way they operate."
@@ -60,6 +63,16 @@ const englishHome = new URL(path('home', 'en'), site).href;
       })();
     </script>
     <style>
+      main {
+        text-align: center;
+      }
+      h1 {
+        font-size: 0.9375rem;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        margin: 0 0 1rem;
+      }
       body {
         margin: 0;
         display: grid;
@@ -76,8 +89,14 @@ const englishHome = new URL(path('home', 'en'), site).href;
     </style>
   </head>
   <body>
-    <p>
-      <a href="/en/">Continue in English</a> · <a href="/es/">Continuar en español</a>
-    </p>
+    <!-- Un `h1` real: si el reenvío no ocurre —sin JavaScript y con el
+         meta-refresh bloqueado—, esto es la página entera, y una página sin
+         encabezado no tiene estructura para un lector de pantalla. -->
+    <main>
+      <h1>Forcelis Group</h1>
+      <p>
+        <a href="/en/">Continue in English</a> · <a href="/es/">Continuar en español</a>
+      </p>
+    </main>
   </body>
 </html>

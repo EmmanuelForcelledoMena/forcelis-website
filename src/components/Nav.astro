@@ -32,14 +32,18 @@ const items = NAV_PAGES.map((key) => ({
       <Wordmark showSuffix={false} />
     </a>
 
-    <nav aria-label={c.nav.mainLabel} class="hidden items-center gap-7 lg:flex">
+    <!-- Separación menor en pantallas justas y `whitespace-nowrap` en cada
+         enlace. En español «Diagnóstico Empresarial» se partía en dos líneas
+         dentro de la barra, y eso además descuadraba el subrayado de la página
+         activa, que se posiciona contra el borde inferior del enlace. -->
+    <nav aria-label={c.nav.mainLabel} class="hidden items-center gap-5 lg:flex xl:gap-7">
       {
         items.map((item) => (
           <a
             href={item.href}
             aria-current={item.current ? 'page' : undefined}
             class:list={[
-              'relative text-sm transition-colors',
+              'relative text-sm whitespace-nowrap transition-colors',
               item.current ? 'font-medium text-ink' : 'text-muted hover:text-ink',
             ]}
           >

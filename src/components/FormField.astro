@@ -1,0 +1,42 @@
+---
+/**
+ * Envoltura de un campo: etiqueta, pista, control y hueco para el error.
+ *
+ * El hueco del error existe en el marcado desde el principio, vacío y con
+ * `hidden`. Insertarlo al vuelo cuando falla la validación mueve el resto de la
+ * página hacia abajo justo cuando la persona está leyendo, y además obliga a
+ * recalcular `aria-describedby` en ese momento; así el vínculo ya está hecho.
+ */
+interface Props {
+  id: string;
+  label: string;
+  /** Texto secundario en la etiqueta, como «Opcional». */
+  labelExtra?: string;
+  hint?: string;
+  class?: string;
+}
+
+const { id, label, labelExtra, hint, class: className = '' } = Astro.props;
+---
+
+<div class={className}>
+  <label class="block text-sm font-medium text-ink" for={id}>
+    {label}
+    {labelExtra && <span class="font-normal text-muted">— {labelExtra}</span>}
+  </label>
+  {
+    hint && (
+      <p class="mt-1.5 text-xs text-muted" id={`${id}-hint`}>
+        {hint}
+      </p>
+    )
+  }
+  <slot />
+  <p
+    id={`${id}-error`}
+    data-field-error
+    hidden
+    class="mt-2 flex items-start gap-1.5 text-xs font-medium text-brand-text"
+  >
+  </p>
+</div>

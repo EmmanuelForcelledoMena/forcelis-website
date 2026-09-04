@@ -30,7 +30,13 @@
     ],
     "size": "Company size",
     "sizePlaceholder": "Select a range",
-    "sizes": ["1–10", "11–50", "51–100", "101–500", "500+"],
+    "sizes": [
+      "1–10",
+      "11–50",
+      "51–100",
+      "101–500",
+      "500+"
+    ],
     "help": "What would you like help with?",
     "helpHint": "Select all that apply.",
     "helpOptions": [
@@ -56,15 +62,37 @@
     "errorBody": "Something went wrong on the way. Please try again, or write to us directly.",
     "unconfiguredTitle": "The form is not connected yet.",
     "unconfiguredBody": "This site has no form endpoint configured, so nothing would be delivered. Set PUBLIC_FORM_ENDPOINT before publishing — see the README.",
-    "validationInvalidEmail": "Enter a valid email address.",
-    "validationConsent": "Please accept the Privacy Policy to continue."
+    "errors": {
+      "required": "This field is required.",
+      "select": "Choose an option.",
+      "email": "Enter a valid email address — for example, name@company.com",
+      "emailTypo": "Did you mean {suggestion}?",
+      "emailTypoAction": "Use it",
+      "minLength": "Please write a little more — at least {min} characters.",
+      "phone": "Enter a valid phone number, or leave the field empty.",
+      "consent": "Accept the Privacy Policy to continue.",
+      "summaryOne": "One field needs your attention.",
+      "summaryMany": "{n} fields need your attention."
+    }
   },
   "next": {
     "title": "What happens next",
     "steps": [
-      { "num": "01", "title": "We read it properly", "body": "A person reads the message, not a routing rule. If the answer is that we are not the right fit, that is the answer you get." },
-      { "num": "02", "title": "A short conversation", "body": "Thirty minutes to understand the business and the question. No preparation needed on your side." },
-      { "num": "03", "title": "A concrete proposal", "body": "Scope, approach and what is needed from you — based on what we discussed, not on a standard package." }
+      {
+        "num": "01",
+        "title": "We read it properly",
+        "body": "A person reads the message, not a routing rule. If the answer is that we are not the right fit, that is the answer you get."
+      },
+      {
+        "num": "02",
+        "title": "A short conversation",
+        "body": "Thirty minutes to understand the business and the question. No preparation needed on your side."
+      },
+      {
+        "num": "03",
+        "title": "A concrete proposal",
+        "body": "Scope, approach and what is needed from you — based on what we discussed, not on a standard package."
+      }
     ]
   },
   "assurance": {

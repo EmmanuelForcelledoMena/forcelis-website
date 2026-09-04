@@ -4,20 +4,30 @@
  *
  * El sitio es estático, así que no hay servidor propio que reciba el envío: el
  * destino es un endpoint configurable (`PUBLIC_FORM_ENDPOINT`), compatible con
- * Formspree y equivalentes. No hay ninguna clave falsa en el código.
+ * Web3Forms, Formspree y equivalentes. No hay ninguna clave falsa en el código.
  *
- * Dos decisiones que importan:
+ * Cuatro decisiones que importan:
  *
  * 1. **Sin endpoint configurado, el formulario lo dice.** La alternativa —un
  *    botón que parece funcionar y descarta el mensaje— es peor que no tener
  *    formulario: el visitante cree que escribió y nadie lo recibe.
- * 2. **Funciona sin JavaScript.** El `action` y el `method` son reales; el
- *    script solo intercepta para dar respuesta sin recargar. Si el script no
- *    corre, el envío sigue llegando.
+ * 2. **Funciona sin JavaScript.** El `action` y el `method` son reales. El
+ *    atributo `novalidate` NO está en el marcado: lo pone el script al arrancar.
+ *    Así, sin JavaScript el navegador valida por su cuenta, y con JavaScript
+ *    validamos nosotros en el idioma de la página. Ponerlo en el marcado dejaba
+ *    el formulario sin ninguna validación cuando el script no cargaba.
+ * 3. **Los mensajes de error van en el idioma de la PÁGINA.** `reportValidity()`
+ *    los muestra en el idioma del NAVEGADOR: un visitante mexicano con Chrome en
+ *    inglés leía «Please fill out this field» en una página en español.
+ * 4. **Un correo con un dedazo es un prospecto perdido.** No hay forma de avisar
+ *    a alguien que escribió mal su propio correo, así que se detectan los
+ *    dominios mal escritos más comunes y se ofrece la corrección — como
+ *    sugerencia, no como bloqueo: `gmial.com` podría existir algún día.
  */
 import type { Lang } from '../i18n/routes';
 import { path } from '../i18n/routes';
 import { t } from '../i18n';
+import FormField from './FormField.astro';
 
 interface Props {
   lang: Lang;
@@ -43,10 +53,9 @@ const subject =
     : 'New enquiry from forcelis-group.com';
 
 const inputClass =
-  'w-full border border-line-strong bg-panel px-4 py-3 text-[0.9375rem] text-ink ' +
-  'placeholder:text-muted focus:border-ink focus:outline-none transition-colors';
-const labelClass = 'block text-sm font-medium text-ink';
-const hintClass = 'mt-1.5 text-xs text-muted';
+  'mt-2 w-full border border-line-strong bg-panel px-4 py-3 text-[0.9375rem] text-ink ' +
+  'placeholder:text-muted focus:border-ink focus:outline-none transition-colors ' +
+  'aria-[invalid=true]:border-brand aria-[invalid=true]:bg-[#fdf6f4]';
 ---
 
 <form
@@ -55,7 +64,6 @@ const hintClass = 'mt-1.5 text-xs text-muted';
   method="post"
   data-configured={configured ? 'true' : 'false'}
   class="space-y-10"
-  novalidate
 >
   {
     !configured && (
@@ -66,48 +74,80 @@ const hintClass = 'mt-1.5 text-xs text-muted';
     )
   }
 
-  <fieldset class="space-y-6">
+  <fieldset>
     <legend class="sr-only">{f.legend}</legend>
 
     <div class="grid gap-6 sm:grid-cols-2">
-      <div>
-        <label class={labelClass} for="company">{f.company}</label>
-        <input class={`mt-2 ${inputClass}`} type="text" id="company" name="company" required autocomplete="organization" />
-      </div>
-      <div>
-        <label class={labelClass} for="name">{f.name}</label>
-        <input class={`mt-2 ${inputClass}`} type="text" id="name" name="name" required autocomplete="name" />
-      </div>
-      <div>
-        <label class={labelClass} for="email">{f.email}</label>
-        <input class={`mt-2 ${inputClass}`} type="email" id="email" name="email" required autocomplete="email" />
-      </div>
-      <div>
-        <label class={labelClass} for="phone">
-          {f.phone} <span class="font-normal text-muted">— {f.phoneOptional}</span>
-        </label>
-        <input class={`mt-2 ${inputClass}`} type="tel" id="phone" name="phone" autocomplete="tel" />
-      </div>
-      <div>
-        <label class={labelClass} for="industry">{f.industry}</label>
-        <select class={`mt-2 ${inputClass}`} id="industry" name="industry" required>
+      <FormField id="company" label={f.company}>
+        <input
+          class={inputClass}
+          type="text"
+          id="company"
+          name="company"
+          required
+          maxlength="120"
+          autocomplete="organization"
+        />
+      </FormField>
+
+      <FormField id="name" label={f.name}>
+        <input
+          class={inputClass}
+          type="text"
+          id="name"
+          name="name"
+          required
+          maxlength="120"
+          autocomplete="name"
+        />
+      </FormField>
+
+      <FormField id="email" label={f.email}>
+        <input
+          class={inputClass}
+          type="email"
+          id="email"
+          name="email"
+          required
+          maxlength="180"
+          autocomplete="email"
+          inputmode="email"
+          spellcheck="false"
+          placeholder="nombre@empresa.com"
+        />
+      </FormField>
+
+      <FormField id="phone" label={f.phone} labelExtra={f.phoneOptional}>
+        <input
+          class={inputClass}
+          type="tel"
+          id="phone"
+          name="phone"
+          maxlength="30"
+          autocomplete="tel"
+          inputmode="tel"
+        />
+      </FormField>
+
+      <FormField id="industry" label={f.industry}>
+        <select class={inputClass} id="industry" name="industry" required>
           <option value="">{f.industryPlaceholder}</option>
           {f.industries.map((industry) => <option value={industry}>{industry}</option>)}
         </select>
-      </div>
-      <div>
-        <label class={labelClass} for="size">{f.size}</label>
-        <select class={`mt-2 ${inputClass}`} id="size" name="size" required>
+      </FormField>
+
+      <FormField id="size" label={f.size}>
+        <select class={inputClass} id="size" name="size" required>
           <option value="">{f.sizePlaceholder}</option>
           {f.sizes.map((size) => <option value={size}>{size}</option>)}
         </select>
-      </div>
+      </FormField>
     </div>
   </fieldset>
 
   <fieldset>
-    <legend class={labelClass}>{f.help}</legend>
-    <p class={hintClass}>{f.helpHint}</p>
+    <legend class="block text-sm font-medium text-ink">{f.help}</legend>
+    <p class="mt-1.5 text-xs text-muted">{f.helpHint}</p>
     <div class="mt-4 grid gap-3 sm:grid-cols-2">
       {
         f.helpOptions.map((option, i) => (
@@ -126,37 +166,45 @@ const hintClass = 'mt-1.5 text-xs text-muted';
     </div>
   </fieldset>
 
-  <div>
-    <label class={labelClass} for="message">{f.message}</label>
-    <p class={hintClass} id="message-hint">{f.messageHint}</p>
+  <FormField id="message" label={f.message} hint={f.messageHint}>
     <textarea
-      class={`mt-3 ${inputClass} min-h-40 resize-y`}
+      class={`${inputClass} min-h-40 resize-y`}
       id="message"
       name="message"
       rows="6"
       required
+      maxlength="4000"
       aria-describedby="message-hint"></textarea>
-  </div>
+  </FormField>
 
   <div class="border-t border-line pt-8">
-    <label class="flex cursor-pointer items-start gap-3 text-sm text-muted">
-      <input
-        type="checkbox"
-        id="consent"
-        name="consent"
-        required
-        class="mt-0.5 h-4 w-4 shrink-0 accent-[var(--color-brand)]"
-      />
-      <span>
-        {f.consent}
-        <a
-          href={path('privacy', lang)}
-          class="ml-1 font-medium text-brand-text underline underline-offset-2"
-        >
-          {f.consentLink}
-        </a>
-      </span>
-    </label>
+    <div>
+      <label class="flex cursor-pointer items-start gap-3 text-sm text-muted">
+        <input
+          type="checkbox"
+          id="consent"
+          name="consent"
+          required
+          class="mt-0.5 h-4 w-4 shrink-0 accent-[var(--color-brand)]"
+        />
+        <span>
+          {f.consent}
+          <a
+            href={path('privacy', lang)}
+            class="ml-1 font-medium text-brand-text underline underline-offset-2"
+          >
+            {f.consentLink}
+          </a>
+        </span>
+      </label>
+      <p
+        id="consent-error"
+        data-field-error
+        hidden
+        class="mt-2 flex items-start gap-1.5 text-xs font-medium text-brand-text"
+      >
+      </p>
+    </div>
 
     <div class="mt-8 flex flex-wrap items-center gap-5">
       <button
@@ -177,73 +225,256 @@ const hintClass = 'mt-1.5 text-xs text-muted';
     <div id="form-status" role="status" aria-live="polite" class="mt-6 empty:mt-0"></div>
   </div>
 
-  <!-- Trampa para robots: un campo que una persona no puede ver ni tabular. Si
-       llega lleno, el envío se descarta en el navegador sin gastar el
-       formulario del proveedor. -->
+  <!-- Trampas para robots: campos que una persona no puede ver ni tabular. Si
+       llegan llenos, el envío se descarta en el navegador sin gastar el
+       formulario del proveedor. Son dos porque cada proveedor espera el suyo. -->
   <div class="hidden" aria-hidden="true">
     <label for="website">Website</label>
     <input type="text" id="website" name="_gotcha" tabindex="-1" autocomplete="off" />
-    <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" />
+    <label for="botcheck">Bot check</label>
+    <input type="checkbox" id="botcheck" name="botcheck" tabindex="-1" autocomplete="off" />
   </div>
 
   {accessKey && <input type="hidden" name="access_key" value={accessKey} />}
   <input type="hidden" name="subject" value={subject} />
   <input type="hidden" name="from_name" value="Forcelis Group" />
   <input type="hidden" name="_subject" value={subject} />
+  <input type="hidden" name="page_language" value={lang} />
 </form>
 
 <script
   is:inline
   define:vars={{
+    messages: f.errors,
     successTitle: f.successTitle,
     successBody: f.successBody,
     errorTitle: f.errorTitle,
     errorBody: f.errorBody,
-    invalidEmail: f.validationInvalidEmail,
-    consentMissing: f.validationConsent,
   }}
 >
   (() => {
     const form = document.getElementById('contact-form');
-    if (!form || form.dataset.configured !== 'true') return;
+    if (!form) return;
 
     const button = document.getElementById('contact-submit');
     const status = document.getElementById('form-status');
 
-    const render = (tone, title, body) => {
-      const border = tone === 'ok' ? 'var(--color-data-green)' : 'var(--color-brand)';
-      status.innerHTML =
-        '<div style="border-left:2px solid ' +
-        border +
-        ';padding:1rem 1.25rem;background:var(--color-panel-alt)">' +
-        '<p style="font-weight:600;color:var(--color-ink)"></p>' +
-        '<p style="margin-top:.375rem;color:var(--color-muted);font-size:.875rem"></p></div>';
-      const [titleNode, bodyNode] = status.querySelectorAll('p');
-      titleNode.textContent = title;
-      bodyNode.textContent = body;
+    // La validación nativa se apaga AQUÍ y no en el marcado: si este script no
+    // llega a ejecutarse, el navegador sigue validando por su cuenta.
+    form.setAttribute('novalidate', '');
+
+    // Marca de tiempo de carga. Ningún humano llena siete campos en tres
+    // segundos; un robot sí.
+    const loadedAt = Date.now();
+
+    // Un correo válido necesita algo antes de la arroba, un dominio y un TLD de
+    // al menos dos letras. `type="email"` acepta `a@b`, que no existe.
+    const EMAIL = /^[^\s@]+@[a-z0-9](?:[a-z0-9-]*[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)*\.[a-z]{2,}$/i;
+
+    // Dedazos frecuentes en dominios de correo. La lista es corta a propósito:
+    // solo los que se escriben mal de verdad y son los más usados en México.
+    const TYPOS = {
+      'gmail.co': 'gmail.com', 'gmial.com': 'gmail.com', 'gmai.com': 'gmail.com',
+      'gmil.com': 'gmail.com', 'gnail.com': 'gmail.com', 'gamil.com': 'gmail.com',
+      'hotmail.co': 'hotmail.com', 'hotmial.com': 'hotmail.com', 'hotmai.com': 'hotmail.com',
+      'hotmall.com': 'hotmail.com', 'homail.com': 'hotmail.com',
+      'outlook.co': 'outlook.com', 'outlok.com': 'outlook.com', 'outloo.com': 'outlook.com',
+      'yahoo.co': 'yahoo.com', 'yahooo.com': 'yahoo.com', 'yaho.com': 'yahoo.com',
+      'icloud.co': 'icloud.com', 'iclould.com': 'icloud.com',
+      'live.co': 'live.com', 'prodigy.net.mx.com': 'prodigy.net.mx',
     };
 
+    const RULES = [
+      { id: 'company', required: true, min: 2 },
+      { id: 'name', required: true, min: 2 },
+      { id: 'email', required: true, email: true },
+      { id: 'phone', phone: true },
+      { id: 'industry', required: true, select: true },
+      { id: 'size', required: true, select: true },
+      { id: 'message', required: true, min: 12 },
+      { id: 'consent', required: true, checkbox: true },
+    ];
+
+    const fill = (template, values) =>
+      Object.entries(values).reduce((s, [k, v]) => s.replace('{' + k + '}', v), template);
+
+    /** Devuelve el mensaje de error del campo, o '' si está bien. */
+    const errorFor = (rule) => {
+      const el = document.getElementById(rule.id);
+      if (!el) return '';
+
+      if (rule.checkbox) return el.checked ? '' : messages.consent;
+
+      // Se valida el valor RECORTADO: `required` del navegador da por bueno un
+      // campo con tres espacios dentro.
+      const value = el.value.trim();
+
+      if (!value) {
+        if (!rule.required) return '';
+        return rule.select ? messages.select : messages.required;
+      }
+      if (rule.min && value.length < rule.min) return fill(messages.minLength, { min: rule.min });
+      if (rule.email && !EMAIL.test(value)) return messages.email;
+      if (rule.phone) {
+        const digits = value.replace(/\D/g, '').length;
+        if (!/^[+()\d\s.\-]+$/.test(value) || digits < 7 || digits > 15) return messages.phone;
+      }
+      return '';
+    };
+
+    const slotFor = (id) => document.getElementById(id + '-error');
+
+    const clearField = (rule) => {
+      const el = document.getElementById(rule.id);
+      const slot = slotFor(rule.id);
+      if (!el || !slot) return;
+      el.removeAttribute('aria-invalid');
+      slot.hidden = true;
+      slot.textContent = '';
+      // Se quita la referencia al error, pero se conserva la pista del campo.
+      const described = (el.getAttribute('aria-describedby') || '')
+        .split(/\s+/)
+        .filter((token) => token && token !== rule.id + '-error')
+        .join(' ');
+      if (described) el.setAttribute('aria-describedby', described);
+      else el.removeAttribute('aria-describedby');
+    };
+
+    const showField = (rule, message) => {
+      const el = document.getElementById(rule.id);
+      const slot = slotFor(rule.id);
+      if (!el || !slot) return;
+      el.setAttribute('aria-invalid', 'true');
+      slot.textContent = message;
+      slot.hidden = false;
+      const described = (el.getAttribute('aria-describedby') || '').split(/\s+/).filter(Boolean);
+      if (!described.includes(rule.id + '-error')) described.push(rule.id + '-error');
+      el.setAttribute('aria-describedby', described.join(' '));
+    };
+
+    /** Sugerencia de dominio mal escrito. No bloquea el envío. */
+    const suggestEmail = () => {
+      const el = document.getElementById('email');
+      const slot = slotFor('email');
+      if (!el || !slot || el.getAttribute('aria-invalid') === 'true') return;
+      const value = el.value.trim();
+      const at = value.lastIndexOf('@');
+      if (at < 0) return;
+      const domain = value.slice(at + 1).toLowerCase();
+      const fixed = TYPOS[domain];
+      if (!fixed) return;
+
+      slot.textContent = '';
+      slot.hidden = false;
+      slot.append(fill(messages.emailTypo, { suggestion: value.slice(0, at + 1) + fixed }) + ' ');
+      const action = document.createElement('button');
+      action.type = 'button';
+      action.textContent = messages.emailTypoAction;
+      action.className = 'underline underline-offset-2 font-semibold';
+      action.addEventListener('click', () => {
+        el.value = value.slice(0, at + 1) + fixed;
+        slot.hidden = true;
+        slot.textContent = '';
+        el.focus();
+      });
+      slot.append(action);
+    };
+
+    const render = (tone, title, body) => {
+      status.textContent = '';
+      const box = document.createElement('div');
+      box.style.cssText =
+        'border-left:2px solid ' +
+        (tone === 'ok' ? 'var(--color-data-green)' : 'var(--color-brand)') +
+        ';padding:1rem 1.25rem;background:var(--color-panel-alt)';
+      const h = document.createElement('p');
+      h.style.cssText = 'font-weight:600;color:var(--color-ink)';
+      h.textContent = title;
+      box.append(h);
+      if (body) {
+        const p = document.createElement('p');
+        p.style.cssText = 'margin-top:.375rem;color:var(--color-muted);font-size:.875rem';
+        p.textContent = body;
+        box.append(p);
+      }
+      status.append(box);
+    };
+
+    // Revalidar mientras se escribe, pero SOLO después del primer intento de
+    // envío. Marcar en rojo un campo que la persona todavía no termina de
+    // llenar es hostil.
+    let attempted = false;
+    RULES.forEach((rule) => {
+      const el = document.getElementById(rule.id);
+      if (!el) return;
+      const revalidate = () => {
+        if (!attempted) return;
+        const message = errorFor(rule);
+        if (message) showField(rule, message);
+        else {
+          clearField(rule);
+          if (rule.email) suggestEmail();
+        }
+      };
+      el.addEventListener('input', revalidate);
+      el.addEventListener('change', revalidate);
+      if (rule.email) el.addEventListener('blur', () => !attempted && suggestEmail());
+    });
+
     form.addEventListener('submit', async (event) => {
-      if (form.querySelector('[name="_gotcha"]').value) {
-        event.preventDefault();
-        return;
-      }
-
-      const email = form.querySelector('#email');
-      const consent = form.querySelector('#consent');
-
-      if (!form.checkValidity()) {
-        event.preventDefault();
-        if (!consent.checked) render('error', consentMissing, '');
-        else if (!email.checkValidity()) render('error', invalidEmail, '');
-        form.reportValidity();
-        return;
-      }
-
       event.preventDefault();
+      attempted = true;
+
+      // Trampas de robot: se descarta en silencio, sin pistas para quien lo
+      // intente automatizar.
+      const gotcha = form.querySelector('[name="_gotcha"]');
+      const botcheck = form.querySelector('[name="botcheck"]');
+      if ((gotcha && gotcha.value) || (botcheck && botcheck.checked)) return;
+      if (Date.now() - loadedAt < 3000) return;
+
+      const failures = [];
+      RULES.forEach((rule) => {
+        const message = errorFor(rule);
+        if (message) {
+          showField(rule, message);
+          failures.push(rule);
+        } else {
+          clearField(rule);
+        }
+      });
+
+      // La sugerencia de dominio se evalúa ANTES de decidir si hay que parar.
+      // Si se dejaba para después del retorno temprano, un correo con dedazo
+      // pasaba desapercibido siempre que algún OTRO campo estuviera mal — que
+      // es justo el caso más común en el primer intento.
+      suggestEmail();
+
+      if (failures.length) {
+        render(
+          'error',
+          failures.length === 1
+            ? messages.summaryOne
+            : fill(messages.summaryMany, { n: failures.length }),
+          '',
+        );
+        const first = document.getElementById(failures[0].id);
+        if (first) {
+          first.focus({ preventScroll: true });
+          first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        return;
+      }
+
+      // Se limpia el resumen ANTES de cualquier salida temprana. Si no, quien
+      // corrige sus campos y reenvía sigue viendo «Hay 4 campos por revisar»
+      // con ningún campo marcado en rojo, que es peor que no decir nada.
+      status.textContent = '';
+      suggestEmail();
+
+      if (form.dataset.configured !== 'true') return;
+
       button.disabled = true;
       button.textContent = button.dataset.sending;
-      status.textContent = '';
 
       try {
         const response = await fetch(form.action, {
@@ -253,12 +484,15 @@ const hintClass = 'mt-1.5 text-xs text-muted';
         });
         if (!response.ok) throw new Error(String(response.status));
         form.reset();
+        RULES.forEach(clearField);
+        attempted = false;
         render('ok', successTitle, successBody);
       } catch {
         render('error', errorTitle, errorBody);
       } finally {
         button.disabled = false;
         button.textContent = button.dataset.label;
+        status.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
     });
   })();
