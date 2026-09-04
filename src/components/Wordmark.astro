@@ -1,0 +1,52 @@
+---
+/**
+ * Marca denominativa de Forcelis.
+ *
+ * Es tipográfica a propósito: no había un logotipo oficial que respetar
+ * (Sección 20 del brief), y un símbolo provisional mal hecho envejece peor que
+ * un wordmark sobrio. Todo lo gráfico está aquí dentro y en `public/favicon.svg`;
+ * sustituirlo por el logotipo real es cambiar este archivo y ese, nada más.
+ *
+ * El glifo son tres barras ascendentes —medición, la idea del producto— y solo
+ * la última lleva el color de marca. `--color-brand` es relleno, nunca texto:
+ * a tamaño de párrafo no llega al contraste que exige el resto del sitio.
+ */
+interface Props {
+  /** `ink` para fondos claros, `light` para las bandas oscuras. */
+  tone?: 'ink' | 'light';
+  /** Oculta la palabra GROUP: la barra de navegación va más apretada. */
+  showSuffix?: boolean;
+  class?: string;
+}
+
+const { tone = 'ink', showSuffix = true, class: className = '' } = Astro.props;
+
+const textColor = tone === 'light' ? 'text-on-ink' : 'text-ink';
+const barColor = tone === 'light' ? '#f8f4f4' : '#201e1d';
+const suffixColor = tone === 'light' ? 'text-on-ink-muted' : 'text-muted';
+---
+
+<span class={`inline-flex items-center gap-2.5 ${className}`}>
+  <svg
+    width="20"
+    height="20"
+    viewBox="0 0 20 20"
+    fill="none"
+    aria-hidden="true"
+    class="shrink-0"
+  >
+    <rect x="0" y="12" width="4.5" height="8" fill={barColor} />
+    <rect x="7.75" y="6" width="4.5" height="14" fill={barColor} />
+    <rect x="15.5" y="0" width="4.5" height="20" fill="#ec3013" />
+  </svg>
+  <span class={`flex items-baseline gap-1.5 ${textColor}`}>
+    <span class="text-[0.9375rem] font-semibold tracking-[0.14em] leading-none">FORCELIS</span>
+    {
+      showSuffix && (
+        <span class={`text-[0.625rem] font-medium tracking-[0.22em] leading-none ${suffixColor}`}>
+          GROUP
+        </span>
+      )
+    }
+  </span>
+</span>

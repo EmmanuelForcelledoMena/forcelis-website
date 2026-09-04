@@ -1,0 +1,146 @@
+---
+/**
+ * Forcelis Business Score.
+ *
+ * El color de cada barra sigue la banda del valor, pero el número siempre está
+ * escrito al lado: el color es refuerzo, nunca el único portador del dato
+ * —eso es WCAG 1.4.1 y es lo primero que se rompe en un tablero bonito—.
+ *
+ * La animación de conteo respeta `prefers-reduced-motion` y, si el script no
+ * corre, el marcado ya trae el valor final escrito. Nada depende de JavaScript
+ * para ser legible.
+ */
+interface ScoreItem {
+  label: string;
+  value: number;
+  note?: string;
+}
+
+interface Props {
+  title: string;
+  items: readonly ScoreItem[];
+  illustrativeLabel: string;
+  outOfLabel: string;
+  footnote?: string;
+  class?: string;
+}
+
+const { title, items, illustrativeLabel, outOfLabel, footnote, class: className = '' } = Astro.props;
+
+function band(value: number): { fill: string; text: string } {
+  if (value >= 80) return { fill: 'var(--color-data-green)', text: 'var(--color-data-green)' };
+  if (value >= 60) return { fill: 'var(--color-data-blue)', text: 'var(--color-data-blue)' };
+  return { fill: 'var(--color-data-amber)', text: 'var(--color-data-amber)' };
+}
+---
+
+<figure class={`border border-line bg-panel ${className}`}>
+  <figcaption class="flex items-center justify-between gap-4 border-b border-line px-6 py-5">
+    <p class="text-sm font-semibold tracking-[0.02em] text-ink">{title}</p>
+    <span
+      class="shrink-0 border border-line-strong px-2 py-1 text-[0.625rem] font-medium tracking-[0.1em] text-muted uppercase"
+    >
+      {illustrativeLabel}
+    </span>
+  </figcaption>
+
+  <ul class="divide-y divide-line" data-score-panel>
+    {
+      items.map((item) => {
+        const colors = band(item.value);
+        return (
+          <li class="px-6 py-5">
+            <div class="flex items-baseline justify-between gap-4">
+              <p class="text-sm font-medium text-ink">{item.label}</p>
+              <p class="tnum shrink-0 text-lg font-semibold" style={`color:${colors.text}`}>
+                <span data-score-value={item.value}>{item.value}</span>
+                <span class="sr-only"> {outOfLabel}</span>
+              </p>
+            </div>
+            <div
+              class="mt-3 h-1.5 w-full bg-panel-alt"
+              role="img"
+              aria-label={`${item.label}: ${item.value} ${outOfLabel}`}
+            >
+              <span
+                class="block h-full origin-left transition-[width] duration-1000 ease-out"
+                style={`width:${item.value}%;background:${colors.fill}`}
+                data-score-bar={item.value}
+              />
+            </div>
+            {item.note && <p class="mt-2.5 text-xs text-muted">{item.note}</p>}
+          </li>
+        );
+      })
+    }
+  </ul>
+
+  {
+    footnote && (
+      <p class="border-t border-line px-6 py-4 text-xs text-muted">{footnote}</p>
+    )
+  }
+</figure>
+
+<script>
+  // Conteo y crecimiento de barra al entrar en pantalla. El marcado ya trae el
+  // valor final; esto solo lo anima. Si algo aquí falla, el panel se ve
+  // completo y correcto.
+  const panels = document.querySelectorAll<HTMLElement>('[data-score-panel]');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (panels.length && !reduced && 'IntersectionObserver' in window) {
+    const animate = (panel: HTMLElement) => {
+      const bars = panel.querySelectorAll<HTMLElement>('[data-score-bar]');
+      const values = panel.querySelectorAll<HTMLElement>('[data-score-value]');
+
+      bars.forEach((bar) => {
+        const target = bar.style.width;
+        bar.style.width = '0%';
+        // Un fotograma de margen para que el navegador registre el 0% antes de
+        // volver al valor final; sin él, la transición no se dispara.
+        requestAnimationFrame(() => requestAnimationFrame(() => (bar.style.width = target)));
+      });
+
+      values.forEach((node) => {
+        const target = Number(node.dataset.scoreValue ?? 0);
+        const start = performance.now();
+        const duration = 900;
+        const step = (now: number) => {
+          const progress = Math.min((now - start) / duration, 1);
+          // easeOutCubic: llega rápido y se asienta, en lugar de frenar de golpe.
+          const eased = 1 - Math.pow(1 - progress, 3);
+          node.textContent = String(Math.round(target * eased));
+          if (progress < 1) requestAnimationFrame(step);
+        };
+        node.textContent = '0';
+        requestAnimationFrame(step);
+      });
+    };
+
+    const inViewport = (el: HTMLElement) => {
+      const rect = el.getBoundingClientRect();
+      return rect.top < window.innerHeight && rect.bottom > 0;
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          animate(entry.target as HTMLElement);
+          observer.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.35 },
+    );
+
+    // Igual que en el revelado del layout: lo que ya se ve se anima sin esperar
+    // al observador. Aquí no hace falta red de seguridad —el marcado ya trae el
+    // valor y el ancho finales—, solo evitar que el panel del hero se quede
+    // quieto en entornos donde el observador no dispara.
+    panels.forEach((panel) => {
+      if (inViewport(panel)) animate(panel);
+      else observer.observe(panel);
+    });
+  }
+</script>

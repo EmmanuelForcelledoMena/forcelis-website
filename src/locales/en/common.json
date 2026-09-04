@@ -1,0 +1,52 @@
+{
+  "brand": {
+    "name": "Forcelis Group",
+    "wordmark": "FORCELIS",
+    "wordmarkSuffix": "GROUP",
+    "tagline": "Financial & Operational Intelligence"
+  },
+  "skipToContent": "Skip to main content",
+  "nav": {
+    "solutions": "Solutions",
+    "platform": "Platform",
+    "diagnostic": "Business Diagnostic",
+    "industries": "Industries",
+    "about": "About",
+    "contact": "Contact",
+    "openMenu": "Open navigation menu",
+    "closeMenu": "Close navigation menu",
+    "cta": "Request a Diagnostic",
+    "mainLabel": "Main navigation"
+  },
+  "lang": {
+    "label": "Language",
+    "current": "Current language: English",
+    "switchTo": "Ver esta página en español"
+  },
+  "cta": {
+    "diagnostic": "Request a Business Diagnostic",
+    "diagnosticShort": "Request a Diagnostic",
+    "contact": "Contact Forcelis",
+    "explore": "Explore Forcelis",
+    "learnMore": "Learn more",
+    "seePlatform": "See the platform",
+    "seeSolutions": "Explore solutions"
+  },
+  "footer": {
+    "tagline": "Financial & Operational Intelligence",
+    "blurb": "Forcelis turns financial and operational data into intelligence businesses can act on.",
+    "navHeading": "Navigation",
+    "companyHeading": "Company",
+    "legalHeading": "Legal",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "copyright": "© 2026 Forcelis Group. All rights reserved.",
+    "disclaimer": "Forcelis provides analysis and advisory services. It does not issue tax opinions and does not replace the judgment of a licensed accountant or auditor."
+  },
+  "labels": {
+    "illustrative": "Illustrative data",
+    "availableToday": "Available today",
+    "inDevelopment": "In development",
+    "scoreOutOf": "out of 100"
+  }
+}

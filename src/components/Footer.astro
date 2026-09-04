@@ -1,0 +1,98 @@
+---
+import Wordmark from './Wordmark.astro';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import { path, type Lang, type PageKey } from '../i18n/routes';
+import { common } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  pageKey: PageKey;
+}
+
+const { lang, pageKey } = Astro.props;
+const c = common(lang);
+
+const columns: { heading: string; links: PageKey[] }[] = [
+  { heading: c.footer.navHeading, links: ['solutions', 'platform', 'diagnostic', 'industries'] },
+  { heading: c.footer.companyHeading, links: ['about', 'contact'] },
+];
+
+const legalLinks: { key: PageKey; label: string }[] = [
+  { key: 'privacy', label: c.footer.privacy },
+  { key: 'terms', label: c.footer.terms },
+];
+
+const navLabels: Record<string, string> = {
+  solutions: c.nav.solutions,
+  platform: c.nav.platform,
+  diagnostic: c.nav.diagnostic,
+  industries: c.nav.industries,
+  about: c.nav.about,
+  contact: c.nav.contact,
+};
+---
+
+<footer class="on-ink bg-ink text-on-ink">
+  <div class="container-page py-16 lg:py-20">
+    <div class="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+      <div class="max-w-sm">
+        <Wordmark tone="light" />
+        <p class="mt-5 text-sm text-on-ink-muted">{c.footer.blurb}</p>
+      </div>
+
+      {
+        columns.map((column) => (
+          <nav aria-label={column.heading}>
+            <h2 class="text-[0.6875rem] font-semibold tracking-[0.16em] text-on-ink-muted uppercase">
+              {column.heading}
+            </h2>
+            <ul class="mt-5 space-y-3">
+              {column.links.map((key) => (
+                <li>
+                  <a
+                    href={path(key, lang)}
+                    class="text-sm text-on-ink-muted transition-colors hover:text-on-ink"
+                  >
+                    {navLabels[key]}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        ))
+      }
+
+      <nav aria-label={c.footer.legalHeading}>
+        <h2 class="text-[0.6875rem] font-semibold tracking-[0.16em] text-on-ink-muted uppercase">
+          {c.footer.legalHeading}
+        </h2>
+        <ul class="mt-5 space-y-3">
+          {
+            legalLinks.map((link) => (
+              <li>
+                <a
+                  href={path(link.key, lang)}
+                  class="text-sm text-on-ink-muted transition-colors hover:text-on-ink"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </div>
+
+    <div class="mt-14 border-t border-line-ink pt-8">
+      <p class="max-w-3xl text-xs leading-relaxed text-on-ink-muted">
+        {c.footer.disclaimer}
+      </p>
+      <div
+        class="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
+      >
+        <p class="text-xs text-on-ink-muted">{c.footer.copyright}</p>
+        <LanguageSwitcher lang={lang} pageKey={pageKey} tone="light" />
+      </div>
+    </div>
+  </div>
+</footer>

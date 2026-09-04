@@ -1,0 +1,216 @@
+---
+/**
+ * Maqueta del producto para el hero.
+ *
+ * Las cifras son inventadas y están etiquetadas como tales (Sección 24 del
+ * brief), pero son internamente consistentes: las doce barras suman los 184.2M
+ * del indicador de ingresos y la media de la línea de margen es el 31.6% que
+ * muestra su tarjeta. Un tablero de ejemplo cuyas cifras no cuadran entre sí lo
+ * nota cualquiera que trabaje con números, que es exactamente el público.
+ *
+ * Es SVG en línea, no una imagen: se ve nítido en cualquier pantalla, hereda
+ * los colores del tema y no cuesta una petición más.
+ */
+import type { Lang } from '../i18n/routes';
+
+interface Metric {
+  label: string;
+  value: string;
+  unit: string;
+  delta: string;
+  tone: string;
+}
+
+interface Props {
+  lang: Lang;
+  title: string;
+  period: string;
+  metrics: readonly Metric[];
+  chartTitle: string;
+  seriesLabels: { revenue: string; margin: string };
+  chartAlt: string;
+  illustrativeLabel: string;
+}
+
+const { lang, title, period, metrics, chartTitle, seriesLabels, chartAlt, illustrativeLabel } =
+  Astro.props;
+
+const revenue = [11.2, 12.0, 13.4, 12.8, 14.6, 15.1, 15.8, 16.4, 15.9, 17.2, 18.4, 21.4];
+const margin = [33.4, 33.0, 32.8, 32.5, 32.2, 31.9, 31.5, 31.2, 30.8, 30.5, 30.2, 29.2];
+
+const monthFormatter = new Intl.DateTimeFormat(lang === 'es' ? 'es-MX' : 'en-US', {
+  month: 'narrow',
+});
+const months = Array.from({ length: 12 }, (_, i) =>
+  monthFormatter.format(new Date(Date.UTC(2026, i, 1))),
+);
+
+// Geometría de la gráfica. Coordenadas explícitas y no un motor: son dos series
+// fijas, y traerse una biblioteca para dibujarlas costaría más que el sitio.
+const W = 640;
+const H = 200;
+const PAD = { top: 16, right: 8, bottom: 26, left: 34 };
+const plotW = W - PAD.left - PAD.right;
+const plotH = H - PAD.top - PAD.bottom;
+
+const revMax = 24;
+const marginMin = 20;
+const marginMax = 40;
+
+const slot = plotW / revenue.length;
+const barW = slot * 0.52;
+
+const bars = revenue.map((value, i) => {
+  const height = (value / revMax) * plotH;
+  return {
+    x: PAD.left + slot * i + (slot - barW) / 2,
+    y: PAD.top + plotH - height,
+    width: barW,
+    height,
+    label: months[i],
+    value,
+  };
+});
+
+const linePoints = margin
+  .map((value, i) => {
+    const x = PAD.left + slot * i + slot / 2;
+    const y = PAD.top + plotH - ((value - marginMin) / (marginMax - marginMin)) * plotH;
+    return `${x.toFixed(1)},${y.toFixed(1)}`;
+  })
+  .join(' ');
+
+const gridLines = [0, 0.25, 0.5, 0.75, 1].map((ratio) => ({
+  y: PAD.top + plotH * ratio,
+  label: Math.round(revMax * (1 - ratio)),
+}));
+---
+
+<figure class="border border-line bg-panel shadow-[0_1px_2px_rgba(32,30,29,0.04)]">
+  <figcaption
+    class="flex items-center justify-between gap-4 border-b border-line px-5 py-4 sm:px-6"
+  >
+    <div>
+      <p class="text-sm font-semibold text-ink">{title}</p>
+      <p class="mt-0.5 text-xs text-muted">{period}</p>
+    </div>
+    <span
+      class="shrink-0 border border-line-strong px-2 py-1 text-[0.625rem] font-medium tracking-[0.1em] text-muted uppercase"
+    >
+      {illustrativeLabel}
+    </span>
+  </figcaption>
+
+  <div class="grid grid-cols-2 border-b border-line lg:grid-cols-4">
+    {
+      metrics.map((metric, i) => (
+        <div
+          class:list={[
+            'border-line px-5 py-4 sm:px-6 sm:py-5',
+            i % 2 === 0 ? 'border-r' : '',
+            i < 2 ? 'border-b lg:border-b-0' : '',
+            'lg:border-r lg:last:border-r-0',
+            i === 1 ? 'lg:border-r' : '',
+          ]}
+        >
+          <p class="text-[0.6875rem] leading-tight text-muted">{metric.label}</p>
+          <p class="tnum mt-2 flex items-baseline gap-1">
+            <span class="text-2xl font-semibold tracking-[-0.02em] text-ink">{metric.value}</span>
+            <span class="text-xs text-muted">{metric.unit}</span>
+          </p>
+          <p
+            class:list={[
+              'tnum mt-1 text-xs font-medium',
+              metric.tone === 'up' ? 'text-[var(--color-data-green)]' : 'text-brand-text',
+            ]}
+          >
+            {metric.delta}
+          </p>
+        </div>
+      ))
+    }
+  </div>
+
+  <div class="px-5 py-5 sm:px-6">
+    <div class="flex flex-wrap items-center justify-between gap-3">
+      <p class="text-xs font-medium text-ink">{chartTitle}</p>
+      <ul class="flex items-center gap-4 text-[0.6875rem] text-muted">
+        <li class="flex items-center gap-1.5">
+          <span aria-hidden="true" class="h-2.5 w-2.5 bg-[var(--color-data-blue)]"></span>
+          {seriesLabels.revenue}
+        </li>
+        <li class="flex items-center gap-1.5">
+          <span aria-hidden="true" class="h-[2px] w-4 bg-brand"></span>
+          {seriesLabels.margin}
+        </li>
+      </ul>
+    </div>
+
+    <svg
+      viewBox={`0 0 ${W} ${H}`}
+      role="img"
+      aria-label={chartAlt}
+      class="mt-4 w-full"
+      preserveAspectRatio="xMidYMid meet"
+    >
+      {
+        gridLines.map((line) => (
+          <>
+            <line
+              x1={PAD.left}
+              y1={line.y}
+              x2={W - PAD.right}
+              y2={line.y}
+              stroke="var(--color-grid)"
+              stroke-width="1"
+            />
+            <text
+              x={PAD.left - 8}
+              y={line.y + 3.5}
+              text-anchor="end"
+              font-size="9"
+              fill="var(--color-muted)"
+            >
+              {line.label}
+            </text>
+          </>
+        ))
+      }
+
+      {
+        bars.map((bar) => (
+          <rect
+            x={bar.x}
+            y={bar.y}
+            width={bar.width}
+            height={bar.height}
+            fill="var(--color-data-blue)"
+            opacity="0.9"
+          />
+        ))
+      }
+
+      <polyline
+        points={linePoints}
+        fill="none"
+        stroke="var(--color-brand)"
+        stroke-width="2"
+        stroke-linejoin="round"
+        stroke-linecap="round"></polyline>
+
+      {
+        bars.map((bar) => (
+          <text
+            x={bar.x + bar.width / 2}
+            y={H - 8}
+            text-anchor="middle"
+            font-size="9"
+            fill="var(--color-muted)"
+          >
+            {bar.label}
+          </text>
+        ))
+      }
+    </svg>
+  </div>
+</figure>

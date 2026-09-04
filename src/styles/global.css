@@ -1,0 +1,168 @@
+@import "tailwindcss";
+
+/* ===========================================================================
+   TIPOGRAFÍA
+   Inter variable, subconjunto latino, servida desde el propio dominio. No hay
+   ninguna petición a Google Fonts: un sitio corporativo que promete control de
+   la información no debería filtrar la IP de cada visitante a un tercero, y
+   además cada dominio externo es un RTT más en el primer pintado.
+   =========================================================================== */
+@font-face {
+  font-family: 'Inter Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('/fonts/inter-latin-wght-normal.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* ===========================================================================
+   TOKENS
+   ---------------------------------------------------------------------------
+   La paleta NO es nueva: es la del producto Forcelis (`app/web/static/estilos.css`),
+   que está medida contra WCAG AAA (7:1 en texto normal) por una prueba del
+   repositorio de la plataforma. Reusarla tiene dos efectos: el sitio y el
+   producto se ven de la misma empresa, y el contraste ya viene resuelto.
+
+   Regla heredada que aquí también aplica: `--color-brand` es RELLENO Y FILO,
+   nunca superficie con texto encima (da 3.85:1) y nunca texto. El acento que
+   se puede leer es `--color-brand-text`.
+   =========================================================================== */
+@theme {
+  /* superficies */
+  --color-ground: #f3f2f2;
+  --color-panel: #f8f4f4;
+  --color-panel-alt: #eae9e9;
+  --color-ink: #201e1d;
+  --color-ink-soft: #3d3938;
+
+  /* texto */
+  --color-body: #201e1d;
+  --color-muted: #444141;
+  --color-on-ink: #f8f4f4;
+  --color-on-ink-muted: #d7d3d3;
+
+  /* líneas */
+  --color-line: #d7d3d3;
+  --color-line-strong: #878383;
+  --color-line-ink: #4a4645;
+
+  /* marca */
+  --color-brand: #ec3013;
+  --color-brand-text: #7c1405;
+
+  /* colores de dato — los de las gráficas del producto */
+  --color-data-blue: #1f6b86;
+  --color-data-green: #17714a;
+  --color-data-amber: #8a5a00;
+  --color-data-violet: #5b3fa8;
+  --color-data-red: #7c1405;
+  --color-grid: #e6e4e4;
+
+  --font-sans: 'Inter Variable', 'Inter', -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+  --text-display: 4.25rem;
+  --text-display--line-height: 1.02;
+  --text-display--letter-spacing: -0.035em;
+
+  --spacing-section: 7.5rem;
+}
+
+/* ===========================================================================
+   BASE
+   =========================================================================== */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-ground);
+    color: var(--color-body);
+    font-family: var(--font-sans);
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* El foco visible es requisito de accesibilidad (Sección 52) y lo primero
+     que se pierde al maquetar con `outline: none`. Se define una vez, aquí. */
+  :focus-visible {
+    outline: 2px solid var(--color-brand-text);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  .on-ink :focus-visible {
+    outline-color: #f8f4f4;
+  }
+
+  ::selection {
+    background: var(--color-ink);
+    color: var(--color-panel);
+  }
+
+  h1, h2, h3, h4 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+}
+
+/* ===========================================================================
+   REVELADO AL HACER SCROLL
+   ---------------------------------------------------------------------------
+   El estado inicial se aplica SOLO si el documento lleva la clase `js`, que
+   pone el script inline del `<head>`. Sin JavaScript —o si el script falla— no
+   hay nada oculto que revelar: la página se ve completa. Es la diferencia
+   entre una animación y un sitio en blanco.
+   =========================================================================== */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .js .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ===========================================================================
+   UTILIDADES DE COMPOSICIÓN
+   =========================================================================== */
+@utility container-page {
+  width: 100%;
+  max-width: 78rem;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+  @media (width >= 64rem) {
+    padding-inline: 2.5rem;
+  }
+}
+
+/* Numeración tabular: las cifras de un tablero no pueden bailar de ancho. */
+@utility tnum {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+}

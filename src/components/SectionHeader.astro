@@ -1,0 +1,51 @@
+---
+/**
+ * Cabecera de sección: antetítulo, título e intro.
+ *
+ * El antetítulo es un `<p>` y no un encabezado: visualmente va antes del
+ * título, pero no es un nivel de la jerarquía del documento. Meterlo como
+ * `<h3>` rompe el orden de encabezados que lee un lector de pantalla.
+ */
+interface Props {
+  eyebrow?: string;
+  title: string;
+  intro?: string;
+  as?: 'h1' | 'h2';
+  tone?: 'ink' | 'light';
+  align?: 'left' | 'center';
+  class?: string;
+}
+
+const {
+  eyebrow,
+  title,
+  intro,
+  as: Tag = 'h2',
+  tone = 'ink',
+  align = 'left',
+  class: className = '',
+}: Props = Astro.props;
+
+const titleSize =
+  Tag === 'h1'
+    ? 'text-[2.5rem] leading-[1.05] tracking-[-0.03em] sm:text-6xl lg:text-display'
+    : 'text-[2rem] leading-[1.1] tracking-[-0.025em] sm:text-[2.75rem] lg:text-5xl';
+
+const titleColor = tone === 'light' ? 'text-on-ink' : 'text-ink';
+const eyebrowColor = tone === 'light' ? 'text-on-ink-muted' : 'text-brand-text';
+const introColor = tone === 'light' ? 'text-on-ink-muted' : 'text-muted';
+const alignment = align === 'center' ? 'mx-auto max-w-3xl text-center' : 'max-w-3xl';
+---
+
+<div class={`${alignment} ${className}`}>
+  {
+    eyebrow && (
+      <p class={`text-[0.6875rem] font-semibold tracking-[0.16em] uppercase ${eyebrowColor}`}>
+        {eyebrow}
+      </p>
+    )
+  }
+  <Tag class={`mt-4 font-semibold ${titleSize} ${titleColor}`}>{title}</Tag>
+  {intro && <p class={`mt-6 text-lg leading-relaxed ${introColor}`}>{intro}</p>}
+  <slot />
+</div>

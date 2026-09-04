@@ -1,0 +1,9 @@
+# Forcelis Group — forcelis-group.com
+# Todo el sitio es público e indexable. La raíz `/` es una página de reenvío
+# hacia un idioma y no aparece en el sitemap; el canónico de cada página apunta
+# a su versión con prefijo de idioma.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://forcelis-group.com/sitemap-index.xml

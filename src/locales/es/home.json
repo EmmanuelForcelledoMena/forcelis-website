@@ -1,0 +1,255 @@
+{
+  "meta": {
+    "title": "Forcelis Group — Inteligencia Financiera y Operativa",
+    "description": "Forcelis combina inteligencia financiera, analítica operativa y tecnología para ayudar a las empresas a entender su desempeño, identificar ineficiencias y mejorar su forma de operar."
+  },
+  "hero": {
+    "eyebrow": "Inteligencia Financiera y Operativa",
+    "title": "Convierte los datos de tu empresa en mejores decisiones.",
+    "subtitle": "Forcelis combina inteligencia financiera, analítica operativa y tecnología para ayudar a las empresas a entender su desempeño, identificar ineficiencias y mejorar su forma de operar.",
+    "panelTitle": "Desempeño del negocio",
+    "panelPeriod": "Últimos 12 meses",
+    "metrics": [
+      {
+        "label": "Ingresos",
+        "value": "184.2M",
+        "unit": "MXN",
+        "delta": "+8.4%",
+        "tone": "up"
+      },
+      {
+        "label": "Margen bruto",
+        "value": "31.6",
+        "unit": "%",
+        "delta": "−1.2 pp",
+        "tone": "down"
+      },
+      {
+        "label": "Días de cartera (DSO)",
+        "value": "47",
+        "unit": "días",
+        "delta": "+6",
+        "tone": "down"
+      },
+      {
+        "label": "Concentración en 5 clientes",
+        "value": "42",
+        "unit": "%",
+        "delta": "+3 pp",
+        "tone": "down"
+      }
+    ],
+    "chartTitle": "Ingresos y margen bruto por mes",
+    "chartSeries": {
+      "revenue": "Ingresos",
+      "margin": "Margen bruto"
+    },
+    "chartAlt": "Gráfica ilustrativa: los ingresos mensuales suben a lo largo del año mientras el margen bruto baja del 33.4 al 29.2 por ciento."
+  },
+  "problem": {
+    "eyebrow": "El problema",
+    "title": "Tu empresa genera datos. ¿Sabes qué te están diciendo?",
+    "body": [
+      "Facturas, pólizas contables, ventas, compras, movimientos de inventario, condiciones con proveedores, actividad bancaria. Casi todas las empresas ya tienen todo lo necesario para explicar su propio desempeño.",
+      "Lo que normalmente no tienen es un solo lugar donde esa información esté conectada, sea comparable en el tiempo y la lea alguien que sabe qué buscar. Tener datos no es lo mismo que tener inteligencia."
+    ],
+    "flow": {
+      "from": "Información fragmentada",
+      "via": "Forcelis",
+      "to": "Inteligencia de negocio"
+    },
+    "sources": [
+      "Contabilidad",
+      "Facturas · CFDI",
+      "ERP",
+      "Hojas de cálculo",
+      "Ventas",
+      "Compras",
+      "Inventario",
+      "Bancos"
+    ],
+    "outcomes": [
+      "Visibilidad",
+      "Control",
+      "Mejores decisiones",
+      "Mejor desempeño"
+    ]
+  },
+  "approach": {
+    "eyebrow": "El enfoque Forcelis",
+    "title": "De los datos a la acción.",
+    "intro": "Tres etapas, en ese orden. Saltarse cualquiera de ellas es como el análisis termina archivado.",
+    "steps": [
+      {
+        "num": "01",
+        "name": "Datos",
+        "title": "Conectar y estructurar la información del negocio.",
+        "body": "Tomamos la información que la empresa ya produce —facturas, contabilidad, ventas, compras, inventario— y la convertimos en una base consistente y comparable. La limpieza y la normalización ocurren aquí, no en las conclusiones."
+      },
+      {
+        "num": "02",
+        "name": "Inteligencia",
+        "title": "Analizar el desempeño e identificar lo que importa.",
+        "body": "Análisis determinista sobre esa base: márgenes, conversión de efectivo, concentración de clientes, dispersión de precios, inflación de insumos. El entregable no es una gráfica: es una lista corta de lo que de verdad mueve al negocio."
+      },
+      {
+        "num": "03",
+        "name": "Acción",
+        "title": "Convertir los hallazgos en mejoras medibles.",
+        "body": "Cada hallazgo se plantea con la decisión que implica, quién es responsable y cómo se va a medir. Cuando tiene sentido, Forcelis se queda a operar el proceso, no solo a recomendarlo."
+      }
+    ]
+  },
+  "solutions": {
+    "eyebrow": "Soluciones",
+    "title": "Inteligencia de negocio construida sobre la forma en que opera tu empresa.",
+    "intro": "Seis capacidades que trabajan como un solo proyecto, no como seis proveedores distintos.",
+    "cards": [
+      {
+        "key": "financial",
+        "title": "Inteligencia Financiera",
+        "body": "Entender ingresos, márgenes, costos, flujo de efectivo y rentabilidad — por producto, por cliente, por periodo."
+      },
+      {
+        "key": "operational",
+        "title": "Inteligencia Operativa",
+        "body": "Identificar ineficiencias en los procesos del negocio y cuantificar cuánto cuesta cada una."
+      },
+      {
+        "key": "supply",
+        "title": "Inteligencia de Cadena de Suministro",
+        "body": "Analizar inventario, compras, proveedores y capital de trabajo como un solo sistema conectado."
+      },
+      {
+        "key": "accounting",
+        "title": "Inteligencia Contable",
+        "body": "Convertir la información contable y de CFDI en información gerencial sobre la que se puede decidir."
+      },
+      {
+        "key": "advisory",
+        "title": "Consultoría",
+        "body": "Traducir los hallazgos en decisiones de negocio, prioridades e iniciativas de mejora."
+      },
+      {
+        "key": "managed",
+        "title": "Servicios Administrados",
+        "body": "Extender a tu equipo con reporteo, análisis y soporte operativo de forma recurrente."
+      }
+    ]
+  },
+  "platform": {
+    "eyebrow": "Plataforma Forcelis",
+    "title": "Una sola vista de tu empresa.",
+    "body": [
+      "Forcelis está construyendo una plataforma tecnológica que conecta la información financiera y operativa en una vista unificada del desempeño del negocio.",
+      "No es un ERP ni sustituye a tu sistema contable. Es la capa de inteligencia por encima de ellos: lee lo que esos sistemas ya producen y responde preguntas para las que nunca fueron diseñados."
+    ],
+    "points": [
+      "Cada número lo calcula un motor determinista. Ninguna cifra sale de un modelo de lenguaje.",
+      "La información de cada cliente está aislada en cuatro capas independientes; la última la impone la propia base de datos.",
+      "Nunca se piden credenciales fiscales. La ingesta es por archivos que el propio cliente descarga."
+    ],
+    "cta": "Conoce la plataforma"
+  },
+  "diagnostic": {
+    "eyebrow": "Diagnóstico Empresarial Forcelis",
+    "title": "Conoce la posición real de tu empresa.",
+    "subtitle": "El Diagnóstico Empresarial Forcelis analiza información financiera y operativa para identificar riesgos, ineficiencias y oportunidades de mejora.",
+    "scoreTitle": "Forcelis Business Score",
+    "scores": [
+      {
+        "label": "Salud financiera",
+        "value": 74
+      },
+      {
+        "label": "Flujo de efectivo",
+        "value": 58
+      },
+      {
+        "label": "Desempeño comercial",
+        "value": 81
+      },
+      {
+        "label": "Eficiencia operativa",
+        "value": 63
+      },
+      {
+        "label": "Calidad de la información contable",
+        "value": 87
+      }
+    ],
+    "findingsTitle": "Hallazgos principales",
+    "findings": [
+      "La concentración de clientes representa un riesgo comercial relevante.",
+      "La rotación de inventario está por debajo del desempeño esperado.",
+      "Las cuentas por cobrar crecieron más rápido que los ingresos.",
+      "El margen bruto cayó en una categoría de producto clave."
+    ],
+    "cta": "Solicitar un diagnóstico"
+  },
+  "model": {
+    "eyebrow": "Modelo de servicio",
+    "title": "Un hallazgo solo vale cuando lleva a una acción.",
+    "intro": "Casi todos los proyectos empiezan en la primera etapa. Hasta dónde llegan lo decide el cliente; no es un paquete que se vende por adelantado.",
+    "stages": [
+      {
+        "name": "Diagnosticar",
+        "body": "Entender el negocio tal como está hoy."
+      },
+      {
+        "name": "Asesorar",
+        "body": "Definir qué tiene que cambiar, y en qué orden."
+      },
+      {
+        "name": "Implementar",
+        "body": "Ejecutar las mejoras junto con tu equipo."
+      },
+      {
+        "name": "Operar",
+        "body": "Monitorear y operar el proceso de forma continua."
+      }
+    ]
+  },
+  "industries": {
+    "eyebrow": "Industrias",
+    "title": "Para empresas donde el desempeño importa.",
+    "intro": "Las empresas con complejidad operativa real —inventario, proveedores, crédito, varias líneas de producto— son las que más provecho sacan de este tipo de análisis.",
+    "items": [
+      "Manufactura",
+      "Distribución",
+      "Comercio B2B",
+      "Importación y exportación",
+      "Servicios profesionales",
+      "Empresas en crecimiento"
+    ],
+    "cta": "Ver industrias"
+  },
+  "why": {
+    "eyebrow": "Por qué Forcelis",
+    "title": "Tecnología con criterio de negocio.",
+    "pillars": [
+      {
+        "title": "El negocio primero",
+        "body": "La tecnología existe para resolver problemas de negocio. La herramienta nunca es el punto."
+      },
+      {
+        "title": "Basado en datos",
+        "body": "Las decisiones deben apoyarse en información confiable. Cuando falta un insumo, lo decimos en vez de estimarlo."
+      },
+      {
+        "title": "Práctico",
+        "body": "Un hallazgo que no cambia una decisión no es un hallazgo. Cada uno viene con su acción recomendada."
+      },
+      {
+        "title": "Escalable",
+        "body": "Lo que se hace a mano una vez, se automatiza. Los proyectos se vuelven más eficientes con el tiempo, no más caros."
+      }
+    ]
+  },
+  "closing": {
+    "title": "Empieza con claridad.",
+    "body": "Entiende tus números. Identifica lo que importa. Construye una mejor empresa.",
+    "primary": "Solicitar un Diagnóstico Empresarial",
+    "secondary": "Contactar a Forcelis"
+  }
+}

@@ -1,0 +1,53 @@
+---
+/**
+ * Botón/enlace del sistema.
+ *
+ * Ninguna variante usa `--color-brand` como fondo con texto encima: da 4.20:1
+ * con blanco, y 5.00:1 es su techo teórico con CUALQUIER color de texto. La
+ * superficie fuerte del sitio es la tinta (`--color-ink`), que da 15:1. Es la
+ * misma regla que gobierna el producto, y allá costó cuatro repeticiones.
+ */
+interface Props {
+  href: string;
+  variant?: 'primary' | 'secondary' | 'onInk' | 'onInkGhost';
+  size?: 'md' | 'lg';
+  class?: string;
+}
+
+const { href, variant = 'primary', size = 'md', class: className = '' } = Astro.props;
+
+const base =
+  'inline-flex items-center justify-center gap-2 font-medium transition-colors duration-200 ' +
+  'whitespace-nowrap rounded-none';
+
+const sizes = {
+  md: 'text-sm px-5 py-3',
+  lg: 'text-[0.9375rem] px-7 py-4',
+};
+
+const variants = {
+  primary: 'bg-ink text-on-ink hover:bg-ink-soft',
+  secondary: 'border border-line-strong text-ink hover:bg-panel-alt hover:border-ink',
+  onInk: 'bg-on-ink text-ink hover:bg-white',
+  onInkGhost: 'border border-line-ink text-on-ink hover:border-on-ink hover:bg-white/5',
+};
+---
+
+<a href={href} class={`${base} ${sizes[size]} ${variants[variant]} ${className}`}>
+  <slot />
+  <svg
+    width="14"
+    height="14"
+    viewBox="0 0 14 14"
+    fill="none"
+    aria-hidden="true"
+    class="shrink-0 -mr-0.5"
+  >
+    <path
+      d="M2.5 7h9M8 3.5 11.5 7 8 10.5"
+      stroke="currentColor"
+      stroke-width="1.4"
+      stroke-linecap="square"
+    ></path>
+  </svg>
+</a>

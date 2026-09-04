@@ -1,0 +1,70 @@
+{
+  "meta": {
+    "title": "Industrias — Para empresas donde el desempeño importa",
+    "description": "Forcelis trabaja con manufactura, distribución, comercio B2B, importación y exportación, servicios profesionales y empresas en crecimiento en México."
+  },
+  "hero": {
+    "eyebrow": "Industrias",
+    "title": "Para empresas donde el desempeño importa.",
+    "subtitle": "El método es el mismo en todas. Lo que cambia es qué números explican al negocio — y eso se define por sector, en configuración, no se reescribe para cada cliente."
+  },
+  "profile": {
+    "title": "Para quién es",
+    "intro": "Forcelis está pensada para empresas con suficiente complejidad operativa como para que la respuesta no se vea solo en el estado de resultados.",
+    "items": [
+      { "label": "Tamaño", "value": "10 a 100 empleados, típicamente" },
+      { "label": "Etapa", "value": "En crecimiento, con facturación real" },
+      { "label": "Modelo", "value": "B2B, con inventario o crédito" },
+      { "label": "Mercado", "value": "México, con ambición internacional" }
+    ],
+    "note": "Estas empresas rara vez tienen la banca completa adentro —CFO, contralor, analista financiero, analista de datos, analista de cadena de suministro—. Forcelis funciona como extensión del equipo que sí tienen."
+  },
+  "sectors": [
+    {
+      "key": "manufacturing",
+      "title": "Manufactura",
+      "lead": "Donde el margen se hace o se pierde entre la orden de compra y la unidad terminada.",
+      "points": ["Inflación de insumos por material", "Estructura de margen a nivel producto", "Inventario y producción en proceso", "Concentración y dependencia de proveedores"]
+    },
+    {
+      "key": "distribution",
+      "title": "Distribución",
+      "lead": "Volumen alto, margen delgado y un ciclo de capital de trabajo que castiga los errores pequeños.",
+      "points": ["Rotación de inventario por artículo", "Dispersión de precios entre clientes", "Precio de compra contra precio de lista", "Días de cartera por segmento"]
+    },
+    {
+      "key": "b2b",
+      "title": "Comercio B2B",
+      "lead": "Un puñado de cuentas suele explicar la mayor parte de los ingresos — y la mayor parte del riesgo.",
+      "points": ["Concentración y fuga de clientes", "Rentabilidad por cliente", "Consistencia de descuentos y precios", "Comportamiento de pago por cuenta"]
+    },
+    {
+      "key": "trade",
+      "title": "Importación y exportación",
+      "lead": "El tipo de cambio, el costo puesto en almacén y el tiempo de entrega convierten una pregunta de margen en una pregunta de tiempo.",
+      "points": ["Costo puesto en almacén por embarque", "Exposición cambiaria en la base de costos", "Inventario sostenido contra el tiempo de entrega", "Condiciones de proveedores contra las de clientes"]
+    },
+    {
+      "key": "services",
+      "title": "Servicios profesionales",
+      "lead": "No hay inventario detrás del cual esconderse. La rentabilidad es cuestión de mezcla, utilización y cobranza.",
+      "points": ["Rentabilidad por cliente y por proyecto", "Concentración de ingresos", "Ciclo de cobranza y antigüedad", "Estructura de la base de costos"]
+    },
+    {
+      "key": "growth",
+      "title": "Empresas en crecimiento",
+      "lead": "El crecimiento esconde problemas. También los crea más rápido de lo que el reporteo alcanza a describirlos.",
+      "points": ["Si el crecimiento lo financia el margen o la cartera", "Escalamiento de la base de costos contra los ingresos", "La mezcla de clientes conforme se mueve", "Qué líneas están realmente aportando"]
+    }
+  ],
+  "config": {
+    "title": "La lógica del sector vive en configuración",
+    "body": "Las métricas del sector, las abreviaturas del ramo, las categorías de insumo y los umbrales se declaran en archivos de configuración; no se programan dentro del producto para cada cliente. Agregar un sector es un cambio de configuración, y por eso analizar una industria nueva no arranca desde cero."
+  },
+  "closing": {
+    "title": "¿Tu industria no está en la lista?",
+    "body": "La lista refleja dónde el análisis es más fuerte hoy, no dónde es posible. Cuéntanos del negocio y te decimos con claridad si podemos ayudar.",
+    "primary": "Contactar a Forcelis",
+    "secondary": "Solicitar un Diagnóstico Empresarial"
+  }
+}

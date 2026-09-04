@@ -1,0 +1,77 @@
+{
+  "meta": {
+    "title": "Contact — Request a consultation",
+    "description": "Tell us about your company and what you need help with. Forcelis will respond with a straight answer about whether and how we can help."
+  },
+  "hero": {
+    "eyebrow": "Contact",
+    "title": "Request a consultation.",
+    "subtitle": "Tell us about the business and what you are trying to understand. If Forcelis is not the right fit, we will say so."
+  },
+  "form": {
+    "legend": "Company and contact details",
+    "legendNeeds": "What you need",
+    "company": "Company",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "phoneOptional": "Optional",
+    "industry": "Industry",
+    "industryPlaceholder": "Select an industry",
+    "industries": [
+      "Manufacturing",
+      "Distribution",
+      "B2B Commerce",
+      "Import & Export",
+      "Professional Services",
+      "Retail",
+      "Construction",
+      "Other"
+    ],
+    "size": "Company size",
+    "sizePlaceholder": "Select a range",
+    "sizes": ["1–10", "11–50", "51–100", "101–500", "500+"],
+    "help": "What would you like help with?",
+    "helpHint": "Select all that apply.",
+    "helpOptions": [
+      "Financial analysis",
+      "Accounting",
+      "Supply chain",
+      "Business intelligence",
+      "Process improvement",
+      "Managed services",
+      "Software",
+      "Other"
+    ],
+    "message": "Message",
+    "messageHint": "The more specific the question, the more useful the first conversation.",
+    "consent": "I have read the Privacy Policy and consent to Forcelis processing this information in order to respond.",
+    "consentLink": "Privacy Policy",
+    "submit": "Request a Consultation",
+    "submitting": "Sending…",
+    "required": "Required",
+    "successTitle": "Message sent.",
+    "successBody": "Thank you. We will get back to you at the email address you provided.",
+    "errorTitle": "The message could not be sent.",
+    "errorBody": "Something went wrong on the way. Please try again, or write to us directly.",
+    "unconfiguredTitle": "The form is not connected yet.",
+    "unconfiguredBody": "This site has no form endpoint configured, so nothing would be delivered. Set PUBLIC_FORM_ENDPOINT before publishing — see the README.",
+    "validationInvalidEmail": "Enter a valid email address.",
+    "validationConsent": "Please accept the Privacy Policy to continue."
+  },
+  "next": {
+    "title": "What happens next",
+    "steps": [
+      { "num": "01", "title": "We read it properly", "body": "A person reads the message, not a routing rule. If the answer is that we are not the right fit, that is the answer you get." },
+      { "num": "02", "title": "A short conversation", "body": "Thirty minutes to understand the business and the question. No preparation needed on your side." },
+      { "num": "03", "title": "A concrete proposal", "body": "Scope, approach and what is needed from you — based on what we discussed, not on a standard package." }
+    ]
+  },
+  "assurance": {
+    "title": "Two things worth knowing before you write",
+    "items": [
+      "Forcelis never asks for tax portal or banking credentials. Analysis works from files you export yourself.",
+      "Information shared in a first conversation is treated as confidential, whether or not an engagement follows."
+    ]
+  }
+}

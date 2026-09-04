@@ -1,0 +1,111 @@
+---
+import Base from '../../layouts/Base.astro';
+import Section from '../Section.astro';
+import SectionHeader from '../SectionHeader.astro';
+import Icon from '../Icon.astro';
+import Cta from '../Cta.astro';
+import type { Lang } from '../../i18n/routes';
+import { t } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const s = t(lang, 'solutions');
+
+const iconFor: Record<
+  string,
+  'financial' | 'operational' | 'supply' | 'accounting' | 'advisory' | 'managed'
+> = {
+  financial: 'financial',
+  operational: 'operational',
+  supply: 'supply',
+  accounting: 'accounting',
+  advisory: 'advisory',
+  managed: 'managed',
+};
+---
+
+<Base lang={lang} pageKey="solutions" title={s.meta.title} description={s.meta.description}>
+  <Section tone="ground" size="compact" class="border-b border-line">
+    <div class="reveal">
+      <SectionHeader
+        as="h1"
+        eyebrow={s.hero.eyebrow}
+        title={s.hero.title}
+        intro={s.hero.subtitle}
+      />
+    </div>
+
+    <!-- Índice de la página: seis secciones largas son mucho scroll sin una
+         forma de saltar a la que interesa, y las tarjetas de la portada enlazan
+         justamente a estas anclas. -->
+    <ul class="reveal mt-12 flex flex-wrap gap-2" data-reveal-delay="80">
+      {
+        s.groups.map((group) => (
+          <li>
+            <a
+              href={`#${group.key}`}
+              class="inline-flex items-center gap-2 border border-line-strong px-4 py-2.5 text-sm text-ink transition-colors hover:bg-panel-alt"
+            >
+              <span class="tnum text-xs text-brand-text">{group.num}</span>
+              {group.title}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </Section>
+
+  {
+    s.groups.map((group, i) => (
+      <Section tone={i % 2 === 0 ? 'ground' : 'panel'} id={group.key} size="compact">
+        <div class="grid gap-10 lg:grid-cols-[minmax(0,22rem)_1fr] lg:gap-16">
+          <div class="reveal">
+            <div class="flex items-center gap-4">
+              <Icon name={iconFor[group.key]} class="h-7 w-7 text-brand-text" />
+              <span class="tnum text-sm font-semibold text-muted">{group.num}</span>
+            </div>
+            <h2 class="mt-6 text-[1.75rem] leading-tight font-semibold tracking-[-0.02em] text-ink lg:text-[2rem]">
+              {group.title}
+            </h2>
+            <p class="mt-4 text-base leading-relaxed text-muted">{group.lead}</p>
+          </div>
+
+          <div class="reveal" data-reveal-delay="90">
+            <ul class="grid gap-x-8 gap-y-0 sm:grid-cols-2">
+              {group.services.map((service) => (
+                <li class="flex items-start gap-3 border-b border-line py-3.5 text-[0.9375rem] text-ink">
+                  <span aria-hidden="true" class="mt-2 block h-1 w-1 shrink-0 bg-brand" />
+                  {service}
+                </li>
+              ))}
+            </ul>
+
+            <div class="mt-8 border-l-2 border-ink bg-panel-alt px-6 py-5">
+              <p class="text-[0.9375rem] leading-relaxed text-ink">{group.outcome}</p>
+            </div>
+          </div>
+        </div>
+      </Section>
+    ))
+  }
+
+  <Section tone="ink" size="compact">
+    <div class="reveal max-w-3xl">
+      <h2 class="text-2xl font-semibold tracking-[-0.02em] text-on-ink lg:text-3xl">
+        {s.note.title}
+      </h2>
+      <p class="mt-5 text-lg leading-relaxed text-on-ink-muted">{s.note.body}</p>
+    </div>
+  </Section>
+
+  <Cta
+    lang={lang}
+    title={s.closing.title}
+    body={s.closing.body}
+    primaryLabel={s.closing.primary}
+    secondaryLabel={s.closing.secondary}
+  />
+</Base>

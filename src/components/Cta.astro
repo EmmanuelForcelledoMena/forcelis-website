@@ -1,0 +1,43 @@
+---
+import Button from './Button.astro';
+import { path, type Lang, type PageKey } from '../i18n/routes';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  body: string;
+  primaryLabel: string;
+  primaryTo?: PageKey;
+  secondaryLabel: string;
+  secondaryTo?: PageKey;
+}
+
+const {
+  lang,
+  title,
+  body,
+  primaryLabel,
+  primaryTo = 'diagnostic',
+  secondaryLabel,
+  secondaryTo = 'contact',
+} = Astro.props;
+---
+
+<section class="on-ink bg-ink text-on-ink">
+  <div class="container-page py-20 lg:py-28">
+    <div class="reveal max-w-3xl">
+      <h2
+        class="text-[2rem] leading-[1.1] font-semibold tracking-[-0.025em] sm:text-[2.75rem] lg:text-5xl"
+      >
+        {title}
+      </h2>
+      <p class="mt-6 text-lg text-on-ink-muted">{body}</p>
+      <div class="mt-10 flex flex-col gap-3 sm:flex-row">
+        <Button href={path(primaryTo, lang)} variant="onInk" size="lg">{primaryLabel}</Button>
+        <Button href={path(secondaryTo, lang)} variant="onInkGhost" size="lg">
+          {secondaryLabel}
+        </Button>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,255 @@
+{
+  "meta": {
+    "title": "Forcelis Group — Financial & Operational Intelligence",
+    "description": "Forcelis combines financial intelligence, operational analytics and technology to help businesses understand performance, identify inefficiencies and improve the way they operate."
+  },
+  "hero": {
+    "eyebrow": "Financial & Operational Intelligence",
+    "title": "Turn business data into better decisions.",
+    "subtitle": "Forcelis combines financial intelligence, operational analytics and technology to help businesses understand performance, identify inefficiencies and improve the way they operate.",
+    "panelTitle": "Business performance",
+    "panelPeriod": "Trailing 12 months",
+    "metrics": [
+      {
+        "label": "Revenue",
+        "value": "184.2M",
+        "unit": "MXN",
+        "delta": "+8.4%",
+        "tone": "up"
+      },
+      {
+        "label": "Gross margin",
+        "value": "31.6",
+        "unit": "%",
+        "delta": "−1.2 pp",
+        "tone": "down"
+      },
+      {
+        "label": "Days sales outstanding",
+        "value": "47",
+        "unit": "days",
+        "delta": "+6",
+        "tone": "down"
+      },
+      {
+        "label": "Top-5 customer concentration",
+        "value": "42",
+        "unit": "%",
+        "delta": "+3 pp",
+        "tone": "down"
+      }
+    ],
+    "chartTitle": "Revenue and gross margin by month",
+    "chartSeries": {
+      "revenue": "Revenue",
+      "margin": "Gross margin"
+    },
+    "chartAlt": "Illustrative chart: monthly revenue rising through the year while gross margin declines from 33.4 percent to 29.2 percent."
+  },
+  "problem": {
+    "eyebrow": "The problem",
+    "title": "Your business generates data. Do you know what it is telling you?",
+    "body": [
+      "Invoices, accounting entries, sales, purchasing, inventory movements, supplier terms, bank activity. Most companies already hold everything needed to explain their own performance.",
+      "What they usually do not have is one place where that information is connected, comparable over time, and read by someone who knows what to look for. Having data is not the same as having intelligence."
+    ],
+    "flow": {
+      "from": "Fragmented information",
+      "via": "Forcelis",
+      "to": "Business intelligence"
+    },
+    "sources": [
+      "Accounting",
+      "Invoices · CFDI",
+      "ERP",
+      "Spreadsheets",
+      "Sales",
+      "Purchasing",
+      "Inventory",
+      "Banking"
+    ],
+    "outcomes": [
+      "Visibility",
+      "Control",
+      "Better decisions",
+      "Improved performance"
+    ]
+  },
+  "approach": {
+    "eyebrow": "The Forcelis approach",
+    "title": "From data to action.",
+    "intro": "Three stages, in order. Skipping any of them is how analysis ends up on a shelf.",
+    "steps": [
+      {
+        "num": "01",
+        "name": "Data",
+        "title": "Connect and structure business information.",
+        "body": "We take the information the company already produces — invoices, accounting, sales, purchasing, inventory — and turn it into a consistent, comparable base. Cleaning and normalization happen here, not in the conclusions."
+      },
+      {
+        "num": "02",
+        "name": "Intelligence",
+        "title": "Analyze performance and identify what matters.",
+        "body": "Deterministic analysis over that base: margins, cash conversion, customer concentration, price dispersion, input cost inflation. The output is not a chart — it is a short list of the things that actually move the business."
+      },
+      {
+        "num": "03",
+        "name": "Action",
+        "title": "Turn insights into measurable improvements.",
+        "body": "Every finding is stated with the decision it implies, who owns it, and how it will be measured. Where it makes sense, Forcelis stays on to run the process, not only to recommend it."
+      }
+    ]
+  },
+  "solutions": {
+    "eyebrow": "Solutions",
+    "title": "Business intelligence built around how your company operates.",
+    "intro": "Six capabilities that work as one engagement, not six separate vendors.",
+    "cards": [
+      {
+        "key": "financial",
+        "title": "Financial Intelligence",
+        "body": "Understand revenue, margins, costs, cash flow and profitability — by product, by customer, by period."
+      },
+      {
+        "key": "operational",
+        "title": "Operational Intelligence",
+        "body": "Identify inefficiencies across business processes and quantify what each one costs."
+      },
+      {
+        "key": "supply",
+        "title": "Supply Chain Intelligence",
+        "body": "Analyze inventory, purchasing, suppliers and working capital as one connected system."
+      },
+      {
+        "key": "accounting",
+        "title": "Accounting Intelligence",
+        "body": "Transform accounting and CFDI data into managerial information you can decide on."
+      },
+      {
+        "key": "advisory",
+        "title": "Advisory",
+        "body": "Translate findings into business decisions, priorities and improvement initiatives."
+      },
+      {
+        "key": "managed",
+        "title": "Managed Services",
+        "body": "Extend your team with ongoing reporting, analysis and operational support."
+      }
+    ]
+  },
+  "platform": {
+    "eyebrow": "Forcelis Platform",
+    "title": "One view of your business.",
+    "body": [
+      "Forcelis is building a technology platform that connects financial and operational information into a unified view of business performance.",
+      "It is not an ERP and it does not replace your accounting system. It is the intelligence layer above them: it reads what those systems already produce and answers questions they were never designed to answer."
+    ],
+    "points": [
+      "Every number is computed by a deterministic engine. No figure is generated by a language model.",
+      "Each client's information is isolated at four independent layers, the last of them enforced by the database itself.",
+      "Tax credentials are never requested. Ingestion is by files the client downloads themselves."
+    ],
+    "cta": "See the platform"
+  },
+  "diagnostic": {
+    "eyebrow": "Forcelis Business Diagnostic",
+    "title": "Know where your business stands.",
+    "subtitle": "The Forcelis Business Diagnostic analyzes financial and operational information to identify risks, inefficiencies and opportunities for improvement.",
+    "scoreTitle": "Forcelis Business Score",
+    "scores": [
+      {
+        "label": "Financial health",
+        "value": 74
+      },
+      {
+        "label": "Cash flow",
+        "value": 58
+      },
+      {
+        "label": "Commercial performance",
+        "value": 81
+      },
+      {
+        "label": "Operational efficiency",
+        "value": 63
+      },
+      {
+        "label": "Accounting data quality",
+        "value": 87
+      }
+    ],
+    "findingsTitle": "Key findings",
+    "findings": [
+      "Customer concentration represents a material commercial risk.",
+      "Inventory turnover is below expected performance.",
+      "Accounts receivable grew faster than revenue.",
+      "Gross margin decreased in a key product category."
+    ],
+    "cta": "Request a Diagnostic"
+  },
+  "model": {
+    "eyebrow": "Services model",
+    "title": "Insight is only valuable when it leads to action.",
+    "intro": "Most engagements start at the first stage. How far they go is the client's decision, not a package sold up front.",
+    "stages": [
+      {
+        "name": "Diagnose",
+        "body": "Understand the business as it actually is today."
+      },
+      {
+        "name": "Advise",
+        "body": "Determine what needs to change, and in what order."
+      },
+      {
+        "name": "Implement",
+        "body": "Execute the improvements alongside your team."
+      },
+      {
+        "name": "Manage",
+        "body": "Monitor and operate the process on an ongoing basis."
+      }
+    ]
+  },
+  "industries": {
+    "eyebrow": "Industries",
+    "title": "Built for businesses where performance matters.",
+    "intro": "Companies with real operating complexity — inventory, suppliers, credit terms, multiple product lines — get the most out of this kind of analysis.",
+    "items": [
+      "Manufacturing",
+      "Distribution",
+      "B2B Commerce",
+      "Import & Export",
+      "Professional Services",
+      "Growing Businesses"
+    ],
+    "cta": "See industries"
+  },
+  "why": {
+    "eyebrow": "Why Forcelis",
+    "title": "Technology with business judgment.",
+    "pillars": [
+      {
+        "title": "Business-first",
+        "body": "Technology exists to solve business problems. The tool is never the point."
+      },
+      {
+        "title": "Data-driven",
+        "body": "Decisions should rest on reliable information. When an input is missing, we say so instead of estimating."
+      },
+      {
+        "title": "Practical",
+        "body": "An insight that does not change a decision is not an insight. Every finding carries a recommended action."
+      },
+      {
+        "title": "Scalable",
+        "body": "What is done manually once gets automated. Engagements become more efficient over time, not more expensive."
+      }
+    ]
+  },
+  "closing": {
+    "title": "Start with clarity.",
+    "body": "Understand your numbers. Identify what matters. Build a better business.",
+    "primary": "Request a Business Diagnostic",
+    "secondary": "Contact Forcelis"
+  }
+}

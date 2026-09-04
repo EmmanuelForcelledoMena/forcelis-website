@@ -1,0 +1,149 @@
+---
+import Wordmark from './Wordmark.astro';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import { NAV_PAGES, path, type Lang, type PageKey } from '../i18n/routes';
+import { common } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  pageKey: PageKey;
+}
+
+const { lang, pageKey } = Astro.props;
+const c = common(lang);
+
+const items = NAV_PAGES.map((key) => ({
+  key,
+  href: path(key, lang),
+  label: c.nav[key as keyof typeof c.nav] as string,
+  current: key === pageKey,
+}));
+---
+
+<header
+  class="sticky top-0 z-50 border-b border-line bg-ground"
+>
+  <div class="container-page flex h-16 items-center justify-between gap-6 lg:h-[4.5rem]">
+    <a
+      href={path('home', lang)}
+      class="shrink-0"
+      aria-label={`${c.brand.name} — ${c.brand.tagline}`}
+    >
+      <Wordmark showSuffix={false} />
+    </a>
+
+    <nav aria-label={c.nav.mainLabel} class="hidden items-center gap-7 lg:flex">
+      {
+        items.map((item) => (
+          <a
+            href={item.href}
+            aria-current={item.current ? 'page' : undefined}
+            class:list={[
+              'relative text-sm transition-colors',
+              item.current ? 'font-medium text-ink' : 'text-muted hover:text-ink',
+            ]}
+          >
+            {item.label}
+            {item.current && (
+              <span
+                aria-hidden="true"
+                class="absolute -bottom-[1.35rem] left-0 h-[2px] w-full bg-brand"
+              />
+            )}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="flex items-center gap-4">
+      <!-- El selector va SIEMPRE visible, también en móvil. La Sección 53 del
+           brief lo pide explícitamente: esconder el cambio de idioma dentro del
+           menú de hamburguesa es esconderlo, y el mercado inicial es México
+           leyendo un sitio cuyo idioma por defecto es el inglés. -->
+      <LanguageSwitcher lang={lang} pageKey={pageKey} />
+      <a
+        href={path('diagnostic', lang)}
+        class="hidden bg-ink px-4 py-2.5 text-sm font-medium text-on-ink transition-colors hover:bg-ink-soft lg:inline-flex"
+      >
+        {c.nav.cta}
+      </a>
+
+      <button
+        type="button"
+        id="menu-toggle"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label={c.nav.openMenu}
+        data-close-label={c.nav.closeMenu}
+        class="-mr-2 flex h-10 w-10 items-center justify-center text-ink lg:hidden"
+      >
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <path d="M2 5h16M2 10h16M2 15h16" stroke="currentColor" stroke-width="1.5"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- El panel móvil vive en el flujo normal del documento y se oculta con el
+       atributo `hidden`, no con una clase: así el contenido no queda alcanzable
+       por teclado mientras está cerrado. -->
+  <div id="mobile-menu" hidden class="border-t border-line bg-ground lg:hidden">
+    <nav aria-label={c.nav.mainLabel} class="container-page flex flex-col py-2">
+      {
+        items.map((item) => (
+          <a
+            href={item.href}
+            aria-current={item.current ? 'page' : undefined}
+            class:list={[
+              'border-b border-line py-4 text-base transition-colors last:border-b-0',
+              item.current ? 'font-medium text-ink' : 'text-muted',
+            ]}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+      <!-- Sin selector de idioma aquí: ya está en la barra, visible en todos los
+           tamaños. Dos veces el mismo control significaría dos regiones de
+           navegación con la misma etiqueta en el árbol de accesibilidad. -->
+      <div class="py-5">
+        <a
+          href={path('diagnostic', lang)}
+          class="block bg-ink px-4 py-3.5 text-center text-sm font-medium text-on-ink"
+        >
+          {c.nav.cta}
+        </a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+
+  if (toggle && menu) {
+    const labels = {
+      open: toggle.getAttribute('aria-label') ?? 'Open menu',
+      close: toggle.dataset.closeLabel ?? toggle.getAttribute('aria-label') ?? 'Close menu',
+    };
+
+    toggle.addEventListener('click', () => {
+      const willOpen = menu.hasAttribute('hidden');
+      menu.toggleAttribute('hidden', !willOpen);
+      toggle.setAttribute('aria-expanded', String(willOpen));
+      toggle.setAttribute('aria-label', willOpen ? labels.close : labels.open);
+    });
+
+    // Escape cierra y devuelve el foco al botón: sin esto, quien navega con
+    // teclado se queda dentro de un menú abierto sin salida obvia.
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && !menu.hasAttribute('hidden')) {
+        menu.setAttribute('hidden', '');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', labels.open);
+        toggle.focus();
+      }
+    });
+  }
+</script>

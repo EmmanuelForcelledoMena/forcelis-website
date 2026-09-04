@@ -1,0 +1,115 @@
+{
+  "meta": {
+    "title": "Solutions — Financial, Operational & Supply Chain Intelligence",
+    "description": "Financial intelligence, operational analytics, supply chain analysis, accounting intelligence, advisory and managed services. Six capabilities that work as one engagement."
+  },
+  "hero": {
+    "eyebrow": "Solutions",
+    "title": "Six capabilities. One engagement.",
+    "subtitle": "Companies rarely have a purely financial problem or a purely operational one. Forcelis is organized so the analysis crosses those lines the way the business does."
+  },
+  "groups": [
+    {
+      "key": "financial",
+      "num": "01",
+      "title": "Financial Intelligence",
+      "lead": "Understand what the company earns, what it spends, where the margin is created and where it is lost.",
+      "services": [
+        "Financial performance analysis",
+        "Management reporting",
+        "KPI design and definition",
+        "Profitability by product and customer",
+        "Cash flow analysis",
+        "Budgeting",
+        "Forecasting",
+        "Cost analysis"
+      ],
+      "outcome": "A management view of the business that reconciles with accounting, updates every period, and answers the question the P&L does not: which part of the business is actually paying for the rest."
+    },
+    {
+      "key": "operational",
+      "num": "02",
+      "title": "Operational Intelligence",
+      "lead": "Find where process, not price, is costing money — and quantify it before anyone is asked to change how they work.",
+      "services": [
+        "Process analysis and mapping",
+        "Operational efficiency review",
+        "Cost optimization",
+        "Performance management",
+        "Process improvement design",
+        "Operational KPI definition"
+      ],
+      "outcome": "A prioritized list of inefficiencies with an estimated annual cost attached to each, so the effort of fixing them can be compared against the return."
+    },
+    {
+      "key": "supply",
+      "num": "03",
+      "title": "Supply Chain Intelligence",
+      "lead": "Inventory, purchasing, suppliers and payment terms are one system. Analyzed separately, each looks fine.",
+      "services": [
+        "Inventory analytics and turnover",
+        "Supplier concentration and dependency",
+        "Procurement and purchase price analytics",
+        "Input cost inflation tracking",
+        "Working capital analysis",
+        "Demand and consumption analysis"
+      ],
+      "outcome": "A clear read on how much cash the operation is holding, where it is held, and which supplier or product line is responsible for the change."
+    },
+    {
+      "key": "accounting",
+      "num": "04",
+      "title": "Accounting Intelligence",
+      "lead": "Accounting data is the most complete record most companies have. It is also the least used for decisions.",
+      "services": [
+        "CFDI analysis (issued and received)",
+        "Accounting and transaction analysis",
+        "Managerial classification of concepts",
+        "Reconciliation support",
+        "Data quality and consistency review",
+        "Recurring managerial reporting"
+      ],
+      "outcome": "Fiscal and accounting information restated in managerial terms — comparable across periods, with data quality issues surfaced rather than silently absorbed into the totals."
+    },
+    {
+      "key": "advisory",
+      "num": "05",
+      "title": "Business Advisory",
+      "lead": "Analysis that stops at the finding is unfinished work. This is where it becomes a decision.",
+      "services": [
+        "Business diagnostics",
+        "Process improvement",
+        "Performance management",
+        "Cost optimization programs",
+        "Transformation initiatives",
+        "Management support and follow-through"
+      ],
+      "outcome": "A short set of decisions with an owner, a sequence and a measure — reviewed against the numbers in the following period rather than filed."
+    },
+    {
+      "key": "managed",
+      "num": "06",
+      "title": "Managed Services",
+      "lead": "Once a process is defined and working, someone has to run it every month. That can be Forcelis.",
+      "services": [
+        "Monthly financial and management reporting",
+        "Financial operations support",
+        "Accounts receivable and payable support",
+        "Accounting operations support",
+        "Recurring data analysis",
+        "KPI and performance monitoring"
+      ],
+      "outcome": "A managed capability with defined scope, methodology and reporting — under Forcelis quality control and a single point of accountability."
+    }
+  ],
+  "note": {
+    "title": "How engagements usually start",
+    "body": "Most clients begin with a Business Diagnostic. It establishes the baseline, shows which of these capabilities the company actually needs, and makes the scope of anything that follows a matter of evidence rather than a proposal."
+  },
+  "closing": {
+    "title": "Not sure which of these you need?",
+    "body": "That is what the diagnostic is for. It starts from your data, not from a service catalogue.",
+    "primary": "Request a Business Diagnostic",
+    "secondary": "Contact Forcelis"
+  }
+}

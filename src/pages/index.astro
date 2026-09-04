@@ -1,0 +1,83 @@
+---
+/**
+ * Raíz del sitio.
+ *
+ * Ambos idiomas llevan prefijo (`/en/`, `/es/`), así que `/` no tiene contenido
+ * propio: reenvía. Tres capas, en este orden, y cada una cubre el fallo de la
+ * anterior:
+ *
+ * 1. `<meta refresh>` — funciona sin JavaScript y sin servidor.
+ * 2. Un script que respeta la preferencia guardada por el selector de idioma y,
+ *    si no hay ninguna, mira el idioma del navegador. Corre antes del refresh.
+ * 3. Dos enlaces visibles, por si nada de lo anterior ocurre.
+ *
+ * El canónico apunta al inglés, que es el idioma por defecto (Sección 55); esta
+ * página no compite por posicionamiento con ninguna de las dos versiones.
+ */
+import { LANG_META, LANGS, path } from '../i18n/routes';
+
+const site = Astro.site ?? new URL('https://forcelis-group.com');
+const englishHome = new URL(path('home', 'en'), site).href;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Forcelis Group — Financial &amp; Operational Intelligence</title>
+    <meta
+      name="description"
+      content="Forcelis combines financial intelligence, operational analytics and technology to help businesses understand performance and improve the way they operate."
+    />
+    <link rel="canonical" href={englishHome} />
+    {
+      LANGS.map((lang) => (
+        <link
+          rel="alternate"
+          hreflang={LANG_META[lang].hreflang}
+          href={new URL(path('home', lang), site).href}
+        />
+      ))
+    }
+    <link rel="alternate" hreflang="x-default" href={englishHome} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta http-equiv="refresh" content={`0; url=${path('home', 'en')}`} />
+    <script is:inline>
+      (function () {
+        var target = '/en/';
+        try {
+          var saved = localStorage.getItem('forcelis-lang');
+          if (saved === 'es' || saved === 'en') {
+            target = '/' + saved + '/';
+          } else if ((navigator.language || '').toLowerCase().indexOf('es') === 0) {
+            target = '/es/';
+          }
+        } catch (error) {
+          // Almacenamiento bloqueado: se queda con el inglés por defecto.
+        }
+        window.location.replace(target);
+      })();
+    </script>
+    <style>
+      body {
+        margin: 0;
+        display: grid;
+        min-height: 100vh;
+        place-items: center;
+        background: #f3f2f2;
+        color: #201e1d;
+        font-family: 'Inter Variable', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+          Arial, sans-serif;
+      }
+      a {
+        color: #7c1405;
+      }
+    </style>
+  </head>
+  <body>
+    <p>
+      <a href="/en/">Continue in English</a> · <a href="/es/">Continuar en español</a>
+    </p>
+  </body>
+</html>

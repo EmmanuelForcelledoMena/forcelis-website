@@ -1,0 +1,52 @@
+{
+  "brand": {
+    "name": "Forcelis Group",
+    "wordmark": "FORCELIS",
+    "wordmarkSuffix": "GROUP",
+    "tagline": "Inteligencia Financiera y Operativa"
+  },
+  "skipToContent": "Ir al contenido principal",
+  "nav": {
+    "solutions": "Soluciones",
+    "platform": "Plataforma",
+    "diagnostic": "Diagnóstico Empresarial",
+    "industries": "Industrias",
+    "about": "Nosotros",
+    "contact": "Contacto",
+    "openMenu": "Abrir menú de navegación",
+    "closeMenu": "Cerrar menú de navegación",
+    "cta": "Solicitar un diagnóstico",
+    "mainLabel": "Navegación principal"
+  },
+  "lang": {
+    "label": "Idioma",
+    "current": "Idioma actual: español",
+    "switchTo": "View this page in English"
+  },
+  "cta": {
+    "diagnostic": "Solicitar un Diagnóstico Empresarial",
+    "diagnosticShort": "Solicitar un diagnóstico",
+    "contact": "Contactar a Forcelis",
+    "explore": "Conoce Forcelis",
+    "learnMore": "Ver más",
+    "seePlatform": "Conoce la plataforma",
+    "seeSolutions": "Ver soluciones"
+  },
+  "footer": {
+    "tagline": "Inteligencia Financiera y Operativa",
+    "blurb": "Forcelis convierte la información financiera y operativa en inteligencia sobre la que se puede actuar.",
+    "navHeading": "Navegación",
+    "companyHeading": "Compañía",
+    "legalHeading": "Legal",
+    "privacy": "Aviso de Privacidad",
+    "terms": "Términos de Servicio",
+    "copyright": "© 2026 Forcelis Group. Todos los derechos reservados.",
+    "disclaimer": "Forcelis presta servicios de análisis y asesoría. No dictamina fiscalmente ni sustituye la opinión de un contador o auditor titulado."
+  },
+  "labels": {
+    "illustrative": "Datos ilustrativos",
+    "availableToday": "Disponible hoy",
+    "inDevelopment": "En desarrollo",
+    "scoreOutOf": "de 100"
+  }
+}

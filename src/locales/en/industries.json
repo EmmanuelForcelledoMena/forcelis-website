@@ -1,0 +1,70 @@
+{
+  "meta": {
+    "title": "Industries — Built for businesses where performance matters",
+    "description": "Forcelis works with manufacturing, distribution, B2B commerce, import and export, professional services and growing businesses in Mexico."
+  },
+  "hero": {
+    "eyebrow": "Industries",
+    "title": "Built for businesses where performance matters.",
+    "subtitle": "The method is the same everywhere. What changes is which numbers explain the business — and that is set per sector, in configuration, not rewritten per client."
+  },
+  "profile": {
+    "title": "Who this is for",
+    "intro": "Forcelis is built for companies with enough operating complexity that the answer is not visible from the income statement alone.",
+    "items": [
+      { "label": "Size", "value": "10–100 employees, typically" },
+      { "label": "Stage", "value": "Growing, with real revenue" },
+      { "label": "Model", "value": "B2B, with inventory or credit terms" },
+      { "label": "Market", "value": "Mexico, with international ambition" }
+    ],
+    "note": "These companies rarely have a full internal bench — CFO, controller, financial analyst, data analyst, supply chain analyst. Forcelis works as an extension of the team they do have."
+  },
+  "sectors": [
+    {
+      "key": "manufacturing",
+      "title": "Manufacturing",
+      "lead": "Where margin is made or lost between the purchase order and the finished unit.",
+      "points": ["Input cost inflation by material", "Product-level margin structure", "Inventory and work-in-process", "Supplier concentration and dependency"]
+    },
+    {
+      "key": "distribution",
+      "title": "Distribution",
+      "lead": "High volume, thin margin, and a working capital cycle that punishes small errors.",
+      "points": ["Inventory turnover by item", "Price dispersion across customers", "Purchase price versus list price", "Days sales outstanding by segment"]
+    },
+    {
+      "key": "b2b",
+      "title": "B2B Commerce",
+      "lead": "A handful of accounts usually explain most of the revenue — and most of the risk.",
+      "points": ["Customer concentration and churn", "Profitability by customer", "Discount and pricing consistency", "Collection behavior by account"]
+    },
+    {
+      "key": "trade",
+      "title": "Import & Export",
+      "lead": "Currency, landed cost and lead time turn a simple margin question into a timing question.",
+      "points": ["Landed cost by shipment", "Currency exposure in the cost base", "Inventory held against lead time", "Supplier terms versus customer terms"]
+    },
+    {
+      "key": "services",
+      "title": "Professional Services",
+      "lead": "No inventory to hide behind. Profitability is a question of mix, utilization and collection.",
+      "points": ["Profitability by client and engagement", "Revenue concentration", "Collection cycle and aging", "Cost base structure"]
+    },
+    {
+      "key": "growth",
+      "title": "Growing Businesses",
+      "lead": "Growth hides problems. It also creates them faster than the reporting can describe them.",
+      "points": ["Whether growth is funded by margin or by receivables", "Cost base scaling versus revenue", "Customer mix as it shifts", "Which lines are actually contributing"]
+    }
+  ],
+  "config": {
+    "title": "Sector logic lives in configuration",
+    "body": "Sector metrics, trade abbreviations, input categories and thresholds are declared in configuration files, not written into the product per client. Adding a sector is a configuration change, which is why the analysis of a new industry does not restart from zero."
+  },
+  "closing": {
+    "title": "Your industry is not on the list?",
+    "body": "The list reflects where the analysis is strongest today, not where it is possible. Tell us about the business and we will say plainly whether we can help.",
+    "primary": "Contact Forcelis",
+    "secondary": "Request a Business Diagnostic"
+  }
+}

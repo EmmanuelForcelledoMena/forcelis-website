@@ -1,0 +1,72 @@
+---
+/**
+ * Información fragmentada → Forcelis → inteligencia de negocio.
+ *
+ * Construido con caja y texto, no con una imagen: se traduce solo, se lee con
+ * lector de pantalla y no hay una versión en inglés y otra en español del mismo
+ * PNG esperando a desincronizarse.
+ */
+interface Props {
+  from: string;
+  via: string;
+  to: string;
+  sources: readonly string[];
+  outcomes: readonly string[];
+}
+
+const { from, via, to, sources, outcomes } = Astro.props;
+---
+
+<div class="grid items-stretch gap-6 lg:grid-cols-[1fr_auto_1fr] lg:gap-8">
+  <div class="border border-line bg-panel p-6 lg:p-8">
+    <p class="text-[0.6875rem] font-semibold tracking-[0.16em] text-muted uppercase">{from}</p>
+    <ul class="mt-5 flex flex-wrap gap-2">
+      {
+        sources.map((source) => (
+          <li class="border border-line bg-ground px-3 py-2 text-[0.8125rem] text-muted">
+            {source}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <div class="flex items-center justify-center lg:flex-col">
+    <div
+      class="flex items-center gap-3 border border-ink bg-ink px-5 py-4 lg:flex-col lg:gap-2 lg:px-6"
+    >
+      <span aria-hidden="true" class="h-[2px] w-6 bg-brand lg:h-6 lg:w-[2px]"></span>
+      <span class="text-sm font-semibold tracking-[0.06em] text-on-ink">{via}</span>
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 16 16"
+        fill="none"
+        aria-hidden="true"
+        class="text-on-ink-muted lg:rotate-90"
+      >
+        <path d="M2 8h11M9.5 4.5 13 8l-3.5 3.5" stroke="currentColor" stroke-width="1.4"></path>
+      </svg>
+    </div>
+  </div>
+
+  <div class="border border-line-strong bg-ground p-6 lg:p-8">
+    <p class="text-[0.6875rem] font-semibold tracking-[0.16em] text-brand-text uppercase">{to}</p>
+    <ul class="mt-5 space-y-3">
+      {
+        outcomes.map((outcome) => (
+          <li class="flex items-center gap-3 text-[0.9375rem] font-medium text-ink">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <path
+                d="M2.5 7.5 5.5 10.5 11.5 3.5"
+                stroke="var(--color-brand)"
+                stroke-width="1.6"
+              />
+            </svg>
+            {outcome}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</div>

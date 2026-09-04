@@ -1,0 +1,57 @@
+---
+/**
+ * Selector de idioma.
+ *
+ * Traduce la RUTA ACTUAL, no manda a la portada: quien está leyendo
+ * `/en/business-diagnostic/` y cambia a español espera
+ * `/es/diagnostico-empresarial/`. Eso solo es posible porque cada página
+ * declara su `pageKey` y el mapa de `routes.ts` sabe el slug del otro idioma.
+ *
+ * Sin banderas: una bandera es un país, no un idioma, y el brief pide un
+ * selector que quede bien en una firma internacional (Sección 56).
+ */
+import { LANG_META, otherLangs, path, type Lang, type PageKey } from '../i18n/routes';
+import { common } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  pageKey: PageKey;
+  tone?: 'ink' | 'light';
+  class?: string;
+}
+
+const { lang, pageKey, tone = 'ink', class: className = '' } = Astro.props;
+const c = common(lang);
+const others = otherLangs(lang);
+
+const activeColor = tone === 'light' ? 'text-on-ink' : 'text-ink';
+const idleColor =
+  tone === 'light' ? 'text-on-ink-muted hover:text-on-ink' : 'text-muted hover:text-ink';
+const dividerColor = tone === 'light' ? 'text-line-ink' : 'text-line-strong';
+---
+
+<nav aria-label={c.lang.label} class={`flex items-center gap-2 text-xs ${className}`}>
+  <span class={`font-semibold tracking-[0.08em] ${activeColor}`} aria-current="true">
+    {LANG_META[lang].short}
+    <span class="sr-only">— {c.lang.current}</span>
+  </span>
+  {
+    others.map((other) => (
+      <>
+        <span aria-hidden="true" class={dividerColor}>
+          |
+        </span>
+        <a
+          href={path(pageKey, other)}
+          lang={LANG_META[other].hreflang}
+          hreflang={LANG_META[other].hreflang}
+          data-lang-choice={other}
+          class={`font-medium tracking-[0.08em] transition-colors ${idleColor}`}
+        >
+          {LANG_META[other].short}
+          <span class="sr-only">— {c.lang.switchTo}</span>
+        </a>
+      </>
+    ))
+  }
+</nav>

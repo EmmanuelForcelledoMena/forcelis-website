@@ -1,0 +1,85 @@
+{
+  "meta": {
+    "title": "Platform — The intelligence layer for your business",
+    "description": "The Forcelis platform connects CFDI, accounting, sales, purchasing and inventory data into one view of business performance. Deterministic analysis, tenant isolation, and no tax credentials required."
+  },
+  "hero": {
+    "eyebrow": "Forcelis Platform",
+    "title": "The intelligence layer for your business.",
+    "subtitle": "Your systems already record what happened. The platform is what reads them together, keeps the history comparable, and turns it into the handful of numbers a management team actually decides on."
+  },
+  "architecture": {
+    "title": "How it fits together",
+    "intro": "Nothing is replaced. The platform sits above the systems you already run.",
+    "sourcesLabel": "Data sources",
+    "sources": ["CFDI", "Accounting", "ERP", "Sales", "Purchasing", "Inventory", "Banking", "Spreadsheets"],
+    "platformLabel": "Forcelis Platform",
+    "platformSub": "Ingestion · Normalization · Analysis · Rules",
+    "layersLabel": "Intelligence",
+    "layers": ["Financial Intelligence", "Operational Intelligence", "Accounting Intelligence"],
+    "outcomeLabel": "Business decisions",
+    "outcomeSub": "Findings, priorities and recommended actions",
+    "diagramAlt": "Diagram: eight data sources feed the Forcelis platform, which produces financial, operational and accounting intelligence, which in turn feeds business decisions."
+  },
+  "principles": {
+    "title": "Four decisions that shape the product",
+    "intro": "These are engineering constraints, not marketing claims. Each one closes off a shortcut that would have been easier to take.",
+    "items": [
+      {
+        "title": "The engine calculates. The language model only writes.",
+        "body": "Every figure comes from a deterministic analytical engine with tests that pin known answers — four customers at 25% each gives an HHI of exactly 0.25. No number in the product is produced by a language model, because a number you cannot reproduce is a number you cannot defend in a management meeting."
+      },
+      {
+        "title": "One client's data cannot reach another.",
+        "body": "Isolation is enforced at four independent layers: an automatic tenant filter in the data layer, ownership stamped on every write, authorization checked before any scope opens, and row-level security inside PostgreSQL itself. The last one matters because the first three live in application code, and application code can be bypassed."
+      },
+      {
+        "title": "Tax credentials are never requested.",
+        "body": "There is no field for an e.firma or a tax portal password anywhere in the product, and there never will be. Ingestion is by files the client downloads themselves from their own systems. A credential you never hold is a credential you cannot lose."
+      },
+      {
+        "title": "A missing input is reported, not estimated.",
+        "body": "When the information needed for a metric is not there, the platform says so and explains why, instead of returning a zero or a plausible-looking estimate. A silent zero is indistinguishable from a real result, and that is how bad decisions get made confidently."
+      }
+    ]
+  },
+  "status": {
+    "title": "What runs today, and what does not",
+    "intro": "Software companies routinely describe a roadmap in the present tense. This is the honest split: the left column is running; the right column is not something you can use yet.",
+    "todayLabel": "Available today",
+    "futureLabel": "In development",
+    "today": [
+      { "title": "CFDI ingestion", "body": "Issued and received invoices, payment complements, payroll and withholding documents, uploaded as files. Handles the mess that comes with real data: duplicates, malformed XML, unnormalizable units." },
+      { "title": "Normalization and managerial curation", "body": "Concepts and products grouped into a stable managerial catalogue, so the same item is the same item across suppliers and periods." },
+      { "title": "Five analytical engines", "body": "Price dispersion, customer concentration and churn, input cost inflation, business pulse, and forecast — each tested against scenarios with known answers." },
+      { "title": "Real cash collection", "body": "Collection measured from payment complements rather than assumed from invoice dates, with receivable and payable aging and a stated coverage percentage." },
+      { "title": "Managerial income statement", "body": "Restated results with history, comparable period over period, reconciled against the underlying documents." },
+      { "title": "Interactive dashboards", "body": "Charts, filters and drill-down, rendered by a purpose-built engine so the product works on a slow connection." },
+      { "title": "Multi-tenant with channel", "body": "An accounting firm can administer dozens of companies under one hierarchy, with its own branding on the deliverables." },
+      { "title": "Accounts, login and MFA", "body": "Working user accounts with time-based two-factor authentication, encrypted secrets and single-use recovery codes." },
+      { "title": "Deliverables", "body": "Word report, self-contained HTML dashboard and Excel export — the formats a finance team already circulates." }
+    ],
+    "future": [
+      { "title": "Anonymized sector benchmark", "body": "Compare against your sector rather than only against your own history. Built and tested with a k≥3 anonymity floor; it switches on only when there are enough companies per cell for the comparison to mean anything and to stay anonymous." },
+      { "title": "AI narrative layer", "body": "A copilot that drafts the written narrative around figures the engine has already computed. The privacy guard that constrains it is built and heavily tested; the copilot itself has not yet been run against a live model, so it is not being offered." },
+      { "title": "Direct connectors", "body": "Automatic ingestion from ERP and banking systems. The plugin contract exists; no concrete connector has been built. Today, ingestion is by file." },
+      { "title": "External economic context", "body": "Public INEGI and Banxico series alongside your own figures, to separate a company-specific movement from a market-wide one." },
+      { "title": "Second country", "body": "The core is already country-agnostic — base currency per client, country on the data model. What is missing is the tax document parser for the next country." }
+    ]
+  },
+  "boundaries": {
+    "title": "What the platform is not",
+    "items": [
+      "It is not an ERP, and it does not run your operation.",
+      "It does not replace your accounting system or your accountant.",
+      "It does not issue tax opinions or determine tax positions.",
+      "It does not require access to your tax portal or your bank."
+    ]
+  },
+  "closing": {
+    "title": "See it against your own numbers.",
+    "body": "The most useful demonstration is not a demo account. It is a diagnostic run on your data.",
+    "primary": "Request a Business Diagnostic",
+    "secondary": "Contact Forcelis"
+  }
+}

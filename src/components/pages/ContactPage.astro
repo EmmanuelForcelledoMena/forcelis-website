@@ -1,0 +1,84 @@
+---
+import Base from '../../layouts/Base.astro';
+import Section from '../Section.astro';
+import SectionHeader from '../SectionHeader.astro';
+import ContactForm from '../ContactForm.astro';
+import Icon from '../Icon.astro';
+import type { Lang } from '../../i18n/routes';
+import { t } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const k = t(lang, 'contact');
+
+// Correo de contacto por variable de entorno. Sin ella no se imprime nada: es
+// preferible una página sin correo a un correo inventado que rebota.
+const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL ?? '';
+---
+
+<Base lang={lang} pageKey="contact" title={k.meta.title} description={k.meta.description}>
+  <Section tone="ground" size="compact" class="border-b border-line">
+    <div class="reveal">
+      <SectionHeader as="h1" eyebrow={k.hero.eyebrow} title={k.hero.title} intro={k.hero.subtitle} />
+    </div>
+  </Section>
+
+  <Section tone="ground">
+    <div class="grid gap-14 lg:grid-cols-[1fr_minmax(0,20rem)] lg:gap-20">
+      <div class="reveal">
+        <ContactForm lang={lang} />
+      </div>
+
+      <aside class="reveal space-y-12" data-reveal-delay="100">
+        <div>
+          <h2 class="text-[0.6875rem] font-semibold tracking-[0.16em] text-muted uppercase">
+            {k.next.title}
+          </h2>
+          <ol class="mt-6 space-y-6">
+            {
+              k.next.steps.map((step) => (
+                <li>
+                  <span class="tnum text-xs font-semibold text-brand-text">{step.num}</span>
+                  <h3 class="mt-2 text-base font-semibold text-ink">{step.title}</h3>
+                  <p class="mt-1.5 text-sm leading-relaxed text-muted">{step.body}</p>
+                </li>
+              ))
+            }
+          </ol>
+        </div>
+
+        <div class="border-t border-line pt-10">
+          <h2 class="text-[0.6875rem] font-semibold tracking-[0.16em] text-muted uppercase">
+            {k.assurance.title}
+          </h2>
+          <ul class="mt-6 space-y-5">
+            {
+              k.assurance.items.map((item) => (
+                <li class="flex items-start gap-3 text-sm leading-relaxed text-muted">
+                  <Icon name="check" class="mt-0.5 h-4 w-4 shrink-0 text-brand-text" />
+                  {item}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        {
+          contactEmail && (
+            <div class="border-t border-line pt-10">
+              <a
+                href={`mailto:${contactEmail}`}
+                class="text-sm font-medium text-brand-text underline underline-offset-4"
+              >
+                {contactEmail}
+              </a>
+            </div>
+          )
+        }
+      </aside>
+    </div>
+  </Section>
+</Base>

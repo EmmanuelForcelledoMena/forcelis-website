@@ -1,0 +1,77 @@
+{
+  "meta": {
+    "title": "Contacto — Solicita una consultoría",
+    "description": "Cuéntanos de tu empresa y en qué necesitas ayuda. Forcelis responde con claridad si podemos ayudarte y cómo."
+  },
+  "hero": {
+    "eyebrow": "Contacto",
+    "title": "Solicita una consultoría.",
+    "subtitle": "Cuéntanos del negocio y de lo que estás tratando de entender. Si Forcelis no es lo que necesitas, te lo decimos."
+  },
+  "form": {
+    "legend": "Datos de la empresa y de contacto",
+    "legendNeeds": "Qué necesitas",
+    "company": "Empresa",
+    "name": "Nombre",
+    "email": "Correo electrónico",
+    "phone": "Teléfono",
+    "phoneOptional": "Opcional",
+    "industry": "Industria",
+    "industryPlaceholder": "Selecciona una industria",
+    "industries": [
+      "Manufactura",
+      "Distribución",
+      "Comercio B2B",
+      "Importación y exportación",
+      "Servicios profesionales",
+      "Retail",
+      "Construcción",
+      "Otra"
+    ],
+    "size": "Tamaño de la empresa",
+    "sizePlaceholder": "Selecciona un rango",
+    "sizes": ["1–10", "11–50", "51–100", "101–500", "500+"],
+    "help": "¿En qué te gustaría que te ayudáramos?",
+    "helpHint": "Selecciona todas las que apliquen.",
+    "helpOptions": [
+      "Análisis financiero",
+      "Contabilidad",
+      "Cadena de suministro",
+      "Inteligencia de negocio",
+      "Mejora de procesos",
+      "Servicios administrados",
+      "Software",
+      "Otro"
+    ],
+    "message": "Mensaje",
+    "messageHint": "Entre más específica sea la pregunta, más útil es la primera conversación.",
+    "consent": "He leído el Aviso de Privacidad y autorizo a Forcelis a tratar esta información para poder responder.",
+    "consentLink": "Aviso de Privacidad",
+    "submit": "Solicitar una consultoría",
+    "submitting": "Enviando…",
+    "required": "Obligatorio",
+    "successTitle": "Mensaje enviado.",
+    "successBody": "Gracias. Te respondemos al correo que nos dejaste.",
+    "errorTitle": "No se pudo enviar el mensaje.",
+    "errorBody": "Algo falló en el camino. Vuelve a intentarlo o escríbenos directamente.",
+    "unconfiguredTitle": "El formulario todavía no está conectado.",
+    "unconfiguredBody": "Este sitio no tiene configurado un endpoint de formulario, así que nada se entregaría. Define PUBLIC_FORM_ENDPOINT antes de publicar — está en el README.",
+    "validationInvalidEmail": "Escribe un correo electrónico válido.",
+    "validationConsent": "Acepta el Aviso de Privacidad para continuar."
+  },
+  "next": {
+    "title": "Qué sigue",
+    "steps": [
+      { "num": "01", "title": "Lo leemos de verdad", "body": "Una persona lee el mensaje, no una regla de ruteo. Si la respuesta es que no somos lo que necesitas, esa es la respuesta que recibes." },
+      { "num": "02", "title": "Una conversación corta", "body": "Treinta minutos para entender el negocio y la pregunta. No necesitas preparar nada de tu lado." },
+      { "num": "03", "title": "Una propuesta concreta", "body": "Alcance, enfoque y qué se necesita de tu parte — a partir de lo que hablamos, no de un paquete estándar." }
+    ]
+  },
+  "assurance": {
+    "title": "Dos cosas que conviene saber antes de escribir",
+    "items": [
+      "Forcelis nunca pide credenciales del portal fiscal ni de tu banco. El análisis trabaja con archivos que tú mismo exportas.",
+      "La información compartida en una primera conversación se trata como confidencial, haya proyecto después o no."
+    ]
+  }
+}

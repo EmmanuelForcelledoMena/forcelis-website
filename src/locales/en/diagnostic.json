@@ -1,0 +1,204 @@
+{
+  "meta": {
+    "title": "Business Diagnostic — Know where your business stands",
+    "description": "The Forcelis Business Diagnostic analyzes financial and operational information to identify risks, inefficiencies and opportunities, and delivers a Forcelis Business Score with recommended actions."
+  },
+  "hero": {
+    "eyebrow": "Forcelis Business Diagnostic",
+    "title": "Know where your business stands.",
+    "subtitle": "A structured analysis of your financial and operational information that identifies risks, inefficiencies and opportunities for improvement — and states what to do about each one.",
+    "cta": "Request a Diagnostic"
+  },
+  "score": {
+    "eyebrow": "The output",
+    "title": "Forcelis Business Score",
+    "intro": "Five dimensions, scored on the same scale so they can be compared against each other and against the same company a period later. The score is not the deliverable — it is the index into it.",
+    "items": [
+      {
+        "label": "Financial health",
+        "value": 74,
+        "note": "Margin structure, cost base and result quality"
+      },
+      {
+        "label": "Cash flow",
+        "value": 58,
+        "note": "Real collection, aging and cash conversion"
+      },
+      {
+        "label": "Commercial performance",
+        "value": 81,
+        "note": "Customer mix, concentration, retention and pricing"
+      },
+      {
+        "label": "Operational efficiency",
+        "value": 63,
+        "note": "Inventory, purchasing and supplier structure"
+      },
+      {
+        "label": "Accounting data quality",
+        "value": 87,
+        "note": "Completeness and consistency of the underlying records"
+      }
+    ],
+    "footnote": "Scores shown are illustrative and do not describe any real company."
+  },
+  "analysis": {
+    "title": "What gets analyzed",
+    "intro": "Four areas, read together. Most of the findings that matter live at the seams between them.",
+    "areas": [
+      {
+        "title": "Financial health",
+        "items": [
+          "Revenue",
+          "Expenses",
+          "Profitability",
+          "Margins",
+          "Cash flow",
+          "Accounts receivable",
+          "Accounts payable"
+        ]
+      },
+      {
+        "title": "Commercial performance",
+        "items": [
+          "Customer concentration",
+          "Product performance",
+          "Revenue trends",
+          "Customer profitability",
+          "Price dispersion",
+          "Customer churn"
+        ]
+      },
+      {
+        "title": "Operational performance",
+        "items": [
+          "Inventory",
+          "Suppliers",
+          "Purchasing",
+          "Operating costs",
+          "Input cost inflation",
+          "Efficiency"
+        ]
+      },
+      {
+        "title": "Accounting intelligence",
+        "items": [
+          "CFDI",
+          "Income",
+          "Expenses",
+          "Transaction patterns",
+          "Data inconsistencies",
+          "Reconciliation gaps"
+        ]
+      }
+    ]
+  },
+  "findings": {
+    "eyebrow": "Key findings",
+    "title": "Findings, stated as decisions.",
+    "intro": "Each finding names what was observed, why it matters, and what should be done. The examples below are illustrative.",
+    "items": [
+      {
+        "severity": "high",
+        "severityLabel": "High",
+        "title": "Customer concentration represents a material commercial risk.",
+        "body": "The top five customers account for a share of revenue at which the loss of one materially changes the year.",
+        "action": "Quantify the exposure per customer and set a concentration target for the next four quarters."
+      },
+      {
+        "severity": "high",
+        "severityLabel": "High",
+        "title": "Accounts receivable grew faster than revenue.",
+        "body": "Collection is slowing relative to sales. The gap is financed by the company, and it does not show up in the income statement.",
+        "action": "Review credit terms by customer segment and separate genuine disputes from routine late payment."
+      },
+      {
+        "severity": "medium",
+        "severityLabel": "Medium",
+        "title": "Inventory turnover is below expected performance.",
+        "body": "A share of working capital is held in items that are not moving at the rate the rest of the catalogue does.",
+        "action": "Identify the slow-moving items by value and decide, per item, whether to discount, return or stop reordering."
+      },
+      {
+        "severity": "medium",
+        "severityLabel": "Medium",
+        "title": "Gross margin decreased in a key product category.",
+        "body": "The decline is driven by input cost, not by price. It has been absorbed rather than passed through.",
+        "action": "Compare purchase price movement against list price by category and decide where to reprice."
+      }
+    ]
+  },
+  "deliverables": {
+    "eyebrow": "What you receive",
+    "title": "A document your management team can work from.",
+    "items": [
+      {
+        "title": "Executive summary",
+        "body": "The situation in one page, written for someone who will not read the rest."
+      },
+      {
+        "title": "Financial analysis",
+        "body": "Results, margins, costs and cash, restated in managerial terms with history."
+      },
+      {
+        "title": "Operational analysis",
+        "body": "Inventory, purchasing, suppliers and the working capital they consume."
+      },
+      {
+        "title": "Key risks",
+        "body": "What could damage the business, ordered by exposure rather than by ease of fixing."
+      },
+      {
+        "title": "Key opportunities",
+        "body": "Where margin, cash or capacity is recoverable, with an estimated size."
+      },
+      {
+        "title": "Recommended actions",
+        "body": "A short, sequenced list with an owner and a way to measure each one."
+      }
+    ]
+  },
+  "process": {
+    "eyebrow": "How it works",
+    "title": "Four steps, no system access required.",
+    "steps": [
+      {
+        "num": "01",
+        "title": "Scope conversation",
+        "body": "A short call to understand the business, the period to analyze and the questions management already has."
+      },
+      {
+        "num": "02",
+        "title": "You send the information",
+        "body": "Files you download from your own systems. Forcelis never asks for your tax portal or banking credentials."
+      },
+      {
+        "num": "03",
+        "title": "Analysis",
+        "body": "Ingestion, normalization and analysis on the platform, followed by review by the people who will present it."
+      },
+      {
+        "num": "04",
+        "title": "Findings session",
+        "body": "A working session on the results and the recommended actions, with the full document delivered afterwards."
+      }
+    ]
+  },
+  "inputs": {
+    "title": "What is needed from you",
+    "intro": "The minimum is the first item. Everything else improves the depth of the analysis but is not required to start.",
+    "items": [
+      "CFDI for the period — issued and received, including payment complements",
+      "Trial balance or general ledger, if available",
+      "Inventory report, if the business holds stock",
+      "Sales detail by customer and product, if it is kept outside invoicing"
+    ],
+    "note": "If something is missing, the affected metric is reported as unavailable with the reason. It is not estimated."
+  },
+  "closing": {
+    "title": "Start with the diagnostic.",
+    "body": "It establishes the baseline. Everything after it — advisory, platform, managed services — is scoped from evidence rather than from a proposal.",
+    "primary": "Request a Business Diagnostic",
+    "secondary": "See the platform"
+  }
+}

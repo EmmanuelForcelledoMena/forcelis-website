@@ -1,0 +1,17 @@
+# build
+dist/
+.astro/
+
+# dependencias
+node_modules/
+
+# entorno — nunca se versiona: lleva el endpoint del formulario y los IDs de analítica
+.env
+.env.production
+.env.local
+
+# sistema
+.DS_Store
+Thumbs.db
+*.log
+npm-debug.log*

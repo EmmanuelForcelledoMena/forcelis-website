@@ -1,0 +1,233 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { LANG_META, LANGS, path, type Lang, type PageKey } from '../i18n/routes';
+import { common } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  pageKey: PageKey;
+  title: string;
+  description: string;
+}
+
+const { lang, pageKey, title, description } = Astro.props;
+const c = common(lang);
+
+const site = Astro.site ?? new URL('https://forcelis-group.com');
+const canonical = new URL(path(pageKey, lang), site).href;
+const ogImage = new URL('/og-image.png', site).href;
+
+// hreflang: una entrada por idioma más `x-default`. El x-default apunta al
+// inglés y no a `/`, porque `/` es una página de reenvío: mandar ahí al
+// rastreador añade un salto sin contenido.
+const alternates = LANGS.map((l) => ({
+  hreflang: LANG_META[l].hreflang,
+  href: new URL(path(pageKey, l), site).href,
+}));
+
+// Analítica: solo se inyecta si la variable existe. Nunca hay un ID de prueba
+// en el código (Sección 50 del brief).
+const gaId = import.meta.env.PUBLIC_GA_ID;
+const clarityId = import.meta.env.PUBLIC_CLARITY_ID;
+
+const organizationJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Forcelis Group',
+  url: site.href,
+  description: c.footer.blurb,
+  slogan: c.brand.tagline,
+  logo: ogImage,
+  areaServed: { '@type': 'Country', name: 'Mexico' },
+  knowsLanguage: ['en', 'es-MX'],
+};
+---
+
+<!doctype html>
+<html lang={LANG_META[lang].hreflang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    {
+      alternates.map((alt) => (
+        <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />
+      ))
+    }
+    <link rel="alternate" hreflang="x-default" href={new URL(path(pageKey, 'en'), site).href} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Forcelis Group" />
+    <meta property="og:locale" content={LANG_META[lang].ogLocale} />
+    {
+      LANGS.filter((l) => l !== lang).map((l) => (
+        <meta property="og:locale:alternate" content={LANG_META[l].ogLocale} />
+      ))
+    }
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Forcelis Group — Financial & Operational Intelligence" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <meta name="theme-color" content="#f3f2f2" />
+    <meta name="color-scheme" content="light" />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <link
+      rel="preload"
+      href="/fonts/inter-latin-wght-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    <script type="application/ld+json" set:html={JSON.stringify(organizationJsonLd)} is:inline />
+
+    <!-- Marca el documento como "con JavaScript" ANTES del primer pintado. El
+         CSS solo esconde los bloques de la animación de entrada si esta clase
+         está: sin ella —o si el script falla— la página se ve completa en lugar
+         de quedarse en blanco. -->
+    <script is:inline>
+      document.documentElement.classList.add('js');
+    </script>
+
+    {
+      gaId && (
+        <>
+          <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} />
+          <script is:inline define:vars={{ gaId }}>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+              dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+            gtag('config', gaId, { anonymize_ip: true });
+          </script>
+        </>
+      )
+    }
+    {
+      clarityId && (
+        <script is:inline define:vars={{ clarityId }}>
+          (function (c, l, a, r, i, t, y) {
+            c[a] =
+              c[a] ||
+              function () {
+                (c[a].q = c[a].q || []).push(arguments);
+              };
+            t = l.createElement(r);
+            t.async = 1;
+            t.src = 'https://www.clarity.ms/tag/' + i;
+            y = l.getElementsByTagName(r)[0];
+            y.parentNode.insertBefore(t, y);
+          })(window, document, 'clarity', 'script', clarityId);
+        </script>
+      )
+    }
+  </head>
+
+  <body class="min-h-screen">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-[100] focus:bg-ink focus:px-4 focus:py-3 focus:text-sm focus:text-on-ink"
+    >
+      {c.skipToContent}
+    </a>
+
+    <Nav lang={lang} pageKey={pageKey} />
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <Footer lang={lang} pageKey={pageKey} />
+
+    <script>
+      // Revelado al entrar en pantalla.
+      //
+      // El CSS esconde `.reveal` en cuanto el documento lleva la clase `js`, así
+      // que este script es lo ÚNICO que vuelve a mostrar el contenido. Eso
+      // convierte cualquier fallo suyo en una página en blanco, y por eso lleva
+      // tres redes en lugar de un IntersectionObserver a secas:
+      //
+      //   1. Lo que ya está en pantalla se revela de inmediato, sin observador.
+      //      Además de ser robusto, el hero anima al instante en vez de esperar
+      //      a una devolución de llamada.
+      //   2. El observador solo se encarga de lo que viene más abajo.
+      //   3. Si el observador no entrega NINGUNA devolución en dos segundos
+      //      —hay entornos donde no dispara nunca; el panel de vista previa de
+      //      este proyecto es uno—, se revela todo de golpe.
+      const targets = Array.from(document.querySelectorAll<HTMLElement>('.reveal'));
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      const show = (el: HTMLElement) => {
+        const delay = Number(el.dataset.revealDelay ?? 0);
+        if (delay > 0) window.setTimeout(() => el.classList.add('is-visible'), delay);
+        else el.classList.add('is-visible');
+      };
+
+      const showAll = () => targets.forEach((el) => el.classList.add('is-visible'));
+
+      if (reduced || !('IntersectionObserver' in window)) {
+        showAll();
+      } else {
+        const inViewport = (el: HTMLElement) => {
+          const rect = el.getBoundingClientRect();
+          return rect.top < window.innerHeight && rect.bottom > 0;
+        };
+
+        const pending: HTMLElement[] = [];
+        targets.forEach((el) => (inViewport(el) ? show(el) : pending.push(el)));
+
+        let observerResponded = false;
+        const observer = new IntersectionObserver(
+          (entries) => {
+            observerResponded = true;
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              show(entry.target as HTMLElement);
+              observer.unobserve(entry.target);
+            });
+          },
+          { rootMargin: '0px 0px -8% 0px', threshold: 0.05 },
+        );
+        pending.forEach((el) => observer.observe(el));
+
+        window.setTimeout(() => {
+          if (!observerResponded) showAll();
+        }, 2000);
+      }
+
+      // Preferencia de idioma. Se guarda SOLO cuando la persona usa el selector
+      // —una elección explícita— y únicamente la lee la página raíz. La URL
+      // sigue mandando en todas las demás: un sitio que te cambia de idioma solo
+      // es un sitio en el que no puedes compartir un enlace (Sección 54).
+      document.querySelectorAll<HTMLAnchorElement>('[data-lang-choice]').forEach((link) => {
+        link.addEventListener('click', () => {
+          try {
+            localStorage.setItem('forcelis-lang', link.dataset.langChoice ?? '');
+          } catch {
+            // Modo privado o almacenamiento bloqueado: la navegación sigue.
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

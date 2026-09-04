@@ -1,0 +1,32 @@
+---
+/**
+ * Envoltura de sección. Existe para que el ritmo vertical del sitio se decida
+ * en un archivo y no en cuarenta clases repetidas: cambiar el aire entre
+ * secciones es cambiar `py` aquí.
+ */
+interface Props {
+  tone?: 'ground' | 'panel' | 'ink';
+  id?: string;
+  size?: 'default' | 'compact';
+  class?: string;
+}
+
+const { tone = 'ground', id, size = 'default', class: className = '' } = Astro.props;
+
+const tones = {
+  ground: 'bg-ground text-body',
+  panel: 'bg-panel-alt text-body',
+  ink: 'on-ink bg-ink text-on-ink',
+};
+
+const sizes = {
+  default: 'py-20 lg:py-section',
+  compact: 'py-16 lg:py-24',
+};
+---
+
+<section id={id} class={`${tones[tone]} ${sizes[size]} ${className}`}>
+  <div class="container-page">
+    <slot />
+  </div>
+</section>

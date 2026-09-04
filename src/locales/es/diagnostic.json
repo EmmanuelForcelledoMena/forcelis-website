@@ -1,0 +1,204 @@
+{
+  "meta": {
+    "title": "Diagnóstico Empresarial — Conoce la posición real de tu empresa",
+    "description": "El Diagnóstico Empresarial Forcelis analiza información financiera y operativa para identificar riesgos, ineficiencias y oportunidades, y entrega un Forcelis Business Score con acciones recomendadas."
+  },
+  "hero": {
+    "eyebrow": "Diagnóstico Empresarial Forcelis",
+    "title": "Conoce la posición real de tu empresa.",
+    "subtitle": "Un análisis estructurado de tu información financiera y operativa que identifica riesgos, ineficiencias y oportunidades de mejora — y dice qué hacer con cada uno.",
+    "cta": "Solicitar un diagnóstico"
+  },
+  "score": {
+    "eyebrow": "El resultado",
+    "title": "Forcelis Business Score",
+    "intro": "Cinco dimensiones, calificadas en la misma escala para poder compararlas entre sí y contra la misma empresa un periodo después. El score no es el entregable: es el índice hacia él.",
+    "items": [
+      {
+        "label": "Salud financiera",
+        "value": 74,
+        "note": "Estructura de margen, base de costos y calidad del resultado"
+      },
+      {
+        "label": "Flujo de efectivo",
+        "value": 58,
+        "note": "Cobranza real, antigüedad de saldos y conversión de efectivo"
+      },
+      {
+        "label": "Desempeño comercial",
+        "value": 81,
+        "note": "Mezcla de clientes, concentración, retención y precios"
+      },
+      {
+        "label": "Eficiencia operativa",
+        "value": 63,
+        "note": "Inventario, compras y estructura de proveedores"
+      },
+      {
+        "label": "Calidad de la información contable",
+        "value": 87,
+        "note": "Integridad y consistencia de los registros que lo sustentan"
+      }
+    ],
+    "footnote": "Las calificaciones mostradas son ilustrativas y no describen a ninguna empresa real."
+  },
+  "analysis": {
+    "title": "Qué se analiza",
+    "intro": "Cuatro áreas, leídas juntas. La mayoría de los hallazgos que importan viven en las costuras entre ellas.",
+    "areas": [
+      {
+        "title": "Salud financiera",
+        "items": [
+          "Ingresos",
+          "Gastos",
+          "Rentabilidad",
+          "Márgenes",
+          "Flujo de efectivo",
+          "Cuentas por cobrar",
+          "Cuentas por pagar"
+        ]
+      },
+      {
+        "title": "Desempeño comercial",
+        "items": [
+          "Concentración de clientes",
+          "Desempeño por producto",
+          "Tendencia de ingresos",
+          "Rentabilidad por cliente",
+          "Dispersión de precios",
+          "Fuga de clientes"
+        ]
+      },
+      {
+        "title": "Desempeño operativo",
+        "items": [
+          "Inventario",
+          "Proveedores",
+          "Compras",
+          "Costos de operación",
+          "Inflación de insumos",
+          "Eficiencia"
+        ]
+      },
+      {
+        "title": "Inteligencia contable",
+        "items": [
+          "CFDI",
+          "Ingresos",
+          "Egresos",
+          "Patrones de transacción",
+          "Inconsistencias de datos",
+          "Brechas de conciliación"
+        ]
+      }
+    ]
+  },
+  "findings": {
+    "eyebrow": "Hallazgos principales",
+    "title": "Hallazgos planteados como decisiones.",
+    "intro": "Cada hallazgo dice qué se observó, por qué importa y qué debería hacerse. Los ejemplos de abajo son ilustrativos.",
+    "items": [
+      {
+        "severity": "high",
+        "severityLabel": "Alta",
+        "title": "La concentración de clientes representa un riesgo comercial relevante.",
+        "body": "Los cinco clientes principales explican una proporción de los ingresos en la que perder a uno cambia materialmente el año.",
+        "action": "Cuantificar la exposición por cliente y fijar una meta de concentración para los siguientes cuatro trimestres."
+      },
+      {
+        "severity": "high",
+        "severityLabel": "Alta",
+        "title": "Las cuentas por cobrar crecieron más rápido que los ingresos.",
+        "body": "La cobranza se está desacelerando frente a la venta. Esa diferencia la financia la empresa, y no aparece en el estado de resultados.",
+        "action": "Revisar condiciones de crédito por segmento de cliente y separar las disputas reales del atraso rutinario."
+      },
+      {
+        "severity": "medium",
+        "severityLabel": "Media",
+        "title": "La rotación de inventario está por debajo del desempeño esperado.",
+        "body": "Una parte del capital de trabajo está detenida en artículos que no se mueven al ritmo del resto del catálogo.",
+        "action": "Identificar los artículos de lento movimiento por valor y decidir, artículo por artículo, si se descuenta, se devuelve o se deja de reponer."
+      },
+      {
+        "severity": "medium",
+        "severityLabel": "Media",
+        "title": "El margen bruto cayó en una categoría de producto clave.",
+        "body": "La caída la explica el costo del insumo, no el precio. Se absorbió en lugar de trasladarse.",
+        "action": "Comparar el movimiento del precio de compra contra el precio de lista por categoría y decidir dónde reprecificar."
+      }
+    ]
+  },
+  "deliverables": {
+    "eyebrow": "Qué recibes",
+    "title": "Un documento con el que tu equipo directivo puede trabajar.",
+    "items": [
+      {
+        "title": "Resumen ejecutivo",
+        "body": "La situación en una página, escrita para quien no va a leer el resto."
+      },
+      {
+        "title": "Análisis financiero",
+        "body": "Resultados, márgenes, costos y efectivo, reexpresados en términos gerenciales y con histórico."
+      },
+      {
+        "title": "Análisis operativo",
+        "body": "Inventario, compras, proveedores y el capital de trabajo que consumen."
+      },
+      {
+        "title": "Riesgos principales",
+        "body": "Lo que puede dañar al negocio, ordenado por exposición y no por facilidad de resolverlo."
+      },
+      {
+        "title": "Oportunidades principales",
+        "body": "Dónde hay margen, efectivo o capacidad recuperable, con un tamaño estimado."
+      },
+      {
+        "title": "Acciones recomendadas",
+        "body": "Una lista corta y secuenciada, con responsable y forma de medir cada acción."
+      }
+    ]
+  },
+  "process": {
+    "eyebrow": "Cómo funciona",
+    "title": "Cuatro pasos, sin acceso a tus sistemas.",
+    "steps": [
+      {
+        "num": "01",
+        "title": "Conversación de alcance",
+        "body": "Una llamada corta para entender el negocio, el periodo a analizar y las preguntas que la dirección ya trae."
+      },
+      {
+        "num": "02",
+        "title": "Envías la información",
+        "body": "Archivos que descargas de tus propios sistemas. Forcelis nunca pide las credenciales de tu portal fiscal ni de tu banco."
+      },
+      {
+        "num": "03",
+        "title": "Análisis",
+        "body": "Ingesta, normalización y análisis en la plataforma, seguidos de la revisión de quienes van a presentarlo."
+      },
+      {
+        "num": "04",
+        "title": "Sesión de hallazgos",
+        "body": "Una sesión de trabajo sobre los resultados y las acciones recomendadas, con el documento completo entregado después."
+      }
+    ]
+  },
+  "inputs": {
+    "title": "Qué se necesita de tu lado",
+    "intro": "Lo mínimo es el primer punto. Todo lo demás mejora la profundidad del análisis, pero no hace falta para empezar.",
+    "items": [
+      "CFDI del periodo — emitidos y recibidos, incluyendo complementos de pago",
+      "Balanza de comprobación o auxiliares contables, si están disponibles",
+      "Reporte de inventario, si el negocio maneja existencias",
+      "Detalle de ventas por cliente y producto, si se lleva fuera de la facturación"
+    ],
+    "note": "Si algo falta, la métrica afectada se reporta como no disponible con el motivo. No se estima."
+  },
+  "closing": {
+    "title": "Empieza por el diagnóstico.",
+    "body": "Establece la línea base. Todo lo que venga después —consultoría, plataforma, servicios administrados— se dimensiona desde la evidencia y no desde una propuesta.",
+    "primary": "Solicitar un Diagnóstico Empresarial",
+    "secondary": "Conoce la plataforma"
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "meta": {
+    "title": "About — Forcelis Group",
+    "description": "Forcelis is a Mexican business performance company combining financial expertise, operational analysis, technology and managed services."
+  },
+  "hero": {
+    "eyebrow": "About Forcelis",
+    "title": "Built to make business performance easier to understand.",
+    "subtitle": "Forcelis was created around a simple observation: companies generate enormous amounts of financial and operational information, and turning it into clear decisions remains difficult."
+  },
+  "origin": {
+    "title": "Why the company exists",
+    "body": [
+      "The gap is rarely a lack of data. It is that the data lives in systems built to record transactions, not to explain performance. An accounting system answers what was invoiced. It does not answer which customer is quietly becoming a risk, which product line stopped paying for itself, or how much cash is parked in inventory that is not moving.",
+      "Answering those questions has traditionally required a finance team most mid-sized companies cannot justify hiring: a CFO, a controller, a financial analyst, a data analyst, someone who understands supply chain. Forcelis exists to make that capability available without building it internally.",
+      "Forcelis is not an accounting firm that built software. It is a business performance company that uses financial data, operational data, technology and specialized expertise to help companies operate better. Accounting and fiscal information are an important part of the data foundation. The result is business performance."
+    ]
+  },
+  "combine": {
+    "title": "What Forcelis combines",
+    "items": [
+      { "title": "Financial expertise", "body": "The judgment to know which number explains the business and which one is noise." },
+      { "title": "Operational analysis", "body": "Process, inventory and supply chain read as part of the financial picture, not separately from it." },
+      { "title": "Technology", "body": "A proprietary platform that does the work no consultant should be doing by hand twice." },
+      { "title": "Managed services", "body": "The capacity to run a process on an ongoing basis, not only to recommend it." }
+    ]
+  },
+  "principles": {
+    "title": "How we work",
+    "intro": "These are the rules the work is actually held to. They are as much engineering discipline as they are commercial policy.",
+    "items": [
+      {
+        "title": "Never invent a number.",
+        "body": "If an input is missing, the metric is reported as unavailable with the reason. Not a zero, not an estimate. A figure that looks plausible but is not measured is worse than no figure, because someone will act on it."
+      },
+      {
+        "title": "Verify, do not assume.",
+        "body": "A conclusion is checked by running it, not by reading the code that produced it. Most of the defects worth catching are invisible on the page and obvious the moment two numbers that should agree do not."
+      },
+      {
+        "title": "Every finding carries an action.",
+        "body": "An observation that does not change a decision is not a deliverable. If we cannot say what should be done about something, we say that too."
+      },
+      {
+        "title": "Say what stage things are at.",
+        "body": "Capabilities that are built and running are described as such. Capabilities that are not are described as not. That distinction appears on the platform page, where it is easiest to blur."
+      }
+    ]
+  },
+  "structure": {
+    "title": "How Forcelis is organized",
+    "intro": "Three commercial lines under one group, designed to work in sequence rather than as separate offerings.",
+    "lines": [
+      { "name": "Forcelis Advisory", "sub": "Consulting & Business Performance", "body": "Diagnostics, financial and operational analysis, and the advisory work that turns findings into decisions." },
+      { "name": "Forcelis Intelligence", "sub": "Data & Software", "body": "The proprietary platform: ingestion, normalization, analytical engines and the deliverables built on top of them." },
+      { "name": "Forcelis Managed Services", "sub": "Ongoing Business Operations", "body": "Recurring reporting, analysis and operational support, run to a defined methodology under a single point of accountability." }
+    ]
+  },
+  "stage": {
+    "title": "Where Forcelis is today",
+    "body": "Forcelis is an early-stage company. The platform is real and running — its ingestion, analytical engines and reporting are in use, and the platform page states plainly which capabilities are available and which are still in development. What Forcelis does not have yet is a long client list, and it will not be presented as though it does. Judgment about a new firm should rest on its method and its product, both of which are described here in enough detail to be evaluated.",
+    "location": "Based in Mexico."
+  },
+  "closing": {
+    "title": "Start with a conversation.",
+    "body": "The fastest way to judge whether this is useful is to point it at your own numbers.",
+    "primary": "Request a Business Diagnostic",
+    "secondary": "Contact Forcelis"
+  }
+}

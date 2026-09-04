@@ -1,0 +1,70 @@
+{
+  "meta": {
+    "title": "Nosotros — Forcelis Group",
+    "description": "Forcelis es una empresa mexicana de desempeño empresarial que combina experiencia financiera, análisis operativo, tecnología y servicios administrados."
+  },
+  "hero": {
+    "eyebrow": "Sobre Forcelis",
+    "title": "Creada para hacer más entendible el desempeño de un negocio.",
+    "subtitle": "Forcelis nació de una observación simple: las empresas generan cantidades enormes de información financiera y operativa, y convertirla en decisiones claras sigue siendo difícil."
+  },
+  "origin": {
+    "title": "Por qué existe la compañía",
+    "body": [
+      "El problema casi nunca es la falta de datos. Es que los datos viven en sistemas construidos para registrar transacciones, no para explicar el desempeño. Un sistema contable responde qué se facturó. No responde qué cliente se está volviendo un riesgo en silencio, qué línea de producto dejó de pagar lo que cuesta, o cuánto efectivo está detenido en inventario que no se mueve.",
+      "Responder esas preguntas ha requerido tradicionalmente un equipo de finanzas que la mayoría de las empresas medianas no puede justificar: un CFO, un contralor, un analista financiero, un analista de datos, alguien que entienda cadena de suministro. Forcelis existe para que esa capacidad esté disponible sin tener que construirla adentro.",
+      "Forcelis no es un despacho contable que construyó software. Es una empresa de desempeño empresarial que usa información financiera, información operativa, tecnología y experiencia especializada para ayudar a las compañías a operar mejor. La contabilidad y la información fiscal son una parte importante del cimiento de datos. El resultado es desempeño del negocio."
+    ]
+  },
+  "combine": {
+    "title": "Qué combina Forcelis",
+    "items": [
+      { "title": "Experiencia financiera", "body": "El criterio para saber qué número explica al negocio y cuál es ruido." },
+      { "title": "Análisis operativo", "body": "Proceso, inventario y cadena de suministro leídos como parte del cuadro financiero, no aparte de él." },
+      { "title": "Tecnología", "body": "Una plataforma propia que hace el trabajo que ningún consultor debería estar haciendo a mano dos veces." },
+      { "title": "Servicios administrados", "body": "La capacidad de operar un proceso de forma recurrente, no solo de recomendarlo." }
+    ]
+  },
+  "principles": {
+    "title": "Cómo trabajamos",
+    "intro": "Estas son las reglas a las que se sujeta el trabajo. Son tanto disciplina de ingeniería como política comercial.",
+    "items": [
+      {
+        "title": "Nunca inventar un número.",
+        "body": "Si falta un insumo, la métrica se reporta como no disponible con el motivo. Ni un cero, ni un estimado. Una cifra que parece razonable pero no está medida es peor que ninguna cifra, porque alguien va a actuar sobre ella."
+      },
+      {
+        "title": "Verificar, no suponer.",
+        "body": "Una conclusión se comprueba ejecutándola, no leyendo el código que la produjo. Casi todos los defectos que vale la pena cazar son invisibles en la pantalla y obvios en cuanto dos números que deberían cuadrar no cuadran."
+      },
+      {
+        "title": "Todo hallazgo trae una acción.",
+        "body": "Una observación que no cambia una decisión no es un entregable. Si no podemos decir qué debería hacerse al respecto, también lo decimos."
+      },
+      {
+        "title": "Decir en qué etapa está cada cosa.",
+        "body": "Las capacidades construidas y funcionando se describen como tales. Las que no, se describen como lo que son. Esa distinción está en la página de la plataforma, que es donde más fácil resulta difuminarla."
+      }
+    ]
+  },
+  "structure": {
+    "title": "Cómo está organizada Forcelis",
+    "intro": "Tres líneas comerciales bajo un mismo grupo, diseñadas para trabajar en secuencia y no como ofertas separadas.",
+    "lines": [
+      { "name": "Forcelis Advisory", "sub": "Consultoría y desempeño empresarial", "body": "Diagnósticos, análisis financiero y operativo, y el trabajo de asesoría que convierte los hallazgos en decisiones." },
+      { "name": "Forcelis Intelligence", "sub": "Datos y software", "body": "La plataforma propia: ingesta, normalización, motores de análisis y los entregables construidos sobre ellos." },
+      { "name": "Forcelis Managed Services", "sub": "Operación recurrente del negocio", "body": "Reporteo, análisis y soporte operativo recurrentes, ejecutados con una metodología definida y un solo responsable." }
+    ]
+  },
+  "stage": {
+    "title": "Dónde está Forcelis hoy",
+    "body": "Forcelis es una empresa en etapa temprana. La plataforma es real y está funcionando —su ingesta, sus motores de análisis y su reporteo están en uso—, y la página de plataforma dice con claridad qué capacidades están disponibles y cuáles siguen en desarrollo. Lo que Forcelis todavía no tiene es una lista larga de clientes, y no se va a presentar como si la tuviera. El juicio sobre una firma nueva debería apoyarse en su método y en su producto, y ambos están descritos aquí con suficiente detalle para poder evaluarlos.",
+    "location": "Con base en México."
+  },
+  "closing": {
+    "title": "Empieza con una conversación.",
+    "body": "La forma más rápida de juzgar si esto sirve es apuntarlo a tus propios números.",
+    "primary": "Solicitar un Diagnóstico Empresarial",
+    "secondary": "Contactar a Forcelis"
+  }
+}

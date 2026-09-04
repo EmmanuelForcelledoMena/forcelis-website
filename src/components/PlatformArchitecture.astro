@@ -1,0 +1,99 @@
+---
+/**
+ * Arquitectura de la plataforma, de arriba abajo:
+ * fuentes → plataforma → capas de inteligencia → decisiones.
+ *
+ * Mismo criterio que `ProblemFlow`: cajas y texto, no una imagen. Lleva un
+ * resumen en texto para lectores de pantalla porque la relación entre las capas
+ * la comunica la disposición visual, y eso no viaja por el árbol de
+ * accesibilidad.
+ */
+interface Props {
+  sourcesLabel: string;
+  sources: readonly string[];
+  platformLabel: string;
+  platformSub: string;
+  layersLabel: string;
+  layers: readonly string[];
+  outcomeLabel: string;
+  outcomeSub: string;
+  diagramAlt: string;
+}
+
+const {
+  sourcesLabel,
+  sources,
+  platformLabel,
+  platformSub,
+  layersLabel,
+  layers,
+  outcomeLabel,
+  outcomeSub,
+  diagramAlt,
+} = Astro.props;
+---
+
+<div class="mx-auto max-w-4xl">
+  <p class="sr-only">{diagramAlt}</p>
+
+  <div aria-hidden="true" class="space-y-0">
+    <div class="border border-line bg-panel p-6">
+      <p class="text-[0.6875rem] font-semibold tracking-[0.16em] text-muted uppercase">
+        {sourcesLabel}
+      </p>
+      <ul class="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
+        {
+          sources.map((source) => (
+            <li class="border border-line bg-ground px-3 py-2.5 text-center text-[0.8125rem] text-muted">
+              {source}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class="flex justify-center py-3">
+      <svg width="14" height="22" viewBox="0 0 14 22" fill="none" class="text-line-strong">
+        <path d="M7 0v18M2.5 14 7 18.5 11.5 14" stroke="currentColor" stroke-width="1.4"></path>
+      </svg>
+    </div>
+
+    <div class="border border-ink bg-ink px-6 py-7 text-center">
+      <p class="text-lg font-semibold tracking-[0.02em] text-on-ink">{platformLabel}</p>
+      <p class="mt-2 text-sm text-on-ink-muted">{platformSub}</p>
+      <span aria-hidden="true" class="mx-auto mt-5 block h-[2px] w-16 bg-brand"></span>
+    </div>
+
+    <div class="flex justify-center py-3">
+      <svg width="14" height="22" viewBox="0 0 14 22" fill="none" class="text-line-strong">
+        <path d="M7 0v18M2.5 14 7 18.5 11.5 14" stroke="currentColor" stroke-width="1.4"></path>
+      </svg>
+    </div>
+
+    <div class="border border-line bg-panel p-6">
+      <p class="text-[0.6875rem] font-semibold tracking-[0.16em] text-muted uppercase">
+        {layersLabel}
+      </p>
+      <ul class="mt-4 grid gap-2 sm:grid-cols-3">
+        {
+          layers.map((layer) => (
+            <li class="border border-line-strong bg-ground px-4 py-4 text-center text-sm font-medium text-ink">
+              {layer}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class="flex justify-center py-3">
+      <svg width="14" height="22" viewBox="0 0 14 22" fill="none" class="text-line-strong">
+        <path d="M7 0v18M2.5 14 7 18.5 11.5 14" stroke="currentColor" stroke-width="1.4"></path>
+      </svg>
+    </div>
+
+    <div class="border-2 border-brand bg-ground px-6 py-6 text-center">
+      <p class="text-base font-semibold text-ink">{outcomeLabel}</p>
+      <p class="mt-1.5 text-sm text-muted">{outcomeSub}</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,61 @@
+# Publica el sitio en GitHub Pages en cada push a `main`.
+#
+# Se usa el flujo nativo de Pages (`actions/deploy-pages`) y no una rama
+# `gh-pages`: no hay artefactos compilados en el historial del repositorio, y el
+# despliegue queda atado a un commit concreto en lugar de a un push manual.
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  # Permite lanzarlo a mano desde la pestaña Actions, útil tras cambiar una
+  # variable de entorno sin tocar el código.
+  workflow_dispatch:
+
+# El token solo necesita leer el repositorio y escribir en Pages.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Un despliegue a la vez. `cancel-in-progress: false` deja terminar el que ya
+# está corriendo: cancelarlo a la mitad puede dejar el sitio publicado a medias.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      # `npm ci` y no `npm install`: instala exactamente lo del package-lock,
+      # así la build de producción no estrena una versión que nadie probó.
+      - run: npm ci
+
+      - run: npm run build
+        env:
+          PUBLIC_FORM_ENDPOINT: ${{ vars.PUBLIC_FORM_ENDPOINT }}
+          PUBLIC_CONTACT_EMAIL: ${{ vars.PUBLIC_CONTACT_EMAIL }}
+          PUBLIC_GA_ID: ${{ vars.PUBLIC_GA_ID }}
+          PUBLIC_CLARITY_ID: ${{ vars.PUBLIC_CLARITY_ID }}
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

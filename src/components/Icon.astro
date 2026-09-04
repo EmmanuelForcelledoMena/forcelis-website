@@ -1,0 +1,56 @@
+---
+/**
+ * Iconografía del sitio.
+ *
+ * Trazo geométrico, 24×24, un solo grosor. Están dibujados a mano aquí y no
+ * importados de una biblioteca por dos razones: una biblioteca de iconos entera
+ * pesa más que estas nueve rutas, y un icono decorativo debe salir del árbol de
+ * accesibilidad —de ahí el `aria-hidden` fijo—.
+ */
+interface Props {
+  name:
+    | 'financial'
+    | 'operational'
+    | 'supply'
+    | 'accounting'
+    | 'advisory'
+    | 'managed'
+    | 'check'
+    | 'arrowRight'
+    | 'arrowDown';
+  class?: string;
+}
+
+const { name, class: className = 'h-6 w-6' } = Astro.props;
+
+const paths: Record<Props['name'], string> = {
+  // Línea de tendencia sobre ejes: desempeño financiero.
+  financial: 'M3 20V4M3 20h18M7 16l4-5 3.5 3L21 7',
+  // Nodos encadenados: un proceso operativo.
+  operational: 'M4 7h5M15 7h5M4 17h5M15 17h5M12 4v6M12 14v6M9 7a3 3 0 1 0 6 0 3 3 0 0 0-6 0Z',
+  // Cajas apiladas: inventario y cadena de suministro.
+  supply: 'M3 8.5 12 4l9 4.5-9 4.5-9-4.5ZM3 13l9 4.5 9-4.5M3 17l9 4.5 9-4.5',
+  // Documento con renglones: registro contable.
+  accounting: 'M6 3h8l4 4v14H6V3ZM14 3v4h4M9 12h6M9 16h6',
+  // Retícula con un punto: encontrar lo que importa.
+  advisory: 'M12 3v3M12 18v3M3 12h3M18 12h3M5.5 12a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0ZM12 12h.01',
+  // Ciclo cerrado: operación recurrente.
+  managed: 'M20 12a8 8 0 1 1-2.4-5.7M20 4v4h-4',
+  check: 'M4 12.5 9 17.5 20 6.5',
+  arrowRight: 'M4 12h16M14 6l6 6-6 6',
+  arrowDown: 'M12 4v16M6 14l6 6 6-6',
+};
+---
+
+<svg
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.4"
+  stroke-linecap="square"
+  stroke-linejoin="miter"
+  aria-hidden="true"
+  class={className}
+>
+  <path d={paths[name]}></path>
+</svg>

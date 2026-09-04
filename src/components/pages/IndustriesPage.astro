@@ -1,0 +1,97 @@
+---
+import Base from '../../layouts/Base.astro';
+import Section from '../Section.astro';
+import SectionHeader from '../SectionHeader.astro';
+import Cta from '../Cta.astro';
+import type { Lang } from '../../i18n/routes';
+import { t } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const ind = t(lang, 'industries');
+---
+
+<Base lang={lang} pageKey="industries" title={ind.meta.title} description={ind.meta.description}>
+  <Section tone="ground" size="compact" class="border-b border-line">
+    <div class="reveal">
+      <SectionHeader
+        as="h1"
+        eyebrow={ind.hero.eyebrow}
+        title={ind.hero.title}
+        intro={ind.hero.subtitle}
+      />
+    </div>
+  </Section>
+
+  <!-- ================================================================ SECTORES -->
+  <Section tone="ground">
+    <div class="grid gap-px border border-line bg-line lg:grid-cols-2">
+      {
+        ind.sectors.map((sector, i) => (
+          <article class="reveal bg-ground p-8 lg:p-10" data-reveal-delay={(i % 2) * 80}>
+            <h2 class="text-xl font-semibold text-ink lg:text-2xl">{sector.title}</h2>
+            <p class="mt-3 text-[0.9375rem] leading-relaxed text-muted">{sector.lead}</p>
+            <ul class="mt-6 space-y-2.5 border-t border-line pt-6">
+              {sector.points.map((point) => (
+                <li class="flex items-start gap-3 text-[0.9375rem] text-ink">
+                  <span aria-hidden="true" class="mt-2 block h-1 w-1 shrink-0 bg-brand" />
+                  {point}
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))
+      }
+    </div>
+  </Section>
+
+  <!-- ================================================================= PERFIL -->
+  <Section tone="panel">
+    <div class="grid gap-12 lg:grid-cols-[minmax(0,24rem)_1fr] lg:gap-16">
+      <div class="reveal">
+        <SectionHeader title={ind.profile.title} intro={ind.profile.intro} />
+      </div>
+
+      <div class="reveal" data-reveal-delay="90">
+        <dl class="grid gap-px border border-line bg-line sm:grid-cols-2">
+          {
+            ind.profile.items.map((item) => (
+              <div class="bg-panel p-6">
+                <dt class="text-[0.6875rem] font-semibold tracking-[0.16em] text-muted uppercase">
+                  {item.label}
+                </dt>
+                <dd class="mt-2.5 text-base font-medium text-ink">{item.value}</dd>
+              </div>
+            ))
+          }
+        </dl>
+        <p class="mt-8 border-l-2 border-ink bg-panel-alt px-6 py-5 text-[0.9375rem] leading-relaxed text-ink">
+          {ind.profile.note}
+        </p>
+      </div>
+    </div>
+  </Section>
+
+  <!-- ========================================================== CONFIGURACIÓN -->
+  <Section tone="ink" size="compact">
+    <div class="reveal max-w-3xl">
+      <h2 class="text-2xl font-semibold tracking-[-0.02em] text-on-ink lg:text-3xl">
+        {ind.config.title}
+      </h2>
+      <p class="mt-5 text-lg leading-relaxed text-on-ink-muted">{ind.config.body}</p>
+    </div>
+  </Section>
+
+  <Cta
+    lang={lang}
+    title={ind.closing.title}
+    body={ind.closing.body}
+    primaryLabel={ind.closing.primary}
+    primaryTo="contact"
+    secondaryLabel={ind.closing.secondary}
+    secondaryTo="diagnostic"
+  />
+</Base>
