@@ -1,0 +1,8 @@
+# Normaliza los finales de línea: el repositorio guarda LF y Windows recibe
+# CRLF en el árbol de trabajo. Sin esto, un mismo archivo tocado desde Windows
+# y desde el runner de Ubuntu aparece como reescrito entero en el diff.
+* text=auto eol=lf
+
+# Binarios: nunca convertir.
+*.png binary
+*.woff2 binary

@@ -28,9 +28,12 @@ interface Props {
 const { title, items, illustrativeLabel, outOfLabel, footnote, class: className = '' } = Astro.props;
 
 function band(value: number): { fill: string; text: string } {
-  if (value >= 80) return { fill: 'var(--color-data-green)', text: 'var(--color-data-green)' };
-  if (value >= 60) return { fill: 'var(--color-data-blue)', text: 'var(--color-data-blue)' };
-  return { fill: 'var(--color-data-amber)', text: 'var(--color-data-amber)' };
+  // El relleno usa el color de dato; el número, su par legible. Son valores
+  // distintos a propósito: el primero está calibrado para verse como barra y el
+  // segundo para leerse como texto.
+  if (value >= 80) return { fill: 'var(--color-data-green)', text: 'var(--color-data-green-text)' };
+  if (value >= 60) return { fill: 'var(--color-data-blue)', text: 'var(--color-data-blue-text)' };
+  return { fill: 'var(--color-data-amber)', text: 'var(--color-data-amber-text)' };
 }
 ---
 

@@ -59,6 +59,14 @@
   --color-data-amber: #8a5a00;
   --color-data-violet: #5b3fa8;
   --color-data-red: #7c1405;
+
+  /* Pares LEGIBLES de los colores de dato. Heredado del producto: un color
+     calibrado para pintar una serie no llega al contraste que exige el mismo
+     valor escrito como texto. Una cifra en verde usa `-text`, no el de la
+     barra. */
+  --color-data-blue-text: #12495c;
+  --color-data-green-text: #0e4d31;
+  --color-data-amber-text: #5a3a00;
   --color-grid: #e6e4e4;
 
   --font-sans: 'Inter Variable', 'Inter', -apple-system, BlinkMacSystemFont,
