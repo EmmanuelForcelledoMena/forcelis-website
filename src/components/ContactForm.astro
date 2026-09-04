@@ -130,14 +130,14 @@ const inputClass =
       </FormField>
 
       <FormField id="industry" label={f.industry}>
-        <select class={inputClass} id="industry" name="industry" required>
+        <select class={`${inputClass} select-control`} id="industry" name="industry" required>
           <option value="">{f.industryPlaceholder}</option>
           {f.industries.map((industry) => <option value={industry}>{industry}</option>)}
         </select>
       </FormField>
 
       <FormField id="size" label={f.size}>
-        <select class={inputClass} id="size" name="size" required>
+        <select class={`${inputClass} select-control`} id="size" name="size" required>
           <option value="">{f.sizePlaceholder}</option>
           {f.sizes.map((size) => <option value={size}>{size}</option>)}
         </select>

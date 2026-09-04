@@ -86,7 +86,13 @@ const gridLines = [0, 0.25, 0.5, 0.75, 1].map((ratio) => ({
 }));
 ---
 
-<figure class="border border-line bg-panel shadow-[0_1px_2px_rgba(32,30,29,0.04)]">
+<!-- La sombra es lo único elevado de todo el sitio, y es deliberado: esta caja
+     tiene que leerse como una superficie de producto y no como un recuadro más
+     de la página. Dos capas —un filo de contacto y una difusa y muy abierta—
+     porque una sola sombra fuerte se ve barata sobre un fondo cálido. -->
+<figure
+  class="border border-line bg-panel shadow-[0_1px_2px_rgba(32,30,29,0.05),0_16px_40px_-16px_rgba(32,30,29,0.22)]"
+>
   <figcaption
     class="flex items-center justify-between gap-4 border-b border-line px-5 py-4 sm:px-6"
   >
@@ -101,20 +107,20 @@ const gridLines = [0, 0.25, 0.5, 0.75, 1].map((ratio) => ({
     </span>
   </figcaption>
 
-  <div class="grid grid-cols-2 border-b border-line lg:grid-cols-4">
+  <!-- Rejilla con separación de un píxel sobre el color de línea: las hairlines
+       son el hueco, no un borde por celda. Antes esto eran cinco clases
+       condicionales por celda (`i % 2`, `i === 1`, `lg:last:`) que había que
+       releer entera para saber qué borde salía en qué punto de ruptura.
+
+       `mt-auto` en el bloque de la cifra la empuja al fondo de la celda, así
+       las cuatro quedan alineadas aunque una etiqueta ocupe dos líneas — que es
+       justo lo que pasa en móvil con «Concentración en 5 clientes». -->
+  <div class="grid grid-cols-2 gap-px border-b border-line bg-line lg:grid-cols-4">
     {
-      metrics.map((metric, i) => (
-        <div
-          class:list={[
-            'border-line px-5 py-4 sm:px-6 sm:py-5',
-            i % 2 === 0 ? 'border-r' : '',
-            i < 2 ? 'border-b lg:border-b-0' : '',
-            'lg:border-r lg:last:border-r-0',
-            i === 1 ? 'lg:border-r' : '',
-          ]}
-        >
+      metrics.map((metric) => (
+        <div class="flex flex-col bg-panel px-5 py-4 sm:px-6 sm:py-5">
           <p class="text-[0.6875rem] leading-tight text-muted">{metric.label}</p>
-          <p class="tnum mt-2 flex items-baseline gap-1">
+          <p class="tnum mt-auto flex items-baseline gap-1 pt-2">
             <span class="text-2xl font-semibold tracking-[-0.02em] text-ink">{metric.value}</span>
             <span class="text-xs text-muted">{metric.unit}</span>
           </p>

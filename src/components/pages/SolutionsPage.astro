@@ -62,7 +62,12 @@ const iconFor: Record<
     s.groups.map((group, i) => (
       <Section tone={i % 2 === 0 ? 'ground' : 'panel'} id={group.key} size="compact">
         <div class="grid gap-10 lg:grid-cols-[minmax(0,22rem)_1fr] lg:gap-16">
-          <div class="reveal">
+          <!-- La columna del título se queda fija mientras pasa la lista de
+               servicios. Son seis bloques con la misma forma uno tras otro, y
+               sin esto la página se lee como un muro; con esto, cada bloque
+               tiene un ancla visual que dice de qué se está hablando. `top`
+               deja libre el alto de la barra pegajosa. -->
+          <div class="reveal lg:sticky lg:top-28 lg:self-start">
             <div class="flex items-center gap-4">
               <Icon name={iconFor[group.key]} class="h-7 w-7 text-brand-text" />
               <span class="tnum text-sm font-semibold text-muted">{group.num}</span>

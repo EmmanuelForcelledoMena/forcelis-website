@@ -23,9 +23,15 @@ const sizes = {
   default: 'py-20 lg:py-section',
   compact: 'py-16 lg:py-24',
 };
+
+// Solo las secciones con `id` son destino de un ancla, y son las únicas que
+// necesitan reservar el alto de la barra pegajosa. Sin esto el navegador alinea
+// el borde de la sección con el borde de la ventana, la barra se come 73 de los
+// 96 px de aire superior, y el título aterriza pegado a ella.
+const anchorOffset = id ? 'scroll-mt-[6.5rem]' : '';
 ---
 
-<section id={id} class={`${tones[tone]} ${sizes[size]} ${className}`}>
+<section id={id} class={`${tones[tone]} ${sizes[size]} ${anchorOffset} ${className}`}>
   <div class="container-page">
     <slot />
   </div>

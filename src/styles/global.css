@@ -157,6 +157,36 @@
 }
 
 /* ===========================================================================
+   CONTROLES DE FORMULARIO
+   ---------------------------------------------------------------------------
+   Un `<select>` sin `appearance: none` lo dibuja el sistema operativo: en
+   Windows sale con su propia flecha, su propio alto y su propio borde, y junto
+   a los campos de texto planos del sitio parece de otra aplicación. Aquí se
+   apaga esa apariencia y se pinta la flecha como imagen de fondo — misma forma
+   que el resto de la iconografía, mismo color de texto secundario.
+
+   Va en la hoja y no en una clase de utilidad porque el `data:` URI lleva
+   espacios y comillas, y expresarlo como valor arbitrario de Tailwind exige
+   escaparlos uno por uno hasta volverlo ilegible.
+   =========================================================================== */
+@layer components {
+  .select-control {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5' stroke='%23444141' stroke-width='1.4' stroke-linecap='square'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 12px 8px;
+    padding-right: 2.75rem;
+  }
+
+  /* El select vacío muestra el texto de marcador («Selecciona una industria»),
+     que no es un valor elegido: se atenúa como un placeholder de verdad. */
+  .select-control:has(option[value='']:checked) {
+    color: var(--color-muted);
+  }
+}
+
+/* ===========================================================================
    UTILIDADES DE COMPOSICIÓN
    =========================================================================== */
 @utility container-page {
