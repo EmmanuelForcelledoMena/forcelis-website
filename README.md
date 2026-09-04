@@ -101,6 +101,7 @@ llevan prefijo `PUBLIC_`, y todas terminan en el HTML publicado.
 | Variable | Para qué | ¿Obligatoria? |
 |---|---|---|
 | `PUBLIC_FORM_ENDPOINT` | Destino del formulario de contacto | **Sí, antes de publicar** |
+| `PUBLIC_FORM_ACCESS_KEY` | Clave del formulario cuando el proveedor la pide en el cuerpo del envío (Web3Forms). Vacía con Formspree, que la lleva en la URL | Según el proveedor |
 | `PUBLIC_CONTACT_EMAIL` | Correo del pie de contacto y del aviso de privacidad | **Sí, antes de publicar** |
 | `PUBLIC_GA_ID` | Google Analytics | No |
 | `PUBLIC_CLARITY_ID` | Microsoft Clarity | No |

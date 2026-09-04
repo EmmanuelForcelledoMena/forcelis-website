@@ -29,6 +29,19 @@ const f = t(lang, 'contact').form;
 const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? '';
 const configured = endpoint.length > 0;
 
+// Algunos proveedores identifican el formulario por la URL (Formspree pone el
+// identificador en la ruta) y otros esperan una clave en el cuerpo del envío
+// (Web3Forms la pide como `access_key`). Esta variable cubre el segundo caso y
+// se omite cuando está vacía, así el mismo componente sirve para los dos.
+const accessKey = import.meta.env.PUBLIC_FORM_ACCESS_KEY ?? '';
+
+// Asunto del correo que llega. Sin él, varios proveedores mandan un genérico
+// tipo "New submission" y cuesta distinguirlo en la bandeja.
+const subject =
+  lang === 'es'
+    ? 'Nueva solicitud desde forcelis-group.com'
+    : 'New enquiry from forcelis-group.com';
+
 const inputClass =
   'w-full border border-line-strong bg-panel px-4 py-3 text-[0.9375rem] text-ink ' +
   'placeholder:text-muted focus:border-ink focus:outline-none transition-colors';
@@ -170,7 +183,13 @@ const hintClass = 'mt-1.5 text-xs text-muted';
   <div class="hidden" aria-hidden="true">
     <label for="website">Website</label>
     <input type="text" id="website" name="_gotcha" tabindex="-1" autocomplete="off" />
+    <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" />
   </div>
+
+  {accessKey && <input type="hidden" name="access_key" value={accessKey} />}
+  <input type="hidden" name="subject" value={subject} />
+  <input type="hidden" name="from_name" value="Forcelis Group" />
+  <input type="hidden" name="_subject" value={subject} />
 </form>
 
 <script
