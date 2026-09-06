@@ -1,4 +1,20 @@
 ---
+/**
+ * Soluciones. Rediseño v2.
+ *
+ * Cambios respecto a la versión anterior:
+ *
+ *  1. El índice de la página deja de ser una fila de «chips» y pasa a ser la
+ *     retícula 3×2 numerada del diseño aprobado. Cumple la misma función de
+ *     salto a ancla, pero además dice de qué trata cada capacidad — antes había
+ *     que llegar hasta el bloque para saberlo. El numeral fantasma detrás del
+ *     título es el elemento que identifica a esta página.
+ *  2. Los seis bloques de detalle se conservan íntegros (columna fija +
+ *     servicios), porque ahí la información sí es un catálogo comparable.
+ *  3. El recuadro de resultado (`border-l-2 bg-panel-alt`) pasa a una línea
+ *     reglada con antetítulo: era la única caja rellena de la página y competía
+ *     con la lista de servicios que tiene encima.
+ */
 import Base from '../../layouts/Base.astro';
 import Section from '../Section.astro';
 import SectionHeader from '../SectionHeader.astro';
@@ -37,20 +53,41 @@ const iconFor: Record<
         intro={s.hero.subtitle}
       />
     </div>
+  </Section>
 
-    <!-- Índice de la página: seis secciones largas son mucho scroll sin una
-         forma de saltar a la que interesa, y las tarjetas de la portada enlazan
-         justamente a estas anclas. -->
-    <ul class="reveal mt-12 flex flex-wrap gap-2" data-reveal-delay="80">
+  <!-- ============================================================ ÍNDICE 3×2 -->
+  <Section tone="ground" size="compact">
+    <ul class="grid gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
       {
-        s.groups.map((group) => (
-          <li>
+        s.groups.map((group, i) => (
+          <li class="reveal" data-reveal-delay={(i % 3) * 70}>
             <a
               href={`#${group.key}`}
-              class="inline-flex items-center gap-2 border border-line-strong px-4 py-2.5 text-sm text-ink transition-colors hover:bg-panel-alt"
+              class="group relative flex h-full flex-col overflow-hidden bg-panel p-7 transition-colors duration-200 hover:bg-panel-alt lg:p-8"
             >
-              <span class="tnum text-xs text-brand-text">{group.num}</span>
-              {group.title}
+              {/* El numeral fantasma es decoración: `aria-hidden`, y detrás del
+                  título con `-z-0` para que nunca reduzca el contraste del
+                  texto que lo cruza. */}
+              <span
+                aria-hidden="true"
+                class="tnum pointer-events-none absolute -top-3 right-2 -z-0 text-[5.5rem] leading-none font-semibold tracking-[-0.05em] text-panel-alt select-none"
+              >
+                {group.num}
+              </span>
+
+              <div class="relative flex items-center gap-3">
+                <Icon name={iconFor[group.key]} class="h-6 w-6 text-brand-text" />
+              </div>
+              <h2 class="relative mt-5 text-xl leading-snug font-semibold tracking-[-0.02em] text-ink">
+                {group.title}
+              </h2>
+              <p class="relative mt-3 flex-1 text-[0.9375rem] leading-relaxed text-muted">
+                {group.lead}
+              </p>
+              <span
+                aria-hidden="true"
+                class="relative mt-6 block h-[2px] w-8 origin-left bg-brand transition-transform duration-300 group-hover:scale-x-[2]"
+              ></span>
             </a>
           </li>
         ))
@@ -60,7 +97,7 @@ const iconFor: Record<
 
   {
     s.groups.map((group, i) => (
-      <Section tone={i % 2 === 0 ? 'ground' : 'panel'} id={group.key} size="compact">
+      <Section tone={i % 2 === 0 ? 'panel' : 'ground'} id={group.key} size="compact">
         <div class="grid gap-10 lg:grid-cols-[minmax(0,22rem)_1fr] lg:gap-16">
           <!-- La columna del título se queda fija mientras pasa la lista de
                servicios. Son seis bloques con la misma forma uno tras otro, y
@@ -88,8 +125,11 @@ const iconFor: Record<
               ))}
             </ul>
 
-            <div class="mt-8 border-l-2 border-ink bg-panel-alt px-6 py-5">
-              <p class="text-[0.9375rem] leading-relaxed text-ink">{group.outcome}</p>
+            <div class="mt-10 border-t-2 border-ink pt-5">
+              <p class="text-[0.625rem] font-semibold tracking-[0.14em] text-muted uppercase">
+                {s.outcomeLabel}
+              </p>
+              <p class="mt-2.5 max-w-[68ch] text-base leading-relaxed text-ink">{group.outcome}</p>
             </div>
           </div>
         </div>

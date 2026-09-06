@@ -1,0 +1,44 @@
+---
+/**
+ * Línea de tiempo: etapas colgadas de una sola regla superior.
+ *
+ * Cuatro etapas en cuatro tarjetas con borde superior se leen como cuatro
+ * opciones. Colgadas de una regla continua se leen como una secuencia, que es
+ * lo que son. Sustituye a `border-t-2 bg-panel p-6` repetido, y al mismo tiempo
+ * elimina la flecha decorativa: la regla ya expresa la continuidad.
+ */
+interface Props {
+  items: { title: string; body: string }[];
+  tone?: 'ink' | 'light';
+  class?: string;
+}
+
+const { items, tone = 'ink', class: className = '' }: Props = Astro.props;
+
+const light = tone === 'light';
+const numColor = light ? 'text-brand' : 'text-brand-text';
+const titleColor = light ? 'text-on-ink' : 'text-ink';
+const bodyColor = light ? 'text-on-ink-muted' : 'text-muted';
+const topRule = light ? 'border-line-ink' : 'border-ink';
+const divider = light ? 'lg:border-line-ink' : 'lg:border-line';
+---
+
+<ol class:list={['grid border-t-2 sm:grid-cols-2 lg:grid-cols-4', topRule, className]}>
+  {
+    items.map((item, i) => (
+      <li
+        class:list={[
+          'reveal pt-6 pb-2 pr-6 lg:pr-8',
+          i < items.length - 1 && ['lg:border-r', divider],
+        ]}
+        data-reveal-delay={i * 70}
+      >
+        <span class:list={['tnum block text-3xl leading-none font-semibold tracking-[-0.03em]', numColor]}>
+          {String(i + 1).padStart(2, '0')}
+        </span>
+        <h3 class:list={['mt-4 text-lg leading-snug font-semibold', titleColor]}>{item.title}</h3>
+        <p class:list={['mt-2.5 text-[0.9375rem] leading-relaxed', bodyColor]}>{item.body}</p>
+      </li>
+    ))
+  }
+</ol>

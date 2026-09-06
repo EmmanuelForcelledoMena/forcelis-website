@@ -1,4 +1,20 @@
 ---
+/**
+ * Industrias. Rediseño v2.
+ *
+ * Cambios respecto a la versión anterior:
+ *
+ *  1. SECTORES — se conserva la retícula de dos columnas (aquí las tarjetas sí
+ *     comunican: son seis objetos comparables entre sí), pero con el título a
+ *     tamaño de titular y más aire, y con los puntos como filas regladas en vez
+ *     de viñetas diminutas. Antes cabían seis fichas en una pantalla y ninguna
+ *     se leía.
+ *  2. PERFIL — de cuatro celdas rellenas a una tira de datos colgada de una
+ *     regla, con las etiquetas arriba. Es un encabezado de tabla, no cuatro
+ *     tarjetas.
+ *  3. La nota del perfil deja de ser un recuadro con filo a la izquierda y pasa
+ *     a ser prosa: es una frase, no un aviso.
+ */
 import Base from '../../layouts/Base.astro';
 import Section from '../Section.astro';
 import SectionHeader from '../SectionHeader.astro';
@@ -32,14 +48,13 @@ const ind = t(lang, 'industries');
       {
         ind.sectors.map((sector, i) => (
           <article class="reveal bg-ground p-8 lg:p-10" data-reveal-delay={(i % 2) * 80}>
-            <h2 class="text-xl font-semibold text-ink lg:text-2xl">{sector.title}</h2>
-            <p class="mt-3 text-[0.9375rem] leading-relaxed text-muted">{sector.lead}</p>
-            <ul class="mt-6 space-y-2.5 border-t border-line pt-6">
+            <h2 class="text-2xl leading-tight font-semibold tracking-[-0.02em] text-ink lg:text-[1.75rem]">
+              {sector.title}
+            </h2>
+            <p class="mt-4 max-w-[52ch] text-base leading-relaxed text-muted">{sector.lead}</p>
+            <ul class="mt-7">
               {sector.points.map((point) => (
-                <li class="flex items-start gap-3 text-[0.9375rem] text-ink">
-                  <span aria-hidden="true" class="mt-2 block h-1 w-1 shrink-0 bg-brand" />
-                  {point}
-                </li>
+                <li class="border-t border-line py-3 text-[0.9375rem] text-ink">{point}</li>
               ))}
             </ul>
           </article>
@@ -56,19 +71,24 @@ const ind = t(lang, 'industries');
       </div>
 
       <div class="reveal" data-reveal-delay="90">
-        <dl class="grid gap-px border border-line bg-line sm:grid-cols-2">
+        <dl class="grid gap-x-10 border-t-2 border-ink sm:grid-cols-2 lg:grid-cols-4">
           {
-            ind.profile.items.map((item) => (
-              <div class="bg-panel p-6">
-                <dt class="text-[0.6875rem] font-semibold tracking-[0.16em] text-muted uppercase">
+            ind.profile.items.map((item, i) => (
+              <div
+                class:list={[
+                  'pt-5 pb-2 lg:pr-8',
+                  i < ind.profile.items.length - 1 && 'lg:border-r lg:border-line',
+                ]}
+              >
+                <dt class="text-[0.625rem] font-semibold tracking-[0.14em] text-muted uppercase">
                   {item.label}
                 </dt>
-                <dd class="mt-2.5 text-base font-medium text-ink">{item.value}</dd>
+                <dd class="mt-2.5 text-lg leading-snug font-semibold text-ink">{item.value}</dd>
               </div>
             ))
           }
         </dl>
-        <p class="mt-8 border-l-2 border-ink bg-panel-alt px-6 py-5 text-[0.9375rem] leading-relaxed text-ink">
+        <p class="mt-10 max-w-[64ch] border-t border-line pt-6 text-base leading-relaxed text-muted">
           {ind.profile.note}
         </p>
       </div>

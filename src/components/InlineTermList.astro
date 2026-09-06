@@ -1,0 +1,60 @@
+---
+/**
+ * Lista tipográfica en línea: nombres separados por un punto de marca.
+ *
+ * Seis industrias en seis celdas de retícula ocupan media pantalla para decir
+ * seis palabras. En una sola línea de texto grande dicen lo mismo, se leen de
+ * un golpe y no añaden un borde por nombre.
+ *
+ * Cada nombre va con su separador dentro de un `whitespace-nowrap` unido por un
+ * espacio duro: así ni se parte un nombre por la mitad ni queda un punto
+ * huérfano al final de una línea. El espacio normal ENTRE elementos es el único
+ * punto por donde el navegador puede romper.
+ */
+interface Props {
+  items: string[];
+  size?: 'default' | 'large';
+  tone?: 'ink' | 'light';
+  class?: string;
+}
+
+const { items, size = 'default', tone = 'ink', class: className = '' }: Props = Astro.props;
+
+const light = tone === 'light';
+// El tamaño `default` NO sube en pantallas grandes, y eso es medido, no
+// estético: los nombres en español son mucho más largos que en inglés
+// («Importación y exportación» ocupa 359 px a 1.75rem) y en la columna de
+// 602 px de la portada el reparto salía 3/1/1/1 — cuatro líneas, dos de ellas
+// con un solo nombre, que se lee como un error de maquetación. A 1.5rem el
+// mismo texto reparte 3/2/1.
+//
+// La alternativa era darle el ancho completo de la página, donde a 1.75rem
+// entra en 4/2; se descartó porque cambia la composición de la sección.
+const sizes = {
+  default: 'text-2xl lg:leading-[1.4]',
+  large: 'text-[1.75rem] lg:text-[2.25rem] lg:leading-[1.3]',
+};
+---
+
+<p
+  class:list={[
+    'font-semibold tracking-[-0.025em]',
+    sizes[size],
+    light ? 'text-on-ink' : 'text-ink',
+    className,
+  ]}
+>
+  {
+    items.map((item, i) => (
+      <Fragment>
+        {i > 0 && ' '}
+        <span class="whitespace-nowrap">
+          {item}
+          {i < items.length - 1 && (
+            <span aria-hidden="true" class="text-brand-text">&nbsp;·</span>
+          )}
+        </span>
+      </Fragment>
+    ))
+  }
+</p>

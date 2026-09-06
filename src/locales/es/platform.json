@@ -12,11 +12,24 @@
     "title": "Cómo encaja",
     "intro": "No se sustituye nada. La plataforma vive por encima de los sistemas que ya operas.",
     "sourcesLabel": "Fuentes de datos",
-    "sources": ["CFDI", "Contabilidad", "ERP", "Ventas", "Compras", "Inventario", "Bancos", "Hojas de cálculo"],
+    "sources": [
+      "CFDI",
+      "Contabilidad",
+      "ERP",
+      "Ventas",
+      "Compras",
+      "Inventario",
+      "Bancos",
+      "Hojas de cálculo"
+    ],
     "platformLabel": "Plataforma Forcelis",
     "platformSub": "Ingesta · Normalización · Análisis · Reglas",
     "layersLabel": "Inteligencia",
-    "layers": ["Inteligencia Financiera", "Inteligencia Operativa", "Inteligencia Contable"],
+    "layers": [
+      "Inteligencia Financiera",
+      "Inteligencia Operativa",
+      "Inteligencia Contable"
+    ],
     "outcomeLabel": "Decisiones de negocio",
     "outcomeSub": "Hallazgos, prioridades y acciones recomendadas",
     "diagramAlt": "Diagrama: ocho fuentes de datos alimentan la plataforma Forcelis, que produce inteligencia financiera, operativa y contable, y esta a su vez alimenta las decisiones de negocio."
@@ -44,27 +57,69 @@
     ]
   },
   "status": {
-    "title": "Qué funciona hoy y qué no",
-    "intro": "Es común que una empresa de software describa su hoja de ruta en presente. Esta es la separación honesta: la columna izquierda está funcionando; la derecha todavía no es algo que puedas usar.",
+    "title": "Qué funciona hoy",
+    "intro": "Es común que una empresa de software describa su hoja de ruta en presente. Todo lo que está aquí está construido y funcionando. Nada de esta página es un plan.",
     "todayLabel": "Disponible hoy",
     "futureLabel": "En desarrollo",
     "today": [
-      { "title": "Ingesta de CFDI", "body": "Comprobantes emitidos y recibidos, complementos de pago, nómina y retenciones, cargados como archivos. Aguanta el desorden que traen los datos reales: duplicados, XML corruptos, unidades no normalizables." },
-      { "title": "Normalización y curación gerencial", "body": "Conceptos y productos agrupados en un catálogo gerencial estable, para que el mismo artículo sea el mismo artículo entre proveedores y entre periodos." },
-      { "title": "Cinco motores de análisis", "body": "Dispersión de precios, concentración y fuga de clientes, inflación de insumos, pulso del negocio y pronóstico — cada uno probado contra escenarios de respuesta conocida." },
-      { "title": "Cobranza real", "body": "La cobranza se mide desde los complementos de pago, no se supone por la fecha de la factura, con antigüedad de saldos por cobrar y por pagar y un porcentaje de cobertura declarado." },
-      { "title": "Estado de resultados gerencial", "body": "Resultados reexpresados con histórico, comparables periodo contra periodo y conciliados contra los comprobantes que los sustentan." },
-      { "title": "Tableros interactivos", "body": "Gráficas, filtros y detalle, dibujados por un motor propio para que el producto funcione con una conexión lenta." },
-      { "title": "Multi-empresa con canal", "body": "Un despacho contable puede administrar decenas de empresas bajo una sola jerarquía, con su propia marca en los entregables." },
-      { "title": "Cuentas, acceso y segundo factor", "body": "Cuentas de usuario funcionales con segundo factor basado en tiempo, secretos cifrados en reposo y códigos de recuperación de un solo uso." },
-      { "title": "Entregables", "body": "Reporte en Word, tablero HTML autocontenido y exporte a Excel — los formatos que un área de finanzas ya hace circular." }
+      {
+        "title": "Ingesta de CFDI",
+        "body": "Comprobantes emitidos y recibidos, complementos de pago, nómina y retenciones, cargados como archivos. Aguanta el desorden que traen los datos reales: duplicados, XML corruptos, unidades no normalizables."
+      },
+      {
+        "title": "Normalización y curación gerencial",
+        "body": "Conceptos y productos agrupados en un catálogo gerencial estable, para que el mismo artículo sea el mismo artículo entre proveedores y entre periodos."
+      },
+      {
+        "title": "Cinco motores de análisis",
+        "body": "Dispersión de precios, concentración y fuga de clientes, inflación de insumos, pulso del negocio y pronóstico — cada uno probado contra escenarios de respuesta conocida."
+      },
+      {
+        "title": "Cobranza real",
+        "body": "La cobranza se mide desde los complementos de pago, no se supone por la fecha de la factura, con antigüedad de saldos por cobrar y por pagar y un porcentaje de cobertura declarado."
+      },
+      {
+        "title": "Estado de resultados gerencial",
+        "body": "Resultados reexpresados con histórico, comparables periodo contra periodo y conciliados contra los comprobantes que los sustentan."
+      },
+      {
+        "title": "Tableros interactivos",
+        "body": "Gráficas, filtros y detalle, dibujados por un motor propio para que el producto funcione con una conexión lenta."
+      },
+      {
+        "title": "Multi-empresa con canal",
+        "body": "Un despacho contable puede administrar decenas de empresas bajo una sola jerarquía, con su propia marca en los entregables."
+      },
+      {
+        "title": "Cuentas, acceso y segundo factor",
+        "body": "Cuentas de usuario funcionales con segundo factor basado en tiempo, secretos cifrados en reposo y códigos de recuperación de un solo uso."
+      },
+      {
+        "title": "Entregables",
+        "body": "Reporte en Word, tablero HTML autocontenido y exporte a Excel — los formatos que un área de finanzas ya hace circular."
+      }
     ],
     "future": [
-      { "title": "Benchmark sectorial anonimizado", "body": "Compararte contra tu sector y no solo contra tu propio histórico. Está construido y probado con un piso de anonimato de k≥3; se enciende únicamente cuando hay suficientes empresas por celda para que la comparación signifique algo y siga siendo anónima." },
-      { "title": "Capa narrativa con IA", "body": "Un copiloto que redacta la narrativa alrededor de cifras que el motor ya calculó. El guardia de privacidad que lo limita está construido y probado a fondo; el copiloto todavía no se ha ejecutado contra un modelo real, así que no se está ofreciendo." },
-      { "title": "Conectores directos", "body": "Ingesta automática desde ERP y bancos. El contrato de plugins existe; no hay ningún conector concreto construido. Hoy la ingesta es por archivo." },
-      { "title": "Contexto económico externo", "body": "Series públicas de INEGI y Banxico junto a tus propias cifras, para distinguir un movimiento propio de la empresa de uno de todo el mercado." },
-      { "title": "Segundo país", "body": "El núcleo ya es agnóstico al país — moneda base por cliente, país en el modelo de datos. Lo que falta es el analizador de comprobantes fiscales del siguiente país." }
+      {
+        "title": "Benchmark sectorial anonimizado",
+        "body": "Compararte contra tu sector y no solo contra tu propio histórico. Está construido y probado con un piso de anonimato de k≥3; se enciende únicamente cuando hay suficientes empresas por celda para que la comparación signifique algo y siga siendo anónima."
+      },
+      {
+        "title": "Capa narrativa con IA",
+        "body": "Un copiloto que redacta la narrativa alrededor de cifras que el motor ya calculó. El guardia de privacidad que lo limita está construido y probado a fondo; el copiloto todavía no se ha ejecutado contra un modelo real, así que no se está ofreciendo."
+      },
+      {
+        "title": "Conectores directos",
+        "body": "Ingesta automática desde ERP y bancos. El contrato de plugins existe; no hay ningún conector concreto construido. Hoy la ingesta es por archivo."
+      },
+      {
+        "title": "Contexto económico externo",
+        "body": "Series públicas de INEGI y Banxico junto a tus propias cifras, para distinguir un movimiento propio de la empresa de uno de todo el mercado."
+      },
+      {
+        "title": "Segundo país",
+        "body": "El núcleo ya es agnóstico al país — moneda base por cliente, país en el modelo de datos. Lo que falta es el analizador de comprobantes fiscales del siguiente país."
+      }
     ]
   },
   "boundaries": {

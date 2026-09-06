@@ -1,7 +1,23 @@
 ---
+/**
+ * Nosotros. Rediseño v2.
+ *
+ * Cambios respecto a la versión anterior:
+ *
+ *  1. PRINCIPIOS — de cuatro tarjetas con borde a filas regladas numeradas. El
+ *     texto de cada principio se leía a 44 caracteres de ancho dentro de su
+ *     caja; ahora se lee a lo largo de la página.
+ *  2. ESTRUCTURA — de tres celdas sobre tinta a tres columnas de prosa. Son
+ *     tres descripciones, no tres productos que se comparan.
+ *
+ * Origen, «lo que combina» y «dónde está hoy» se conservan tal cual: ya eran
+ * prosa reglada y no tenían el problema.
+ */
 import Base from '../../layouts/Base.astro';
 import Section from '../Section.astro';
 import SectionHeader from '../SectionHeader.astro';
+import RuledRows from '../RuledRows.astro';
+import ProseColumns from '../ProseColumns.astro';
 import Cta from '../Cta.astro';
 import type { Lang } from '../../i18n/routes';
 import { t } from '../../i18n';
@@ -57,19 +73,12 @@ const a = t(lang, 'about');
       <SectionHeader title={a.principles.title} intro={a.principles.intro} />
     </div>
 
-    <div class="mt-14 grid gap-px border border-line bg-line lg:grid-cols-2">
-      {
-        a.principles.items.map((item, i) => (
-          <article class="reveal bg-ground p-8 lg:p-10" data-reveal-delay={(i % 2) * 80}>
-            <span class="tnum text-xs font-semibold text-brand-text">
-              {String(i + 1).padStart(2, '0')}
-            </span>
-            <h3 class="mt-4 text-xl leading-snug font-semibold text-ink">{item.title}</h3>
-            <p class="mt-4 text-[0.9375rem] leading-relaxed text-muted">{item.body}</p>
-          </article>
-        ))
-      }
-    </div>
+    <RuledRows
+      items={a.principles.items.map((item) => ({ term: item.title, body: item.body }))}
+      numbered
+      termWidth="wide"
+      class="mt-14"
+    />
   </Section>
 
   <!-- ============================================================= ESTRUCTURA -->
@@ -78,19 +87,15 @@ const a = t(lang, 'about');
       <SectionHeader title={a.structure.title} intro={a.structure.intro} tone="light" />
     </div>
 
-    <div class="mt-14 grid gap-px border border-line-ink bg-line-ink lg:grid-cols-3">
-      {
-        a.structure.lines.map((line, i) => (
-          <article class="reveal bg-ink p-8 lg:p-10" data-reveal-delay={i * 80}>
-            <h3 class="text-lg font-semibold tracking-[0.02em] text-on-ink">{line.name}</h3>
-            <p class="mt-1.5 text-[0.6875rem] font-semibold tracking-[0.14em] text-brand uppercase">
-              {line.sub}
-            </p>
-            <p class="mt-5 text-[0.9375rem] leading-relaxed text-on-ink-muted">{line.body}</p>
-          </article>
-        ))
-      }
-    </div>
+    <ProseColumns
+      items={a.structure.lines.map((line) => ({
+        eyebrow: line.sub,
+        title: line.name,
+        body: line.body,
+      }))}
+      tone="light"
+      class="mt-14"
+    />
   </Section>
 
   <!-- ================================================================= ETAPA -->

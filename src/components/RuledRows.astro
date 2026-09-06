@@ -1,0 +1,71 @@
+---
+/**
+ * Filas regladas: término a la izquierda, prosa a la derecha, separadas por una
+ * línea de un píxel.
+ *
+ * Sustituye a la retícula de tarjetas (`gap-px border bg-line`) en las secciones
+ * que son una LISTA DE DEFINICIONES y no un conjunto de objetos comparables.
+ * Una tarjeta promete que su contenido se puede comparar con el de la de al
+ * lado; cuatro principios de trabajo no se comparan, se leen de arriba abajo.
+ * La fila reglada da esa lectura y quita tres bordes por elemento — que es la
+ * mitad del ruido visual de la página.
+ */
+interface Props {
+  items: { term: string; body: string }[];
+  numbered?: boolean;
+  tone?: 'ink' | 'light';
+  /** Ancho de la columna del término. `wide` para títulos de dos líneas. */
+  termWidth?: 'default' | 'wide';
+  class?: string;
+}
+
+const {
+  items,
+  numbered = false,
+  tone = 'ink',
+  termWidth = 'default',
+  class: className = '',
+}: Props = Astro.props;
+
+const light = tone === 'light';
+
+// El numeral es tipografía, no relleno: en fondo claro tiene que usar el rojo
+// legible (`brand-text`), no el de marca. Sobre tinta sí se puede usar el de
+// marca, que es lo que ya hace el resto del sitio.
+const numColor = light ? 'text-brand' : 'text-brand-text';
+const termColor = light ? 'text-on-ink' : 'text-ink';
+const bodyColor = light ? 'text-on-ink-muted' : 'text-muted';
+const rules = light ? 'divide-line-ink border-line-ink' : 'divide-line border-line';
+
+const cols =
+  termWidth === 'wide'
+    ? numbered
+      ? 'lg:grid-cols-[2.5rem_minmax(0,20rem)_1fr]'
+      : 'lg:grid-cols-[minmax(0,20rem)_1fr]'
+    : numbered
+      ? 'lg:grid-cols-[2.5rem_minmax(0,16rem)_1fr]'
+      : 'lg:grid-cols-[minmax(0,16rem)_1fr]';
+---
+
+<dl class:list={['divide-y border-t border-b', rules, className]}>
+  {
+    items.map((item, i) => (
+      <div
+        class:list={['reveal grid gap-x-8 gap-y-2.5 py-6 lg:items-baseline lg:py-7', cols]}
+        data-reveal-delay={i * 50}
+      >
+        {numbered && (
+          <span class:list={['tnum text-xs font-semibold', numColor]}>
+            {String(i + 1).padStart(2, '0')}
+          </span>
+        )}
+        <dt class:list={['text-xl leading-snug font-semibold tracking-[-0.02em]', termColor]}>
+          {item.term}
+        </dt>
+        <dd class:list={['max-w-[68ch] text-[0.9375rem] leading-relaxed', bodyColor]}>
+          {item.body}
+        </dd>
+      </div>
+    ))
+  }
+</dl>

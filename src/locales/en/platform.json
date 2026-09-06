@@ -12,11 +12,24 @@
     "title": "How it fits together",
     "intro": "Nothing is replaced. The platform sits above the systems you already run.",
     "sourcesLabel": "Data sources",
-    "sources": ["CFDI", "Accounting", "ERP", "Sales", "Purchasing", "Inventory", "Banking", "Spreadsheets"],
+    "sources": [
+      "CFDI",
+      "Accounting",
+      "ERP",
+      "Sales",
+      "Purchasing",
+      "Inventory",
+      "Banking",
+      "Spreadsheets"
+    ],
     "platformLabel": "Forcelis Platform",
     "platformSub": "Ingestion · Normalization · Analysis · Rules",
     "layersLabel": "Intelligence",
-    "layers": ["Financial Intelligence", "Operational Intelligence", "Accounting Intelligence"],
+    "layers": [
+      "Financial Intelligence",
+      "Operational Intelligence",
+      "Accounting Intelligence"
+    ],
     "outcomeLabel": "Business decisions",
     "outcomeSub": "Findings, priorities and recommended actions",
     "diagramAlt": "Diagram: eight data sources feed the Forcelis platform, which produces financial, operational and accounting intelligence, which in turn feeds business decisions."
@@ -44,27 +57,69 @@
     ]
   },
   "status": {
-    "title": "What runs today, and what does not",
-    "intro": "Software companies routinely describe a roadmap in the present tense. This is the honest split: the left column is running; the right column is not something you can use yet.",
+    "title": "What runs today",
+    "intro": "Software companies routinely describe a roadmap in the present tense. Everything listed here is built and running. Nothing on this page is a plan.",
     "todayLabel": "Available today",
     "futureLabel": "In development",
     "today": [
-      { "title": "CFDI ingestion", "body": "Issued and received invoices, payment complements, payroll and withholding documents, uploaded as files. Handles the mess that comes with real data: duplicates, malformed XML, unnormalizable units." },
-      { "title": "Normalization and managerial curation", "body": "Concepts and products grouped into a stable managerial catalogue, so the same item is the same item across suppliers and periods." },
-      { "title": "Five analytical engines", "body": "Price dispersion, customer concentration and churn, input cost inflation, business pulse, and forecast — each tested against scenarios with known answers." },
-      { "title": "Real cash collection", "body": "Collection measured from payment complements rather than assumed from invoice dates, with receivable and payable aging and a stated coverage percentage." },
-      { "title": "Managerial income statement", "body": "Restated results with history, comparable period over period, reconciled against the underlying documents." },
-      { "title": "Interactive dashboards", "body": "Charts, filters and drill-down, rendered by a purpose-built engine so the product works on a slow connection." },
-      { "title": "Multi-tenant with channel", "body": "An accounting firm can administer dozens of companies under one hierarchy, with its own branding on the deliverables." },
-      { "title": "Accounts, login and MFA", "body": "Working user accounts with time-based two-factor authentication, encrypted secrets and single-use recovery codes." },
-      { "title": "Deliverables", "body": "Word report, self-contained HTML dashboard and Excel export — the formats a finance team already circulates." }
+      {
+        "title": "CFDI ingestion",
+        "body": "Issued and received invoices, payment complements, payroll and withholding documents, uploaded as files. Handles the mess that comes with real data: duplicates, malformed XML, unnormalizable units."
+      },
+      {
+        "title": "Normalization and managerial curation",
+        "body": "Concepts and products grouped into a stable managerial catalogue, so the same item is the same item across suppliers and periods."
+      },
+      {
+        "title": "Five analytical engines",
+        "body": "Price dispersion, customer concentration and churn, input cost inflation, business pulse, and forecast — each tested against scenarios with known answers."
+      },
+      {
+        "title": "Real cash collection",
+        "body": "Collection measured from payment complements rather than assumed from invoice dates, with receivable and payable aging and a stated coverage percentage."
+      },
+      {
+        "title": "Managerial income statement",
+        "body": "Restated results with history, comparable period over period, reconciled against the underlying documents."
+      },
+      {
+        "title": "Interactive dashboards",
+        "body": "Charts, filters and drill-down, rendered by a purpose-built engine so the product works on a slow connection."
+      },
+      {
+        "title": "Multi-tenant with channel",
+        "body": "An accounting firm can administer dozens of companies under one hierarchy, with its own branding on the deliverables."
+      },
+      {
+        "title": "Accounts, login and MFA",
+        "body": "Working user accounts with time-based two-factor authentication, encrypted secrets and single-use recovery codes."
+      },
+      {
+        "title": "Deliverables",
+        "body": "Word report, self-contained HTML dashboard and Excel export — the formats a finance team already circulates."
+      }
     ],
     "future": [
-      { "title": "Anonymized sector benchmark", "body": "Compare against your sector rather than only against your own history. Built and tested with a k≥3 anonymity floor; it switches on only when there are enough companies per cell for the comparison to mean anything and to stay anonymous." },
-      { "title": "AI narrative layer", "body": "A copilot that drafts the written narrative around figures the engine has already computed. The privacy guard that constrains it is built and heavily tested; the copilot itself has not yet been run against a live model, so it is not being offered." },
-      { "title": "Direct connectors", "body": "Automatic ingestion from ERP and banking systems. The plugin contract exists; no concrete connector has been built. Today, ingestion is by file." },
-      { "title": "External economic context", "body": "Public INEGI and Banxico series alongside your own figures, to separate a company-specific movement from a market-wide one." },
-      { "title": "Second country", "body": "The core is already country-agnostic — base currency per client, country on the data model. What is missing is the tax document parser for the next country." }
+      {
+        "title": "Anonymized sector benchmark",
+        "body": "Compare against your sector rather than only against your own history. Built and tested with a k≥3 anonymity floor; it switches on only when there are enough companies per cell for the comparison to mean anything and to stay anonymous."
+      },
+      {
+        "title": "AI narrative layer",
+        "body": "A copilot that drafts the written narrative around figures the engine has already computed. The privacy guard that constrains it is built and heavily tested; the copilot itself has not yet been run against a live model, so it is not being offered."
+      },
+      {
+        "title": "Direct connectors",
+        "body": "Automatic ingestion from ERP and banking systems. The plugin contract exists; no concrete connector has been built. Today, ingestion is by file."
+      },
+      {
+        "title": "External economic context",
+        "body": "Public INEGI and Banxico series alongside your own figures, to separate a company-specific movement from a market-wide one."
+      },
+      {
+        "title": "Second country",
+        "body": "The core is already country-agnostic — base currency per client, country on the data model. What is missing is the tax document parser for the next country."
+      }
     ]
   },
   "boundaries": {

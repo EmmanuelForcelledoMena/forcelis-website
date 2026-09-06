@@ -1,0 +1,66 @@
+---
+/**
+ * Columnas de prosa: dos o tres bloques de texto separados solo por aire.
+ *
+ * Sustituye a `gap-px border bg-line` cuando los elementos son párrafos y no
+ * fichas. El borde de una tarjeta cumple una función —agrupar datos sueltos—
+ * que un párrafo no necesita: el propio bloque de texto ya se ve como una
+ * unidad. Quitando el borde y subiendo el aire entre columnas, la sección pasa
+ * de mosaico a página.
+ */
+interface Props {
+  items: { eyebrow?: string; title: string; body: string }[];
+  columns?: 2 | 3;
+  tone?: 'ink' | 'light';
+  numbered?: boolean;
+  class?: string;
+}
+
+const {
+  items,
+  columns = 3,
+  tone = 'ink',
+  numbered = false,
+  class: className = '',
+}: Props = Astro.props;
+
+const light = tone === 'light';
+const grid = columns === 2 ? 'lg:grid-cols-2 lg:gap-x-16' : 'lg:grid-cols-3 lg:gap-x-14';
+---
+
+<div class:list={['grid gap-y-12 sm:grid-cols-2 sm:gap-x-10', grid, className]}>
+  {
+    items.map((item, i) => (
+      <div class="reveal" data-reveal-delay={i * 80}>
+        {(numbered || item.eyebrow) && (
+          <p
+            class:list={[
+              'flex items-baseline gap-2.5 text-[0.6875rem] font-semibold tracking-[0.14em] uppercase',
+              light ? 'text-brand' : 'text-brand-text',
+            ]}
+          >
+            {numbered && <span class="tnum">{String(i + 1).padStart(2, '0')}</span>}
+            {numbered && item.eyebrow && <span aria-hidden="true">·</span>}
+            {item.eyebrow}
+          </p>
+        )}
+        <h3
+          class:list={[
+            'mt-5 text-xl leading-snug font-semibold tracking-[-0.02em] lg:text-[1.5rem]',
+            light ? 'text-on-ink' : 'text-ink',
+          ]}
+        >
+          {item.title}
+        </h3>
+        <p
+          class:list={[
+            'mt-4 text-[0.9375rem] leading-relaxed lg:text-base',
+            light ? 'text-on-ink-muted' : 'text-muted',
+          ]}
+        >
+          {item.body}
+        </p>
+      </div>
+    ))
+  }
+</div>

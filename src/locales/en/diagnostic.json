@@ -126,7 +126,8 @@
         "body": "The decline is driven by input cost, not by price. It has been absorbed rather than passed through.",
         "action": "Compare purchase price movement against list price by category and decide where to reprice."
       }
-    ]
+    ],
+    "actionLabel": "Recommended action"
   },
   "deliverables": {
     "eyebrow": "What you receive",

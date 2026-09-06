@@ -111,5 +111,6 @@
     "body": "That is what the diagnostic is for. It starts from your data, not from a service catalogue.",
     "primary": "Request a Business Diagnostic",
     "secondary": "Contact Forcelis"
-  }
+  },
+  "outcomeLabel": "Outcome"
 }

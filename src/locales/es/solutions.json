@@ -111,5 +111,6 @@
     "body": "Para eso es el diagnóstico. Parte de tus datos, no de un catálogo de servicios.",
     "primary": "Solicitar un Diagnóstico Empresarial",
     "secondary": "Contactar a Forcelis"
-  }
+  },
+  "outcomeLabel": "Resultado"
 }

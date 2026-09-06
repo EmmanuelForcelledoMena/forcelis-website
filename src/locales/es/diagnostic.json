@@ -126,7 +126,8 @@
         "body": "La caída la explica el costo del insumo, no el precio. Se absorbió en lugar de trasladarse.",
         "action": "Comparar el movimiento del precio de compra contra el precio de lista por categoría y decidir dónde reprecificar."
       }
-    ]
+    ],
+    "actionLabel": "Acción recomendada"
   },
   "deliverables": {
     "eyebrow": "Qué recibes",

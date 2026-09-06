@@ -1,0 +1,71 @@
+---
+/**
+ * Hallazgos: severidad · hallazgo · acción, en filas regladas de tres columnas.
+ *
+ * En tarjetas independientes, la acción recomendada quedaba al pie de cada
+ * caja, detrás de una regla, leída como un pie de nota. La promesa de la página
+ * es que «todo hallazgo trae una acción»: ponerlas en columnas paralelas hace
+ * que esa promesa se vea sin leer, y que se pueda recorrer la columna de
+ * acciones sola.
+ */
+interface Props {
+  items: {
+    severity: string;
+    severityLabel: string;
+    title: string;
+    body: string;
+    action: string;
+  }[];
+  /** Encabezado de la columna de acciones (i18n: `findings.actionLabel`). */
+  actionLabel: string;
+  class?: string;
+}
+
+const { items, actionLabel, class: className = '' }: Props = Astro.props;
+
+// El punto de severidad es relleno, así que puede usar el token de marca; la
+// palabra que lo acompaña es texto y usa el par legible.
+const dot: Record<string, string> = {
+  high: 'bg-brand',
+  medium: 'bg-[var(--color-data-amber)]',
+};
+const label: Record<string, string> = {
+  high: 'text-brand-text',
+  medium: 'text-[var(--color-data-amber-text)]',
+};
+---
+
+<ol class:list={['divide-y divide-line border-t border-b border-line', className]}>
+  {
+    items.map((item, i) => (
+      <li
+        class="reveal grid gap-x-8 gap-y-4 py-7 lg:grid-cols-[7.5rem_minmax(0,1.15fr)_minmax(0,1fr)] lg:py-8"
+        data-reveal-delay={i * 60}
+      >
+        <div class="flex items-center gap-2.5 lg:pt-1">
+          <span aria-hidden="true" class:list={['block h-2.5 w-2.5 shrink-0', dot[item.severity]]} />
+          <span
+            class:list={[
+              'text-[0.625rem] font-semibold tracking-[0.12em] uppercase',
+              label[item.severity],
+            ]}
+          >
+            {item.severityLabel}
+          </span>
+        </div>
+
+        <div>
+          <h3 class="text-lg leading-snug font-semibold text-ink">{item.title}</h3>
+          <p class="mt-2.5 text-[0.9375rem] leading-relaxed text-muted">{item.body}</p>
+        </div>
+
+        <div class="lg:border-l lg:border-line lg:pl-8">
+          <p class="text-[0.625rem] font-semibold tracking-[0.14em] text-muted uppercase">
+            {actionLabel}
+          </p>
+          <p class="mt-2.5 text-[0.9375rem] leading-relaxed text-ink">{item.action}</p>
+        </div>
+      </li>
+    ))
+  }
+</ol>

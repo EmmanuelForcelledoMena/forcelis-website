@@ -1,0 +1,50 @@
+---
+/**
+ * Filas de cifra: el número a tamaño de titular, la explicación al lado.
+ *
+ * Tres resultados en tres tarjetas se leen como tres cosas del mismo tamaño.
+ * Puestos en filas con la cifra sangrada a la izquierda, lo primero que se ve
+ * es la magnitud — que es el único motivo por el que la sección existe.
+ *
+ * ATENCIÓN: esta sección solo debe publicarse con cifras REALES de proyectos y
+ * con permiso del cliente. Ver `INTEGRACION.md`, punto 6.
+ *
+ * Sobre el orden del marcado: dentro de un `<dl>`, el `<dt>` tiene que preceder
+ * a sus `<dd>` y no se admite ningún otro elemento entre ellos. Por eso el
+ * orden escrito es término → cifra → explicación, y es la colocación en la
+ * retícula (`col-start` / `row-start`) la que pone la cifra a la izquierda.
+ * Escribirlo en el orden en que se ve —la cifra primero— produce un `<dl>`
+ * inválido.
+ */
+interface Props {
+  items: { value: string; label: string; body: string }[];
+  class?: string;
+}
+
+const { items, class: className = '' }: Props = Astro.props;
+---
+
+<dl class:list={['divide-y divide-line border-t border-b border-line', className]}>
+  {
+    items.map((item, i) => (
+      <div
+        class="reveal grid gap-x-10 gap-y-1 py-7 lg:grid-cols-[minmax(0,11rem)_1fr] lg:items-baseline"
+        data-reveal-delay={i * 60}
+      >
+        <dt class="text-base font-semibold text-ink lg:col-start-2 lg:row-start-1">
+          {item.label}
+        </dt>
+        {/* `brand-text` y no `brand`: aquí el rojo es tipografía, y el token de
+            marca está reservado a relleno y filo. */}
+        <dd
+          class="tnum text-[3.25rem] leading-none font-semibold tracking-[-0.045em] text-brand-text lg:col-start-1 lg:row-span-2 lg:row-start-1"
+        >
+          {item.value}
+        </dd>
+        <dd class="mt-1.5 max-w-[64ch] text-[0.9375rem] leading-relaxed text-muted lg:col-start-2 lg:row-start-2">
+          {item.body}
+        </dd>
+      </div>
+    ))
+  }
+</dl>

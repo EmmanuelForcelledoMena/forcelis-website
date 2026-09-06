@@ -1,0 +1,45 @@
+---
+/**
+ * Índice de capacidades: lista numerada enlazada, para la columna derecha del
+ * hero y como índice de la página de Soluciones.
+ *
+ * En el hero sustituye a nada —es contenido nuevo— y resuelve un problema real
+ * de la portada: el visitante llegaba al primer pliegue sin saber qué vende la
+ * empresa hasta pasar tres secciones. Aquí lo tiene enumerado desde el primer
+ * segundo, y cada línea es un enlace al detalle.
+ *
+ * `flex-1` en cada fila reparte el alto sobrante entre las filas, no en un
+ * hueco al final: la lista termina a la misma altura que la columna de texto de
+ * al lado sin que haya que fijar ningún alto.
+ */
+interface Props {
+  label: string;
+  items: { num: string; title: string; href: string }[];
+  class?: string;
+}
+
+const { label, items, class: className = '' }: Props = Astro.props;
+---
+
+<div class:list={['flex flex-col border border-line bg-panel', className]}>
+  <p
+    class="shrink-0 border-b-2 border-ink px-6 py-4 text-[0.6875rem] font-semibold tracking-[0.16em] text-muted uppercase"
+  >
+    {label}
+  </p>
+  <ol class="flex flex-1 flex-col">
+    {
+      items.map((item, i) => (
+        <li class:list={['flex flex-1', i < items.length - 1 && 'border-b border-line']}>
+          <a
+            href={item.href}
+            class="flex flex-1 items-center gap-4 px-6 py-4 transition-colors duration-150 hover:bg-panel-alt"
+          >
+            <span class="tnum text-xs font-semibold text-brand-text">{item.num}</span>
+            <span class="text-[0.9375rem] font-medium text-ink">{item.title}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ol>
+</div>
