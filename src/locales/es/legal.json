@@ -1,6 +1,5 @@
 {
   "updated": "Última actualización: septiembre de 2026",
-  "emailMissing": "Correo de contacto aún no configurado.",
   "privacy": {
     "meta": {
       "title": "Aviso de Privacidad — Forcelis Group",
@@ -11,35 +10,55 @@
     "sections": [
       {
         "title": "Quién es el responsable",
-        "body": ["Forcelis Group es responsable de los datos personales recabados a través de este sitio web. Puedes contactarnos en la dirección de abajo para cualquier tema de este aviso."]
+        "body": [
+          "Forcelis Group es responsable de los datos personales recabados a través de este sitio web. Puedes contactarnos por la vía que aparece abajo para cualquier tema de este aviso."
+        ]
       },
       {
         "title": "Qué se recaba",
-        "body": ["Solo lo que escribes en el formulario de contacto: empresa, nombre, correo, teléfono (opcional), industria, tamaño de la empresa, los temas que seleccionas y tu mensaje.", "El sitio no pide —y nunca debe usarse para enviar— credenciales financieras, contraseñas del portal fiscal, números de tarjeta o cuenta bancaria, ni números de identificación oficial."]
+        "body": [
+          "Solo lo que escribes en el formulario de contacto: empresa, nombre, correo, teléfono (opcional), industria, tamaño de la empresa, los temas que seleccionas y tu mensaje.",
+          "El sitio no pide —y nunca debe usarse para enviar— credenciales financieras, contraseñas del portal fiscal, números de tarjeta o cuenta bancaria, ni números de identificación oficial."
+        ]
       },
       {
         "title": "Para qué se recaba",
-        "body": ["Para responder tu solicitud, entender si Forcelis puede ayudarte y preparar una propuesta si la pides. No se usa para nada más y no se vende ni se renta."]
+        "body": [
+          "Para responder tu solicitud, entender si Forcelis puede ayudarte y preparar una propuesta si la pides. No se usa para nada más y no se vende ni se renta."
+        ]
       },
       {
         "title": "Quién más lo ve",
-        "body": ["El envío del formulario lo entrega un proveedor externo de formularios, que lo procesa por cuenta nuestra con el único fin de hacer llegar el mensaje. Más allá de eso, la información solo la ven las personas de Forcelis que atienden tu solicitud."]
+        "body": [
+          "El envío del formulario lo entrega un proveedor externo de formularios, que lo procesa por cuenta nuestra con el único fin de hacer llegar el mensaje. Más allá de eso, la información solo la ven las personas de Forcelis que atienden tu solicitud."
+        ]
       },
       {
         "title": "Cookies y analítica",
-        "body": ["Este sitio no coloca cookies publicitarias ni de rastreo.", "Si cambias de idioma con el selector, tu elección se guarda localmente en tu propio navegador para que el sitio abra en ese idioma la próxima vez. Nunca se envía a un servidor y puedes borrarla limpiando los datos de tu navegador.", "Si se habilita analítica web, se enlistará aquí antes de encenderla. A la fecha de este aviso, ningún servicio de analítica está activo en este sitio."]
+        "body": [
+          "Este sitio no coloca cookies publicitarias ni de rastreo.",
+          "Si cambias de idioma con el selector, tu elección se guarda localmente en tu propio navegador para que el sitio abra en ese idioma la próxima vez. Nunca se envía a un servidor y puedes borrarla limpiando los datos de tu navegador.",
+          "Si se habilita analítica web, se enlistará aquí antes de encenderla. A la fecha de este aviso, ningún servicio de analítica está activo en este sitio."
+        ]
       },
       {
         "title": "Cuánto tiempo se conserva",
-        "body": ["Las solicitudes se conservan el tiempo necesario para responderlas y, si surge una relación comercial, mientras esa relación lo requiera. Si nos pides borrar tus datos y no existe una razón legal para conservarlos, los borramos."]
+        "body": [
+          "Las solicitudes se conservan el tiempo necesario para responderlas y, si surge una relación comercial, mientras esa relación lo requiera. Si nos pides borrar tus datos y no existe una razón legal para conservarlos, los borramos."
+        ]
       },
       {
         "title": "Tus derechos",
-        "body": ["Puedes solicitar el acceso, la rectificación, la cancelación o la oposición al tratamiento de tus datos personales, así como revocar el consentimiento que otorgaste. Escríbenos a la dirección de abajo y te respondemos.", "En la legislación mexicana de protección de datos estos se conocen como derechos ARCO."]
+        "body": [
+          "Puedes solicitar el acceso, la rectificación, la cancelación o la oposición al tratamiento de tus datos personales, así como revocar el consentimiento que otorgaste. Contáctanos por la vía que aparece abajo y te respondemos.",
+          "En la legislación mexicana de protección de datos estos se conocen como derechos ARCO."
+        ]
       },
       {
         "title": "Cambios a este aviso",
-        "body": ["Si este aviso cambia, la versión actualizada se publica en esta página con una fecha nueva."]
+        "body": [
+          "Si este aviso cambia, la versión actualizada se publica en esta página con una fecha nueva."
+        ]
       }
     ]
   },
@@ -53,28 +72,41 @@
     "sections": [
       {
         "title": "Propósito de este sitio",
-        "body": ["Este sitio describe lo que hace Forcelis Group. Es informativo. Nada de lo aquí publicado constituye una oferta, un compromiso de prestar servicios en condiciones determinadas, ni asesoría profesional sobre la cual debas actuar sin una conversación acerca de tu situación específica."]
+        "body": [
+          "Este sitio describe lo que hace Forcelis Group. Es informativo. Nada de lo aquí publicado constituye una oferta, un compromiso de prestar servicios en condiciones determinadas, ni asesoría profesional sobre la cual debas actuar sin una conversación acerca de tu situación específica."
+        ]
       },
       {
         "title": "Cifras ilustrativas",
-        "body": ["Todo tablero, calificación y métrica que aparece en este sitio es ilustrativo y está etiquetado como tal. Las cifras no describen a ninguna empresa real, no son referencias de mercado y no deben usarse como punto de comparación para ninguna decisión."]
+        "body": [
+          "Todo tablero, calificación y métrica que aparece en este sitio es ilustrativo y está etiquetado como tal. Las cifras no describen a ninguna empresa real, no son referencias de mercado y no deben usarse como punto de comparación para ninguna decisión."
+        ]
       },
       {
         "title": "Alcance de lo que hace Forcelis",
-        "body": ["Forcelis presta servicios de análisis y asesoría. No dictamina fiscalmente, no determina posiciones fiscales y no sustituye la opinión de un contador o auditor titulado. Cuando un asunto requiera una opinión profesional formal, lo diremos."]
+        "body": [
+          "Forcelis presta servicios de análisis y asesoría. No dictamina fiscalmente, no determina posiciones fiscales y no sustituye la opinión de un contador o auditor titulado. Cuando un asunto requiera una opinión profesional formal, lo diremos."
+        ]
       },
       {
         "title": "Propiedad intelectual",
-        "body": ["El contenido, el diseño, el logotipo y el nombre de este sitio pertenecen a Forcelis Group. Puedes leerlo, citarlo con atribución y compartir enlaces. No puedes reproducir el sitio ni presentar su contenido como propio."]
+        "body": [
+          "El contenido, el diseño, el logotipo y el nombre de este sitio pertenecen a Forcelis Group. Puedes leerlo, citarlo con atribución y compartir enlaces. No puedes reproducir el sitio ni presentar su contenido como propio."
+        ]
       },
       {
         "title": "Disponibilidad",
-        "body": ["El sitio se ofrece tal como está. Procuramos mantenerlo exacto y disponible, pero no garantizamos que esté libre de errores ni que no se interrumpa."]
+        "body": [
+          "El sitio se ofrece tal como está. Procuramos mantenerlo exacto y disponible, pero no garantizamos que esté libre de errores ni que no se interrumpa."
+        ]
       },
       {
         "title": "Ley aplicable",
-        "body": ["Estos términos se rigen por las leyes de los Estados Unidos Mexicanos."]
+        "body": [
+          "Estos términos se rigen por las leyes de los Estados Unidos Mexicanos."
+        ]
       }
     ]
-  }
+  },
+  "contactFallback": "Escríbenos desde el formulario de contacto"
 }

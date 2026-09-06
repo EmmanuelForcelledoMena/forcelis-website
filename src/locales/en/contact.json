@@ -59,7 +59,7 @@
     "successTitle": "Message sent.",
     "successBody": "Thank you. We will get back to you at the email address you provided.",
     "errorTitle": "The message could not be sent.",
-    "errorBody": "Something went wrong on the way. Please try again, or write to us directly.",
+    "errorBody": "Something went wrong on the way. Please try again in a few minutes.",
     "unconfiguredTitle": "The form is not connected yet.",
     "unconfiguredBody": "This site has no form endpoint configured, so nothing would be delivered. Set PUBLIC_FORM_ENDPOINT before publishing — see the README.",
     "errors": {

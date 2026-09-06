@@ -43,7 +43,21 @@ jobs:
         env:
           PUBLIC_FORM_ENDPOINT: ${{ vars.PUBLIC_FORM_ENDPOINT }}
           PUBLIC_FORM_ACCESS_KEY: ${{ vars.PUBLIC_FORM_ACCESS_KEY }}
-          PUBLIC_CONTACT_EMAIL: ${{ vars.PUBLIC_CONTACT_EMAIL }}
+          # PUBLIC_CONTACT_EMAIL deliberadamente NO se inyecta.
+          #
+          # Publicar una dirección personal en un sitio corporativo la expone a
+          # los rastreadores de correo, y aquí era `emena@…`, un buzón de
+          # persona y no de empresa. Sin esta variable, la página de contacto no
+          # imprime ningún correo y el aviso de privacidad enlaza el formulario.
+          #
+          # Se apaga aquí, y no borrando la variable en GitHub, para que el
+          # motivo quede escrito y versionado: quien la vuelva a definir en los
+          # ajustes del repositorio no entendería por qué dejó de salir.
+          #
+          # Para volver a publicar un correo —conviene que sea de rol,
+          # `contacto@forcelis-group.com`, no personal— basta con descomentar la
+          # línea siguiente y definir la variable.
+          # PUBLIC_CONTACT_EMAIL: ${{ vars.PUBLIC_CONTACT_EMAIL }}
           PUBLIC_GA_ID: ${{ vars.PUBLIC_GA_ID }}
           PUBLIC_CLARITY_ID: ${{ vars.PUBLIC_CLARITY_ID }}
 

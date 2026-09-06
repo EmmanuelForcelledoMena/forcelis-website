@@ -59,7 +59,7 @@
     "successTitle": "Mensaje enviado.",
     "successBody": "Gracias. Te respondemos al correo que nos dejaste.",
     "errorTitle": "No se pudo enviar el mensaje.",
-    "errorBody": "Algo falló en el camino. Vuelve a intentarlo o escríbenos directamente.",
+    "errorBody": "Algo falló en el camino. Vuelve a intentarlo en unos minutos.",
     "unconfiguredTitle": "El formulario todavía no está conectado.",
     "unconfiguredBody": "Este sitio no tiene configurado un endpoint de formulario, así que nada se entregaría. Define PUBLIC_FORM_ENDPOINT antes de publicar — está en el README.",
     "errors": {
