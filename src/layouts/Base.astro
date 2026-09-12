@@ -83,13 +83,23 @@ const organizationJsonLd = {
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
-    <meta name="theme-color" content="#f3f2f2" />
+    <meta name="theme-color" content="#f7f6f4" />
     <meta name="color-scheme" content="light" />
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
+    <!-- Las dos familias se precargan. Montserrat es la del titular —el
+         elemento más grande del primer pintado— y sin precarga se descubre
+         hasta que el navegador ha descargado y leído la hoja de estilos. -->
+    <link
+      rel="preload"
+      href="/fonts/montserrat-latin-wght-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
     <link
       rel="preload"
       href="/fonts/inter-latin-wght-normal.woff2"

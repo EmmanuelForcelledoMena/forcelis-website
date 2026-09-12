@@ -1,49 +1,76 @@
 ---
 /**
- * Marca denominativa de Forcelis.
+ * Logotipo de Forcelis Group: lockup horizontal del manual de marca.
  *
- * Es tipográfica a propósito: no había un logotipo oficial que respetar
- * (Sección 20 del brief), y un símbolo provisional mal hecho envejece peor que
- * un wordmark sobrio. Todo lo gráfico está aquí dentro y en `public/favicon.svg`;
- * sustituirlo por el logotipo real es cambiar este archivo y ese, nada más.
+ * Glifo a la izquierda, FORCELIS en Montserrat con interletrado ancho, GROUP
+ * debajo más pequeño y aún más abierto. Es la variante «Primary (Horizontal)»
+ * del manual; la apilada y la de solo icono no se usan en el sitio.
  *
- * El glifo son tres barras ascendentes —medición, la idea del producto— y solo
- * la última lleva el color de marca. `--color-brand` es relleno, nunca texto:
- * a tamaño de párrafo no llega al contraste que exige el resto del sitio.
+ * El glifo es una F de tres barras: paralelogramos con la misma inclinación
+ * cuyos bordes izquierdos caen sobre una sola diagonal, y con anchos
+ * decrecientes —brazo superior, brazo medio, pie del asta—. Está redibujado en
+ * vectores a partir del manual; los ajustes respecto a él son de espaciado: el
+ * brazo medio ligeramente más corto para que la silueta de F sea inequívoca a
+ * 16 px, y el hueco entre barras fijado a la mitad de su alto.
+ *
+ * Color del glifo por superficie, y no es cosmético: sobre claro va en tinta;
+ * sobre tinta va en TAUPE, como en el manual. Nunca en rojo sobre tinta — da
+ * 2.94:1 y falla incluso como forma grande.
+ *
+ * Este archivo, `public/favicon.svg` y `scripts/build-og.mjs` son los tres
+ * únicos sitios donde vive el glifo. Cambiarlo es cambiarlos a la vez.
  */
 interface Props {
   /** `ink` para fondos claros, `light` para las bandas oscuras. */
   tone?: 'ink' | 'light';
-  /** Oculta la palabra GROUP: la barra de navegación va más apretada. */
+  /** Oculta la palabra GROUP: solo cuando el espacio no da para dos líneas. */
   showSuffix?: boolean;
+  /** `nav` es más compacto; `default` es el del pie y las portadas. */
+  size?: 'nav' | 'default';
   class?: string;
 }
 
-const { tone = 'ink', showSuffix = true, class: className = '' } = Astro.props;
+const {
+  tone = 'ink',
+  showSuffix = true,
+  size = 'default',
+  class: className = '',
+}: Props = Astro.props;
 
-const textColor = tone === 'light' ? 'text-on-ink' : 'text-ink';
-const barColor = tone === 'light' ? '#f8f4f4' : '#201e1d';
-const suffixColor = tone === 'light' ? 'text-on-ink-muted' : 'text-muted';
+const light = tone === 'light';
+const glyphFill = light ? '#c7c3a9' : '#1a1a1a';
+const nameColor = light ? 'text-on-ink' : 'text-ink';
+const suffixColor = light ? 'text-on-ink-muted' : 'text-muted';
+
+const glyphSize = size === 'nav' ? 30 : 36;
+const nameSize = size === 'nav' ? 'text-[0.9375rem]' : 'text-[1.0625rem]';
+const suffixSize = size === 'nav' ? 'text-[0.5625rem]' : 'text-[0.625rem]';
 ---
 
 <span class={`inline-flex items-center gap-2.5 ${className}`}>
   <svg
-    width="20"
-    height="20"
-    viewBox="0 0 20 20"
-    fill="none"
+    width={glyphSize}
+    height={glyphSize}
+    viewBox="0 0 64 64"
     aria-hidden="true"
     class="shrink-0"
   >
-    <rect x="0" y="12" width="4.5" height="8" fill={barColor} />
-    <rect x="7.75" y="6" width="4.5" height="14" fill={barColor} />
-    <rect x="15.5" y="0" width="4.5" height="20" fill="#ec3013" />
+    <path fill={glyphFill} d="M26 8H62L58 20H22Z"></path>
+    <path fill={glyphFill} d="M20 26H47L43 38H16Z"></path>
+    <path fill={glyphFill} d="M14 44H32L28 56H10Z"></path>
   </svg>
-  <span class={`flex items-baseline gap-1.5 ${textColor}`}>
-    <span class="text-[0.9375rem] font-semibold tracking-[0.14em] leading-none">FORCELIS</span>
+
+  <span class="flex flex-col justify-center leading-none">
+    <span
+      class={`font-display font-bold tracking-[0.22em] ${nameSize} ${nameColor}`}
+    >
+      FORCELIS
+    </span>
     {
       showSuffix && (
-        <span class={`text-[0.625rem] font-medium tracking-[0.22em] leading-none ${suffixColor}`}>
+        <span
+          class={`mt-[0.3em] font-display font-medium tracking-[0.3em] ${suffixSize} ${suffixColor}`}
+        >
           GROUP
         </span>
       )

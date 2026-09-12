@@ -44,7 +44,9 @@
       "revenue": "Revenue",
       "margin": "Gross margin"
     },
-    "chartAlt": "Illustrative chart: monthly revenue rising through the year while gross margin declines from 33.4 percent to 29.2 percent."
+    "chartAlt": "Illustrative chart: monthly revenue rising through the year while gross margin declines from 33.4 percent to 29.2 percent.",
+    "titleLead": "Turn business data into",
+    "titleAccent": "better decisions."
   },
   "problem": {
     "eyebrow": "The problem",

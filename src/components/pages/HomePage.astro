@@ -73,11 +73,18 @@ const capabilities = h.solutions.cards.map((card, i) => ({
             <span aria-hidden="true" class="block h-[2px] w-8 bg-brand"></span>
             {h.hero.eyebrow}
           </p>
+          <!-- El titular lleva su remate en rojo de marca, como en el manual.
+               Es texto grande (≥ 44 px) y el rojo da 5.5:1 sobre el fondo: AA
+               para cualquier tamaño y AAA para texto grande. El `<span>` no
+               rompe la lectura —un lector de pantalla lee la frase entera— y
+               el diccionario guarda el titular partido en dos claves para que
+               cada idioma decida dónde cae el acento. -->
           <h1
-            class="reveal mt-6 text-[2.75rem] leading-[1.02] font-semibold tracking-[-0.035em] text-ink sm:text-6xl lg:text-display"
+            class="reveal mt-6 text-[2.75rem] leading-[1.05] font-bold tracking-[-0.025em] text-ink sm:text-6xl lg:text-display"
             data-reveal-delay="60"
           >
-            {h.hero.title}
+            {h.hero.titleLead}
+            <span class="text-brand">{h.hero.titleAccent}</span>
           </h1>
           <p class="reveal mt-8 max-w-2xl text-lg leading-relaxed text-muted lg:text-xl" data-reveal-delay="120">
             {h.hero.subtitle}

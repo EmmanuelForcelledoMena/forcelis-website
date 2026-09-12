@@ -53,7 +53,7 @@ src/
 │   └── es/*.astro    slugs en español
 └── styles/global.css tokens de color y tipografía
 
-public/               CNAME, favicon, og-image.png, tipografía Inter
+public/               CNAME, favicon, og-image.png, tipografías Montserrat e Inter
 scripts/build-og.mjs  regenera og-image.png y apple-touch-icon.png
 ```
 
@@ -102,7 +102,7 @@ llevan prefijo `PUBLIC_`, y todas terminan en el HTML publicado.
 |---|---|---|
 | `PUBLIC_FORM_ENDPOINT` | Destino del formulario de contacto | **Sí, antes de publicar** |
 | `PUBLIC_FORM_ACCESS_KEY` | Clave del formulario cuando el proveedor la pide en el cuerpo del envío (Web3Forms). Vacía con Formspree, que la lleva en la URL | Según el proveedor |
-| `PUBLIC_CONTACT_EMAIL` | Correo del pie de contacto y del aviso de privacidad | **Sí, antes de publicar** |
+| `PUBLIC_CONTACT_EMAIL` | Correo publicado en contacto y en el aviso de privacidad. **Desactivada en el workflow**: ver abajo | No |
 | `PUBLIC_GA_ID` | Google Analytics | No |
 | `PUBLIC_CLARITY_ID` | Microsoft Clarity | No |
 
@@ -110,10 +110,12 @@ llevan prefijo `PUBLIC_`, y todas terminan en el HTML publicado.
 con el botón deshabilitado. Es a propósito: un formulario que parece funcionar y
 descarta el mensaje es peor que no tener formulario.
 
-**Sin `PUBLIC_CONTACT_EMAIL` no se imprime ningún correo.** El aviso de
-privacidad muestra en su lugar «Correo de contacto aún no configurado», que es
-más honesto que una dirección inventada que rebota — pero deja el aviso
-incompleto para efectos de derechos ARCO. Configúralo.
+**`PUBLIC_CONTACT_EMAIL` no se inyecta en la build** —está comentada en
+`.github/workflows/deploy.yml`, con el motivo escrito ahí—, así que el sitio no
+publica ningún correo: la página de contacto omite el bloque y el aviso de
+privacidad enlaza el formulario como vía para ejercer derechos. Para volver a
+publicar uno, que sea de rol (`contacto@`, no personal): descomentar la línea
+del workflow y definir la variable.
 
 En GitHub, estas variables se definen en **Settings → Secrets and variables →
 Actions → Variables** (pestaña *Variables*, no *Secrets*). El workflow las
@@ -226,25 +228,36 @@ Evita que otra cuenta reclame el dominio en Pages:
 - [ ] `npm run check` — 0 errores, 0 avisos, 0 sugerencias
 - [ ] `npm run build && npm run preview` — recorrer las dos versiones
 - [ ] `PUBLIC_FORM_ENDPOINT` configurada y **probada con un envío real**
-- [ ] `PUBLIC_CONTACT_EMAIL` configurada
 - [ ] Aviso de privacidad y términos revisados por alguien de legal
 - [ ] Si activaste analítica, actualizar el apartado «Cookies y analítica» del
       aviso de privacidad: hoy afirma que no hay ningún servicio activo
-- [ ] Sustituir el wordmark por el logotipo oficial cuando exista
-      (`src/components/Wordmark.astro`, `public/favicon.svg` y
-      `scripts/build-og.mjs`)
 
 ---
 
 ## Decisiones que conviene conocer antes de tocar el código
 
-**La paleta viene del producto.** Los colores de `src/styles/global.css` son los
-mismos de la aplicación Forcelis (`app/web/static/estilos.css` en el otro
-repositorio), donde están medidos contra WCAG AAA por una prueba automatizada.
-Reusarlos hace que el sitio y el producto se vean de la misma empresa y ahorra
-volver a resolver el contraste. La regla que viene con ellos: `--color-brand`
-(`#ec3013`) es **relleno y filo, nunca fondo con texto encima ni texto**; da
-3.85:1. El acento legible es `--color-brand-text`.
+**La paleta y la tipografía vienen del manual de marca.** Seis colores —fondo
+`#f7f6f4`, taupe `#c7c3a9`, tinta `#1a1a1a`, gris `#5a5a5a`, rojo `#c02626` y
+rojo oscuro `#8b1e1e`— y dos familias: Montserrat para titulares y la marca
+denominativa, Inter para el texto. Los grises de tarjeta y línea son derivados.
+Todo está en `src/styles/global.css`, con el contraste de cada par medido y
+anotado. Dos reglas salen de esas medidas y no se negocian:
+
+- **El rojo es texto solo sobre claro.** Da 5.5:1 sobre el fondo (AA) — por eso
+  el remate del titular del hero puede ir en rojo — pero **2.94:1 sobre tinta**,
+  que falla incluso como texto grande. Sobre superficies oscuras el acento es el
+  **taupe** (9.8:1), que es también lo que hace el logotipo en su versión oscura.
+  Por lo mismo, los botones son rojos sobre claro y taupe sobre tinta.
+- **El taupe no es texto sobre claro** (1.65:1): ahí solo es relleno.
+
+El gris del manual da 6.4:1 sobre fondo: AA, no AAA. Es una decisión de marca
+tomada a sabiendas; la paleta anterior, heredada del producto, estaba en 7:1.
+
+**El logotipo vive en tres archivos** y cambiarlo es cambiar los tres:
+`src/components/Wordmark.astro` (lockup de la barra y el pie),
+`public/favicon.svg` y `scripts/build-og.mjs` (tarjeta social e icono de iOS,
+regenerados con `npm run build:og`). El glifo está redibujado en vectores a
+partir del manual; los ajustes respecto a él son de espaciado.
 
 **Nada depende de JavaScript para poder leerse.** La animación de entrada se
 apaga sola si el observador del navegador no responde en dos segundos; el panel
@@ -279,5 +292,5 @@ componentes en el cliente.
 Todo el JavaScript que llega al navegador son tres bloques cortos: el menú
 móvil, el revelado al hacer scroll y el envío del formulario. No hay biblioteca
 de animación, no hay biblioteca de gráficas —el tablero es SVG generado en la
-build— y no hay peticiones a dominios de terceros: la tipografía Inter se sirve
+build— y no hay peticiones a dominios de terceros: Montserrat e Inter se sirven
 desde el propio sitio.

@@ -2,10 +2,15 @@
 /**
  * Botón/enlace del sistema.
  *
- * Ninguna variante usa `--color-brand` como fondo con texto encima: da 4.20:1
- * con blanco, y 5.00:1 es su techo teórico con CUALQUIER color de texto. La
- * superficie fuerte del sitio es la tinta (`--color-ink`), que da 15:1. Es la
- * misma regla que gobierna el producto, y allá costó cuatro repeticiones.
+ * El acento cambia con la superficie, y la razón es de contraste, no de gusto:
+ *
+ * - Sobre CLARO el botón principal es rojo de marca con texto blanco (5.9:1,
+ *   AA). Es lo que muestran los mockups del manual.
+ * - Sobre TINTA el botón principal es TAUPE con texto en tinta (9.8:1). El
+ *   rojo sobre tinta da 2.94:1, por debajo del 3:1 que exige el borde de un
+ *   control (WCAG 1.4.11); el taupe es además el acento que el propio manual
+ *   usa en su versión oscura del logotipo. Rojo en claro, taupe en oscuro:
+ *   el mismo par que rige todo el sitio.
  */
 interface Props {
   href: string;
@@ -29,10 +34,10 @@ const sizes = {
 };
 
 const variants = {
-  primary: 'bg-ink text-on-ink hover:bg-ink-soft',
+  primary: 'bg-brand text-white hover:bg-brand-text',
   secondary: 'border border-line-strong text-ink hover:bg-panel-alt hover:border-ink',
-  onInk: 'bg-on-ink text-ink hover:bg-white',
-  onInkGhost: 'border border-line-ink text-on-ink hover:border-on-ink hover:bg-white/5',
+  onInk: 'bg-taupe text-ink hover:bg-[#d8d4bc]',
+  onInkGhost: 'border border-on-ink-muted/50 text-on-ink hover:border-on-ink-muted hover:bg-white/5',
 };
 ---
 

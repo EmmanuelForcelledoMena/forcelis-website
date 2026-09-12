@@ -36,7 +36,7 @@ const grid = columns === 2 ? 'lg:grid-cols-2 lg:gap-x-16' : 'lg:grid-cols-3 lg:g
           <p
             class:list={[
               'flex items-baseline gap-2.5 text-[0.6875rem] font-semibold tracking-[0.14em] uppercase',
-              light ? 'text-brand' : 'text-brand-text',
+              light ? 'text-on-ink-muted' : 'text-brand-text',
             ]}
           >
             {numbered && <span class="tnum">{String(i + 1).padStart(2, '0')}</span>}

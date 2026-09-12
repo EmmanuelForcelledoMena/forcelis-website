@@ -29,7 +29,7 @@ const items = NAV_PAGES.map((key) => ({
       class="shrink-0"
       aria-label={`${c.brand.name} — ${c.brand.tagline}`}
     >
-      <Wordmark showSuffix={false} />
+      <Wordmark size="nav" />
     </a>
 
     <!-- Separación menor en pantallas justas y `whitespace-nowrap` en cada
@@ -67,7 +67,7 @@ const items = NAV_PAGES.map((key) => ({
       <LanguageSwitcher lang={lang} pageKey={pageKey} />
       <a
         href={path('diagnostic', lang)}
-        class="hidden bg-ink px-4 py-2.5 text-sm font-medium text-on-ink transition-colors hover:bg-ink-soft lg:inline-flex"
+        class="hidden bg-brand px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-brand-text lg:inline-flex"
       >
         {c.nav.cta}
       </a>
@@ -113,7 +113,7 @@ const items = NAV_PAGES.map((key) => ({
       <div class="py-5">
         <a
           href={path('diagnostic', lang)}
-          class="block bg-ink px-4 py-3.5 text-center text-sm font-medium text-on-ink"
+          class="block bg-brand px-4 py-3.5 text-center text-sm font-medium text-white"
         >
           {c.nav.cta}
         </a>

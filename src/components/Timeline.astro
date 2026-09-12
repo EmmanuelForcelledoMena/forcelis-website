@@ -16,7 +16,8 @@ interface Props {
 const { items, tone = 'ink', class: className = '' }: Props = Astro.props;
 
 const light = tone === 'light';
-const numColor = light ? 'text-brand' : 'text-brand-text';
+// Taupe sobre tinta, no rojo: ver la regla 2 de los tokens en global.css.
+const numColor = light ? 'text-on-ink-muted' : 'text-brand-text';
 const titleColor = light ? 'text-on-ink' : 'text-ink';
 const bodyColor = light ? 'text-on-ink-muted' : 'text-muted';
 const topRule = light ? 'border-line-ink' : 'border-ink';

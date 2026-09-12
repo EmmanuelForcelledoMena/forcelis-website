@@ -44,7 +44,9 @@
       "revenue": "Ingresos",
       "margin": "Margen bruto"
     },
-    "chartAlt": "Gráfica ilustrativa: los ingresos mensuales suben a lo largo del año mientras el margen bruto baja del 33.4 al 29.2 por ciento."
+    "chartAlt": "Gráfica ilustrativa: los ingresos mensuales suben a lo largo del año mientras el margen bruto baja del 33.4 al 29.2 por ciento.",
+    "titleLead": "Convierte los datos de tu empresa en",
+    "titleAccent": "mejores decisiones."
   },
   "problem": {
     "eyebrow": "El problema",

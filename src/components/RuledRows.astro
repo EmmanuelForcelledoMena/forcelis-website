@@ -29,10 +29,11 @@ const {
 
 const light = tone === 'light';
 
-// El numeral es tipografía, no relleno: en fondo claro tiene que usar el rojo
-// legible (`brand-text`), no el de marca. Sobre tinta sí se puede usar el de
-// marca, que es lo que ya hace el resto del sitio.
-const numColor = light ? 'text-brand' : 'text-brand-text';
+// El numeral es tipografía, no relleno. Sobre claro usa el rojo legible
+// (`brand-text`); sobre tinta usa el TAUPE, no el rojo: el rojo de marca da
+// 2.94:1 sobre tinta y falla incluso como texto grande. Es la regla 2 de los
+// tokens, y la misma que sigue el logotipo en su versión oscura.
+const numColor = light ? 'text-on-ink-muted' : 'text-brand-text';
 const termColor = light ? 'text-on-ink' : 'text-ink';
 const bodyColor = light ? 'text-on-ink-muted' : 'text-muted';
 const rules = light ? 'divide-line-ink border-line-ink' : 'divide-line border-line';
