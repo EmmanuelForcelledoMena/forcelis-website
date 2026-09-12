@@ -16,6 +16,7 @@
 import Base from '../../layouts/Base.astro';
 import Section from '../Section.astro';
 import SectionHeader from '../SectionHeader.astro';
+import PageHero from '../PageHero.astro';
 import RuledRows from '../RuledRows.astro';
 import ProseColumns from '../ProseColumns.astro';
 import Cta from '../Cta.astro';
@@ -31,11 +32,12 @@ const a = t(lang, 'about');
 ---
 
 <Base lang={lang} pageKey="about" title={a.meta.title} description={a.meta.description}>
-  <Section tone="ground" size="compact" class="border-b border-line">
-    <div class="reveal">
-      <SectionHeader as="h1" eyebrow={a.hero.eyebrow} title={a.hero.title} intro={a.hero.subtitle} />
-    </div>
-  </Section>
+  <PageHero
+    photoKey="about"
+    eyebrow={a.hero.eyebrow}
+    title={a.hero.title}
+    intro={a.hero.subtitle}
+  />
 
   <!-- ================================================================= ORIGEN -->
   <Section tone="ground">

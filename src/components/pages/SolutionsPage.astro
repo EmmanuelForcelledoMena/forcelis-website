@@ -17,7 +17,7 @@
  */
 import Base from '../../layouts/Base.astro';
 import Section from '../Section.astro';
-import SectionHeader from '../SectionHeader.astro';
+import PageHero from '../PageHero.astro';
 import Icon from '../Icon.astro';
 import Cta from '../Cta.astro';
 import type { Lang } from '../../i18n/routes';
@@ -44,16 +44,12 @@ const iconFor: Record<
 ---
 
 <Base lang={lang} pageKey="solutions" title={s.meta.title} description={s.meta.description}>
-  <Section tone="ground" size="compact" class="border-b border-line">
-    <div class="reveal">
-      <SectionHeader
-        as="h1"
-        eyebrow={s.hero.eyebrow}
-        title={s.hero.title}
-        intro={s.hero.subtitle}
-      />
-    </div>
-  </Section>
+  <PageHero
+    photoKey="solutions"
+    eyebrow={s.hero.eyebrow}
+    title={s.hero.title}
+    intro={s.hero.subtitle}
+  />
 
   <!-- ============================================================ ÍNDICE 3×2 -->
   <Section tone="ground" size="compact">

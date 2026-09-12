@@ -20,11 +20,11 @@
 import Base from '../../layouts/Base.astro';
 import Section from '../Section.astro';
 import SectionHeader from '../SectionHeader.astro';
+import PageHero from '../PageHero.astro';
 import ScorePanel from '../ScorePanel.astro';
 import FindingRows from '../FindingRows.astro';
 import RuledRows from '../RuledRows.astro';
 import Timeline from '../Timeline.astro';
-import Button from '../Button.astro';
 import Icon from '../Icon.astro';
 import Cta from '../Cta.astro';
 import { path, type Lang } from '../../i18n/routes';
@@ -41,26 +41,30 @@ const c = common(lang);
 
 <Base lang={lang} pageKey="diagnostic" title={d.meta.title} description={d.meta.description}>
   <!-- ================================================================== HERO -->
-  <Section tone="ground" size="compact" class="border-b border-line">
-    <div class="grid items-start gap-12 lg:grid-cols-[1fr_minmax(0,25rem)] lg:gap-16">
-      <div class="reveal">
-        <SectionHeader as="h1" eyebrow={d.hero.eyebrow} title={d.hero.title} intro={d.hero.subtitle} />
-        <div class="mt-10">
-          <Button href={path('contact', lang)} size="lg">{d.hero.cta}</Button>
-        </div>
-      </div>
-      <div class="reveal" data-reveal-delay="120">
-        <ScorePanel
-          title={d.score.title}
-          items={d.score.items}
-          illustrativeLabel={c.labels.illustrative}
-          outOfLabel={c.labels.scoreOutOf}
-          footnote={d.score.footnote}
-        />
-        <p class="mt-5 text-sm leading-relaxed text-muted">{d.score.intro}</p>
-      </div>
+  <!-- Cabecera oscura con el panel del score encima, en tarjeta clara: es la
+       composición del mockup del diagnóstico. El panel conserva su fondo de
+       tarjeta a propósito — sobre la banda de tinta se lee como un objeto del
+       producto, que es exactamente lo que es. -->
+  <PageHero
+    photoKey="diagnostic"
+    eyebrow={d.hero.eyebrow}
+    title={d.hero.title}
+    intro={d.hero.subtitle}
+    cta={{ href: path('contact', lang), label: d.hero.cta }}
+  >
+    <div class="reveal lg:self-center" data-reveal-delay="120">
+      <ScorePanel
+        title={d.score.title}
+        items={d.score.items}
+        illustrativeLabel={c.labels.illustrative}
+        outOfLabel={c.labels.scoreOutOf}
+        overallLabel={c.labels.overallScore}
+        overallNote={c.labels.overallNote}
+        footnote={d.score.footnote}
+      />
+      <p class="mt-5 text-sm leading-relaxed text-on-ink-muted">{d.score.intro}</p>
     </div>
-  </Section>
+  </PageHero>
 
   <!-- ============================================================ QUÉ SE ANALIZA -->
   <Section tone="panel" size="compact">

@@ -1,0 +1,136 @@
+---
+/**
+ * Cabecera oscura de página, con fotografía de fondo.
+ *
+ * Es el patrón que atraviesa todos los mockups del manual: una banda de tinta
+ * con una foto velada, el antetítulo en taupe, el titular en claro y, cuando
+ * toca, el remate del titular en rojo. Es lo que separa visualmente el sitio de
+ * un documento: cada página abre con una imagen y cierra en claro.
+ *
+ * La foto se resuelve en la build desde `src/assets/heroes/<photoKey>.*`. Si
+ * el archivo no existe, la banda sigue siendo una banda: fondo de tinta con el
+ * glifo de la marca como marca de agua. Nunca un hueco, nunca una imagen de
+ * banco puesta por defecto — las fotos se eligen y se licencian aparte.
+ *
+ * Contraste sobre la foto: el velo va de tinta casi opaca en la columna del
+ * texto a tinta al 40 % en el otro extremo, y el texto se limita a esa columna.
+ * Así el titular se lee sobre CUALQUIER fotografía, clara u oscura, sin
+ * depender de cómo salga la imagen que se ponga.
+ */
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import Button from './Button.astro';
+
+interface Props {
+  /** Nombre del archivo de foto en `src/assets/heroes/`, sin extensión. */
+  photoKey: string;
+  eyebrow?: string;
+  title: string;
+  /** Remate del titular en rojo (solo texto grande, ver `--color-brand-on-ink`). */
+  titleAccent?: string;
+  intro?: string;
+  cta?: { href: string; label: string };
+  /** Alto de la banda. `tall` para la portada. */
+  size?: 'default' | 'tall';
+}
+
+const { photoKey, eyebrow, title, titleAccent, intro, cta, size = 'default' } = Astro.props;
+
+const photos = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/assets/heroes/*.{jpg,jpeg,png,webp}',
+  { eager: true },
+);
+const photo = Object.entries(photos).find(([file]) =>
+  new RegExp(`/${photoKey}\\.(jpe?g|png|webp)$`).test(file),
+)?.[1].default;
+
+const hasAside = Astro.slots.has('default');
+const hasActions = Astro.slots.has('actions');
+const padding = size === 'tall' ? 'py-20 lg:py-28' : 'py-16 lg:py-24';
+---
+
+<section class="on-ink relative overflow-hidden bg-ink text-on-ink">
+  {
+    photo ? (
+      <Image
+        src={photo}
+        alt=""
+        width={1920}
+        height={1080}
+        format="webp"
+        loading="eager"
+        fetchpriority="high"
+        class="absolute inset-0 h-full w-full object-cover"
+      />
+    ) : (
+      <svg
+        viewBox="0 0 64 64"
+        aria-hidden="true"
+        class="absolute top-1/2 -right-[6%] h-[150%] w-auto -translate-y-1/2 opacity-[0.07]"
+      >
+        <g fill="#c7c3a9">
+          <path d="M26 8H62L58 20H22Z" />
+          <path d="M20 26H47L43 38H16Z" />
+          <path d="M14 44H32L28 56H10Z" />
+        </g>
+      </svg>
+    )
+  }
+  <div
+    aria-hidden="true"
+    class="absolute inset-0 bg-gradient-to-r from-ink via-ink/85 to-ink/40"
+  ></div>
+  <div aria-hidden="true" class="absolute inset-x-0 bottom-0 h-px bg-line-ink"></div>
+
+  <div class={`container-page relative ${padding}`}>
+    <div
+      class:list={[
+        'grid gap-12 lg:gap-16',
+        hasAside ? 'items-stretch lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]' : '',
+      ]}
+    >
+      <div class="flex max-w-3xl flex-col justify-center">
+        {
+          eyebrow && (
+            <p class="reveal flex items-center gap-3 text-[0.6875rem] font-semibold tracking-[0.16em] text-on-ink-muted uppercase">
+              <span aria-hidden="true" class="block h-[2px] w-8 bg-taupe" />
+              {eyebrow}
+            </p>
+          )
+        }
+        <h1
+          class="reveal mt-6 text-[2.5rem] leading-[1.05] font-bold tracking-[-0.025em] text-on-ink sm:text-5xl lg:text-display"
+          data-reveal-delay="60"
+        >
+          {title}
+          {titleAccent && <span class="text-brand-on-ink">{titleAccent}</span>}
+        </h1>
+        {
+          intro && (
+            <p
+              class="reveal mt-7 max-w-2xl text-lg leading-relaxed text-on-ink-muted lg:text-xl"
+              data-reveal-delay="120"
+            >
+              {intro}
+            </p>
+          )
+        }
+        {
+          (cta || hasActions) && (
+            <div class="reveal mt-10 flex flex-col gap-3 sm:flex-row" data-reveal-delay="180">
+              {hasActions ? (
+                <slot name="actions" />
+              ) : (
+                <Button href={cta!.href} variant="onInk" size="lg">
+                  {cta!.label}
+                </Button>
+              )}
+            </div>
+          )
+        }
+      </div>
+
+      {hasAside && <slot />}
+    </div>
+  </div>
+</section>

@@ -6,11 +6,10 @@
  *
  * - Sobre CLARO el botón principal es rojo de marca con texto blanco (5.9:1,
  *   AA). Es lo que muestran los mockups del manual.
- * - Sobre TINTA el botón principal es TAUPE con texto en tinta (9.8:1). El
- *   rojo sobre tinta da 2.94:1, por debajo del 3:1 que exige el borde de un
- *   control (WCAG 1.4.11); el taupe es además el acento que el propio manual
- *   usa en su versión oscura del logotipo. Rojo en claro, taupe en oscuro:
- *   el mismo par que rige todo el sitio.
+ * - Sobre TINTA el botón principal es el rojo LEVANTADO (`--color-brand-on-ink`,
+ *   #d63b3b) con texto blanco: 3.8:1 de borde contra la tinta (WCAG 1.4.11
+ *   pide 3:1) y 4.6:1 el texto (AA). El rojo del manual tal cual da 2.94:1 de
+ *   borde y no pasa. Es lo que muestran los heros oscuros de los mockups.
  */
 interface Props {
   href: string;
@@ -36,7 +35,7 @@ const sizes = {
 const variants = {
   primary: 'bg-brand text-white hover:bg-brand-text',
   secondary: 'border border-line-strong text-ink hover:bg-panel-alt hover:border-ink',
-  onInk: 'bg-taupe text-ink hover:bg-[#d8d4bc]',
+  onInk: 'bg-brand-on-ink text-white hover:bg-[#e04a4a]',
   onInkGhost: 'border border-on-ink-muted/50 text-on-ink hover:border-on-ink-muted hover:bg-white/5',
 };
 ---

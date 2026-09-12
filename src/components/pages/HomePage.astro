@@ -28,6 +28,7 @@ import DashboardPreview from '../DashboardPreview.astro';
 import ProblemFlow from '../ProblemFlow.astro';
 import SolutionCard from '../SolutionCard.astro';
 import ScorePanel from '../ScorePanel.astro';
+import PageHero from '../PageHero.astro';
 import CapabilityIndex from '../CapabilityIndex.astro';
 import ProseColumns from '../ProseColumns.astro';
 import Timeline from '../Timeline.astro';
@@ -65,59 +66,47 @@ const capabilities = h.solutions.cards.map((card, i) => ({
 
 <Base lang={lang} pageKey="home" title={h.meta.title} description={h.meta.description}>
   <!-- ================================================================== HERO -->
-  <section class="border-b border-line bg-ground pt-16 pb-20 lg:pt-24 lg:pb-28">
-    <div class="container-page">
-      <div class="grid items-stretch gap-12 lg:grid-cols-[minmax(0,1.55fr)_minmax(0,1fr)] lg:gap-16">
-        <div class="flex flex-col justify-center">
-          <p class="reveal flex items-center gap-3 text-[0.6875rem] font-semibold tracking-[0.16em] text-brand-text uppercase">
-            <span aria-hidden="true" class="block h-[2px] w-8 bg-brand"></span>
-            {h.hero.eyebrow}
-          </p>
-          <!-- El titular lleva su remate en rojo de marca, como en el manual.
-               Es texto grande (≥ 44 px) y el rojo da 5.5:1 sobre el fondo: AA
-               para cualquier tamaño y AAA para texto grande. El `<span>` no
-               rompe la lectura —un lector de pantalla lee la frase entera— y
-               el diccionario guarda el titular partido en dos claves para que
-               cada idioma decida dónde cae el acento. -->
-          <h1
-            class="reveal mt-6 text-[2.75rem] leading-[1.05] font-bold tracking-[-0.025em] text-ink sm:text-6xl lg:text-display"
-            data-reveal-delay="60"
-          >
-            {h.hero.titleLead}
-            <span class="text-brand">{h.hero.titleAccent}</span>
-          </h1>
-          <p class="reveal mt-8 max-w-2xl text-lg leading-relaxed text-muted lg:text-xl" data-reveal-delay="120">
-            {h.hero.subtitle}
-          </p>
-          <div class="reveal mt-10 flex flex-col gap-3 sm:flex-row" data-reveal-delay="180">
-            <Button href={path('diagnostic', lang)} size="lg">{c.cta.diagnostic}</Button>
-            <Button href={path('solutions', lang)} variant="secondary" size="lg">
-              {c.cta.explore}
-            </Button>
-          </div>
-        </div>
+  <!-- Banda oscura con fotografía, como en los mockups del manual. El titular
+       lleva su remate en el rojo levantado para tinta (`brand-on-ink`, 3.8:1
+       como texto grande); el diccionario guarda el titular partido en dos
+       claves para que cada idioma decida dónde cae el acento. El índice de
+       capacidades va al lado, como tarjeta clara sobre la banda: sigue
+       resolviendo lo que resolvía —saber qué vende la empresa desde el primer
+       segundo— y ahora además es el objeto que da profundidad al hero. -->
+  <PageHero
+    photoKey="home"
+    size="tall"
+    eyebrow={h.hero.eyebrow}
+    title={h.hero.titleLead}
+    titleAccent={h.hero.titleAccent}
+    intro={h.hero.subtitle}
+  >
+    <Fragment slot="actions">
+      <Button href={path('diagnostic', lang)} variant="onInk" size="lg">{c.cta.diagnostic}</Button>
+      <Button href={path('solutions', lang)} variant="onInkGhost" size="lg">
+        {c.cta.explore}
+      </Button>
+    </Fragment>
 
-        <CapabilityIndex
-          label={h.solutions.eyebrow}
-          items={capabilities}
-          class="reveal"
-        />
-      </div>
+    <CapabilityIndex label={h.solutions.eyebrow} items={capabilities} class="reveal" />
+  </PageHero>
 
-      <div class="reveal mt-16 lg:mt-20" data-reveal-delay="240">
-        <DashboardPreview
-          lang={lang}
-          title={h.hero.panelTitle}
-          period={h.hero.panelPeriod}
-          metrics={h.hero.metrics}
-          chartTitle={h.hero.chartTitle}
-          seriesLabels={h.hero.chartSeries}
-          chartAlt={h.hero.chartAlt}
-          illustrativeLabel={c.labels.illustrative}
-        />
-      </div>
+  <!-- El tablero del producto, justo debajo de la banda: es la primera cosa
+       clara de la página y la primera prueba de que hay software real. -->
+  <Section tone="ground" size="compact" class="border-b border-line">
+    <div class="reveal" data-reveal-delay="120">
+      <DashboardPreview
+        lang={lang}
+        title={h.hero.panelTitle}
+        period={h.hero.panelPeriod}
+        metrics={h.hero.metrics}
+        chartTitle={h.hero.chartTitle}
+        seriesLabels={h.hero.chartSeries}
+        chartAlt={h.hero.chartAlt}
+        illustrativeLabel={c.labels.illustrative}
+      />
     </div>
-  </section>
+  </Section>
 
   <!-- ============================================================= PROBLEMA -->
   <Section tone="panel">
@@ -254,6 +243,8 @@ const capabilities = h.solutions.cards.map((card, i) => ({
           items={h.diagnostic.scores}
           illustrativeLabel={c.labels.illustrative}
           outOfLabel={c.labels.scoreOutOf}
+          overallLabel={c.labels.overallScore}
+          overallNote={c.labels.overallNote}
         />
       </div>
     </div>

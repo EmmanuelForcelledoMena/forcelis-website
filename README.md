@@ -53,8 +53,10 @@ src/
 │   └── es/*.astro    slugs en español
 └── styles/global.css tokens de color y tipografía
 
-public/               CNAME, favicon, og-image.png, tipografías Montserrat e Inter
-scripts/build-og.mjs  regenera og-image.png y apple-touch-icon.png
+public/               CNAME, favicons, og-image.png, tipografías Montserrat e Inter
+src/assets/heroes/    fotografía de cabecera por página (ver su README)
+src/assets/industries/ fotografía por sector (ver su README)
+scripts/build-og.mjs  regenera og-image.png, apple-touch-icon.png y los favicons
 ```
 
 ### Las dos reglas de este repositorio

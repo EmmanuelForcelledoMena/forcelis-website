@@ -47,6 +47,8 @@
     "illustrative": "Illustrative data",
     "availableToday": "Available today",
     "inDevelopment": "In development",
-    "scoreOutOf": "out of 100"
+    "scoreOutOf": "out of 100",
+    "overallScore": "Overall score",
+    "overallNote": "Average of the five dimensions"
   }
 }

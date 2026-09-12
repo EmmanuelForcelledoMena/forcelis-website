@@ -86,8 +86,17 @@ const organizationJsonLd = {
     <meta name="theme-color" content="#f7f6f4" />
     <meta name="color-scheme" content="light" />
 
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <!-- Icono de pestaña. El SVG es adaptativo (claro/oscuro con su propia
+         media query) y lo prefieren Chrome, Edge y Firefox; los PNG y el .ico
+         son para Safari y navegadores antiguos. El `?v=` cambia cuando cambia
+         el logotipo: los navegadores cachean el favicon con más terquedad que
+         cualquier otro recurso, y sin el parámetro seguían enseñando el
+         anterior días después del despliegue. -->
+    <link rel="icon" href="/favicon.svg?v=3" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png?v=3" type="image/png" sizes="32x32" />
+    <link rel="icon" href="/favicon-16.png?v=3" type="image/png" sizes="16x16" />
+    <link rel="shortcut icon" href="/favicon.ico?v=3" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3" />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
     <!-- Las dos familias se precargan. Montserrat es la del titular —el

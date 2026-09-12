@@ -1,9 +1,28 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <!-- Icono de app del manual: glifo en tinta sobre cuadrado taupe. Funciona
-       igual en pestañas claras y oscuras porque el taupe no es ni blanco ni
-       negro. Mismos trazos que src/components/Wordmark.astro. -->
-  <rect width="64" height="64" rx="12" fill="#c7c3a9"/>
-  <path fill="#1a1a1a" d="M26 8H62L58 20H22Z"/>
-  <path fill="#1a1a1a" d="M20 26H47L43 38H16Z"/>
-  <path fill="#1a1a1a" d="M14 44H32L28 56H10Z"/>
+  <!--
+    Icono de app del manual de marca, adaptativo.
+
+    Pestaña clara: cuadrado taupe con la F en tinta ("App icon / light").
+    Pestaña oscura: cuadrado tinta con la F en taupe ("App icon / dark").
+
+    Un SVG puede llevar su propia media query, así que es UN archivo y no dos
+    enlaces con `media`, que Safari ignora. Los PNG y el .ico de respaldo los
+    genera `scripts/build-og.mjs` con la variante oscura, que se ve bien sobre
+    cualquier barra de pestañas.
+
+    El glifo es el mismo de src/components/Wordmark.astro. Cambiarlo es
+    cambiar los dos, más el script.
+  -->
+  <style>
+    .bg { fill: #c7c3a9; }
+    .f  { fill: #1a1a1a; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #1a1a1a; }
+      .f  { fill: #c7c3a9; }
+    }
+  </style>
+  <rect class="bg" width="64" height="64" rx="12"/>
+  <path class="f" d="M26 8H62L58 20H22Z"/>
+  <path class="f" d="M20 26H47L43 38H16Z"/>
+  <path class="f" d="M14 44H32L28 56H10Z"/>
 </svg>

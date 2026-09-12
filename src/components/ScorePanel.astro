@@ -21,11 +21,38 @@ interface Props {
   items: readonly ScoreItem[];
   illustrativeLabel: string;
   outOfLabel: string;
+  /** Etiqueta del medidor circular (i18n: `labels.overallScore`). */
+  overallLabel: string;
+  /** Texto pequeño bajo la etiqueta que dice de dónde sale la cifra. */
+  overallNote: string;
   footnote?: string;
   class?: string;
 }
 
-const { title, items, illustrativeLabel, outOfLabel, footnote, class: className = '' } = Astro.props;
+const {
+  title,
+  items,
+  illustrativeLabel,
+  outOfLabel,
+  overallLabel,
+  overallNote,
+  footnote,
+  class: className = '',
+} = Astro.props;
+
+// La calificación global NO es un dato propio: es la media aritmética de las
+// cinco dimensiones que se listan debajo, redondeada. El mockup del manual
+// enseña un 72 que no sale de ningún sitio; aquí el número se deriva de lo que
+// la propia tarjeta muestra, y por eso se puede publicar. Si mañana el producto
+// define otra fórmula, cambia aquí y en ningún otro sitio.
+const overall = Math.round(items.reduce((sum, item) => sum + item.value, 0) / items.length);
+
+// Geometría del medidor: un arco de 270° abierto por abajo, que es lo que hace
+// que se lea como indicador y no como donut de proporciones.
+const R = 44;
+const SWEEP = 270;
+const arcLength = (2 * Math.PI * R * SWEEP) / 360;
+const filled = (arcLength * overall) / 100;
 
 function band(value: number): { fill: string; text: string } {
   // El relleno usa el color de dato; el número, su par legible. Son valores
@@ -37,7 +64,7 @@ function band(value: number): { fill: string; text: string } {
 }
 ---
 
-<figure class={`border border-line bg-panel ${className}`}>
+<figure class={`border border-line bg-panel ${className}`} data-score-panel>
   <figcaption class="flex items-center justify-between gap-4 border-b border-line px-6 py-5">
     <p class="text-sm font-semibold tracking-[0.02em] text-ink">{title}</p>
     <span
@@ -47,7 +74,53 @@ function band(value: number): { fill: string; text: string } {
     </span>
   </figcaption>
 
-  <ul class="divide-y divide-line" data-score-panel>
+  <div class="flex items-center gap-6 border-b border-line px-6 py-6">
+    <svg
+      viewBox="0 0 112 112"
+      width="112"
+      height="112"
+      role="img"
+      aria-label={`${overallLabel}: ${overall} ${outOfLabel}`}
+      class="shrink-0"
+    >
+      <!-- El grupo se gira 135° para que el hueco del arco quede centrado
+           abajo. Dos circunferencias con el mismo radio: la de fondo pinta el
+           arco completo (270°) en color de línea; la de valor pinta la
+           fracción en rojo de marca, con `stroke-dasharray` = longitud
+           rellena + hueco mayor que la circunferencia. Es relleno, no texto,
+           así que el rojo de marca aquí sí vale. -->
+      <g transform="rotate(135 56 56)">
+        <circle
+          cx="56" cy="56" r={R} fill="none"
+          stroke="var(--color-line)" stroke-width="7" stroke-linecap="round"
+          stroke-dasharray={`${arcLength} ${2 * Math.PI * R}`}
+        />
+        <circle
+          cx="56" cy="56" r={R} fill="none"
+          stroke="var(--color-brand)" stroke-width="7" stroke-linecap="round"
+          stroke-dasharray={`${filled} ${2 * Math.PI * R}`}
+          data-score-arc={filled}
+          class="transition-[stroke-dasharray] duration-1000 ease-out"
+        />
+      </g>
+      <text
+        x="56" y="58" text-anchor="middle" dominant-baseline="middle"
+        class="tnum font-display"
+        font-size="30" font-weight="700" fill="var(--color-ink)"
+        data-score-value={overall}
+      >{overall}</text>
+      <text
+        x="56" y="80" text-anchor="middle"
+        font-size="10" font-weight="500" fill="var(--color-muted)" letter-spacing="0.06em"
+      >/100</text>
+    </svg>
+    <div>
+      <p class="text-sm font-semibold text-ink">{overallLabel}</p>
+      <p class="mt-1 text-xs text-muted">{overallNote}</p>
+    </div>
+  </div>
+
+  <ul class="divide-y divide-line">
     {
       items.map((item) => {
         const colors = band(item.value);
@@ -103,6 +176,17 @@ function band(value: number): { fill: string; text: string } {
         // Un fotograma de margen para que el navegador registre el 0% antes de
         // volver al valor final; sin él, la transición no se dispara.
         requestAnimationFrame(() => requestAnimationFrame(() => (bar.style.width = target)));
+      });
+
+      // El arco arranca en cero y crece hasta su longitud: la transición de
+      // `stroke-dasharray` está declarada en el marcado.
+      panel.querySelectorAll<SVGCircleElement>('[data-score-arc]').forEach((arc) => {
+        const target = arc.getAttribute('stroke-dasharray') ?? '';
+        const gap = target.split(' ')[1] ?? '0';
+        arc.setAttribute('stroke-dasharray', `0 ${gap}`);
+        requestAnimationFrame(() =>
+          requestAnimationFrame(() => arc.setAttribute('stroke-dasharray', target)),
+        );
       });
 
       values.forEach((node) => {

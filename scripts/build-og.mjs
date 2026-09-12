@@ -18,7 +18,7 @@
  * El glifo de la F es el mismo de `src/components/Wordmark.astro` y de
  * `public/favicon.svg`. Cambiarlo es cambiar los tres.
  */
-import { readFileSync } from 'node:fs';
+import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import sharp from 'sharp';
@@ -96,3 +96,58 @@ const icon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width=
 const iconOut = join(root, 'public/apple-touch-icon.png');
 await sharp(Buffer.from(icon)).resize(180, 180).png({ compressionLevel: 9 }).toFile(iconOut);
 console.log('escrito', iconOut);
+
+// ---------------------------------------------------------------------------
+// Favicons de respaldo: PNG a 16/32/48/180 y un favicon.ico.
+//
+// El SVG adaptativo (`public/favicon.svg`) es el que usan Chrome, Edge y
+// Firefox. Safari no pinta SVG en la pestaña y los navegadores antiguos piden
+// `/favicon.ico` a ciegas: sin estos archivos, en esos casos sale el icono
+// gris genérico y parece que la empresa no tiene logotipo.
+//
+// Se rasteriza la variante OSCURA (tinta con la F en taupe): tiene borde
+// definido sobre una barra de pestañas clara y el glifo se lee sobre una
+// oscura, así que es la que funciona en los dos casos sin media query.
+//
+// El .ico se arma a mano: es un contenedor trivial (cabecera + directorio +
+// los PNG tal cual) y sharp no lo escribe. Formato ICO con PNG incrustado es
+// válido desde Windows Vista y lo entienden todos los navegadores.
+// ---------------------------------------------------------------------------
+const darkIcon = (size) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="${size}" height="${size}">
+  <rect width="64" height="64" rx="12" fill="${INK}"/>
+  ${glyph(TAUPE, 0, 0, 1)}
+</svg>`;
+
+const pngAt = (size) =>
+  sharp(Buffer.from(darkIcon(size))).resize(size, size).png({ compressionLevel: 9 }).toBuffer();
+
+for (const size of [16, 32, 48]) {
+  const file = join(root, `public/favicon-${size}.png`);
+  await sharp(await pngAt(size)).toFile(file);
+  console.log('escrito', file);
+}
+
+const icoSizes = [16, 32, 48];
+const pngs = await Promise.all(icoSizes.map(pngAt));
+const header = Buffer.alloc(6);
+header.writeUInt16LE(0, 0); // reservado
+header.writeUInt16LE(1, 2); // tipo: 1 = icono
+header.writeUInt16LE(pngs.length, 4);
+const dir = Buffer.alloc(16 * pngs.length);
+let offset = 6 + dir.length;
+pngs.forEach((png, i) => {
+  const size = icoSizes[i];
+  const e = i * 16;
+  dir.writeUInt8(size === 256 ? 0 : size, e); // ancho (0 = 256)
+  dir.writeUInt8(size === 256 ? 0 : size, e + 1); // alto
+  dir.writeUInt8(0, e + 2); // paleta
+  dir.writeUInt8(0, e + 3); // reservado
+  dir.writeUInt16LE(1, e + 4); // planos
+  dir.writeUInt16LE(32, e + 6); // bits por píxel
+  dir.writeUInt32LE(png.length, e + 8);
+  dir.writeUInt32LE(offset, e + 12);
+  offset += png.length;
+});
+const icoOut = join(root, 'public/favicon.ico');
+writeFileSync(icoOut, Buffer.concat([header, dir, ...pngs]));
+console.log('escrito', icoOut);

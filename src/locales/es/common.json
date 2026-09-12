@@ -47,6 +47,8 @@
     "illustrative": "Datos ilustrativos",
     "availableToday": "Disponible hoy",
     "inDevelopment": "En desarrollo",
-    "scoreOutOf": "de 100"
+    "scoreOutOf": "de 100",
+    "overallScore": "Calificación global",
+    "overallNote": "Promedio de las cinco dimensiones"
   }
 }

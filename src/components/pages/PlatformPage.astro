@@ -19,6 +19,7 @@
 import Base from '../../layouts/Base.astro';
 import Section from '../Section.astro';
 import SectionHeader from '../SectionHeader.astro';
+import PageHero from '../PageHero.astro';
 import PlatformArchitecture from '../PlatformArchitecture.astro';
 import RuledRows from '../RuledRows.astro';
 import Icon from '../Icon.astro';
@@ -35,11 +36,12 @@ const p = t(lang, 'platform');
 ---
 
 <Base lang={lang} pageKey="platform" title={p.meta.title} description={p.meta.description}>
-  <Section tone="ground" size="compact" class="border-b border-line">
-    <div class="reveal">
-      <SectionHeader as="h1" eyebrow={p.hero.eyebrow} title={p.hero.title} intro={p.hero.subtitle} />
-    </div>
-  </Section>
+  <PageHero
+    photoKey="platform"
+    eyebrow={p.hero.eyebrow}
+    title={p.hero.title}
+    intro={p.hero.subtitle}
+  />
 
   <!-- ========================================================= ARQUITECTURA -->
   <Section tone="panel">

@@ -78,6 +78,14 @@
   --color-brand-text: #8b1e1e; /* manual · 8.45:1 sobre fondo, AAA */
   --color-taupe: #c7c3a9;      /* manual · solo relleno sobre claro */
 
+  /* El rojo del manual sobre tinta da 2.94:1: no llega ni al 3:1 de texto
+     grande. Los mockups de la marca ponen igualmente el remate del titular en
+     rojo sobre los heros oscuros, así que este es el mismo rojo levantado lo
+     justo para pasar: 3.77:1 sobre tinta y 3.11:1 sobre una foto oscurecida.
+     SOLO para texto grande (≥ 24 px negrita) sobre superficies oscuras. Para
+     texto pequeño sobre tinta sigue valiendo únicamente el taupe. */
+  --color-brand-on-ink: #d63b3b;
+
   /* líneas — derivadas, con la temperatura del taupe */
   --color-line: #e4e2dc;
   --color-line-strong: #9c9990;  /* 3.1:1 sobre fondo: bordes de control (1.4.11) */

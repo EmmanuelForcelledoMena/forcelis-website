@@ -44,7 +44,9 @@ const englishHome = new URL(path('home', 'en'), site).href;
       ))
     }
     <link rel="alternate" hreflang="x-default" href={englishHome} />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.svg?v=3" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png?v=3" type="image/png" sizes="32x32" />
+    <link rel="shortcut icon" href="/favicon.ico?v=3" />
     <meta http-equiv="refresh" content={`0; url=${path('home', 'en')}`} />
     <script is:inline>
       (function () {

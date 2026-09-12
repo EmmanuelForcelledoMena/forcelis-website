@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Section from '../Section.astro';
-import SectionHeader from '../SectionHeader.astro';
+import PageHero from '../PageHero.astro';
 import ContactForm from '../ContactForm.astro';
 import Icon from '../Icon.astro';
 import type { Lang } from '../../i18n/routes';
@@ -20,11 +20,12 @@ const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL ?? '';
 ---
 
 <Base lang={lang} pageKey="contact" title={k.meta.title} description={k.meta.description}>
-  <Section tone="ground" size="compact" class="border-b border-line">
-    <div class="reveal">
-      <SectionHeader as="h1" eyebrow={k.hero.eyebrow} title={k.hero.title} intro={k.hero.subtitle} />
-    </div>
-  </Section>
+  <PageHero
+    photoKey="contact"
+    eyebrow={k.hero.eyebrow}
+    title={k.hero.title}
+    intro={k.hero.subtitle}
+  />
 
   <Section tone="ground">
     <div class="grid gap-14 lg:grid-cols-[1fr_minmax(0,20rem)] lg:gap-20">
