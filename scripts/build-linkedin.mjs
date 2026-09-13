@@ -1,17 +1,19 @@
 /**
  * Genera los recursos de la página de empresa en LinkedIn, en `brand/linkedin/`:
  *
- *   logo-dark-800.png / logo-dark-300.png    logotipo: tinta con la F en taupe
- *   logo-light-800.png / logo-light-300.png  logotipo: taupe con la F en tinta
- *   cover-2256x382.png                       portada de página (1128×191 a 2×)
- *   cover-1128x191.png                       portada de página, tamaño nominal
- *   banner-personal-1584x396.png             portada de perfil personal
+ *   logo-dark-400.png              logotipo: tinta con la F en taupe
+ *   logo-light-400.png             logotipo: taupe con la F en tinta
+ *   cover-1512x256.png             portada de página, medida exacta de LinkedIn
+ *   cover-3024x512.png             la misma a 2×, por si el cargador la acepta
+ *   banner-personal-1584x396.png   portada de perfil personal
  *
  *     npm run build:linkedin
  *
- * Medidas de LinkedIn: logotipo 300×300 (cuadrado; se sube a 800 para que no
- * pixele en pantallas densas), portada de página 1128×191, portada de perfil
- * 1584×396. Se acepta PNG hasta 8 MB.
+ * Medidas de LinkedIn (help/linkedin/answer/a563309, septiembre 2026): logotipo
+ * 400×400 (mínimo 268), portada de página 1512×256 —mínimo y recomendado son la
+ * misma cifra—, portada de perfil 1584×396. PNG o JPEG, máximo 3 MB. La portada
+ * cambió de 1128×191 a 1512×256 en algún momento de 2025; la proporción es la
+ * misma (5.9:1), así que la composición no se toca, solo el lienzo.
  *
  * Dos restricciones de composición que no son de marca sino de LinkedIn:
  *
@@ -77,15 +79,13 @@ const write = async (svg, file, resize) => {
 
 // ---------------------------------------------------------------- logotipos
 // Cuadrado a sangre, sin esquinas redondeadas: LinkedIn recorta el suyo.
-const tile = (bg, fg) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="800" height="800">
+const tile = (bg, fg) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="400" height="400">
   <rect width="64" height="64" fill="${bg}"/>
   ${glyph(fg, 0, 0, 1)}
 </svg>`;
 
-await write(tile(INK, TAUPE), 'logo-dark-800.png');
-await write(tile(INK, TAUPE), 'logo-dark-300.png', { w: 300, h: 300 });
-await write(tile(TAUPE, INK), 'logo-light-800.png');
-await write(tile(TAUPE, INK), 'logo-light-300.png', { w: 300, h: 300 });
+await write(tile(INK, TAUPE), 'logo-dark-400.png');
+await write(tile(TAUPE, INK), 'logo-light-400.png');
 
 // ------------------------------------------------------------------ portadas
 // Una sola composición parametrizada por el lienzo: antetítulo en taupe,
@@ -103,8 +103,9 @@ const cover = ({ w, h, tag, head, domain, mark }) => `<svg xmlns="http://www.w3.
   </g>
 </svg>`;
 
-// Portada de página: se dibuja en el espacio nominal 1128×191 y se rasteriza
-// a 2× para pantallas densas. LinkedIn la reduce él mismo.
+// Portada de página: se dibuja en el espacio 1128×191 de la especificación
+// anterior (misma proporción que la actual) y se rasteriza a la medida exacta
+// de hoy, 1512×256, más una copia a 2× para pantallas densas.
 const page = cover({
   w: 1128,
   h: 191,
@@ -113,8 +114,8 @@ const page = cover({
   domain: { y: 172, size: 11 },
   mark: { x: 940, y: -4, s: 3.4 },
 });
-await write(page, 'cover-2256x382.png', { w: 2256, h: 382 });
-await write(page, 'cover-1128x191.png');
+await write(page, 'cover-1512x256.png', { w: 1512, h: 256 });
+await write(page, 'cover-3024x512.png', { w: 3024, h: 512 });
 
 // Portada de perfil personal (1584×396). La foto de perfil ocupa la esquina
 // inferior izquierda; la composición centrada la esquiva igual.

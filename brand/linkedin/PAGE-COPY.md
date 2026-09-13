@@ -4,7 +4,7 @@ Everything LinkedIn asks for, in the order its forms ask for it. Copy each
 field as-is. Items in `[brackets]` are facts only the company can supply — do
 not guess them; LinkedIn shows them publicly.
 
-Images are in this folder. Regenerate with `npm run build:linkedin`.
+Images are in this folder, at the sizes LinkedIn specifies as of September 2026 (logo 400×400, page cover 1512×256, PNG under 3 MB). Regenerate with `npm run build:linkedin`.
 
 ---
 
@@ -19,7 +19,7 @@ Images are in this folder. Regenerate with `npm run build:linkedin`.
 | Industry | `Business Consulting and Services` |
 | Company size | `2-10 employees` — pick the bracket that is true today; it can be changed later |
 | Company type | `Privately Held` |
-| Logo | `logo-dark-800.png` (see note below) |
+| Logo | `logo-dark-400.png` (see note below) |
 | Tagline (max 120 chars) | `Financial & Operational Intelligence. We turn business data into better decisions.` |
 
 **Industry:** LinkedIn's list is fixed. *Business Consulting and Services*
@@ -31,7 +31,7 @@ an accounting firm.
 **Logo:** upload the dark tile (ink with the taupe F). It has a defined edge on
 LinkedIn's white feed and still reads in dark mode; it is also what people see
 in the browser tab and on the link-preview card, so the three match. The light
-tile (`logo-light-800.png`) is the manual's "app icon (light)" and is there if
+tile (`logo-light-400.png`) is the manual's "app icon (light)" and is there if
 you ever want it — on LinkedIn's white background it looks washed out.
 
 ---
@@ -40,7 +40,7 @@ you ever want it — on LinkedIn's white background it looks washed out.
 
 | Field | Value |
 |---|---|
-| Cover image | `cover-2256x382.png` (2× of LinkedIn's 1128×191). If the uploader rejects it, use `cover-1128x191.png`. |
+| Cover image | `cover-1512x256.png` — LinkedIn's exact size (minimum and recommended are the same). `cover-3024x512.png` is the same at 2× if the uploader accepts larger files. |
 | Custom button | `Contact us` → `https://forcelis-group.com/en/contact/` |
 
 Alternative button: `Learn more` → `https://forcelis-group.com/en/`. *Contact
