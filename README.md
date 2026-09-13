@@ -259,7 +259,9 @@ tomada a sabiendas; la paleta anterior, heredada del producto, estaba en 7:1.
 `src/components/Wordmark.astro` (lockup de la barra y el pie),
 `public/favicon.svg` y `scripts/build-og.mjs` (tarjeta social e icono de iOS,
 regenerados con `npm run build:og`). El glifo está redibujado en vectores a
-partir del manual; los ajustes respecto a él son de espaciado.
+partir del manual; los ajustes respecto a él son de espaciado. Los recursos
+para la página de LinkedIn (logotipo, portada, textos de cada campo) están en
+`brand/linkedin/` y se regeneran con `npm run build:linkedin`.
 
 **Nada depende de JavaScript para poder leerse.** La animación de entrada se
 apaga sola si el observador del navegador no responde en dos segundos; el panel
