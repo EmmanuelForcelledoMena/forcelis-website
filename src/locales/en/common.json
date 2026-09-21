@@ -15,7 +15,7 @@
     "contact": "Contact",
     "openMenu": "Open navigation menu",
     "closeMenu": "Close navigation menu",
-    "cta": "Request a Diagnostic",
+    "cta": "Business Diagnostic",
     "mainLabel": "Main navigation"
   },
   "lang": {
@@ -27,14 +27,15 @@
     "diagnostic": "Request a Business Diagnostic",
     "diagnosticShort": "Request a Diagnostic",
     "contact": "Contact Forcelis",
-    "explore": "Explore Forcelis",
+    "howItWorks": "See how Forcelis works",
     "learnMore": "Learn more",
     "seePlatform": "See the platform",
-    "seeSolutions": "Explore solutions"
+    "seeSolutions": "Explore solutions",
+    "seeIndustries": "See industries"
   },
   "footer": {
     "tagline": "Financial & Operational Intelligence",
-    "blurb": "Forcelis turns financial and operational data into intelligence businesses can act on.",
+    "blurb": "Forcelis connects financial and operational data to identify risks, inefficiencies and opportunities — then turns them into measurable action.",
     "navHeading": "Navigation",
     "companyHeading": "Company",
     "legalHeading": "Legal",
@@ -48,7 +49,20 @@
     "availableToday": "Available today",
     "inDevelopment": "In development",
     "scoreOutOf": "out of 100",
-    "overallScore": "Overall score",
-    "overallNote": "Average of the five dimensions"
-  }
+    "overallScore": "Overall performance",
+    "overallNote": "Average of the five dimensions",
+    "required": "Required",
+    "optional": "Optional",
+    "details": "Details",
+    "whyItMatters": "Why it matters",
+    "recommendedAction": "Recommended action",
+    "priority": "Priority"
+  },
+  "scores": [
+    { "label": "Financial health", "value": 74, "note": "Margin structure, cost base and result quality" },
+    { "label": "Cash flow", "value": 58, "note": "Real collection, aging and cash conversion" },
+    { "label": "Commercial performance", "value": 81, "note": "Customer mix, concentration, retention and pricing" },
+    { "label": "Operational efficiency", "value": 63, "note": "Inventory, purchasing and supplier structure" },
+    { "label": "Accounting data quality", "value": 84, "note": "Completeness and consistency of the underlying records" }
+  ]
 }

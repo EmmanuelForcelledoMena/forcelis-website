@@ -1,9 +1,16 @@
 ---
+/**
+ * Contacto. Rediseño v3.
+ *
+ * Responde «¿qué pasa si escribo?». El formulario bajó de once campos a
+ * cinco (ver `ContactForm.astro`), y la columna de al lado dice, en tres
+ * pasos numerados, exactamente qué ocurre después — y en tres líneas qué NO
+ * se pide: credenciales fiscales, credenciales bancarias, compromiso.
+ */
 import Base from '../../layouts/Base.astro';
 import Section from '../Section.astro';
 import PageHero from '../PageHero.astro';
 import ContactForm from '../ContactForm.astro';
-import Icon from '../Icon.astro';
 import type { Lang } from '../../i18n/routes';
 import { t } from '../../i18n';
 
@@ -28,7 +35,7 @@ const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL ?? '';
   />
 
   <Section tone="ground">
-    <div class="grid gap-14 lg:grid-cols-[1fr_minmax(0,20rem)] lg:gap-20">
+    <div class="grid gap-14 lg:grid-cols-[1fr_minmax(0,22rem)] lg:gap-20">
       <div class="reveal">
         <ContactForm lang={lang} />
       </div>
@@ -38,29 +45,38 @@ const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL ?? '';
           <h2 class="text-[0.6875rem] font-semibold tracking-[0.16em] text-muted uppercase">
             {k.next.title}
           </h2>
-          <ol class="mt-6 space-y-6">
+          <ol class="mt-6 divide-y divide-line border-t border-b border-line">
             {
-              k.next.steps.map((step) => (
-                <li>
-                  <span class="tnum text-xs font-semibold text-brand-text">{step.num}</span>
-                  <h3 class="mt-2 text-base font-semibold text-ink">{step.title}</h3>
-                  <p class="mt-1.5 text-sm leading-relaxed text-muted">{step.body}</p>
+              k.next.steps.map((step, i) => (
+                <li class="grid grid-cols-[2.5rem_1fr] gap-x-2 py-5">
+                  <span class="tnum text-2xl leading-none font-semibold tracking-[-0.03em] text-brand-text">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <div>
+                    <h3 class="text-base font-semibold text-ink">{step.title}</h3>
+                    <p class="mt-1.5 text-sm leading-relaxed text-muted">{step.body}</p>
+                  </div>
                 </li>
               ))
             }
           </ol>
         </div>
 
-        <div class="border-t border-line pt-10">
+        <div>
           <h2 class="text-[0.6875rem] font-semibold tracking-[0.16em] text-muted uppercase">
             {k.assurance.title}
           </h2>
           <ul class="mt-6 space-y-5">
             {
               k.assurance.items.map((item) => (
-                <li class="flex items-start gap-3 text-sm leading-relaxed text-muted">
-                  <Icon name="check" class="mt-0.5 h-4 w-4 shrink-0 text-brand-text" />
-                  {item}
+                <li class="flex items-start gap-3">
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true" class="mt-0.5 shrink-0">
+                    <path d="M3.5 9.5 7.5 13.5 14.5 5" stroke="var(--color-brand)" stroke-width="1.8" stroke-linecap="square" />
+                  </svg>
+                  <div>
+                    <p class="text-sm font-semibold tracking-[0.08em] text-ink uppercase">{item.title}</p>
+                    <p class="mt-1 text-sm leading-relaxed text-muted">{item.body}</p>
+                  </div>
                 </li>
               ))
             }

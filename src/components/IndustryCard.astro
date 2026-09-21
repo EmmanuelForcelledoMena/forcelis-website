@@ -1,0 +1,86 @@
+---
+/**
+ * Tarjeta de sector: título, tres etiquetas y el detalle plegado.
+ *
+ * Lo que se ve de entrada es lo que responde a la pregunta de la página —«¿es
+ * esto para mi negocio?»—: el nombre del sector y las tres cosas que ahí se
+ * miran. Lo que se mira en detalle (la frase y los cuatro puntos del texto
+ * original) sigue ahí, dentro de un `<details>`.
+ *
+ * La fotografía es opcional y se resuelve en la build desde
+ * `src/assets/industries/<key>.*`. Sin archivo, la tarjeta es texto: no se
+ * pinta un bloque oscuro vacío por sector.
+ */
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import Tag from './Tag.astro';
+import Disclosure from './Disclosure.astro';
+
+interface Props {
+  photoKey: string;
+  title: string;
+  tags: readonly string[];
+  lead: string;
+  points: readonly string[];
+  detailLabel: string;
+  eager?: boolean;
+  class?: string;
+}
+
+const { photoKey, title, tags, lead, points, detailLabel, eager = false, class: className = '' }: Props =
+  Astro.props;
+
+const photos = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/assets/industries/*.{jpg,jpeg,png,webp}',
+  { eager: true },
+);
+const photo = Object.entries(photos).find(([file]) =>
+  new RegExp(`/${photoKey}\\.(jpe?g|png|webp)$`).test(file),
+)?.[1].default;
+---
+
+<article class:list={['flex flex-col bg-panel', className]}>
+  {
+    photo && (
+      <div class="relative aspect-[16/9] overflow-hidden bg-ink">
+        <Image
+          src={photo}
+          alt=""
+          width={960}
+          height={540}
+          format="webp"
+          loading={eager ? 'eager' : 'lazy'}
+          class="h-full w-full object-cover"
+        />
+      </div>
+    )
+  }
+
+  <div class="flex flex-1 flex-col px-6 pt-6 lg:px-7 lg:pt-7">
+    <h3 class="text-xl leading-tight font-semibold tracking-[-0.02em] text-ink lg:text-2xl">{title}</h3>
+    <ul class="mt-4 flex flex-wrap gap-2">
+      {
+        tags.map((tag) => (
+          <li>
+            <Tag>{tag}</Tag>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="mt-5 flex-1 text-[0.9375rem] leading-relaxed text-muted">{lead}</p>
+  </div>
+
+  <div class="mt-4 px-6 lg:px-7">
+    <Disclosure summary={detailLabel}>
+      <ul>
+        {
+          points.map((point) => (
+            <li class="border-t border-line py-3 text-[0.9375rem] text-ink first:border-t-0 first:pt-0">
+              {point}
+            </li>
+          ))
+        }
+      </ul>
+    </Disclosure>
+  </div>
+</article>

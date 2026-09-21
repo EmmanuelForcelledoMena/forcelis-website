@@ -1,0 +1,83 @@
+---
+/**
+ * Vista previa del informe: una página de documento con su índice.
+ *
+ * La página del diagnóstico promete un documento; esta pieza lo enseña en vez
+ * de describirlo. Es una hoja en proporción A4 con cabecera, la calificación
+ * global y las seis secciones numeradas, con líneas grises que sugieren texto
+ * sin fingir un informe real. Todo es HTML: las seis secciones son las mismas
+ * cadenas que la lista de al lado, así que no pueden desincronizarse.
+ *
+ * Es decorativa para el árbol de accesibilidad —la lista de entregables ya
+ * lleva el contenido— salvo el resumen en `alt`.
+ */
+interface Props {
+  docLabel: string;
+  docMeta: string;
+  scoreLabel: string;
+  score: number;
+  sections: readonly string[];
+  alt: string;
+  class?: string;
+}
+
+const { docLabel, docMeta, scoreLabel, score, sections, alt, class: className = '' }: Props =
+  Astro.props;
+
+// Anchos distintos para las líneas grises: seis barras iguales se leen como
+// una tabla, no como texto.
+const widths = ['72%', '58%', '64%', '48%', '66%', '54%'];
+---
+
+<div class={className}>
+  <p class="sr-only">{alt}</p>
+  <div
+    aria-hidden="true"
+    class="relative mx-auto aspect-[210/297] w-full max-w-[26rem] border border-line bg-panel shadow-[0_1px_2px_rgba(32,30,29,0.05),0_24px_48px_-24px_rgba(32,30,29,0.28)]"
+  >
+    <!-- La sombra es la única del sitio junto con la del tablero: esto tiene
+         que leerse como un objeto —un documento— y no como un recuadro. -->
+    <div class="flex items-center justify-between border-b border-line px-7 py-5">
+      <span class="flex items-center gap-2.5">
+        <svg width="22" height="22" viewBox="0 0 64 64" aria-hidden="true">
+          <path fill="#1a1a1a" d="M26 8H62L58 20H22Z"></path>
+          <path fill="#1a1a1a" d="M20 26H47L43 38H16Z"></path>
+          <path fill="#1a1a1a" d="M14 44H32L28 56H10Z"></path>
+        </svg>
+        <span class="font-display text-[0.6875rem] font-bold tracking-[0.2em] text-ink">FORCELIS</span>
+      </span>
+      <span class="text-[0.625rem] tracking-[0.1em] text-muted uppercase">{docMeta}</span>
+    </div>
+
+    <div class="px-7 pt-7">
+      <p class="text-[0.625rem] font-semibold tracking-[0.16em] text-brand-text uppercase">{docLabel}</p>
+      <div class="mt-4 flex items-end justify-between gap-4 border-b-2 border-ink pb-5">
+        <span class="block h-2 w-[62%] bg-panel-alt"></span>
+        <span class="shrink-0 text-right">
+          <span class="tnum font-display block text-3xl leading-none font-bold text-ink">
+            {score}<span class="text-sm font-medium text-muted">/100</span>
+          </span>
+          <span class="mt-1 block text-[0.625rem] tracking-[0.08em] text-muted uppercase">{scoreLabel}</span>
+        </span>
+      </div>
+
+      <ol class="mt-2 divide-y divide-line">
+        {
+          sections.map((section, i) => (
+            <li class="flex items-center gap-4 py-3">
+              <span class="tnum w-6 shrink-0 text-[0.625rem] font-semibold text-brand-text">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <span class="flex flex-1 flex-col gap-1.5">
+                <span class="text-[0.8125rem] leading-none font-semibold text-ink">{section}</span>
+                <span class="block h-1.5 bg-panel-alt" style={`width:${widths[i % widths.length]}`} />
+              </span>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+
+    <span aria-hidden="true" class="absolute right-7 bottom-6 h-[2px] w-10 bg-brand"></span>
+  </div>
+</div>

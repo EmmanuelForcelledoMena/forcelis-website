@@ -1,0 +1,72 @@
+---
+/**
+ * Lista de comprobación: un check por línea, con etiqueta opcional al final
+ * («Required», «Optional»).
+ *
+ * Sirve para tres preguntas del sitio que se responden mejor con marcas que
+ * con prosa: qué hace falta enviar para el diagnóstico, si Forcelis es para tu
+ * empresa, y qué NO se pide al escribir. El check es relleno rojo de marca
+ * sobre claro y taupe sobre tinta — regla 2 de los tokens.
+ */
+import Tag from './Tag.astro';
+
+interface Props {
+  items: readonly { text: string; tag?: string; tagTone?: 'ink' | 'brand' }[];
+  tone?: 'ink' | 'light';
+  /** `grid` reparte en dos columnas a partir de `sm`. */
+  layout?: 'list' | 'grid';
+  size?: 'default' | 'large';
+  class?: string;
+}
+
+const {
+  items,
+  tone = 'ink',
+  layout = 'list',
+  size = 'default',
+  class: className = '',
+}: Props = Astro.props;
+
+const light = tone === 'light';
+const check = light ? 'var(--color-on-ink-muted)' : 'var(--color-brand)';
+const text = light ? 'text-on-ink' : 'text-ink';
+const rule = light ? 'divide-line-ink border-line-ink' : 'divide-line border-line';
+const textSize = size === 'large' ? 'text-base lg:text-lg' : 'text-[0.9375rem]';
+---
+
+<ul
+  class:list={[
+    layout === 'grid'
+      ? 'grid gap-x-10 sm:grid-cols-2'
+      : ['divide-y border-t border-b', rule],
+    className,
+  ]}
+>
+  {
+    items.map((item) => (
+      <li
+        class:list={[
+          'flex items-start gap-4 py-3.5',
+          layout === 'grid' && ['border-b', light ? 'border-line-ink' : 'border-line'],
+        ]}
+      >
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 18 18"
+          fill="none"
+          aria-hidden="true"
+          class="mt-0.5 shrink-0"
+        >
+          <path d="M3.5 9.5 7.5 13.5 14.5 5" stroke={check} stroke-width="1.8" stroke-linecap="square" />
+        </svg>
+        <span class:list={['flex flex-1 flex-wrap items-baseline justify-between gap-x-4 gap-y-1', textSize, text]}>
+          <span>{item.text}</span>
+          {item.tag && (
+            <Tag tone={item.tagTone ?? (light ? 'light' : 'ink')}>{item.tag}</Tag>
+          )}
+        </span>
+      </li>
+    ))
+  }
+</ul>

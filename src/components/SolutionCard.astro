@@ -1,35 +1,80 @@
 ---
+/**
+ * Tarjeta de área: un título y tres etiquetas.
+ *
+ * El rediseño agrupa las seis capacidades en cuatro áreas de resultado
+ * (financiera, operaciones, cadena de suministro, contabilidad) y dos de
+ * apoyo (asesoría, servicios gestionados). La tarjeta de área no explica: dice
+ * QUÉ mejora Forcelis en tres palabras y enlaza al detalle. La misma pieza
+ * sirve en la portada y como índice de Soluciones, para que las dos páginas
+ * hablen el mismo idioma visual.
+ *
+ * `support` es la variante menor: sin icono, con una frase en lugar de
+ * etiquetas, y a media altura. Es lo que hace que asesoría y servicios
+ * gestionados se lean como lo que son —lo que viene después del análisis— y
+ * no como dos áreas más.
+ */
 import Icon from './Icon.astro';
+import Tag from './Tag.astro';
 
 interface Props {
-  icon: 'financial' | 'operational' | 'supply' | 'accounting' | 'advisory' | 'managed';
   title: string;
-  body: string;
   href: string;
-  moreLabel: string;
+  tags?: readonly string[];
+  body?: string;
+  icon?: 'financial' | 'operational' | 'supply' | 'accounting' | 'advisory' | 'managed';
+  variant?: 'primary' | 'support';
+  class?: string;
 }
 
-const { icon, title, body, href, moreLabel } = Astro.props;
+const { title, href, tags = [], body, icon, variant = 'primary', class: className = '' }: Props =
+  Astro.props;
+
+const primary = variant === 'primary';
 ---
 
 <a
   href={href}
-  class="group relative flex flex-col border border-line bg-panel p-7 transition-colors duration-200 hover:border-line-strong lg:p-8"
+  class:list={[
+    'group relative flex flex-col bg-panel transition-colors duration-200 hover:bg-panel-alt',
+    primary ? 'p-7 lg:p-8' : 'p-6',
+    className,
+  ]}
 >
-  <!-- El filo superior es el único sitio donde aparece el color de marca en la
-       tarjeta: relleno, nunca fondo con texto encima. -->
+  <!-- El filo superior es el único color de marca de la tarjeta: relleno,
+       nunca fondo con texto encima. -->
   <span
     aria-hidden="true"
     class="absolute inset-x-0 top-0 h-[2px] origin-left scale-x-0 bg-brand transition-transform duration-300 group-hover:scale-x-100"
   ></span>
 
-  <Icon name={icon} class="h-6 w-6 text-brand-text" />
-  <h3 class="mt-6 text-lg font-semibold text-ink">{title}</h3>
-  <p class="mt-3 flex-1 text-[0.9375rem] leading-relaxed text-muted">{body}</p>
-  <span
-    class="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-ink"
+  {primary && icon && <Icon name={icon} class="h-6 w-6 text-brand-text" />}
+
+  <h3
+    class:list={[
+      'font-semibold tracking-[0.12em] text-ink uppercase',
+      primary ? 'mt-6 text-sm lg:text-[0.9375rem]' : 'text-xs',
+    ]}
   >
-    {moreLabel}
+    {title}
+  </h3>
+
+  {
+    primary ? (
+      <ul class="mt-4 flex flex-1 flex-wrap content-start gap-2">
+        {tags.map((tag) => (
+          <li>
+            <Tag>{tag}</Tag>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p class="mt-3 flex-1 text-[0.9375rem] leading-relaxed text-muted">{body}</p>
+    )
+  }
+
+  <span class="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-ink">
+    <slot name="more" />
     <svg
       width="14"
       height="14"

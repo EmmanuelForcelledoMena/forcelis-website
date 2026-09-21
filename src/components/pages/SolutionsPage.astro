@@ -1,27 +1,31 @@
 ---
 /**
- * Soluciones. Rediseño v2.
+ * Soluciones. Rediseño v3.
  *
- * Cambios respecto a la versión anterior:
+ * Responde «¿qué problemas de negocio resuelve Forcelis?». Dos niveles:
  *
- *  1. El índice de la página deja de ser una fila de «chips» y pasa a ser la
- *     retícula 3×2 numerada del diseño aprobado. Cumple la misma función de
- *     salto a ancla, pero además dice de qué trata cada capacidad — antes había
- *     que llegar hasta el bloque para saberlo. El numeral fantasma detrás del
- *     título es el elemento que identifica a esta página.
- *  2. Los seis bloques de detalle se conservan íntegros (columna fija +
- *     servicios), porque ahí la información sí es un catálogo comparable.
- *  3. El recuadro de resultado (`border-l-2 bg-panel-alt`) pasa a una línea
- *     reglada con antetítulo: era la única caja rellena de la página y competía
- *     con la lista de servicios que tiene encima.
+ *   1. ÍNDICE — cuatro áreas de resultado (tres etiquetas cada una) y dos de
+ *      apoyo. Son las mismas tarjetas de la portada, para que quien llega
+ *      desde allí reconozca dónde está.
+ *   2. DETALLE — seis bloques plegados, uno por área, con la misma anatomía:
+ *      qué es · qué analizamos · qué recibes · resultado. Antes los seis
+ *      bloques iban desplegados uno tras otro y la página medía cinco
+ *      pantallas; ahora se abre el que interesa. El ancla `#financial` abre
+ *      su bloque al aterrizar (script en `Base.astro`).
+ *
+ * El texto de cada bloque es el de la versión anterior: `lead` pasa a «qué
+ * es», `services` a «qué analizamos» y `outcome` a «qué recibes»; «resultado»
+ * es una frase nueva que resume ese último párrafo.
  */
 import Base from '../../layouts/Base.astro';
 import Section from '../Section.astro';
+import SectionHeader from '../SectionHeader.astro';
 import PageHero from '../PageHero.astro';
-import Icon from '../Icon.astro';
+import SolutionCard from '../SolutionCard.astro';
+import Disclosure from '../Disclosure.astro';
 import Cta from '../Cta.astro';
 import type { Lang } from '../../i18n/routes';
-import { t } from '../../i18n';
+import { t, common } from '../../i18n';
 
 interface Props {
   lang: Lang;
@@ -29,6 +33,7 @@ interface Props {
 
 const { lang } = Astro.props;
 const s = t(lang, 'solutions');
+const c = common(lang);
 
 const iconFor: Record<
   string,
@@ -51,94 +56,108 @@ const iconFor: Record<
     intro={s.hero.subtitle}
   />
 
-  <!-- ============================================================ ÍNDICE 3×2 -->
+  <!-- ================================================================ ÍNDICE -->
   <Section tone="ground" size="compact">
-    <ul class="grid gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
-      {
-        s.groups.map((group, i) => (
-          <li class="reveal" data-reveal-delay={(i % 3) * 70}>
-            <a
-              href={`#${group.key}`}
-              class="group relative flex h-full flex-col overflow-hidden bg-panel p-7 transition-colors duration-200 hover:bg-panel-alt lg:p-8"
-            >
-              {/* El numeral fantasma es decoración: `aria-hidden`, y detrás del
-                  título con `-z-0` para que nunca reduzca el contraste del
-                  texto que lo cruza. */}
-              <span
-                aria-hidden="true"
-                class="tnum pointer-events-none absolute -top-3 right-2 -z-0 text-[5.5rem] leading-none font-semibold tracking-[-0.05em] text-panel-alt select-none"
+    <!-- Encabezado solo para el árbol: las tarjetas llevan h3 y sin esto la
+         página saltaría del h1 del hero al h3. -->
+    <h2 class="sr-only">{s.hero.eyebrow}</h2>
+    <div class="flex flex-col gap-px border border-line bg-line">
+      <div class="grid gap-px sm:grid-cols-2 lg:grid-cols-4">
+        {
+          s.areas.map((area, i) => (
+            <div class="reveal flex" data-reveal-delay={(i % 4) * 70}>
+              <SolutionCard
+                icon={iconFor[area.key]}
+                title={area.title}
+                tags={area.tags}
+                href={`#${area.key}`}
+                class="flex-1"
               >
-                {group.num}
-              </span>
-
-              <div class="relative flex items-center gap-3">
-                <Icon name={iconFor[group.key]} class="h-6 w-6 text-brand-text" />
-              </div>
-              <h2 class="relative mt-5 text-xl leading-snug font-semibold tracking-[-0.02em] text-ink">
-                {group.title}
-              </h2>
-              <p class="relative mt-3 flex-1 text-[0.9375rem] leading-relaxed text-muted">
-                {group.lead}
-              </p>
-              <span
-                aria-hidden="true"
-                class="relative mt-6 block h-[2px] w-8 origin-left bg-brand transition-transform duration-300 group-hover:scale-x-[2]"
-              ></span>
-            </a>
-          </li>
-        ))
-      }
-    </ul>
+                <Fragment slot="more">{c.labels.details}</Fragment>
+              </SolutionCard>
+            </div>
+          ))
+        }
+      </div>
+      <div class="grid gap-px sm:grid-cols-2">
+        {
+          s.support.map((item, i) => (
+            <div class="reveal flex" data-reveal-delay={i * 70}>
+              <SolutionCard
+                variant="support"
+                title={item.title}
+                body={item.body}
+                href={`#${item.key}`}
+                class="flex-1"
+              >
+                <Fragment slot="more">{c.labels.details}</Fragment>
+              </SolutionCard>
+            </div>
+          ))
+        }
+      </div>
+    </div>
   </Section>
 
-  {
-    s.groups.map((group, i) => (
-      <Section tone={i % 2 === 0 ? 'panel' : 'ground'} id={group.key} size="compact">
-        <div class="grid gap-10 lg:grid-cols-[minmax(0,22rem)_1fr] lg:gap-16">
-          <!-- La columna del título se queda fija mientras pasa la lista de
-               servicios. Son seis bloques con la misma forma uno tras otro, y
-               sin esto la página se lee como un muro; con esto, cada bloque
-               tiene un ancla visual que dice de qué se está hablando. `top`
-               deja libre el alto de la barra pegajosa. -->
-          <div class="reveal lg:sticky lg:top-28 lg:self-start">
-            <div class="flex items-center gap-4">
-              <Icon name={iconFor[group.key]} class="h-7 w-7 text-brand-text" />
-              <span class="tnum text-sm font-semibold text-muted">{group.num}</span>
+  <!-- =============================================================== DETALLE -->
+  <Section tone="panel">
+    <div class="reveal">
+      <SectionHeader title={s.detailTitle} intro={s.detailIntro} />
+    </div>
+
+    <div class="reveal mt-12 border-b border-line" data-reveal-delay="80">
+      {
+        s.groups.map((group) => (
+          <Disclosure id={group.key} summary={group.title} meta={group.num}>
+            <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)_minmax(0,1fr)] lg:gap-12">
+              <div>
+                <p class="text-[0.625rem] font-semibold tracking-[0.14em] text-muted uppercase">
+                  {s.labels.whatItIs}
+                </p>
+                <p class="mt-3 text-lg leading-snug font-semibold tracking-[-0.01em] text-ink">
+                  {group.whatItIs}
+                </p>
+                <div class="mt-8 border-l-2 border-brand pl-4">
+                  <p class="text-[0.625rem] font-semibold tracking-[0.14em] text-brand-text uppercase">
+                    {s.labels.outcome}
+                  </p>
+                  <p class="mt-2 text-[0.9375rem] leading-relaxed text-ink">{group.outcome}</p>
+                </div>
+              </div>
+
+              <div>
+                <p class="text-[0.625rem] font-semibold tracking-[0.14em] text-muted uppercase">
+                  {s.labels.analyze}
+                </p>
+                <ul class="mt-3 grid gap-x-6 sm:grid-cols-2 lg:grid-cols-1">
+                  {group.analyze.map((service) => (
+                    <li class="flex items-start gap-3 border-b border-line py-2.5 text-[0.9375rem] text-ink">
+                      <span aria-hidden="true" class="mt-2.5 block h-1 w-1 shrink-0 bg-brand" />
+                      {service}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div>
+                <p class="text-[0.625rem] font-semibold tracking-[0.14em] text-muted uppercase">
+                  {s.labels.youGet}
+                </p>
+                <p class="mt-3 text-[0.9375rem] leading-relaxed text-muted">{group.youGet}</p>
+              </div>
             </div>
-            <h2 class="mt-6 text-[1.75rem] leading-tight font-semibold tracking-[-0.02em] text-ink lg:text-[2rem]">
-              {group.title}
-            </h2>
-            <p class="mt-4 text-base leading-relaxed text-muted">{group.lead}</p>
-          </div>
+          </Disclosure>
+        ))
+      }
+    </div>
+  </Section>
 
-          <div class="reveal" data-reveal-delay="90">
-            <ul class="grid gap-x-8 gap-y-0 sm:grid-cols-2">
-              {group.services.map((service) => (
-                <li class="flex items-start gap-3 border-b border-line py-3.5 text-[0.9375rem] text-ink">
-                  <span aria-hidden="true" class="mt-2 block h-1 w-1 shrink-0 bg-brand" />
-                  {service}
-                </li>
-              ))}
-            </ul>
-
-            <div class="mt-10 border-t-2 border-ink pt-5">
-              <p class="text-[0.625rem] font-semibold tracking-[0.14em] text-muted uppercase">
-                {s.outcomeLabel}
-              </p>
-              <p class="mt-2.5 max-w-[68ch] text-base leading-relaxed text-ink">{group.outcome}</p>
-            </div>
-          </div>
-        </div>
-      </Section>
-    ))
-  }
-
-  <Section tone="ink" size="compact">
-    <div class="reveal max-w-3xl">
-      <h2 class="text-2xl font-semibold tracking-[-0.02em] text-on-ink lg:text-3xl">
+  <Section tone="ground" size="compact">
+    <div class="reveal grid gap-8 lg:grid-cols-[minmax(0,22rem)_1fr] lg:gap-16">
+      <h2 class="text-2xl font-semibold tracking-[-0.02em] text-ink lg:text-3xl">
         {s.note.title}
       </h2>
-      <p class="mt-5 text-lg leading-relaxed text-on-ink-muted">{s.note.body}</p>
+      <p class="max-w-3xl text-lg leading-relaxed text-muted">{s.note.body}</p>
     </div>
   </Section>
 

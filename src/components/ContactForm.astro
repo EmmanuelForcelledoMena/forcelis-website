@@ -23,6 +23,13 @@
  *    a alguien que escribió mal su propio correo, así que se detectan los
  *    dominios mal escritos más comunes y se ofrece la corrección — como
  *    sugerencia, no como bloqueo: `gmial.com` podría existir algún día.
+ *
+ * Rediseño v3: cinco campos, no once. Teléfono, industria, tamaño y la lista de
+ * intereses se fueron: ninguno lo exige el proveedor del formulario, y un
+ * primer contacto que parece un formulario de compras no se llena. Lo que
+ * hace falta para responder es quién eres, de qué empresa y qué quieres
+ * entender; el sitio web es opcional y ahorra la primera pregunta de la
+ * llamada.
  */
 import type { Lang } from '../i18n/routes';
 import { path } from '../i18n/routes';
@@ -78,18 +85,6 @@ const inputClass =
     <legend class="sr-only">{f.legend}</legend>
 
     <div class="grid gap-6 sm:grid-cols-2">
-      <FormField id="company" label={f.company}>
-        <input
-          class={inputClass}
-          type="text"
-          id="company"
-          name="company"
-          required
-          maxlength="120"
-          autocomplete="organization"
-        />
-      </FormField>
-
       <FormField id="name" label={f.name}>
         <input
           class={inputClass}
@@ -113,56 +108,35 @@ const inputClass =
           autocomplete="email"
           inputmode="email"
           spellcheck="false"
-          placeholder="nombre@empresa.com"
+          placeholder={lang === 'es' ? 'nombre@empresa.com' : 'name@company.com'}
         />
       </FormField>
 
-      <FormField id="phone" label={f.phone} labelExtra={f.phoneOptional}>
+      <FormField id="company" label={f.company}>
         <input
           class={inputClass}
-          type="tel"
-          id="phone"
-          name="phone"
-          maxlength="30"
-          autocomplete="tel"
-          inputmode="tel"
+          type="text"
+          id="company"
+          name="company"
+          required
+          maxlength="120"
+          autocomplete="organization"
         />
       </FormField>
 
-      <FormField id="industry" label={f.industry}>
-        <select class={`${inputClass} select-control`} id="industry" name="industry" required>
-          <option value="">{f.industryPlaceholder}</option>
-          {f.industries.map((industry) => <option value={industry}>{industry}</option>)}
-        </select>
+      <FormField id="website" label={f.website} labelExtra={f.websiteOptional}>
+        <input
+          class={inputClass}
+          type="text"
+          id="website"
+          name="website"
+          maxlength="200"
+          autocomplete="url"
+          inputmode="url"
+          spellcheck="false"
+          placeholder={lang === 'es' ? 'empresa.com' : 'company.com'}
+        />
       </FormField>
-
-      <FormField id="size" label={f.size}>
-        <select class={`${inputClass} select-control`} id="size" name="size" required>
-          <option value="">{f.sizePlaceholder}</option>
-          {f.sizes.map((size) => <option value={size}>{size}</option>)}
-        </select>
-      </FormField>
-    </div>
-  </fieldset>
-
-  <fieldset>
-    <legend class="block text-sm font-medium text-ink">{f.help}</legend>
-    <p class="mt-1.5 text-xs text-muted">{f.helpHint}</p>
-    <div class="mt-4 grid gap-3 sm:grid-cols-2">
-      {
-        f.helpOptions.map((option, i) => (
-          <label class="flex cursor-pointer items-center gap-3 border border-line bg-panel px-4 py-3 text-[0.9375rem] text-ink transition-colors hover:border-line-strong">
-            <input
-              type="checkbox"
-              name="interests"
-              value={option}
-              id={`interest-${i}`}
-              class="h-4 w-4 shrink-0 accent-[var(--color-brand)]"
-            />
-            {option}
-          </label>
-        ))
-      }
     </div>
   </fieldset>
 
@@ -229,8 +203,8 @@ const inputClass =
        llegan llenos, el envío se descarta en el navegador sin gastar el
        formulario del proveedor. Son dos porque cada proveedor espera el suyo. -->
   <div class="hidden" aria-hidden="true">
-    <label for="website">Website</label>
-    <input type="text" id="website" name="_gotcha" tabindex="-1" autocomplete="off" />
+    <label for="hp-url">Leave this field empty</label>
+    <input type="text" id="hp-url" name="_gotcha" tabindex="-1" autocomplete="off" />
     <label for="botcheck">Bot check</label>
     <input type="checkbox" id="botcheck" name="botcheck" tabindex="-1" autocomplete="off" />
   </div>
@@ -263,7 +237,7 @@ const inputClass =
     // llega a ejecutarse, el navegador sigue validando por su cuenta.
     form.setAttribute('novalidate', '');
 
-    // Marca de tiempo de carga. Ningún humano llena siete campos en tres
+    // Marca de tiempo de carga. Ningún humano llena cinco campos en tres
     // segundos; un robot sí.
     const loadedAt = Date.now();
 
@@ -284,13 +258,16 @@ const inputClass =
       'live.co': 'live.com', 'prodigy.net.mx.com': 'prodigy.net.mx',
     };
 
+    // Un sitio web es un dominio con o sin protocolo y con o sin ruta. No se
+    // exige `https://`: la gente escribe `empresa.com` y eso es lo que hay
+    // que aceptar.
+    const URL_LIKE = /^(https?:\/\/)?(www\.)?[a-z0-9](?:[a-z0-9-]*[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)*\.[a-z]{2,}(?:[\/?#]\S*)?$/i;
+
     const RULES = [
-      { id: 'company', required: true, min: 2 },
       { id: 'name', required: true, min: 2 },
       { id: 'email', required: true, email: true },
-      { id: 'phone', phone: true },
-      { id: 'industry', required: true, select: true },
-      { id: 'size', required: true, select: true },
+      { id: 'company', required: true, min: 2 },
+      { id: 'website', url: true },
       { id: 'message', required: true, min: 12 },
       { id: 'consent', required: true, checkbox: true },
     ];
@@ -309,16 +286,10 @@ const inputClass =
       // campo con tres espacios dentro.
       const value = el.value.trim();
 
-      if (!value) {
-        if (!rule.required) return '';
-        return rule.select ? messages.select : messages.required;
-      }
+      if (!value) return rule.required ? messages.required : '';
       if (rule.min && value.length < rule.min) return fill(messages.minLength, { min: rule.min });
       if (rule.email && !EMAIL.test(value)) return messages.email;
-      if (rule.phone) {
-        const digits = value.replace(/\D/g, '').length;
-        if (!/^[+()\d\s.\-]+$/.test(value) || digits < 7 || digits > 15) return messages.phone;
-      }
+      if (rule.url && !URL_LIKE.test(value)) return messages.url;
       return '';
     };
 

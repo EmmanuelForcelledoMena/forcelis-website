@@ -1,0 +1,81 @@
+---
+/**
+ * Bloque desplegable: `<details>` con el resumen como fila reglada.
+ *
+ * Es la pieza que baja la densidad del sitio sin borrar nada: el detalle
+ * técnico, la lista larga o el párrafo de fondo siguen en la página, pero por
+ * debajo del pliegue de lectura. Es `<details>` nativo y no un acordeón de
+ * JavaScript por tres razones: funciona sin script, el navegador ya lo abre
+ * con Enter/Espacio y lo anuncia como expandido, y Ctrl+F encuentra el texto
+ * cerrado y lo abre (Chrome, Firefox).
+ *
+ * `id` sirve de ancla: un enlace `#financial` abre el bloque al aterrizar,
+ * gracias al script de `Base.astro`.
+ */
+interface Props {
+  summary: string;
+  /** Texto pequeño a la derecha del resumen, como «9 capacidades». */
+  meta?: string;
+  id?: string;
+  open?: boolean;
+  tone?: 'ink' | 'light';
+  /** `row` es la fila reglada por defecto; `card` la enmarca como tarjeta. */
+  variant?: 'row' | 'card';
+  class?: string;
+}
+
+const {
+  summary,
+  meta,
+  id,
+  open = false,
+  tone = 'ink',
+  variant = 'row',
+  class: className = '',
+}: Props = Astro.props;
+
+const light = tone === 'light';
+const text = light ? 'text-on-ink' : 'text-ink';
+const metaColor = light ? 'text-on-ink-muted' : 'text-muted';
+const frame =
+  variant === 'card'
+    ? light
+      ? 'border border-line-ink bg-ink-soft px-6'
+      : 'border border-line bg-panel px-6'
+    : light
+      ? 'border-t border-line-ink'
+      : 'border-t border-line';
+---
+
+<details
+  id={id}
+  open={open}
+  class:list={['group scroll-mt-[6.5rem]', frame, className]}
+  data-disclosure
+>
+  <summary
+    class:list={[
+      'flex cursor-pointer list-none items-center justify-between gap-6 py-5 text-left',
+      '[&::-webkit-details-marker]:hidden',
+      text,
+    ]}
+  >
+    <span class="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+      <span class="text-base font-semibold lg:text-lg">{summary}</span>
+      {meta && <span class:list={['text-xs', metaColor]}>{meta}</span>}
+    </span>
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      aria-hidden="true"
+      class="shrink-0 transition-transform duration-200 group-open:rotate-180"
+    >
+      <path d="M3 6l5 5 5-5" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"></path>
+    </svg>
+  </summary>
+  <div class="pb-8">
+    <slot />
+  </div>
+</details>

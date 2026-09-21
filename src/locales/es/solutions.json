@@ -1,20 +1,38 @@
 {
   "meta": {
-    "title": "Soluciones — Inteligencia Financiera, Operativa y de Cadena de Suministro",
-    "description": "Inteligencia financiera, analítica operativa, análisis de cadena de suministro, inteligencia contable, consultoría y servicios administrados. Seis capacidades que trabajan como un solo proyecto."
+    "title": "Soluciones — Qué mejora Forcelis",
+    "description": "Desempeño financiero, operaciones, cadena de suministro y contabilidad, analizados juntos. La consultoría convierte los hallazgos en decisiones; los servicios administrados mantienen el proceso funcionando."
   },
   "hero": {
     "eyebrow": "Soluciones",
-    "title": "Seis capacidades. Un solo proyecto.",
-    "subtitle": "Las empresas rara vez tienen un problema puramente financiero o puramente operativo. Forcelis está organizada para que el análisis cruce esas fronteras igual que las cruza el negocio."
+    "title": "El desempeño del negocio no es de un solo departamento.",
+    "subtitle": "El desempeño financiero, el operativo y el de la cadena de suministro están conectados. Nuestro análisis está diseñado para leerlos juntos."
+  },
+  "areas": [
+    { "key": "financial", "title": "Desempeño financiero", "tags": ["Margen", "Efectivo", "Rentabilidad"] },
+    { "key": "operational", "title": "Desempeño operativo", "tags": ["Eficiencia", "Procesos", "Costo"] },
+    { "key": "supply", "title": "Cadena de suministro", "tags": ["Inventario", "Compras", "Proveedores"] },
+    { "key": "accounting", "title": "Contabilidad y control", "tags": ["Datos", "Reporteo", "Exactitud"] }
+  ],
+  "support": [
+    { "key": "advisory", "title": "Consultoría", "body": "Convertir los hallazgos en decisiones." },
+    { "key": "managed", "title": "Servicios administrados", "body": "Mantener el proceso funcionando." }
+  ],
+  "detailTitle": "Cada área en detalle",
+  "detailIntro": "Toda solución sigue las mismas cuatro preguntas. Abre la que necesites.",
+  "labels": {
+    "whatItIs": "Qué es",
+    "analyze": "Qué analizamos",
+    "youGet": "Qué recibes",
+    "outcome": "Resultado"
   },
   "groups": [
     {
       "key": "financial",
       "num": "01",
-      "title": "Inteligencia Financiera",
-      "lead": "Entender qué gana la empresa, qué gasta, dónde se crea el margen y dónde se pierde.",
-      "services": [
+      "title": "Desempeño financiero",
+      "whatItIs": "Entender qué gana la empresa, qué gasta, dónde se crea el margen y dónde se pierde.",
+      "analyze": [
         "Análisis de desempeño financiero",
         "Reporteo gerencial",
         "Diseño y definición de KPI",
@@ -24,14 +42,15 @@
         "Pronóstico",
         "Análisis de costos"
       ],
-      "outcome": "Una vista gerencial del negocio que concilia con contabilidad, se actualiza cada periodo y responde lo que el estado de resultados no dice: qué parte del negocio está pagando por el resto."
+      "youGet": "Una vista gerencial del negocio que concilia con contabilidad, se actualiza cada periodo y responde lo que el estado de resultados no dice: qué parte del negocio está pagando por el resto.",
+      "outcome": "Sabes qué productos, clientes y periodos ganan dinero — y cuáles lo consumen."
     },
     {
       "key": "operational",
       "num": "02",
-      "title": "Inteligencia Operativa",
-      "lead": "Encontrar dónde cuesta dinero el proceso, no el precio — y cuantificarlo antes de pedirle a nadie que cambie su forma de trabajar.",
-      "services": [
+      "title": "Desempeño operativo",
+      "whatItIs": "Encontrar dónde cuesta dinero el proceso, no el precio — y cuantificarlo antes de pedirle a nadie que cambie su forma de trabajar.",
+      "analyze": [
         "Análisis y mapeo de procesos",
         "Revisión de eficiencia operativa",
         "Optimización de costos",
@@ -39,14 +58,15 @@
         "Diseño de mejora de procesos",
         "Definición de KPI operativos"
       ],
-      "outcome": "Una lista priorizada de ineficiencias con un costo anual estimado en cada una, para poder comparar el esfuerzo de resolverlas contra el retorno."
+      "youGet": "Una lista priorizada de ineficiencias con un costo anual estimado en cada una, para poder comparar el esfuerzo de resolverlas contra el retorno.",
+      "outcome": "Las mejoras se eligen por lo que devuelven, no por quién insiste más."
     },
     {
       "key": "supply",
       "num": "03",
-      "title": "Inteligencia de Cadena de Suministro",
-      "lead": "Inventario, compras, proveedores y condiciones de pago son un solo sistema. Analizados por separado, todos se ven bien.",
-      "services": [
+      "title": "Cadena de suministro",
+      "whatItIs": "Inventario, compras, proveedores y condiciones de pago son un solo sistema. Analizados por separado, todos se ven bien.",
+      "analyze": [
         "Analítica de inventario y rotación",
         "Concentración y dependencia de proveedores",
         "Analítica de compras y precios de adquisición",
@@ -54,14 +74,15 @@
         "Análisis de capital de trabajo",
         "Análisis de demanda y consumo"
       ],
-      "outcome": "Una lectura clara de cuánto efectivo está deteniendo la operación, dónde está detenido y qué proveedor o línea de producto explica el cambio."
+      "youGet": "Una lectura clara de cuánto efectivo está deteniendo la operación, dónde está detenido y qué proveedor o línea de producto explica el cambio.",
+      "outcome": "Menos efectivo detenido en existencias y condiciones de compra, sin asfixiar la operación."
     },
     {
       "key": "accounting",
       "num": "04",
-      "title": "Inteligencia Contable",
-      "lead": "La información contable es el registro más completo que tienen casi todas las empresas. También es el menos usado para decidir.",
-      "services": [
+      "title": "Contabilidad y control",
+      "whatItIs": "La información contable es el registro más completo que tienen casi todas las empresas. También es el menos usado para decidir.",
+      "analyze": [
         "Análisis de CFDI (emitidos y recibidos)",
         "Análisis contable y de transacciones",
         "Clasificación gerencial de conceptos",
@@ -69,14 +90,15 @@
         "Revisión de calidad y consistencia de datos",
         "Reporteo gerencial recurrente"
       ],
-      "outcome": "Información fiscal y contable expresada en términos gerenciales — comparable entre periodos, con los problemas de calidad de datos a la vista en lugar de disueltos en los totales."
+      "youGet": "Información fiscal y contable expresada en términos gerenciales — comparable entre periodos, con los problemas de calidad de datos a la vista en lugar de disueltos en los totales.",
+      "outcome": "Números en los que la dirección puede confiar, porque las brechas están a la vista y no enterradas."
     },
     {
       "key": "advisory",
       "num": "05",
-      "title": "Consultoría de Negocio",
-      "lead": "Un análisis que se detiene en el hallazgo es trabajo a medias. Aquí es donde se convierte en decisión.",
-      "services": [
+      "title": "Consultoría",
+      "whatItIs": "Un análisis que se detiene en el hallazgo es trabajo a medias. Aquí es donde se convierte en decisión.",
+      "analyze": [
         "Diagnósticos empresariales",
         "Mejora de procesos",
         "Gestión del desempeño",
@@ -84,14 +106,15 @@
         "Iniciativas de transformación",
         "Acompañamiento y seguimiento directivo"
       ],
-      "outcome": "Un conjunto corto de decisiones con responsable, secuencia y forma de medirse — revisadas contra los números del periodo siguiente en lugar de archivadas."
+      "youGet": "Un conjunto corto de decisiones con responsable, secuencia y forma de medirse — revisadas contra los números del periodo siguiente en lugar de archivadas.",
+      "outcome": "Los hallazgos se vuelven decisiones que se toman, se siguen y se miden."
     },
     {
       "key": "managed",
       "num": "06",
-      "title": "Servicios Administrados",
-      "lead": "Una vez que un proceso está definido y funcionando, alguien tiene que operarlo cada mes. Ese alguien puede ser Forcelis.",
-      "services": [
+      "title": "Servicios administrados",
+      "whatItIs": "Una vez que un proceso está definido y funcionando, alguien tiene que operarlo cada mes. Ese alguien puede ser Forcelis.",
+      "analyze": [
         "Reporteo financiero y gerencial mensual",
         "Soporte a operaciones financieras",
         "Apoyo en cuentas por cobrar y por pagar",
@@ -99,18 +122,18 @@
         "Análisis de datos recurrente",
         "Monitoreo de KPI y desempeño"
       ],
-      "outcome": "Una capacidad administrada con alcance, metodología y reporteo definidos — bajo el control de calidad de Forcelis y con un solo responsable frente al cliente."
+      "youGet": "Una capacidad administrada con alcance, metodología y reporteo definidos — bajo el control de calidad de Forcelis y con un solo responsable frente al cliente.",
+      "outcome": "El proceso sigue funcionando cada mes sin armar el equipo internamente."
     }
   ],
   "note": {
     "title": "Cómo suelen empezar los proyectos",
-    "body": "La mayoría de los clientes empieza con un Diagnóstico Empresarial. Establece la línea base, muestra cuáles de estas capacidades necesita realmente la empresa y hace que el alcance de lo que siga sea cuestión de evidencia y no de una propuesta."
+    "body": "La mayoría de los clientes empieza con un Diagnóstico Empresarial. Establece la línea base, muestra cuáles de estas áreas necesita realmente la empresa y hace que el alcance de lo que siga sea cuestión de evidencia y no de una propuesta."
   },
   "closing": {
     "title": "¿No estás seguro de cuál necesitas?",
     "body": "Para eso es el diagnóstico. Parte de tus datos, no de un catálogo de servicios.",
     "primary": "Solicitar un Diagnóstico Empresarial",
     "secondary": "Contactar a Forcelis"
-  },
-  "outcomeLabel": "Resultado"
+  }
 }

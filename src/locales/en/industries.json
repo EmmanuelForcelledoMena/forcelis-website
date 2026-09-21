@@ -1,58 +1,68 @@
 {
   "meta": {
-    "title": "Industries — Built for businesses where performance matters",
-    "description": "Forcelis works with manufacturing, distribution, B2B commerce, import and export, professional services and growing businesses in Mexico."
+    "title": "Industries — Is Forcelis for your business?",
+    "description": "Forcelis works with manufacturing, distribution, B2B commerce, import and export, professional services and growing businesses — companies with 10 to 100 employees, established revenue, and inventory or credit terms."
   },
   "hero": {
     "eyebrow": "Industries",
-    "title": "Built for businesses where performance matters.",
+    "title": "Different industries. Connected business problems.",
     "subtitle": "The method is the same everywhere. What changes is which numbers explain the business — and that is set per sector, in configuration, not rewritten per client."
   },
-  "profile": {
-    "title": "Who this is for",
-    "intro": "Forcelis is built for companies with enough operating complexity that the answer is not visible from the income statement alone.",
+  "fit": {
+    "title": "Is Forcelis for your business?",
+    "intro": "It is built for companies with enough operating complexity that the answer is not visible from the income statement alone.",
     "items": [
-      { "label": "Size", "value": "10–100 employees, typically" },
-      { "label": "Stage", "value": "Growing, with real revenue" },
-      { "label": "Model", "value": "B2B, with inventory or credit terms" },
-      { "label": "Market", "value": "Mexico, with international ambition" }
+      "10–100 employees, typically",
+      "Established revenue",
+      "B2B",
+      "Inventory or credit terms",
+      "Growing business",
+      "Mexico, with international ambition"
     ],
     "note": "These companies rarely have a full internal bench — CFO, controller, financial analyst, data analyst, supply chain analyst. Forcelis works as an extension of the team they do have."
   },
+  "sectorsTitle": "Where the analysis is strongest today",
+  "detailLabel": "What we look at",
   "sectors": [
     {
       "key": "manufacturing",
       "title": "Manufacturing",
+      "tags": ["Margin", "Inventory", "Suppliers"],
       "lead": "Where margin is made or lost between the purchase order and the finished unit.",
       "points": ["Input cost inflation by material", "Product-level margin structure", "Inventory and work-in-process", "Supplier concentration and dependency"]
     },
     {
       "key": "distribution",
       "title": "Distribution",
+      "tags": ["Inventory", "Pricing", "Cash"],
       "lead": "High volume, thin margin, and a working capital cycle that punishes small errors.",
       "points": ["Inventory turnover by item", "Price dispersion across customers", "Purchase price versus list price", "Days sales outstanding by segment"]
     },
     {
       "key": "b2b",
       "title": "B2B Commerce",
+      "tags": ["Customers", "Margin", "Collections"],
       "lead": "A handful of accounts usually explain most of the revenue — and most of the risk.",
       "points": ["Customer concentration and churn", "Profitability by customer", "Discount and pricing consistency", "Collection behavior by account"]
     },
     {
       "key": "trade",
       "title": "Import & Export",
+      "tags": ["Landed cost", "Currency", "Lead time"],
       "lead": "Currency, landed cost and lead time turn a simple margin question into a timing question.",
       "points": ["Landed cost by shipment", "Currency exposure in the cost base", "Inventory held against lead time", "Supplier terms versus customer terms"]
     },
     {
       "key": "services",
       "title": "Professional Services",
+      "tags": ["Utilization", "Margin", "Collections"],
       "lead": "No inventory to hide behind. Profitability is a question of mix, utilization and collection.",
       "points": ["Profitability by client and engagement", "Revenue concentration", "Collection cycle and aging", "Cost base structure"]
     },
     {
       "key": "growth",
       "title": "Growing Businesses",
+      "tags": ["Growth", "Costs", "Customers"],
       "lead": "Growth hides problems. It also creates them faster than the reporting can describe them.",
       "points": ["Whether growth is funded by margin or by receivables", "Cost base scaling versus revenue", "Customer mix as it shifts", "Which lines are actually contributing"]
     }

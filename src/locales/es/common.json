@@ -13,9 +13,9 @@
     "industries": "Industrias",
     "about": "Nosotros",
     "contact": "Contacto",
-    "openMenu": "Abrir menú de navegación",
-    "closeMenu": "Cerrar menú de navegación",
-    "cta": "Solicitar un diagnóstico",
+    "openMenu": "Abrir el menú de navegación",
+    "closeMenu": "Cerrar el menú de navegación",
+    "cta": "Diagnóstico Empresarial",
     "mainLabel": "Navegación principal"
   },
   "lang": {
@@ -27,28 +27,42 @@
     "diagnostic": "Solicitar un Diagnóstico Empresarial",
     "diagnosticShort": "Solicitar un diagnóstico",
     "contact": "Contactar a Forcelis",
-    "explore": "Conoce Forcelis",
-    "learnMore": "Ver más",
-    "seePlatform": "Conoce la plataforma",
-    "seeSolutions": "Ver soluciones"
+    "howItWorks": "Ver cómo trabaja Forcelis",
+    "learnMore": "Saber más",
+    "seePlatform": "Ver la plataforma",
+    "seeSolutions": "Explorar soluciones",
+    "seeIndustries": "Ver industrias"
   },
   "footer": {
     "tagline": "Inteligencia Financiera y Operativa",
-    "blurb": "Forcelis convierte la información financiera y operativa en inteligencia sobre la que se puede actuar.",
+    "blurb": "Forcelis conecta la información financiera y operativa de tu empresa para identificar riesgos, ineficiencias y oportunidades — y convertirlos en acciones medibles.",
     "navHeading": "Navegación",
-    "companyHeading": "Compañía",
+    "companyHeading": "Empresa",
     "legalHeading": "Legal",
-    "privacy": "Aviso de Privacidad",
-    "terms": "Términos de Servicio",
+    "privacy": "Aviso de privacidad",
+    "terms": "Términos de servicio",
     "copyright": "© 2026 Forcelis Group. Todos los derechos reservados.",
-    "disclaimer": "Forcelis presta servicios de análisis y asesoría. No dictamina fiscalmente ni sustituye la opinión de un contador o auditor titulado."
+    "disclaimer": "Forcelis presta servicios de análisis y consultoría. No emite opiniones fiscales ni sustituye el juicio de un contador público o auditor autorizado."
   },
   "labels": {
     "illustrative": "Datos ilustrativos",
     "availableToday": "Disponible hoy",
     "inDevelopment": "En desarrollo",
     "scoreOutOf": "de 100",
-    "overallScore": "Calificación global",
-    "overallNote": "Promedio de las cinco dimensiones"
-  }
+    "overallScore": "Desempeño global",
+    "overallNote": "Promedio de las cinco dimensiones",
+    "required": "Requerido",
+    "optional": "Opcional",
+    "details": "Detalle",
+    "whyItMatters": "Por qué importa",
+    "recommendedAction": "Acción recomendada",
+    "priority": "Prioridad"
+  },
+  "scores": [
+    { "label": "Salud financiera", "value": 74, "note": "Estructura de margen, base de costos y calidad del resultado" },
+    { "label": "Flujo de efectivo", "value": 58, "note": "Cobranza real, antigüedad y conversión a efectivo" },
+    { "label": "Desempeño comercial", "value": 81, "note": "Mezcla de clientes, concentración, retención y precios" },
+    { "label": "Eficiencia operativa", "value": 63, "note": "Inventario, compras y estructura de proveedores" },
+    { "label": "Calidad de datos contables", "value": 84, "note": "Completitud y consistencia de los registros de origen" }
+  ]
 }

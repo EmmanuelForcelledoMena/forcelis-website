@@ -1,198 +1,118 @@
 {
   "meta": {
     "title": "Diagnóstico Empresarial — Conoce la posición real de tu empresa",
-    "description": "El Diagnóstico Empresarial Forcelis analiza información financiera y operativa para identificar riesgos, ineficiencias y oportunidades, y entrega un Forcelis Business Score con acciones recomendadas."
+    "description": "El Diagnóstico Empresarial Forcelis es un análisis estructurado del desempeño financiero, comercial y operativo de tu empresa: un Business Score, los hallazgos que importan y un plan de acción en secuencia. Sin acceso a tus sistemas."
   },
   "hero": {
     "eyebrow": "Diagnóstico Empresarial Forcelis",
     "title": "Conoce la posición real de tu empresa.",
-    "subtitle": "Un análisis estructurado de tu información financiera y operativa que identifica riesgos, ineficiencias y oportunidades de mejora — y dice qué hacer con cada uno.",
+    "subtitle": "Un análisis estructurado de tu desempeño financiero, comercial y operativo — con los hallazgos que importan y qué hacer con cada uno.",
     "cta": "Solicitar un diagnóstico"
   },
   "score": {
-    "eyebrow": "El resultado",
     "title": "Forcelis Business Score",
-    "intro": "Cinco dimensiones, calificadas en la misma escala para poder compararlas entre sí y contra la misma empresa un periodo después. El score no es el entregable: es el índice hacia él.",
-    "items": [
-      {
-        "label": "Salud financiera",
-        "value": 74,
-        "note": "Estructura de margen, base de costos y calidad del resultado"
-      },
-      {
-        "label": "Flujo de efectivo",
-        "value": 58,
-        "note": "Cobranza real, antigüedad de saldos y conversión de efectivo"
-      },
-      {
-        "label": "Desempeño comercial",
-        "value": 81,
-        "note": "Mezcla de clientes, concentración, retención y precios"
-      },
-      {
-        "label": "Eficiencia operativa",
-        "value": 63,
-        "note": "Inventario, compras y estructura de proveedores"
-      },
-      {
-        "label": "Calidad de la información contable",
-        "value": 87,
-        "note": "Integridad y consistencia de los registros que lo sustentan"
-      }
-    ],
+    "intro": "Cinco dimensiones en una misma escala, para compararlas entre sí y contra la misma empresa un periodo después. El score es el índice del informe, no el informe.",
     "footnote": "Las calificaciones mostradas son ilustrativas y no describen a ninguna empresa real."
   },
   "analysis": {
     "title": "Qué se analiza",
-    "intro": "Cuatro áreas, leídas juntas. La mayoría de los hallazgos que importan viven en las costuras entre ellas.",
+    "meta": "25 indicadores en cuatro áreas",
     "areas": [
       {
         "title": "Salud financiera",
-        "items": [
-          "Ingresos",
-          "Gastos",
-          "Rentabilidad",
-          "Márgenes",
-          "Flujo de efectivo",
-          "Cuentas por cobrar",
-          "Cuentas por pagar"
-        ]
+        "items": ["Ingresos", "Gastos", "Rentabilidad", "Márgenes", "Flujo de efectivo", "Cuentas por cobrar", "Cuentas por pagar"]
       },
       {
         "title": "Desempeño comercial",
-        "items": [
-          "Concentración de clientes",
-          "Desempeño por producto",
-          "Tendencia de ingresos",
-          "Rentabilidad por cliente",
-          "Dispersión de precios",
-          "Fuga de clientes"
-        ]
+        "items": ["Concentración de clientes", "Desempeño por producto", "Tendencia de ingresos", "Rentabilidad por cliente", "Dispersión de precios", "Fuga de clientes"]
       },
       {
         "title": "Desempeño operativo",
-        "items": [
-          "Inventario",
-          "Proveedores",
-          "Compras",
-          "Costos de operación",
-          "Inflación de insumos",
-          "Eficiencia"
-        ]
+        "items": ["Inventario", "Proveedores", "Compras", "Costos de operación", "Inflación de insumos", "Eficiencia"]
       },
       {
-        "title": "Inteligencia contable",
-        "items": [
-          "CFDI",
-          "Ingresos",
-          "Egresos",
-          "Patrones de transacción",
-          "Inconsistencias de datos",
-          "Brechas de conciliación"
-        ]
+        "title": "Datos contables",
+        "items": ["CFDI", "Ingresos", "Egresos", "Patrones de transacción", "Inconsistencias de datos", "Brechas de conciliación"]
       }
     ]
   },
   "findings": {
     "eyebrow": "Hallazgos principales",
-    "title": "Hallazgos planteados como decisiones.",
-    "intro": "Cada hallazgo dice qué se observó, por qué importa y qué debería hacerse. Los ejemplos de abajo son ilustrativos.",
+    "title": "¿Qué vamos a encontrar?",
+    "intro": "Cada hallazgo dice qué se observó, por qué importa y qué hacer. Los cuatro de abajo son ejemplos ilustrativos del tipo de hallazgo que produce el diagnóstico.",
     "items": [
       {
         "severity": "high",
-        "severityLabel": "Alta",
-        "title": "La concentración de clientes representa un riesgo comercial relevante.",
+        "severityLabel": "Prioridad alta",
+        "title": "Las cuentas por cobrar crecieron más rápido que las ventas.",
+        "body": "La cobranza se está desacelerando frente a la venta. Esa diferencia la financia la empresa, y nunca aparece en el estado de resultados.",
+        "action": "Revisar condiciones de crédito por segmento de cliente y separar las disputas reales del atraso rutinario."
+      },
+      {
+        "severity": "high",
+        "severityLabel": "Prioridad alta",
+        "title": "La concentración de clientes es un riesgo comercial relevante.",
         "body": "Los cinco clientes principales explican una proporción de los ingresos en la que perder a uno cambia materialmente el año.",
         "action": "Cuantificar la exposición por cliente y fijar una meta de concentración para los siguientes cuatro trimestres."
       },
       {
-        "severity": "high",
-        "severityLabel": "Alta",
-        "title": "Las cuentas por cobrar crecieron más rápido que los ingresos.",
-        "body": "La cobranza se está desacelerando frente a la venta. Esa diferencia la financia la empresa, y no aparece en el estado de resultados.",
-        "action": "Revisar condiciones de crédito por segmento de cliente y separar las disputas reales del atraso rutinario."
-      },
-      {
         "severity": "medium",
-        "severityLabel": "Media",
-        "title": "La rotación de inventario está por debajo del desempeño esperado.",
+        "severityLabel": "Prioridad media",
+        "title": "La rotación de inventario está por debajo del objetivo.",
         "body": "Una parte del capital de trabajo está detenida en artículos que no se mueven al ritmo del resto del catálogo.",
-        "action": "Identificar los artículos de lento movimiento por valor y decidir, artículo por artículo, si se descuenta, se devuelve o se deja de reponer."
+        "action": "Identificar los artículos de lento movimiento por valor y decidir, uno por uno, si se descuenta, se devuelve o se deja de reponer."
       },
       {
         "severity": "medium",
-        "severityLabel": "Media",
+        "severityLabel": "Prioridad media",
         "title": "El margen bruto cayó en una categoría de producto clave.",
         "body": "La caída la explica el costo del insumo, no el precio. Se absorbió en lugar de trasladarse.",
         "action": "Comparar el movimiento del precio de compra contra el precio de lista por categoría y decidir dónde reprecificar."
       }
-    ],
-    "actionLabel": "Acción recomendada"
+    ]
   },
   "deliverables": {
     "eyebrow": "Qué recibes",
     "title": "Un documento con el que tu equipo directivo puede trabajar.",
+    "intro": "Seis secciones, en el orden en que las lee un equipo directivo. Escrito para quien no va a leer el resto.",
     "items": [
-      {
-        "title": "Resumen ejecutivo",
-        "body": "La situación en una página, escrita para quien no va a leer el resto."
-      },
-      {
-        "title": "Análisis financiero",
-        "body": "Resultados, márgenes, costos y efectivo, reexpresados en términos gerenciales y con histórico."
-      },
-      {
-        "title": "Análisis operativo",
-        "body": "Inventario, compras, proveedores y el capital de trabajo que consumen."
-      },
-      {
-        "title": "Riesgos principales",
-        "body": "Lo que puede dañar al negocio, ordenado por exposición y no por facilidad de resolverlo."
-      },
-      {
-        "title": "Oportunidades principales",
-        "body": "Dónde hay margen, efectivo o capacidad recuperable, con un tamaño estimado."
-      },
-      {
-        "title": "Acciones recomendadas",
-        "body": "Una lista corta y secuenciada, con responsable y forma de medir cada acción."
-      }
-    ]
+      { "title": "Resumen ejecutivo", "body": "La situación en una página." },
+      { "title": "Análisis financiero", "body": "Resultados, márgenes, costos y efectivo, reexpresados en términos gerenciales y con histórico." },
+      { "title": "Análisis operativo", "body": "Inventario, compras, proveedores y el capital de trabajo que consumen." },
+      { "title": "Riesgos principales", "body": "Lo que puede dañar al negocio, ordenado por exposición." },
+      { "title": "Oportunidades principales", "body": "Dónde hay margen, efectivo o capacidad recuperable, con un tamaño estimado." },
+      { "title": "Acciones recomendadas", "body": "Una lista corta y en secuencia, con responsable y forma de medir cada acción." }
+    ],
+    "report": {
+      "docLabel": "Diagnóstico Empresarial",
+      "docMeta": "Empresa · Periodo",
+      "scoreLabel": "Global",
+      "alt": "Vista previa del informe de diagnóstico: un documento con la calificación global en la portada y las seis secciones listadas como índice."
+    }
   },
   "process": {
     "eyebrow": "Cómo funciona",
-    "title": "Cuatro pasos, sin acceso a tus sistemas.",
+    "title": "Cuatro pasos.",
     "steps": [
-      {
-        "num": "01",
-        "title": "Conversación de alcance",
-        "body": "Una llamada corta para entender el negocio, el periodo a analizar y las preguntas que la dirección ya trae."
-      },
-      {
-        "num": "02",
-        "title": "Envías la información",
-        "body": "Archivos que descargas de tus propios sistemas. Forcelis nunca pide las credenciales de tu portal fiscal ni de tu banco."
-      },
-      {
-        "num": "03",
-        "title": "Análisis",
-        "body": "Ingesta, normalización y análisis en la plataforma, seguidos de la revisión de quienes van a presentarlo."
-      },
-      {
-        "num": "04",
-        "title": "Sesión de hallazgos",
-        "body": "Una sesión de trabajo sobre los resultados y las acciones recomendadas, con el documento completo entregado después."
-      }
+      { "title": "Alcance", "body": "Una llamada corta para entender el negocio, el periodo a analizar y las preguntas que la dirección ya trae." },
+      { "title": "Envías datos", "body": "Archivos que exportas de tus propios sistemas. No se conecta nada, no se instala nada." },
+      { "title": "Análisis", "body": "Ingesta, normalización y análisis en la plataforma, y después la revisión de quienes van a presentarlo." },
+      { "title": "Revisión", "body": "Una sesión de trabajo sobre los hallazgos y las acciones recomendadas. El documento completo llega después." }
+    ],
+    "assurances": [
+      "Sin acceso a tus sistemas",
+      "Los archivos los exportas tú",
+      "Nunca credenciales del SAT ni del banco"
     ]
   },
   "inputs": {
     "title": "Qué se necesita de tu lado",
-    "intro": "Lo mínimo es el primer punto. Todo lo demás mejora la profundidad del análisis, pero no hace falta para empezar.",
+    "intro": "El primer punto es el mínimo. El resto profundiza el análisis, pero no hace falta para empezar.",
     "items": [
-      "CFDI del periodo — emitidos y recibidos, incluyendo complementos de pago",
-      "Balanza de comprobación o auxiliares contables, si están disponibles",
-      "Reporte de inventario, si el negocio maneja existencias",
-      "Detalle de ventas por cliente y producto, si se lleva fuera de la facturación"
+      { "text": "CFDI del periodo — emitidos y recibidos, incluyendo complementos de pago", "required": true },
+      { "text": "Balanza de comprobación o auxiliares contables", "required": false },
+      { "text": "Reporte de inventario, si el negocio maneja existencias", "required": false },
+      { "text": "Detalle de ventas por cliente y producto, si se lleva fuera de la facturación", "required": false }
     ],
     "note": "Si algo falta, la métrica afectada se reporta como no disponible con el motivo. No se estima."
   },

@@ -1,0 +1,31 @@
+---
+/**
+ * Etiqueta corta: «Margin», «Optional», «Illustrative data».
+ *
+ * Tres palabras en tres etiquetas dicen de qué va una tarjeta sin que haya que
+ * leer un párrafo; es la unidad con la que el rediseño sustituye la mayor parte
+ * de las listas. Es un `<span>` de texto, no un botón: no hace nada al pulsar.
+ */
+interface Props {
+  tone?: 'ink' | 'light' | 'brand';
+  class?: string;
+}
+
+const { tone = 'ink', class: className = '' }: Props = Astro.props;
+
+const tones = {
+  ink: 'border-line-strong text-muted',
+  light: 'border-line-ink text-on-ink-muted',
+  brand: 'border-brand text-brand-text',
+};
+---
+
+<span
+  class:list={[
+    'inline-block border px-2 py-1 text-[0.6875rem] font-medium tracking-[0.08em] uppercase',
+    tones[tone],
+    className,
+  ]}
+>
+  <slot />
+</span>

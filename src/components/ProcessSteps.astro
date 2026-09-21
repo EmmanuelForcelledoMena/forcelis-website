@@ -1,6 +1,6 @@
 ---
 /**
- * Línea de tiempo: etapas colgadas de una sola regla superior.
+ * Pasos de un proceso: etapas numeradas colgadas de una sola regla superior.
  *
  * Cuatro etapas en cuatro tarjetas con borde superior se leen como cuatro
  * opciones. Colgadas de una regla continua se leen como una secuencia, que es
@@ -10,10 +10,14 @@
 interface Props {
   items: { title: string; body: string }[];
   tone?: 'ink' | 'light';
+  /** Columnas en pantallas grandes; por defecto, una por paso (3 o 4). */
+  columns?: 3 | 4;
   class?: string;
 }
 
-const { items, tone = 'ink', class: className = '' }: Props = Astro.props;
+const { items, tone = 'ink', columns, class: className = '' }: Props = Astro.props;
+
+const cols = (columns ?? (items.length === 3 ? 3 : 4)) === 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-4';
 
 const light = tone === 'light';
 // Taupe sobre tinta, no rojo: ver la regla 2 de los tokens en global.css.
@@ -24,7 +28,7 @@ const topRule = light ? 'border-line-ink' : 'border-ink';
 const divider = light ? 'lg:border-line-ink' : 'lg:border-line';
 ---
 
-<ol class:list={['grid border-t-2 sm:grid-cols-2 lg:grid-cols-4', topRule, className]}>
+<ol class:list={['grid border-t-2 sm:grid-cols-2', cols, topRule, className]}>
   {
     items.map((item, i) => (
       <li

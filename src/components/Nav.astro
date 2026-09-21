@@ -59,7 +59,19 @@ const items = NAV_PAGES.map((key) => ({
       }
     </nav>
 
-    <div class="flex items-center gap-4">
+    <div class="flex items-center gap-4 lg:gap-5">
+      <!-- Contacto es secundario a propósito: el sitio pide UNA cosa, el
+           diagnóstico, y esa es el botón. Contacto sigue a un clic, como texto. -->
+      <a
+        href={path('contact', lang)}
+        aria-current={pageKey === 'contact' ? 'page' : undefined}
+        class:list={[
+          'hidden text-sm whitespace-nowrap transition-colors lg:inline',
+          pageKey === 'contact' ? 'font-medium text-ink' : 'text-muted hover:text-ink',
+        ]}
+      >
+        {c.nav.contact}
+      </a>
       <!-- El selector va SIEMPRE visible, también en móvil. La Sección 53 del
            brief lo pide explícitamente: esconder el cambio de idioma dentro del
            menú de hamburguesa es esconderlo, y el mercado inicial es México
@@ -67,7 +79,8 @@ const items = NAV_PAGES.map((key) => ({
       <LanguageSwitcher lang={lang} pageKey={pageKey} />
       <a
         href={path('diagnostic', lang)}
-        class="hidden bg-brand px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-brand-text lg:inline-flex"
+        aria-current={pageKey === 'diagnostic' ? 'page' : undefined}
+        class="hidden bg-brand px-4 py-2.5 text-sm font-medium whitespace-nowrap text-white transition-colors hover:bg-brand-text lg:inline-flex"
       >
         {c.nav.cta}
       </a>
@@ -99,7 +112,7 @@ const items = NAV_PAGES.map((key) => ({
             href={item.href}
             aria-current={item.current ? 'page' : undefined}
             class:list={[
-              'border-b border-line py-4 text-base transition-colors last:border-b-0',
+              'border-b border-line py-4 text-base transition-colors',
               item.current ? 'font-medium text-ink' : 'text-muted',
             ]}
           >
@@ -107,12 +120,23 @@ const items = NAV_PAGES.map((key) => ({
           </a>
         ))
       }
+      <a
+        href={path('contact', lang)}
+        aria-current={pageKey === 'contact' ? 'page' : undefined}
+        class:list={[
+          'border-b border-line py-4 text-base transition-colors',
+          pageKey === 'contact' ? 'font-medium text-ink' : 'text-muted',
+        ]}
+      >
+        {c.nav.contact}
+      </a>
       <!-- Sin selector de idioma aquí: ya está en la barra, visible en todos los
            tamaños. Dos veces el mismo control significaría dos regiones de
            navegación con la misma etiqueta en el árbol de accesibilidad. -->
       <div class="py-5">
         <a
           href={path('diagnostic', lang)}
+          aria-current={pageKey === 'diagnostic' ? 'page' : undefined}
           class="block bg-brand px-4 py-3.5 text-center text-sm font-medium text-white"
         >
           {c.nav.cta}

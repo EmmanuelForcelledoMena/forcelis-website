@@ -12,7 +12,8 @@
     "check": "astro check",
     "build:og": "node scripts/build-og.mjs",
     "build:linkedin": "node scripts/build-linkedin.mjs",
-    "audit": "node scripts/audit.mjs"
+    "audit": "node scripts/audit.mjs",
+    "i18n:check": "node scripts/i18n-check.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.2.1",

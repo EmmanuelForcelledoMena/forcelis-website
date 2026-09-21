@@ -1,39 +1,40 @@
 ---
 /**
- * Cuerpo de la portada, compartido por `/en/` y `/es/`.
+ * Portada, compartida por `/en/` y `/es/`.
  *
- * Rediseño v2. Los cambios de maquetación respecto a la versión anterior, y el
- * motivo de cada uno:
+ * Rediseño v3. La página responde UNA pregunta —«¿qué es Forcelis?»— en cinco
+ * bloques, y cada bloque responde una parte:
  *
- *  1. HERO — la columna de texto ya no ocupa el ancho completo: al lado va el
- *     índice de las seis capacidades. Antes había que bajar tres secciones para
- *     saber qué vende la empresa.
- *  2. ENFOQUE — de tres tarjetas con borde (`gap-px border bg-line-ink`) a tres
- *     columnas de prosa. Son párrafos, no fichas.
- *  3. PLATAFORMA — de seis celdas de retícula a una lista reglada.
- *  4. MODELO DE SERVICIO — de cuatro tarjetas a una línea de tiempo colgada de
- *     una sola regla: son una secuencia, no cuatro opciones.
- *  5. INDUSTRIAS — de seis celdas a una línea de texto.
- *  6. POR QUÉ — de cuatro columnas estrechas a filas regladas, que dejan
- *     respirar el texto en lugar de partirlo en cuatro.
+ *   1. HERO — qué hace y cuál es el primer paso. El titular es la promesa
+ *      («sabe dónde estás; sabe qué hacer»), el tablero de al lado es el
+ *      producto (score global, cinco dimensiones, tres prioridades) y el
+ *      botón es la única acción que el sitio pide.
+ *   2. PARA QUIÉN — una franja de una línea: tamaño, complejidad, sectores.
+ *      Sin esto el visitante no sabe si el sitio le habla a él.
+ *   3. CÓMO — datos → inteligencia → acción, y los tres verbos (ver,
+ *      entender, actuar). Absorbe las antiguas secciones «problema» y
+ *      «enfoque», que decían lo mismo dos veces.
+ *   4. QUÉ MEJORA — cuatro áreas de resultado y dos de apoyo. Sustituye a las
+ *      seis tarjetas de servicio: seis fichas iguales se leían como catálogo.
+ *   5. PUNTO DE PARTIDA — el diagnóstico como flujo de cinco pasos y un
+ *      párrafo. Absorbe el antiguo panel de score (ya está en el hero), la
+ *      lista de hallazgos (viven en la página del diagnóstico) y el «modelo
+ *      de servicio» (una frase: lo que sigue se dimensiona desde el
+ *      diagnóstico).
  *
- * Las tarjetas SÍ se conservan donde comunican estructura: la retícula de
- * soluciones (seis objetos comparables) y los paneles de dato.
+ * Fuera: el tablero de ingresos/margen (ahora en Plataforma, que es donde
+ * prueba que hay software), la sección «por qué Forcelis» (Nosotros) y la de
+ * industrias (la franja 2 y la página de Industrias).
  */
 import Base from '../../layouts/Base.astro';
 import Section from '../Section.astro';
 import SectionHeader from '../SectionHeader.astro';
 import Button from '../Button.astro';
-import DashboardPreview from '../DashboardPreview.astro';
-import ProblemFlow from '../ProblemFlow.astro';
-import SolutionCard from '../SolutionCard.astro';
-import ScorePanel from '../ScorePanel.astro';
 import PageHero from '../PageHero.astro';
-import CapabilityIndex from '../CapabilityIndex.astro';
-import ProseColumns from '../ProseColumns.astro';
-import Timeline from '../Timeline.astro';
+import ScorePanel from '../ScorePanel.astro';
+import DataFlow from '../DataFlow.astro';
+import SolutionCard from '../SolutionCard.astro';
 import InlineTermList from '../InlineTermList.astro';
-import RuledRows from '../RuledRows.astro';
 import Cta from '../Cta.astro';
 import { path, type Lang } from '../../i18n/routes';
 import { t, common } from '../../i18n';
@@ -54,25 +55,10 @@ const iconFor: Record<string, 'financial' | 'operational' | 'supply' | 'accounti
   advisory: 'advisory',
   managed: 'managed',
 };
-
-// El índice del hero reusa los títulos de las tarjetas de soluciones: si se
-// añade una capacidad, aparece en los dos sitios sin tocar este archivo.
-const capabilities = h.solutions.cards.map((card, i) => ({
-  num: String(i + 1).padStart(2, '0'),
-  title: card.title,
-  href: `${path('solutions', lang)}#${card.key}`,
-}));
 ---
 
 <Base lang={lang} pageKey="home" title={h.meta.title} description={h.meta.description}>
   <!-- ================================================================== HERO -->
-  <!-- Banda oscura con fotografía, como en los mockups del manual. El titular
-       lleva su remate en el rojo levantado para tinta (`brand-on-ink`, 3.8:1
-       como texto grande); el diccionario guarda el titular partido en dos
-       claves para que cada idioma decida dónde cae el acento. El índice de
-       capacidades va al lado, como tarjeta clara sobre la banda: sigue
-       resolviendo lo que resolvía —saber qué vende la empresa desde el primer
-       segundo— y ahora además es el objeto que da profundidad al hero. -->
   <PageHero
     photoKey="home"
     size="tall"
@@ -83,238 +69,143 @@ const capabilities = h.solutions.cards.map((card, i) => ({
   >
     <Fragment slot="actions">
       <Button href={path('diagnostic', lang)} variant="onInk" size="lg">{c.cta.diagnostic}</Button>
-      <Button href={path('solutions', lang)} variant="onInkGhost" size="lg">
-        {c.cta.explore}
-      </Button>
+      <Button href="#how-it-works" variant="onInkGhost" size="lg">{c.cta.howItWorks}</Button>
     </Fragment>
 
-    <CapabilityIndex label={h.solutions.eyebrow} items={capabilities} class="reveal" />
+    <!-- El tablero conserva su fondo de tarjeta sobre la banda de tinta a
+         propósito: se lee como un objeto del producto, que es lo que es. -->
+    <div class="reveal lg:self-center" data-reveal-delay="120">
+      <ScorePanel
+        title={h.hero.panelTitle}
+        items={c.scores}
+        illustrativeLabel={c.labels.illustrative}
+        outOfLabel={c.labels.scoreOutOf}
+        overallLabel={c.labels.overallScore}
+        overallNote={c.labels.overallNote}
+        priorities={{ label: h.hero.prioritiesLabel, items: h.hero.priorities }}
+        density="compact"
+      />
+    </div>
   </PageHero>
 
-  <!-- El tablero del producto, justo debajo de la banda: es la primera cosa
-       clara de la página y la primera prueba de que hay software real. -->
-  <Section tone="ground" size="compact" class="border-b border-line">
-    <div class="reveal" data-reveal-delay="120">
-      <DashboardPreview
-        lang={lang}
-        title={h.hero.panelTitle}
-        period={h.hero.panelPeriod}
-        metrics={h.hero.metrics}
-        chartTitle={h.hero.chartTitle}
-        seriesLabels={h.hero.chartSeries}
-        chartAlt={h.hero.chartAlt}
-        illustrativeLabel={c.labels.illustrative}
-      />
-    </div>
-  </Section>
-
-  <!-- ============================================================= PROBLEMA -->
-  <Section tone="panel">
-    <div class="reveal">
-      <SectionHeader eyebrow={h.problem.eyebrow} title={h.problem.title} />
-      <div class="mt-8 grid max-w-4xl gap-5">
-        {h.problem.body.map((paragraph) => <p class="text-lg leading-relaxed text-muted">{paragraph}</p>)}
+  <!-- ============================================================ PARA QUIÉN -->
+  <section class="border-b border-line bg-ground">
+    <div class="container-page grid gap-6 py-10 lg:grid-cols-[minmax(0,18rem)_1fr] lg:gap-16 lg:py-12">
+      <div class="reveal">
+        <p class="text-[0.6875rem] font-semibold tracking-[0.16em] text-brand-text uppercase">
+          {h.audience.label}
+        </p>
+        <p class="mt-3 text-[0.9375rem] leading-relaxed text-muted">{h.audience.body}</p>
+      </div>
+      <div class="reveal flex flex-col justify-center gap-5" data-reveal-delay="80">
+        <InlineTermList items={h.audience.items} />
+        <a
+          href={path('industries', lang)}
+          class="inline-flex items-center gap-1.5 text-sm font-medium text-ink underline decoration-line-strong underline-offset-4 hover:decoration-ink"
+        >
+          {c.cta.seeIndustries}
+        </a>
       </div>
     </div>
+  </section>
 
-    <div class="reveal mt-14 lg:mt-16" data-reveal-delay="100">
-      <ProblemFlow
-        from={h.problem.flow.from}
-        via={h.problem.flow.via}
-        to={h.problem.flow.to}
-        sources={h.problem.sources}
-        outcomes={h.problem.outcomes}
-      />
-    </div>
-  </Section>
-
-  <!-- ============================================================== ENFOQUE -->
-  <Section tone="ink">
+  <!-- ================================================================== CÓMO -->
+  <Section tone="panel" id="how-it-works">
     <div class="reveal">
-      <SectionHeader
-        eyebrow={h.approach.eyebrow}
-        title={h.approach.title}
-        intro={h.approach.intro}
-        tone="light"
-      />
+      <SectionHeader eyebrow={h.how.eyebrow} title={h.how.title} intro={h.how.intro} />
     </div>
 
-    <ProseColumns
-      items={h.approach.steps.map((step) => ({
-        eyebrow: step.name,
-        title: step.title,
-        body: step.body,
-      }))}
-      tone="light"
-      numbered
-      class="mt-16"
-    />
-  </Section>
-
-  <!-- ============================================================ SOLUCIONES -->
-  <Section tone="ground">
-    <div class="reveal">
-      <SectionHeader
-        eyebrow={h.solutions.eyebrow}
-        title={h.solutions.title}
-        intro={h.solutions.intro}
-      />
+    <div class="reveal mt-14" data-reveal-delay="80">
+      <DataFlow items={h.how.flow} emphasis={1} alt={h.how.flowAlt} />
     </div>
 
-    <div class="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+    <ol class="mt-14 grid gap-10 border-t-2 border-ink pt-8 sm:grid-cols-3 sm:gap-8">
       {
-        h.solutions.cards.map((card, i) => (
-          <div class="reveal" data-reveal-delay={(i % 3) * 80}>
-            <SolutionCard
-              icon={iconFor[card.key]}
-              title={card.title}
-              body={card.body}
-              href={`${path('solutions', lang)}#${card.key}`}
-              moreLabel={c.cta.learnMore}
-            />
-          </div>
+        h.how.steps.map((step, i) => (
+          <li class="reveal" data-reveal-delay={i * 80}>
+            <p class="flex items-baseline gap-3 text-[0.6875rem] font-semibold tracking-[0.16em] text-brand-text uppercase">
+              <span class="tnum">{String(i + 1).padStart(2, '0')}</span>
+              {step.name}
+            </p>
+            <p class="mt-4 text-lg leading-snug font-semibold text-ink lg:text-xl">{step.body}</p>
+          </li>
         ))
       }
+    </ol>
+
+    <div class="reveal mt-12 flex flex-col gap-4 border-t border-line pt-8 sm:flex-row sm:items-center sm:justify-between">
+      <p class="max-w-2xl text-[0.9375rem] leading-relaxed text-muted">{h.how.platformNote}</p>
+      <Button href={path('platform', lang)} variant="secondary">{c.cta.seePlatform}</Button>
     </div>
   </Section>
 
-  <!-- ============================================================ PLATAFORMA -->
-  <Section tone="panel">
-    <div class="grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
-      <div class="reveal">
-        <SectionHeader eyebrow={h.platform.eyebrow} title={h.platform.title} />
-        <div class="mt-8 space-y-5">
-          {h.platform.body.map((paragraph) => <p class="text-lg leading-relaxed text-muted">{paragraph}</p>)}
-        </div>
-        <div class="mt-10">
-          <Button href={path('platform', lang)} variant="secondary">{h.platform.cta}</Button>
-        </div>
-      </div>
+  <!-- ============================================================ QUÉ MEJORA -->
+  <Section tone="ground">
+    <div class="reveal">
+      <SectionHeader eyebrow={h.improve.eyebrow} title={h.improve.title} intro={h.improve.intro} />
+    </div>
 
-      <!-- Lista reglada en lugar de seis celdas con borde: son afirmaciones que
-           se leen en orden, no fichas que se comparan. -->
-      <ul class="reveal divide-y divide-line border-t border-b border-line" data-reveal-delay="100">
+    <!-- Un solo marco para las dos filas; las hairlines son el hueco de un
+         píxel sobre el color de línea, no un borde por tarjeta. -->
+    <div class="mt-14 flex flex-col gap-px border border-line bg-line">
+      <div class="grid gap-px sm:grid-cols-2 lg:grid-cols-4">
         {
-          h.platform.points.map((point) => (
-            <li class="flex items-start gap-4 py-5">
-              <span aria-hidden="true" class="mt-2.5 block h-[2px] w-4 shrink-0 bg-brand" />
-              <p class="text-[0.9375rem] leading-relaxed text-ink lg:text-base">{point}</p>
-            </li>
+          h.improve.areas.map((area, i) => (
+            <div class="reveal flex" data-reveal-delay={(i % 4) * 70}>
+              <SolutionCard
+                icon={iconFor[area.key]}
+                title={area.title}
+                tags={area.tags}
+                href={`${path('solutions', lang)}#${area.key}`}
+                class="flex-1"
+              >
+                <Fragment slot="more">{c.cta.learnMore}</Fragment>
+              </SolutionCard>
+            </div>
           ))
         }
-      </ul>
+      </div>
+
+      <div class="grid gap-px sm:grid-cols-2">
+        {
+          h.improve.support.map((item, i) => (
+            <div class="reveal flex" data-reveal-delay={i * 70}>
+              <SolutionCard
+                variant="support"
+                title={item.title}
+                body={item.body}
+                href={`${path('solutions', lang)}#${item.key}`}
+                class="flex-1"
+              >
+                <Fragment slot="more">{c.cta.learnMore}</Fragment>
+              </SolutionCard>
+            </div>
+          ))
+        }
+      </div>
     </div>
   </Section>
 
-  <!-- ============================================================ DIAGNÓSTICO -->
-  <Section tone="ground">
-    <div class="grid items-start gap-12 lg:grid-cols-[1fr_minmax(0,26rem)] lg:gap-16">
+  <!-- ======================================================= PUNTO DE PARTIDA -->
+  <Section tone="panel">
+    <div class="grid gap-12 lg:grid-cols-[1fr_minmax(0,22rem)] lg:gap-24">
       <div class="reveal">
-        <SectionHeader
-          eyebrow={h.diagnostic.eyebrow}
-          title={h.diagnostic.title}
-          intro={h.diagnostic.subtitle}
-        />
-
-        <h3 class="mt-12 text-[0.6875rem] font-semibold tracking-[0.16em] text-muted uppercase">
-          {h.diagnostic.findingsTitle}
-        </h3>
-        <ol class="mt-5 divide-y divide-line border-t border-b border-line">
-          {
-            h.diagnostic.findings.map((finding, i) => (
-              <li class="flex items-baseline gap-5 py-4">
-                <span class="tnum text-xs font-semibold text-brand-text">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <p class="text-[0.9375rem] text-ink">{finding}</p>
-              </li>
-            ))
-          }
-        </ol>
-
-        <div class="mt-10">
-          <Button href={path('diagnostic', lang)}>{h.diagnostic.cta}</Button>
+        <SectionHeader eyebrow={h.start.eyebrow} title={h.start.title} />
+        <p class="mt-6 max-w-2xl text-lg leading-relaxed text-muted">{h.start.body}</p>
+        <div class="mt-10 flex flex-col gap-3 sm:flex-row">
+          <Button href={path('diagnostic', lang)} size="lg">{c.cta.diagnostic}</Button>
+          <Button href={`${path('diagnostic', lang)}#deliverables`} variant="secondary" size="lg">
+            {h.start.secondary}
+          </Button>
         </div>
       </div>
 
-      <div class="reveal" data-reveal-delay="120">
-        <ScorePanel
-          title={h.diagnostic.scoreTitle}
-          items={h.diagnostic.scores}
-          illustrativeLabel={c.labels.illustrative}
-          outOfLabel={c.labels.scoreOutOf}
-          overallLabel={c.labels.overallScore}
-          overallNote={c.labels.overallNote}
-        />
+      <!-- Vertical a propósito, también en escritorio: al lado del texto se
+           lee como la columna de un informe, que es lo que representa. -->
+      <div class="reveal lg:self-center" data-reveal-delay="100">
+        <DataFlow items={h.start.flow} emphasis={4} direction="column" alt={h.start.flowAlt} />
       </div>
     </div>
-  </Section>
-
-  <!-- ========================================================= MODELO SERVICIO -->
-  <Section tone="panel">
-    <div class="reveal">
-      <SectionHeader eyebrow={h.model.eyebrow} title={h.model.title} intro={h.model.intro} />
-    </div>
-
-    <Timeline
-      items={h.model.stages.map((stage) => ({ title: stage.name, body: stage.body }))}
-      class="mt-14"
-    />
-  </Section>
-
-  <!-- ============================================================= INDUSTRIAS -->
-  <Section tone="ground">
-    <div class="grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] lg:gap-16">
-      <div class="reveal">
-        <SectionHeader
-          eyebrow={h.industries.eyebrow}
-          title={h.industries.title}
-          intro={h.industries.intro}
-        />
-        <div class="mt-10">
-          <Button href={path('industries', lang)} variant="secondary">{h.industries.cta}</Button>
-        </div>
-      </div>
-
-      <InlineTermList items={h.industries.items} class="reveal" />
-    </div>
-  </Section>
-
-  <!--
-    ============================================================== EVIDENCIA
-    Sección DESACTIVADA a propósito.
-
-    El diseño aprobado incluye aquí tres resultados de proyecto en cifras. Las
-    del mockup son inventadas y no pueden publicarse: contradicen el principio
-    del propio sitio («nunca inventar un número») y el criterio del README sobre
-    no presentar tracción que no existe.
-
-    Para activarla hacen falta TRES cosas, no dos:
-      1. añadir la clave `evidence` a los dos locales, con cifras reales de
-         proyectos cerrados y permiso del cliente;
-      2. añadir el import: `import MetricRows from '../MetricRows.astro';`
-         — no está arriba, porque un import sin usar hace fallar `astro check`;
-      3. descomentar este bloque.
-
-    <Section tone="panel">
-      <div class="reveal">
-        <SectionHeader eyebrow={h.evidence.eyebrow} title={h.evidence.title} />
-      </div>
-      <MetricRows items={h.evidence.items} class="mt-14" />
-    </Section>
-  -->
-
-  <!-- ================================================================ POR QUÉ -->
-  <Section tone="panel">
-    <div class="reveal">
-      <SectionHeader eyebrow={h.why.eyebrow} title={h.why.title} />
-    </div>
-
-    <RuledRows
-      items={h.why.pillars.map((pillar) => ({ term: pillar.title, body: pillar.body }))}
-      termWidth="wide"
-      class="mt-14"
-    />
   </Section>
 
   <Cta

@@ -1,31 +1,36 @@
 ---
 /**
- * Plataforma. Rediseño v2.
+ * Plataforma. Rediseño v3.
  *
- * Cambios respecto a la versión anterior:
+ * Responde «¿cómo funciona la tecnología?» en tres niveles de profundidad, y
+ * el visitante elige hasta cuál baja:
  *
- *  1. SE ELIMINA la columna «En desarrollo» (decisión del cliente). La sección
- *     de estado pasa a ser solo lo disponible hoy, a ancho completo en dos
- *     columnas — que además es como debe verse: la lista ya no está compitiendo
- *     con una segunda columna de cosas que no existen.
- *     El texto sigue en el diccionario (`status.future`, `status.futureLabel`):
- *     no se borra de i18n, solo deja de renderizarse. Si se quiere recuperar,
- *     es descomentar; no hay que reescribir el copy.
- *  2. PRINCIPIOS — de cuatro tarjetas con borde a filas regladas numeradas.
- *  3. FRONTERAS — de lista con viñetas a filas regladas con guion de marca, y a
- *     tamaño de lectura: son las cuatro frases más importantes de la página
- *     para un comprador técnico y estaban puestas como pie de nota.
+ *   1. DIAGRAMA — tus sistemas → Forcelis (conectar · normalizar · analizar ·
+ *      explicar) → decisiones. Es el visual principal de la página.
+ *   2. CUATRO PRINCIPIOS — una palabra y una frase cada uno (determinista,
+ *      privada, segura, honesta). El párrafo largo de cada principio —el
+ *      «enfoque técnico», con HHI, row-level security y e.firma— sigue en la
+ *      página, plegado: nada se borra, baja de nivel.
+ *   3. QUÉ FUNCIONA HOY — cinco pasos de una línea, el tablero del producto
+ *      como prueba de que hay software, y las nueve capacidades plegadas bajo
+ *      «ver capacidades técnicas».
+ *
+ * La columna «En desarrollo» sigue retirada (decisión del cliente); el copy
+ * está en `status.future` por si se recupera. Las fronteras («qué no es la
+ * plataforma») se conservan: son las cuatro frases que más pesan para un
+ * comprador técnico.
  */
 import Base from '../../layouts/Base.astro';
 import Section from '../Section.astro';
 import SectionHeader from '../SectionHeader.astro';
 import PageHero from '../PageHero.astro';
 import PlatformArchitecture from '../PlatformArchitecture.astro';
+import DashboardPreview from '../DashboardPreview.astro';
+import Disclosure from '../Disclosure.astro';
 import RuledRows from '../RuledRows.astro';
-import Icon from '../Icon.astro';
 import Cta from '../Cta.astro';
 import type { Lang } from '../../i18n/routes';
-import { t } from '../../i18n';
+import { t, common } from '../../i18n';
 
 interface Props {
   lang: Lang;
@@ -33,6 +38,7 @@ interface Props {
 
 const { lang } = Astro.props;
 const p = t(lang, 'platform');
+const c = common(lang);
 ---
 
 <Base lang={lang} pageKey="platform" title={p.meta.title} description={p.meta.description}>
@@ -53,9 +59,7 @@ const p = t(lang, 'platform');
         sourcesLabel={p.architecture.sourcesLabel}
         sources={p.architecture.sources}
         platformLabel={p.architecture.platformLabel}
-        platformSub={p.architecture.platformSub}
-        layersLabel={p.architecture.layersLabel}
-        layers={p.architecture.layers}
+        steps={p.architecture.steps}
         outcomeLabel={p.architecture.outcomeLabel}
         outcomeSub={p.architecture.outcomeSub}
         diagramAlt={p.architecture.diagramAlt}
@@ -69,12 +73,27 @@ const p = t(lang, 'platform');
       <SectionHeader title={p.principles.title} intro={p.principles.intro} />
     </div>
 
-    <RuledRows
-      items={p.principles.items.map((item) => ({ term: item.title, body: item.body }))}
-      numbered
-      termWidth="wide"
-      class="mt-14"
-    />
+    <ol class="mt-14 grid gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
+      {
+        p.principles.items.map((item, i) => (
+          <li class="reveal flex flex-col bg-panel p-7" data-reveal-delay={i * 70}>
+            <span class="tnum text-xs font-semibold text-brand-text">{String(i + 1).padStart(2, '0')}</span>
+            <h3 class="mt-4 text-sm font-semibold tracking-[0.14em] text-ink uppercase">{item.label}</h3>
+            <p class="mt-4 text-[0.9375rem] leading-relaxed text-muted">{item.title}</p>
+          </li>
+        ))
+      }
+    </ol>
+
+    <div class="reveal mt-10 border-b border-line" data-reveal-delay="100">
+      <Disclosure summary={p.principles.technicalLabel} meta={p.principles.technicalMeta}>
+        <RuledRows
+          items={p.principles.items.map((item) => ({ term: item.title, body: item.body }))}
+          numbered
+          termWidth="wide"
+        />
+      </Disclosure>
+    </div>
   </Section>
 
   <!-- ================================================================ ESTADO -->
@@ -83,62 +102,63 @@ const p = t(lang, 'platform');
       <SectionHeader title={p.status.title} intro={p.status.intro} />
     </div>
 
-    <div class="reveal mt-14">
-      <h3
-        class="flex items-center gap-3 border-b-2 border-ink pb-4 text-[0.6875rem] font-semibold tracking-[0.16em] text-ink uppercase"
-      >
-        <Icon name="check" class="h-4 w-4 text-brand-text" />
-        {p.status.todayLabel}
-      </h3>
+    <ol class="mt-14 grid gap-x-8 gap-y-10 border-t-2 border-ink pt-8 sm:grid-cols-2 lg:grid-cols-5">
+      {
+        p.status.steps.map((step, i) => (
+          <li class="reveal" data-reveal-delay={i * 60}>
+            <span class="tnum block text-3xl leading-none font-semibold tracking-[-0.03em] text-brand-text">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <h3 class="mt-4 text-sm font-semibold tracking-[0.12em] text-ink uppercase">{step.title}</h3>
+            <p class="mt-2.5 text-[0.9375rem] leading-relaxed text-muted">{step.body}</p>
+          </li>
+        ))
+      }
+    </ol>
 
-      <!-- Dos columnas de lista sobre el mismo bloque: la sección ocupa el
-           ancho que antes se repartía con «En desarrollo», sin que ninguna
-           entrada quede huérfana al final de una columna. -->
-      <ul class="mt-2 grid gap-x-16 sm:grid-cols-2">
-        {
-          p.status.today.map((item) => (
-            <li class="border-b border-line py-5">
-              <p class="text-base font-semibold text-ink">{item.title}</p>
-              <p class="mt-2 text-[0.9375rem] leading-relaxed text-muted">{item.body}</p>
-            </li>
-          ))
-        }
-      </ul>
+    <!-- El tablero del producto: la primera prueba de que hay software real,
+         puesta donde la página habla de lo que funciona hoy. -->
+    <div class="reveal mt-14" data-reveal-delay="120">
+      <DashboardPreview
+        lang={lang}
+        title={p.dashboard.title}
+        period={p.dashboard.period}
+        metrics={p.dashboard.metrics}
+        chartTitle={p.dashboard.chartTitle}
+        seriesLabels={p.dashboard.chartSeries}
+        chartAlt={p.dashboard.chartAlt}
+        illustrativeLabel={c.labels.illustrative}
+      />
     </div>
 
-    <!--
-      Columna «En desarrollo» retirada a petición del cliente. El copy sigue
-      disponible en `platform.status.future` / `status.futureLabel`.
-
-      <div class="reveal mt-14" data-reveal-delay="100">
-        <h3 class="flex items-center gap-3 border-b-2 border-line-strong pb-4 text-[0.6875rem] font-semibold tracking-[0.16em] text-muted uppercase">
-          <span aria-hidden="true" class="block h-[2px] w-4 bg-line-strong"></span>
-          {p.status.futureLabel}
-        </h3>
-        <ul class="mt-2 grid gap-x-16 sm:grid-cols-2">
-          {p.status.future.map((item) => (
-            <li class="border-b border-line py-5">
-              <p class="text-base font-semibold text-muted">{item.title}</p>
-              <p class="mt-2 text-[0.9375rem] leading-relaxed text-muted">{item.body}</p>
-            </li>
-          ))}
+    <div class="reveal mt-10 border-b border-line" data-reveal-delay="100">
+      <Disclosure summary={p.status.capabilitiesLabel} meta={p.status.capabilitiesMeta}>
+        <ul class="grid gap-x-16 sm:grid-cols-2">
+          {
+            p.status.today.map((item) => (
+              <li class="border-b border-line py-5">
+                <p class="text-base font-semibold text-ink">{item.title}</p>
+                <p class="mt-2 text-[0.9375rem] leading-relaxed text-muted">{item.body}</p>
+              </li>
+            ))
+          }
         </ul>
-      </div>
-    -->
+      </Disclosure>
+    </div>
   </Section>
 
   <!-- ============================================================= FRONTERAS -->
-  <Section tone="ink" size="compact">
+  <Section tone="ground" size="compact">
     <div class="grid gap-10 lg:grid-cols-[minmax(0,22rem)_1fr] lg:gap-16">
-      <h2 class="reveal text-2xl font-semibold tracking-[-0.02em] text-on-ink lg:text-3xl">
+      <h2 class="reveal text-2xl font-semibold tracking-[-0.02em] text-ink lg:text-3xl">
         {p.boundaries.title}
       </h2>
-      <ul class="reveal divide-y divide-line-ink border-t border-b border-line-ink" data-reveal-delay="80">
+      <ul class="reveal divide-y divide-line border-t border-b border-line" data-reveal-delay="80">
         {
           p.boundaries.items.map((item) => (
             <li class="flex items-start gap-5 py-5">
               <span aria-hidden="true" class="mt-3 block h-[2px] w-4 shrink-0 bg-brand" />
-              <p class="text-base leading-relaxed font-medium text-on-ink lg:text-lg">{item}</p>
+              <p class="text-base leading-relaxed font-medium text-ink lg:text-lg">{item}</p>
             </li>
           ))
         }

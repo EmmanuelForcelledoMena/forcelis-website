@@ -1,24 +1,28 @@
 ---
 /**
- * Nosotros. Rediseño v2.
+ * Nosotros. Rediseño v3.
  *
- * Cambios respecto a la versión anterior:
+ * Responde «¿por qué existe Forcelis y por qué confiar en el método?»:
  *
- *  1. PRINCIPIOS — de cuatro tarjetas con borde a filas regladas numeradas. El
- *     texto de cada principio se leía a 44 caracteres de ancho dentro de su
- *     caja; ahora se lee a lo largo de la página.
- *  2. ESTRUCTURA — de tres celdas sobre tinta a tres columnas de prosa. Son
- *     tres descripciones, no tres productos que se comparan.
- *
- * Origen, «lo que combina» y «dónde está hoy» se conservan tal cual: ya eran
- * prosa reglada y no tenían el problema.
+ *   1. HERO — el posicionamiento por negación («ni despacho contable, ni otra
+ *      herramienta»), que es la frase que más rápido sitúa a la empresa.
+ *   2. ECUACIÓN — finanzas + operaciones + tecnología + ejecución = desempeño.
+ *      Los cuatro sumandos son los de «qué combina Forcelis», ahora dibujados
+ *      como suma y no como cuatro columnas.
+ *   3. ORIGEN — un párrafo, y la historia completa plegada. Antes eran tres
+ *      párrafos largos a la entrada de la página.
+ *   4. PRINCIPIOS — cuatro tarjetas: una etiqueta y una frase; el porqué
+ *      plegado en cada una.
+ *   5. ESTRUCTURA — Advisory → Intelligence → Managed Services como
+ *      secuencia, con una línea por unidad.
+ *   6. ETAPA — dos frases. La transparencia se conserva; la defensa larga no.
  */
 import Base from '../../layouts/Base.astro';
 import Section from '../Section.astro';
 import SectionHeader from '../SectionHeader.astro';
 import PageHero from '../PageHero.astro';
-import RuledRows from '../RuledRows.astro';
-import ProseColumns from '../ProseColumns.astro';
+import DataFlow from '../DataFlow.astro';
+import Disclosure from '../Disclosure.astro';
 import Cta from '../Cta.astro';
 import type { Lang } from '../../i18n/routes';
 import { t } from '../../i18n';
@@ -39,33 +43,57 @@ const a = t(lang, 'about');
     intro={a.hero.subtitle}
   />
 
-  <!-- ================================================================= ORIGEN -->
+  <!-- ============================================================== ECUACIÓN -->
   <Section tone="ground">
-    <div class="grid gap-12 lg:grid-cols-[minmax(0,20rem)_1fr] lg:gap-16">
-      <h2 class="reveal text-2xl font-semibold tracking-[-0.02em] text-ink lg:text-3xl">
-        {a.origin.title}
-      </h2>
-      <div class="reveal space-y-6" data-reveal-delay="80">
-        {a.origin.body.map((paragraph) => <p class="text-lg leading-relaxed text-muted">{paragraph}</p>)}
+    <div class="reveal">
+      <SectionHeader title={a.equation.title} />
+    </div>
+
+    <p class="sr-only">{a.equation.alt}</p>
+    <div aria-hidden="true" class="reveal mt-12" data-reveal-delay="80">
+      <ol class="grid gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
+        {
+          a.equation.items.map((item, i) => (
+            <li class="relative bg-panel p-7">
+              {i > 0 && (
+                <span class="absolute top-6 -left-3 hidden h-6 w-6 items-center justify-center bg-ground text-lg leading-none font-semibold text-brand-text lg:flex">
+                  +
+                </span>
+              )}
+              <p class="text-sm font-semibold tracking-[0.14em] text-ink uppercase">{item.title}</p>
+              <p class="mt-3 text-[0.9375rem] leading-relaxed text-muted">{item.body}</p>
+            </li>
+          ))
+        }
+      </ol>
+      <div class="flex items-center gap-5 py-5">
+        <span class="text-2xl leading-none font-semibold text-brand-text">=</span>
+        <span class="h-px flex-1 bg-line"></span>
+      </div>
+      <div class="border border-ink bg-ink px-7 py-6">
+        <p class="text-lg font-semibold tracking-[0.1em] text-on-ink uppercase lg:text-xl">
+          {a.equation.result}
+        </p>
       </div>
     </div>
   </Section>
 
-  <!-- ============================================================== COMBINA -->
+  <!-- ================================================================ ORIGEN -->
   <Section tone="panel" size="compact">
-    <div class="reveal">
-      <SectionHeader title={a.combine.title} />
-    </div>
-    <div class="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
-      {
-        a.combine.items.map((item, i) => (
-          <div class="reveal" data-reveal-delay={i * 70}>
-            <span aria-hidden="true" class="block h-[2px] w-10 bg-brand" />
-            <h3 class="mt-5 text-lg font-semibold text-ink">{item.title}</h3>
-            <p class="mt-3 text-[0.9375rem] leading-relaxed text-muted">{item.body}</p>
-          </div>
-        ))
-      }
+    <div class="grid gap-10 lg:grid-cols-[minmax(0,20rem)_1fr] lg:gap-16">
+      <h2 class="reveal text-2xl font-semibold tracking-[-0.02em] text-ink lg:text-3xl">
+        {a.origin.title}
+      </h2>
+      <div class="reveal" data-reveal-delay="80">
+        <p class="text-lg leading-relaxed text-muted">{a.origin.summary}</p>
+        <div class="mt-8 border-b border-line">
+          <Disclosure summary={a.origin.fullLabel}>
+            <div class="max-w-[68ch] space-y-5">
+              {a.origin.body.map((paragraph) => <p class="text-base leading-relaxed text-muted">{paragraph}</p>)}
+            </div>
+          </Disclosure>
+        </div>
+      </div>
     </div>
   </Section>
 
@@ -75,12 +103,24 @@ const a = t(lang, 'about');
       <SectionHeader title={a.principles.title} intro={a.principles.intro} />
     </div>
 
-    <RuledRows
-      items={a.principles.items.map((item) => ({ term: item.title, body: item.body }))}
-      numbered
-      termWidth="wide"
-      class="mt-14"
-    />
+    <ol class="mt-14 grid gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
+      {
+        a.principles.items.map((item, i) => (
+          <li class="reveal flex flex-col bg-panel" data-reveal-delay={i * 70}>
+            <div class="flex-1 p-7">
+              <span class="tnum text-xs font-semibold text-brand-text">{String(i + 1).padStart(2, '0')}</span>
+              <h3 class="mt-4 text-sm font-semibold tracking-[0.14em] text-ink uppercase">{item.label}</h3>
+              <p class="mt-4 text-base leading-snug font-semibold text-ink">{item.title}</p>
+            </div>
+            <div class="px-7">
+              <Disclosure summary={a.principles.whyLabel}>
+                <p class="text-[0.9375rem] leading-relaxed text-muted">{item.body}</p>
+              </Disclosure>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
   </Section>
 
   <!-- ============================================================= ESTRUCTURA -->
@@ -89,27 +129,41 @@ const a = t(lang, 'about');
       <SectionHeader title={a.structure.title} intro={a.structure.intro} tone="light" />
     </div>
 
-    <ProseColumns
-      items={a.structure.lines.map((line) => ({
-        eyebrow: line.sub,
-        title: line.name,
-        body: line.body,
-      }))}
-      tone="light"
-      class="mt-14"
-    />
+    <div class="reveal mt-14" data-reveal-delay="80">
+      <DataFlow items={a.structure.flow} tone="light" alt={a.structure.flowAlt} />
+    </div>
+
+    <dl class="mt-12 grid gap-10 border-t border-line-ink pt-10 sm:grid-cols-3 sm:gap-8">
+      {
+        a.structure.lines.map((line, i) => (
+          <div class="reveal" data-reveal-delay={i * 70}>
+            <dt>
+              <span class="block text-lg font-semibold text-on-ink">{line.name}</span>
+              <span class="mt-1 block text-[0.6875rem] font-semibold tracking-[0.14em] text-on-ink-muted uppercase">
+                {line.sub}
+              </span>
+            </dt>
+            <dd class="mt-4 text-[0.9375rem] leading-relaxed text-on-ink-muted">{line.body}</dd>
+          </div>
+        ))
+      }
+    </dl>
+
+    <p class="reveal mt-10 max-w-3xl text-[0.9375rem] leading-relaxed text-on-ink-muted" data-reveal-delay="100">
+      {a.structure.sequenceNote}
+    </p>
   </Section>
 
   <!-- ================================================================= ETAPA -->
   <Section tone="panel" size="compact">
-    <div class="reveal grid gap-10 lg:grid-cols-[minmax(0,20rem)_1fr] lg:gap-16">
+    <div class="reveal grid gap-8 lg:grid-cols-[minmax(0,20rem)_1fr] lg:gap-16">
       <div>
         <h2 class="text-2xl font-semibold tracking-[-0.02em] text-ink lg:text-3xl">
           {a.stage.title}
         </h2>
-        <p class="mt-5 text-sm font-medium text-muted">{a.stage.location}</p>
+        <p class="mt-4 text-sm font-medium text-muted">{a.stage.location}</p>
       </div>
-      <p class="text-lg leading-relaxed text-muted">{a.stage.body}</p>
+      <p class="max-w-3xl text-lg leading-relaxed text-muted">{a.stage.body}</p>
     </div>
   </Section>
 

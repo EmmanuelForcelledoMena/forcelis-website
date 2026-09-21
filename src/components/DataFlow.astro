@@ -1,0 +1,99 @@
+---
+/**
+ * Flujo: una secuencia de estados unidos por flechas.
+ *
+ *     DATA → INTELLIGENCE → ACTION
+ *     DATA → ANALYSIS → KEY FINDINGS → PRIORITIES → ACTION PLAN
+ *     ADVISORY → INTELLIGENCE → MANAGED SERVICES
+ *
+ * Es el diagrama que atraviesa el sitio: la historia de Forcelis es una
+ * secuencia (diagnosticar → entender → actuar → mejorar) y esta pieza la dibuja
+ * igual en todas partes, para que se reconozca de una página a otra. Caja y
+ * texto, no imagen: se traduce, se lee con lector de pantalla y hereda el tema.
+ *
+ * En horizontal (a partir de `lg`) las flechas apuntan a la derecha; en
+ * vertical apuntan hacia abajo. `emphasis` resalta un nodo en tinta —el que la
+ * empresa aporta, normalmente el del medio— para que la lectura tenga un centro.
+ */
+interface Props {
+  items: readonly { label: string; sub?: string }[];
+  /** Índice del nodo que va en tinta. */
+  emphasis?: number;
+  tone?: 'ink' | 'light';
+  /** `line` es el flujo desnudo; `boxed` da un marco a cada nodo. */
+  variant?: 'boxed' | 'line';
+  /** `row` se tumba en horizontal a partir de `lg`; `column` siempre es vertical. */
+  direction?: 'row' | 'column';
+  /** Descripción del flujo para lectores de pantalla. */
+  alt?: string;
+  class?: string;
+}
+
+const {
+  items,
+  emphasis,
+  tone = 'ink',
+  variant = 'boxed',
+  direction = 'row',
+  alt,
+  class: className = '',
+}: Props = Astro.props;
+
+const light = tone === 'light';
+const row = direction === 'row';
+
+const nodeBase =
+  variant === 'boxed'
+    ? 'flex min-h-[4.5rem] flex-col items-center justify-center px-5 py-4 text-center lg:min-h-[5.5rem]'
+    : 'flex flex-col items-center justify-center py-2 text-center';
+
+const nodePlain =
+  variant === 'boxed'
+    ? light
+      ? 'border border-line-ink bg-ink text-on-ink'
+      : 'border border-line bg-panel text-ink'
+    : light
+      ? 'text-on-ink'
+      : 'text-ink';
+
+const nodeStrong = light
+  ? 'border border-on-ink-muted bg-on-ink-muted text-ink'
+  : 'border border-ink bg-ink text-on-ink';
+
+const subPlain = light ? 'text-on-ink-muted' : 'text-muted';
+const subStrong = light ? 'text-ink/70' : 'text-on-ink-muted';
+const arrow = light ? 'text-on-ink-muted' : 'text-line-strong';
+---
+
+<div class={className}>
+  {alt && <p class="sr-only">{alt}</p>}
+  <ol aria-hidden={alt ? 'true' : undefined} class:list={['flex flex-col items-stretch', row && 'lg:flex-row']}>
+    {
+      items.map((item, i) => {
+        const strong = emphasis === i;
+        return (
+          <li class:list={['flex flex-col items-stretch', row && 'lg:flex-1 lg:flex-row']}>
+            <div class:list={['flex-1', nodeBase, strong ? nodeStrong : nodePlain]}>
+              <span class="text-[0.6875rem] font-semibold tracking-[0.16em] uppercase lg:text-xs">
+                {item.label}
+              </span>
+              {item.sub && (
+                <span class:list={['mt-1.5 text-xs', strong ? subStrong : subPlain]}>{item.sub}</span>
+              )}
+            </div>
+            {i < items.length - 1 && (
+              <span
+                aria-hidden="true"
+                class:list={['flex shrink-0 items-center justify-center py-2', row && 'lg:px-3 lg:py-0', arrow]}
+              >
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" class:list={['rotate-90', row && 'lg:rotate-0']}>
+                  <path d="M2 9h13M10 4l5 5-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="square" />
+                </svg>
+              </span>
+            )}
+          </li>
+        );
+      })
+    }
+  </ol>
+</div>

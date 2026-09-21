@@ -1,0 +1,68 @@
+---
+/**
+ * Tarjeta de hallazgo: prioridad · hallazgo · por qué importa · acción.
+ *
+ * Es la unidad del diagnóstico. Cuatro campos siempre en el mismo orden y con
+ * la misma etiqueta, para que la promesa de la página —«todo hallazgo trae una
+ * acción»— se vea sin leer: la acción tiene su propio bloque, con filo de
+ * marca, en todas las tarjetas. Los textos son de una frase; no hay nada que
+ * plegar.
+ */
+interface Props {
+  severity: 'high' | 'medium' | string;
+  severityLabel: string;
+  title: string;
+  body: string;
+  action: string;
+  whyLabel: string;
+  actionLabel: string;
+  class?: string;
+}
+
+const {
+  severity,
+  severityLabel,
+  title,
+  body,
+  action,
+  whyLabel,
+  actionLabel,
+  class: className = '',
+}: Props = Astro.props;
+
+// El punto es relleno (token de marca); la palabra es texto (par legible).
+const dot: Record<string, string> = {
+  high: 'bg-brand',
+  medium: 'bg-[var(--color-data-amber)]',
+};
+const label: Record<string, string> = {
+  high: 'text-brand-text',
+  medium: 'text-[var(--color-data-amber-text)]',
+};
+---
+
+<article class:list={['flex flex-col bg-panel', className]}>
+  <div class="flex items-center gap-2.5 border-b border-line px-6 py-4">
+    <span aria-hidden="true" class:list={['block h-2.5 w-2.5 shrink-0', dot[severity] ?? dot.medium]}></span>
+    <span
+      class:list={[
+        'text-[0.6875rem] font-semibold tracking-[0.14em] uppercase',
+        label[severity] ?? label.medium,
+      ]}
+    >
+      {severityLabel}
+    </span>
+  </div>
+
+  <div class="flex flex-1 flex-col px-6 py-6">
+    <h3 class="text-lg leading-snug font-semibold tracking-[-0.01em] text-ink lg:text-xl">{title}</h3>
+
+    <p class="mt-5 text-[0.625rem] font-semibold tracking-[0.14em] text-muted uppercase">{whyLabel}</p>
+    <p class="mt-1.5 flex-1 text-[0.9375rem] leading-relaxed text-muted">{body}</p>
+
+    <div class="mt-6 border-l-2 border-brand pl-4">
+      <p class="text-[0.625rem] font-semibold tracking-[0.14em] text-brand-text uppercase">{actionLabel}</p>
+      <p class="mt-1.5 text-[0.9375rem] leading-relaxed text-ink">{action}</p>
+    </div>
+  </div>
+</article>

@@ -1,27 +1,26 @@
 ---
 /**
- * Industrias. Rediseño v2.
+ * Industrias. Rediseño v3.
  *
- * Cambios respecto a la versión anterior:
+ * Responde «¿es Forcelis relevante para mi negocio?», y por eso el orden se
+ * invierte respecto a la versión anterior:
  *
- *  1. SECTORES — se conserva la retícula de dos columnas (aquí las tarjetas sí
- *     comunican: son seis objetos comparables entre sí), pero con el título a
- *     tamaño de titular y más aire, y con los puntos como filas regladas en vez
- *     de viñetas diminutas. Antes cabían seis fichas en una pantalla y ninguna
- *     se leía.
- *  2. PERFIL — de cuatro celdas rellenas a una tira de datos colgada de una
- *     regla, con las etiquetas arriba. Es un encabezado de tabla, no cuatro
- *     tarjetas.
- *  3. La nota del perfil deja de ser un recuadro con filo a la izquierda y pasa
- *     a ser prosa: es una frase, no un aviso.
+ *   1. ¿ES PARA TI? — la lista de comprobación (tamaño, etapa, modelo,
+ *      mercado) va PRIMERO. Antes era el perfil al final de la página: la
+ *      respuesta más útil, en el sitio donde menos gente llega.
+ *   2. SECTORES — seis tarjetas con tres etiquetas cada una y el detalle
+ *      plegado. Lo que se ve responde la pregunta; lo que se despliega la
+ *      profundiza.
+ *   3. CONFIGURACIÓN — la nota de que la lógica sectorial vive en
+ *      configuración, que es lo que hace creíble «tu sector no está, cuéntanos».
  */
 import Base from '../../layouts/Base.astro';
 import Section from '../Section.astro';
 import SectionHeader from '../SectionHeader.astro';
 import PageHero from '../PageHero.astro';
+import Checklist from '../Checklist.astro';
+import IndustryCard from '../IndustryCard.astro';
 import Cta from '../Cta.astro';
-import { Image } from 'astro:assets';
-import type { ImageMetadata } from 'astro';
 import type { Lang } from '../../i18n/routes';
 import { t } from '../../i18n';
 
@@ -31,18 +30,6 @@ interface Props {
 
 const { lang } = Astro.props;
 const ind = t(lang, 'industries');
-
-// Fotografías por sector, si existen. Se resuelven en la build: el glob es
-// estático, así que agregar `manufacturing.jpg` a src/assets/industries/ y
-// volver a compilar es todo lo que hace falta para que aparezca. Sin archivo,
-// la tarjeta usa el tratamiento de tinta con el glifo — nunca un hueco.
-const photos = import.meta.glob<{ default: ImageMetadata }>(
-  '/src/assets/industries/*.{jpg,jpeg,png,webp}',
-  { eager: true },
-);
-const photoFor = (key: string): ImageMetadata | undefined =>
-  Object.entries(photos).find(([file]) => new RegExp(`/${key}\\.(jpe?g|png|webp)$`).test(file))?.[1]
-    .default;
 ---
 
 <Base lang={lang} pageKey="industries" title={ind.meta.title} description={ind.meta.description}>
@@ -53,111 +40,52 @@ const photoFor = (key: string): ImageMetadata | undefined =>
     intro={ind.hero.subtitle}
   />
 
+  <!-- ============================================================ ¿ES PARA TI? -->
+  <Section tone="ground" size="compact">
+    <div class="grid gap-10 lg:grid-cols-[minmax(0,24rem)_1fr] lg:gap-16">
+      <div class="reveal">
+        <SectionHeader title={ind.fit.title} intro={ind.fit.intro} />
+      </div>
+      <div class="reveal lg:self-center" data-reveal-delay="80">
+        <Checklist items={ind.fit.items.map((text) => ({ text }))} layout="grid" size="large" />
+        <p class="mt-6 max-w-[64ch] text-[0.9375rem] leading-relaxed text-muted">{ind.fit.note}</p>
+      </div>
+    </div>
+  </Section>
+
   <!-- ================================================================ SECTORES -->
-  <Section tone="ground">
-    <div class="grid gap-px border border-line bg-line lg:grid-cols-2">
+  <Section tone="panel">
+    <div class="reveal">
+      <SectionHeader title={ind.sectorsTitle} />
+    </div>
+
+    <div class="mt-12 grid gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
       {
         ind.sectors.map((sector, i) => (
-          <article class="reveal flex flex-col bg-panel" data-reveal-delay={(i % 2) * 80}>
-            {/* Cabecera fotográfica, como en el manual: imagen con velo oscuro
-                y el título en blanco encima. La foto es decorativa —el título
-                ya nombra el sector—, así que va con alt vacío; el velo
-                garantiza el contraste del título sea cual sea la imagen. */}
-            <div class="relative aspect-[16/10] overflow-hidden bg-ink">
-              {photoFor(sector.key) ? (
-                <Image
-                  src={photoFor(sector.key)!}
-                  alt=""
-                  width={960}
-                  height={600}
-                  format="webp"
-                  loading={i < 2 ? 'eager' : 'lazy'}
-                  class="h-full w-full object-cover"
-                />
-              ) : (
-                <svg
-                  viewBox="0 0 64 64"
-                  aria-hidden="true"
-                  class="absolute -right-6 -bottom-8 h-[88%] w-auto opacity-[0.14]"
-                >
-                  <g fill="#c7c3a9">
-                    <path d="M26 8H62L58 20H22Z" />
-                    <path d="M20 26H47L43 38H16Z" />
-                    <path d="M14 44H32L28 56H10Z" />
-                  </g>
-                </svg>
-              )}
-              <div
-                aria-hidden="true"
-                class="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/30 to-ink/10"
-              />
-              <h2 class="absolute right-6 bottom-6 left-6 flex items-end justify-between gap-4 text-2xl leading-tight font-semibold tracking-[-0.02em] text-on-ink lg:text-[1.75rem]">
-                <span>{sector.title}</span>
-                <svg
-                  width="22"
-                  height="22"
-                  viewBox="0 0 22 22"
-                  fill="none"
-                  aria-hidden="true"
-                  class="mb-1 shrink-0 text-on-ink-muted"
-                >
-                  <path d="M4 11h13M12 5l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" />
-                </svg>
-              </h2>
-            </div>
-            <div class="p-7 lg:p-8">
-              <p class="max-w-[52ch] text-base leading-relaxed text-muted">{sector.lead}</p>
-              <ul class="mt-6">
-                {sector.points.map((point) => (
-                  <li class="border-t border-line py-3 text-[0.9375rem] text-ink">{point}</li>
-                ))}
-              </ul>
-            </div>
-          </article>
+          <div class="reveal flex" data-reveal-delay={(i % 3) * 70}>
+            <IndustryCard
+              photoKey={sector.key}
+              title={sector.title}
+              tags={sector.tags}
+              lead={sector.lead}
+              points={sector.points}
+              detailLabel={ind.detailLabel}
+              eager={i < 3}
+              class="flex-1"
+            />
+          </div>
         ))
       }
     </div>
   </Section>
 
-  <!-- ================================================================= PERFIL -->
-  <Section tone="panel">
-    <div class="grid gap-12 lg:grid-cols-[minmax(0,24rem)_1fr] lg:gap-16">
-      <div class="reveal">
-        <SectionHeader title={ind.profile.title} intro={ind.profile.intro} />
-      </div>
-
-      <div class="reveal" data-reveal-delay="90">
-        <dl class="grid gap-x-10 border-t-2 border-ink sm:grid-cols-2 lg:grid-cols-4">
-          {
-            ind.profile.items.map((item, i) => (
-              <div
-                class:list={[
-                  'pt-5 pb-2 lg:pr-8',
-                  i < ind.profile.items.length - 1 && 'lg:border-r lg:border-line',
-                ]}
-              >
-                <dt class="text-[0.625rem] font-semibold tracking-[0.14em] text-muted uppercase">
-                  {item.label}
-                </dt>
-                <dd class="mt-2.5 text-lg leading-snug font-semibold text-ink">{item.value}</dd>
-              </div>
-            ))
-          }
-        </dl>
-        <p class="mt-10 max-w-[64ch] border-t border-line pt-6 text-base leading-relaxed text-muted">
-          {ind.profile.note}
-        </p>
-      </div>
-    </div>
-  </Section>
-
   <!-- ========================================================== CONFIGURACIÓN -->
-  <Section tone="ink" size="compact">
-    <div class="reveal max-w-3xl">
-      <h2 class="text-2xl font-semibold tracking-[-0.02em] text-on-ink lg:text-3xl">
+  <Section tone="ground" size="compact">
+    <div class="reveal grid gap-8 lg:grid-cols-[minmax(0,22rem)_1fr] lg:gap-16">
+      <h2 class="text-2xl font-semibold tracking-[-0.02em] text-ink lg:text-3xl">
         {ind.config.title}
       </h2>
-      <p class="mt-5 text-lg leading-relaxed text-on-ink-muted">{ind.config.body}</p>
+      <p class="max-w-3xl text-lg leading-relaxed text-muted">{ind.config.body}</p>
     </div>
   </Section>
 

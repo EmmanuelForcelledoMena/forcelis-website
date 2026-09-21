@@ -234,6 +234,23 @@ const organizationJsonLd = {
         }, 2000);
       }
 
+      // Un ancla a un bloque plegado lo abre. Un `<details>` cerrado no muestra
+      // su contenido al aterrizar, y el enlace `#financial` de la portada
+      // dejaría a la persona mirando un resumen cerrado sin saber que hay que
+      // pulsarlo. Se vuelve a desplazar después de abrir porque el alto de la
+      // página cambia al desplegarse.
+      const openHashTarget = () => {
+        const id = decodeURIComponent(window.location.hash.slice(1));
+        if (!id) return;
+        const target = document.getElementById(id);
+        if (target instanceof HTMLDetailsElement && !target.open) {
+          target.open = true;
+          target.scrollIntoView();
+        }
+      };
+      openHashTarget();
+      window.addEventListener('hashchange', openHashTarget);
+
       // Preferencia de idioma. Se guarda SOLO cuando la persona usa el selector
       // —una elección explícita— y únicamente la lee la página raíz. La URL
       // sigue mandando en todas las demás: un sitio que te cambia de idioma solo

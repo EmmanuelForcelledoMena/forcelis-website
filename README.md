@@ -22,13 +22,16 @@ npm run dev
 preferencia guardada y, si no hay ninguna, según el idioma del navegador.
 
 ```bash
-npm run build     # genera dist/
-npm run preview   # sirve dist/ como lo hará GitHub Pages
-npm run check     # tipos de TypeScript y de las plantillas Astro
+npm run build       # genera dist/
+npm run preview     # sirve dist/ como lo hará GitHub Pages
+npm run check       # tipos de TypeScript y de las plantillas Astro
+npm run i18n:check  # paridad de claves entre inglés y español
+npm run audit       # revisa dist/: enlaces, encabezados, alt, metadatos
 ```
 
 `npm run check` tiene que salir en **0 errores, 0 avisos, 0 sugerencias** antes
-de subir nada: es lo que atrapa que una traducción perdió una clave.
+de subir nada, y `npm run i18n:check` es lo que atrapa que una traducción
+perdió una clave.
 
 ---
 
@@ -57,6 +60,8 @@ public/               CNAME, favicons, og-image.png, tipografías Montserrat e I
 src/assets/heroes/    fotografía de cabecera por página (ver su README)
 src/assets/industries/ fotografía por sector (ver su README)
 scripts/build-og.mjs  regenera og-image.png, apple-touch-icon.png y los favicons
+scripts/i18n-check.mjs comprueba que los JSON en español tengan las claves del inglés
+scripts/audit.mjs     revisa el build: enlaces, encabezados, alt, metadatos
 ```
 
 ### Las dos reglas de este repositorio
@@ -86,8 +91,9 @@ paso 1. Si la agregas a `NAV_PAGES` también aparece en la navegación.
 ### Traducir
 
 Los dos JSON de una página tienen **las mismas claves**. El tipo de retorno de
-`t()` está anclado al inglés a propósito: si al español le falta una clave, el
-error sale en `npm run check` y no en producción con un hueco en la pantalla.
+`t()` está anclado al inglés a propósito, pero un `as` no detecta una clave
+que falte en español; para eso está `npm run i18n:check`, que compara los dos
+árboles clave por clave (y la longitud de cada lista) y falla si difieren.
 
 El español es de México y no una traducción literal. «Turn business data into
 better decisions» es «Convierte los datos de tu empresa en mejores decisiones»,
@@ -228,7 +234,9 @@ Evita que otra cuenta reclame el dominio en Pages:
 ## Antes de publicar
 
 - [ ] `npm run check` — 0 errores, 0 avisos, 0 sugerencias
-- [ ] `npm run build && npm run preview` — recorrer las dos versiones
+- [ ] `npm run i18n:check` — diccionarios en paridad
+- [ ] `npm run build && npm run audit` — sin hallazgos
+- [ ] `npm run preview` — recorrer las dos versiones
 - [ ] `PUBLIC_FORM_ENDPOINT` configurada y **probada con un envío real**
 - [ ] Aviso de privacidad y términos revisados por alguien de legal
 - [ ] Si activaste analítica, actualizar el apartado «Cookies y analítica» del
@@ -237,6 +245,29 @@ Evita que otra cuenta reclame el dominio en Pages:
 ---
 
 ## Decisiones que conviene conocer antes de tocar el código
+
+**Cada página responde una sola pregunta, y el orden de sus secciones es el de
+esa respuesta.** Portada: «¿qué es Forcelis?». Soluciones: «¿qué problemas
+resuelve?». Plataforma: «¿cómo funciona la tecnología?». Diagnóstico: «¿qué
+recibo exactamente?». Industrias: «¿es para mi negocio?». Nosotros: «¿por qué
+existe y por qué confiar?». Contacto: «¿qué pasa si escribo?». Antes de añadir
+una sección, pregúntate a cuál de esas preguntas contribuye; si a ninguna, va
+en otra página o no va. El hilo que une las siete es una secuencia —diagnosticar
+→ entender → actuar → mejorar— y el diagnóstico es la puerta de entrada de todo.
+
+**Lo largo se pliega, no se borra.** El detalle técnico de la plataforma, las
+nueve capacidades, los seis bloques de soluciones, los 25 indicadores del
+diagnóstico, la historia completa de la empresa: todo sigue en la página, dentro
+de un `<details>` (`Disclosure.astro`). Es HTML nativo —funciona sin script,
+Ctrl+F lo abre— y un enlace con ancla a un bloque plegado lo abre al aterrizar
+(script en `Base.astro`). La regla para decidir qué se pliega: lo que hace
+falta para DECIDIR va a la vista; lo que hace falta para VERIFICAR va plegado.
+
+**Los cinco valores del score viven en `common.json`** (`scores`), no por
+página: la portada y el diagnóstico enseñan el mismo tablero y no pueden
+diferir. La calificación global es su media redondeada (72), calculada en
+`ScorePanel.astro` y en el informe dibujado de `ReportPreview.astro`; no es
+un número que se escriba a mano en ningún sitio.
 
 **La paleta y la tipografía vienen del manual de marca.** Seis colores —fondo
 `#f7f6f4`, taupe `#c7c3a9`, tinta `#1a1a1a`, gris `#5a5a5a`, rojo `#c02626` y
@@ -270,16 +301,18 @@ formulario funciona con un POST normal si el script no carga. Es la diferencia
 entre una animación y una página en blanco.
 
 **Las cifras de los tableros son inventadas, van etiquetadas y cuadran entre
-sí.** Las doce barras de la gráfica del hero suman los 184.2M del indicador de
-ingresos, y la media de la línea de margen es el 31.6% de su tarjeta. Si cambias
-una, cambia la otra: el público de este sitio son personas que trabajan con
-números y notan un tablero que no cuadra.
+sí.** Las doce barras de la gráfica de la página de plataforma suman los 184.2M
+del indicador de ingresos, y la media de la línea de margen es el 31.6% de su
+tarjeta. Si cambias una, cambia la otra: el público de este sitio son personas
+que trabajan con números y notan un tablero que no cuadra.
 
-**La página de plataforma separa lo que funciona de lo que no.** La columna
-«Disponible hoy» solo lista capacidades que están corriendo en el producto. Lo
-que está construido pero apagado —el benchmark sectorial, el copiloto— vive en
-«En desarrollo». Antes de mover algo de columna, verifícalo en el repositorio de
-la plataforma; esa distinción es la mitad de la credibilidad de la página.
+**La página de plataforma separa lo que funciona de lo que no.** Las nueve
+capacidades plegadas bajo «ver capacidades técnicas» están corriendo en el
+producto. Lo que está construido pero apagado —el benchmark sectorial, el
+copiloto— sigue en el diccionario (`status.future`) y no se renderiza, por
+decisión del cliente. Antes de mover algo de lista, verifícalo en el
+repositorio de la plataforma; esa distinción es la mitad de la credibilidad de
+la página.
 
 **Sin logotipos de clientes, sin años de experiencia, sin premios.** Forcelis es
 una empresa nueva y el sitio lo dice en la página «Nosotros». La confianza la

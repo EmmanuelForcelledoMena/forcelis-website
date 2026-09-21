@@ -26,7 +26,11 @@ interface Props {
   photoKey: string;
   eyebrow?: string;
   title: string;
-  /** Remate del titular en rojo (solo texto grande, ver `--color-brand-on-ink`). */
+  /**
+   * Segunda frase del titular, en rojo y en su propia línea (solo texto
+   * grande, ver `--color-brand-on-ink`). Va en bloque para que el cambio de
+   * color coincida con el cambio de frase y no caiga a mitad de renglón.
+   */
   titleAccent?: string;
   intro?: string;
   cta?: { href: string; label: string };
@@ -103,7 +107,7 @@ const padding = size === 'tall' ? 'py-20 lg:py-28' : 'py-16 lg:py-24';
           data-reveal-delay="60"
         >
           {title}
-          {titleAccent && <span class="text-brand-on-ink">{titleAccent}</span>}
+          {titleAccent && <span class="block text-brand-on-ink">{titleAccent}</span>}
         </h1>
         {
           intro && (

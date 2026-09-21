@@ -58,12 +58,10 @@ export function otherLangs(lang: Lang): Lang[] {
   return LANGS.filter((l) => l !== lang);
 }
 
-/** Las páginas que aparecen en la navegación principal, en orden. */
-export const NAV_PAGES: PageKey[] = [
-  'solutions',
-  'platform',
-  'diagnostic',
-  'industries',
-  'about',
-  'contact',
-];
+/**
+ * Los enlaces de texto de la navegación principal, en orden. El diagnóstico
+ * no está aquí porque no es un enlace más: es el botón de la barra, la única
+ * acción que el sitio pide. Contacto tampoco: va como enlace secundario junto
+ * al botón.
+ */
+export const NAV_PAGES: PageKey[] = ['solutions', 'platform', 'industries', 'about'];
