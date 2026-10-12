@@ -50,7 +50,11 @@ const photo = Object.entries(photos).find(([file]) =>
 
 const hasAside = Astro.slots.has('default');
 const hasActions = Astro.slots.has('actions');
-const padding = size === 'tall' ? 'py-20 lg:py-28' : 'py-16 lg:py-24';
+// El alto del hero en movil esta medido, no elegido: la pagina de asesores es
+// la de aterrizaje de los anuncios y su boton tiene que verse sin scroll en un
+// telefono de 375x667, que es el mas pequeno que sigue siendo comun. Con el
+// relleno de escritorio, el boton caia 12 px por debajo del pliegue.
+const padding = size === 'tall' ? 'py-12 sm:py-20 lg:py-28' : 'py-10 sm:py-16 lg:py-24';
 ---
 
 <section class="on-ink relative overflow-hidden bg-ink text-on-ink">
@@ -103,7 +107,7 @@ const padding = size === 'tall' ? 'py-20 lg:py-28' : 'py-16 lg:py-24';
           )
         }
         <h1
-          class="reveal mt-6 text-[2.5rem] leading-[1.05] font-bold tracking-[-0.025em] text-on-ink sm:text-5xl lg:text-display"
+          class="reveal mt-5 text-[2.125rem] leading-[1.05] font-bold tracking-[-0.025em] text-on-ink sm:mt-6 sm:text-5xl lg:text-display"
           data-reveal-delay="60"
         >
           {title}
@@ -112,7 +116,7 @@ const padding = size === 'tall' ? 'py-20 lg:py-28' : 'py-16 lg:py-24';
         {
           intro && (
             <p
-              class="reveal mt-7 max-w-2xl text-lg leading-relaxed text-on-ink-muted lg:text-xl"
+              class="reveal mt-5 max-w-2xl text-lg leading-relaxed text-on-ink-muted sm:mt-7 lg:text-xl"
               data-reveal-delay="120"
             >
               {intro}
@@ -121,7 +125,7 @@ const padding = size === 'tall' ? 'py-20 lg:py-28' : 'py-16 lg:py-24';
         }
         {
           (cta || hasActions) && (
-            <div class="reveal mt-10 flex flex-col gap-3 sm:flex-row" data-reveal-delay="180">
+            <div class="reveal mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row" data-reveal-delay="180">
               {hasActions ? (
                 <slot name="actions" />
               ) : (

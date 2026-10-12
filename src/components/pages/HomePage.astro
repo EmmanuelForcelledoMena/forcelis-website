@@ -2,29 +2,18 @@
 /**
  * Portada, compartida por `/en/` y `/es/`.
  *
- * Rediseño v3. La página responde UNA pregunta —«¿qué es Forcelis?»— en cinco
- * bloques, y cada bloque responde una parte:
+ * Reestructura CFDI. La portada ya no vende una lista de capacidades: reparte
+ * en dos. Quien asesora empresas y quien tiene una empresa quieren cosas
+ * distintas, y la portada solo tiene que llevar a cada uno a su página en el
+ * primer clic. De ahí los dos botones del hero y las dos tarjetas del centro.
  *
- *   1. HERO — qué hace y cuál es el primer paso. El titular es la promesa
- *      («sabe dónde estás; sabe qué hacer»), el tablero de al lado es el
- *      producto (score global, cinco dimensiones, tres prioridades) y el
- *      botón es la única acción que el sitio pide.
- *   2. PARA QUIÉN — una franja de una línea: tamaño, complejidad, sectores.
- *      Sin esto el visitante no sabe si el sitio le habla a él.
- *   3. CÓMO — datos → inteligencia → acción, y los tres verbos (ver,
- *      entender, actuar). Absorbe las antiguas secciones «problema» y
- *      «enfoque», que decían lo mismo dos veces.
- *   4. QUÉ MEJORA — cuatro áreas de resultado y dos de apoyo. Sustituye a las
- *      seis tarjetas de servicio: seis fichas iguales se leían como catálogo.
- *   5. PUNTO DE PARTIDA — el diagnóstico como flujo de cinco pasos y un
- *      párrafo. Absorbe el antiguo panel de score (ya está en el hero), la
- *      lista de hallazgos (viven en la página del diagnóstico) y el «modelo
- *      de servicio» (una frase: lo que sigue se dimensiona desde el
- *      diagnóstico).
+ * Orden: hero con el tablero → para quién → cómo funciona → dos caminos →
+ * plataforma → el diagnóstico como punto de partida → cierre.
  *
- * Fuera: el tablero de ingresos/margen (ahora en Plataforma, que es donde
- * prueba que hay software), la sección «por qué Forcelis» (Nosotros) y la de
- * industrias (la franja 2 y la página de Industrias).
+ * Lo que cambió respecto al v3: las cuatro áreas de resultado y las dos de
+ * apoyo se fueron con la página de Soluciones —el catálogo de servicios dejó
+ * de ser la oferta—, y volvió el bloque de plataforma, que ahora dice lo que
+ * la plataforma ES y no lo que se está construyendo.
  */
 import Base from '../../layouts/Base.astro';
 import Section from '../Section.astro';
@@ -33,9 +22,8 @@ import Button from '../Button.astro';
 import PageHero from '../PageHero.astro';
 import ScorePanel from '../ScorePanel.astro';
 import DataFlow from '../DataFlow.astro';
-import SolutionCard from '../SolutionCard.astro';
 import InlineTermList from '../InlineTermList.astro';
-import Cta from '../Cta.astro';
+import Icon from '../Icon.astro';
 import { path, type Lang } from '../../i18n/routes';
 import { t, common } from '../../i18n';
 
@@ -47,14 +35,18 @@ const { lang } = Astro.props;
 const h = t(lang, 'home');
 const c = common(lang);
 
-const iconFor: Record<string, 'financial' | 'operational' | 'supply' | 'accounting' | 'advisory' | 'managed'> = {
-  financial: 'financial',
-  operational: 'operational',
-  supply: 'supply',
-  accounting: 'accounting',
-  advisory: 'advisory',
-  managed: 'managed',
-};
+const caminos = [
+  {
+    key: 'advisors' as const,
+    icon: 'advisory' as const,
+    ...h.paths.advisors,
+  },
+  {
+    key: 'business' as const,
+    icon: 'financial' as const,
+    ...h.paths.business,
+  },
+];
 ---
 
 <Base lang={lang} pageKey="home" title={h.meta.title} description={h.meta.description}>
@@ -68,8 +60,10 @@ const iconFor: Record<string, 'financial' | 'operational' | 'supply' | 'accounti
     intro={h.hero.subtitle}
   >
     <Fragment slot="actions">
-      <Button href={path('diagnostic', lang)} variant="onInk" size="lg">{c.cta.diagnostic}</Button>
-      <Button href="#how-it-works" variant="onInkGhost" size="lg">{c.cta.howItWorks}</Button>
+      <Button href={path('advisors', lang)} variant="onInk" size="lg">{h.hero.primary}</Button>
+      <Button href={path('business', lang)} variant="onInkGhost" size="lg">
+        {h.hero.secondary}
+      </Button>
     </Fragment>
 
     <!-- El tablero conserva su fondo de tarjeta sobre la banda de tinta a
@@ -132,87 +126,111 @@ const iconFor: Record<string, 'financial' | 'operational' | 'supply' | 'accounti
         ))
       }
     </ol>
+  </Section>
 
-    <div class="reveal mt-12 flex flex-col gap-4 border-t border-line pt-8 sm:flex-row sm:items-center sm:justify-between">
-      <p class="max-w-2xl text-[0.9375rem] leading-relaxed text-muted">{h.how.platformNote}</p>
-      <Button href={path('platform', lang)} variant="secondary">{c.cta.seePlatform}</Button>
+  <!-- ============================================================= DOS CAMINOS -->
+  <Section tone="ground">
+    <div class="reveal">
+      <SectionHeader eyebrow={h.paths.eyebrow} title={h.paths.title} />
+    </div>
+
+    <div class="mt-12 grid gap-px border border-line bg-line lg:grid-cols-2">
+      {
+        caminos.map((camino, i) => (
+          <a
+            href={path(camino.key, lang)}
+            class="reveal group relative flex flex-col bg-panel p-8 transition-colors duration-200 hover:bg-panel-alt lg:p-10"
+            data-reveal-delay={i * 80}
+          >
+            <span
+              aria-hidden="true"
+              class="absolute inset-x-0 top-0 h-[2px] origin-left scale-x-0 bg-brand transition-transform duration-300 group-hover:scale-x-100"
+            />
+            <Icon name={camino.icon} class="h-7 w-7 text-brand-text" />
+            <h3 class="mt-7 text-2xl leading-snug font-semibold tracking-[-0.02em] text-ink lg:text-[1.75rem]">
+              {camino.title}
+            </h3>
+            <p class="mt-4 flex-1 text-base leading-relaxed text-muted lg:text-lg">{camino.body}</p>
+            <span class="mt-8 inline-flex items-center gap-2 text-sm font-medium text-ink">
+              {camino.cta}
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 14 14"
+                fill="none"
+                aria-hidden="true"
+                class="transition-transform duration-200 group-hover:translate-x-1"
+              >
+                <path d="M2.5 7h9M8 3.5 11.5 7 8 10.5" stroke="currentColor" stroke-width="1.4" />
+              </svg>
+            </span>
+          </a>
+        ))
+      }
     </div>
   </Section>
 
-  <!-- ============================================================ QUÉ MEJORA -->
-  <Section tone="ground">
-    <div class="reveal">
-      <SectionHeader eyebrow={h.improve.eyebrow} title={h.improve.title} intro={h.improve.intro} />
-    </div>
-
-    <!-- Un solo marco para las dos filas; las hairlines son el hueco de un
-         píxel sobre el color de línea, no un borde por tarjeta. -->
-    <div class="mt-14 flex flex-col gap-px border border-line bg-line">
-      <div class="grid gap-px sm:grid-cols-2 lg:grid-cols-4">
-        {
-          h.improve.areas.map((area, i) => (
-            <div class="reveal flex" data-reveal-delay={(i % 4) * 70}>
-              <SolutionCard
-                icon={iconFor[area.key]}
-                title={area.title}
-                tags={area.tags}
-                href={`${path('solutions', lang)}#${area.key}`}
-                class="flex-1"
-              >
-                <Fragment slot="more">{c.cta.learnMore}</Fragment>
-              </SolutionCard>
-            </div>
-          ))
-        }
+  <!-- ============================================================ PLATAFORMA -->
+  <Section tone="panel">
+    <div class="grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
+      <div class="reveal">
+        <SectionHeader eyebrow={h.platform.eyebrow} title={h.platform.title} />
+        <p class="mt-8 text-lg leading-relaxed text-muted">{h.platform.body}</p>
+        <div class="mt-10">
+          <Button href={path('platform', lang)} variant="secondary">{h.platform.cta}</Button>
+        </div>
       </div>
 
-      <div class="grid gap-px sm:grid-cols-2">
+      <ul class="reveal divide-y divide-line border-t border-b border-line" data-reveal-delay="100">
         {
-          h.improve.support.map((item, i) => (
-            <div class="reveal flex" data-reveal-delay={i * 70}>
-              <SolutionCard
-                variant="support"
-                title={item.title}
-                body={item.body}
-                href={`${path('solutions', lang)}#${item.key}`}
-                class="flex-1"
-              >
-                <Fragment slot="more">{c.cta.learnMore}</Fragment>
-              </SolutionCard>
-            </div>
+          h.platform.points.map((point) => (
+            <li class="flex items-start gap-4 py-5">
+              <span aria-hidden="true" class="mt-2.5 block h-[2px] w-4 shrink-0 bg-brand" />
+              <p class="text-[0.9375rem] leading-relaxed text-ink lg:text-base">{point}</p>
+            </li>
           ))
         }
-      </div>
+      </ul>
     </div>
   </Section>
 
   <!-- ======================================================= PUNTO DE PARTIDA -->
-  <Section tone="panel">
+  <Section tone="ground">
     <div class="grid gap-12 lg:grid-cols-[1fr_minmax(0,22rem)] lg:gap-24">
       <div class="reveal">
         <SectionHeader eyebrow={h.start.eyebrow} title={h.start.title} />
         <p class="mt-6 max-w-2xl text-lg leading-relaxed text-muted">{h.start.body}</p>
         <div class="mt-10 flex flex-col gap-3 sm:flex-row">
-          <Button href={path('diagnostic', lang)} size="lg">{c.cta.diagnostic}</Button>
+          <Button href={path('diagnostic', lang)} size="lg">{c.cta.diagnosticShort}</Button>
           <Button href={`${path('diagnostic', lang)}#deliverables`} variant="secondary" size="lg">
             {h.start.secondary}
           </Button>
         </div>
       </div>
 
-      <!-- Vertical a propósito, también en escritorio: al lado del texto se
-           lee como la columna de un informe, que es lo que representa. -->
+      <!-- Vertical a propósito, también en escritorio: al lado del texto se lee
+           como la columna de un informe, que es lo que representa. -->
       <div class="reveal lg:self-center" data-reveal-delay="100">
         <DataFlow items={h.start.flow} emphasis={4} direction="column" alt={h.start.flowAlt} />
       </div>
     </div>
   </Section>
 
-  <Cta
-    lang={lang}
-    title={h.closing.title}
-    body={h.closing.body}
-    primaryLabel={h.closing.primary}
-    secondaryLabel={h.closing.secondary}
-  />
+  <!-- =============================================================== CIERRE -->
+  <section class="on-ink bg-ink text-on-ink">
+    <div class="container-page py-20 lg:py-28">
+      <div class="reveal max-w-3xl">
+        <h2 class="text-[2rem] leading-[1.1] font-semibold tracking-[-0.025em] sm:text-[2.75rem] lg:text-5xl">
+          {h.closing.title}
+        </h2>
+        <p class="mt-6 text-lg text-on-ink-muted">{h.closing.body}</p>
+        <div class="mt-10 flex flex-col gap-3 sm:flex-row">
+          <Button href={path('advisors', lang)} variant="onInk" size="lg">{h.closing.primary}</Button>
+          <Button href={path('business', lang)} variant="onInkGhost" size="lg">
+            {h.closing.secondary}
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
 </Base>

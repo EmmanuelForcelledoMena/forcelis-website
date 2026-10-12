@@ -1,0 +1,280 @@
+---
+/**
+ * Calculadora de margen para asesores.
+ *
+ * Solo se renderiza con `negocio.mostrar_precios: true` — enseñar un margen sin
+ * decir cuánto cuesta el plan es enseñar la mitad de una resta.
+ *
+ * La fórmula NO está aquí. Los planes y `empresa_adicional` se serializan desde
+ * `negocio.ts` a un `<script type="application/json">` y el script del
+ * navegador los lee; la elección de plan es la misma lógica que prueba
+ * `scripts/calculator.test.mjs` contra la configuración real. Si alguien cambia
+ * una mensualidad, cambian a la vez la tabla de precios, la calculadora y las
+ * pruebas.
+ *
+ * Accesibilidad: tres campos con `<label>` propio, navegables y editables con
+ * teclado, y los resultados en una región viva para que un lector de pantalla
+ * anuncie el cambio sin tener que ir a buscarlo.
+ */
+import { negocio, planesCalculadora } from '../config/negocio';
+import type { Lang } from '../i18n/routes';
+
+interface Props {
+  lang: Lang;
+  titulo: string;
+  intro: string;
+  campos: {
+    companies: string;
+    companiesHint: string;
+    paying: string;
+    price: string;
+    founder: string;
+  };
+  resultados: {
+    plan: string;
+    cost: string;
+    revenue: string;
+    margin: string;
+    volume: string;
+    tax: string;
+  };
+  errores: { companies: string; paying: string; price: string };
+  /** Nombre de cada plan en el idioma de la página, por id. */
+  nombres: Record<string, string>;
+  class?: string;
+}
+
+const { lang, titulo, intro, campos, resultados, errores, nombres, class: className = '' } =
+  Astro.props;
+
+const datos = {
+  lang,
+  moneda: negocio.moneda,
+  adicional: negocio.empresa_adicional,
+  descuentoFundador: negocio.fundadores.descuento,
+  // De menos a más empresas incluidas: en empate de costo gana el último, que
+  // es el que incluye más. Mismo criterio que `planRecomendado` en negocio.ts.
+  planes: planesCalculadora.map((p) => ({
+    id: p.id,
+    nombre: nombres[p.id] ?? p.id,
+    empresas: p.empresas,
+    precio: p.precio,
+  })),
+  textos: { errores, volumen: resultados.volume },
+};
+
+const input =
+  'mt-2 w-full border border-line-strong bg-panel px-4 py-3 text-[0.9375rem] text-ink ' +
+  'focus:border-ink focus:outline-none transition-colors ' +
+  'aria-[invalid=true]:border-brand aria-[invalid=true]:bg-[#fdf6f4]';
+---
+
+<div class:list={['border border-line bg-panel-alt', className]} data-calculadora>
+  <div class="border-b border-line px-6 py-6 lg:px-8">
+    <h3 class="text-xl font-semibold tracking-[-0.02em] text-ink lg:text-2xl">{titulo}</h3>
+    <p class="mt-3 max-w-2xl text-[0.9375rem] leading-relaxed text-muted">{intro}</p>
+  </div>
+
+  <div class="grid gap-x-8 gap-y-6 px-6 py-7 sm:grid-cols-3 lg:px-8">
+    <div>
+      <label class="block text-sm font-medium text-ink" for="calc-empresas">
+        {campos.companies}
+      </label>
+      <p class="mt-1 text-xs text-muted" id="calc-empresas-hint">{campos.companiesHint}</p>
+      <input
+        class={input}
+        type="number"
+        id="calc-empresas"
+        name="empresas"
+        value="10"
+        min="1"
+        max="500"
+        step="1"
+        inputmode="numeric"
+        aria-describedby="calc-empresas-hint calc-empresas-error"
+      />
+      <p id="calc-empresas-error" hidden class="mt-2 text-xs font-medium text-brand-text"></p>
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-ink" for="calc-pagan">{campos.paying}</label>
+      <input
+        class={`${input} mt-[1.625rem]`}
+        type="number"
+        id="calc-pagan"
+        name="pagan"
+        value="4"
+        min="0"
+        step="1"
+        inputmode="numeric"
+        aria-describedby="calc-pagan-error"
+      />
+      <p id="calc-pagan-error" hidden class="mt-2 text-xs font-medium text-brand-text"></p>
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-ink" for="calc-precio">{campos.price}</label>
+      <input
+        class={`${input} mt-[1.625rem]`}
+        type="number"
+        id="calc-precio"
+        name="precio"
+        value="500"
+        min="0"
+        step="50"
+        inputmode="numeric"
+        aria-describedby="calc-precio-error"
+      />
+      <p id="calc-precio-error" hidden class="mt-2 text-xs font-medium text-brand-text"></p>
+    </div>
+  </div>
+
+  <div class="px-6 pb-7 lg:px-8">
+    <label class="flex cursor-pointer items-center gap-3 text-sm text-ink">
+      <input
+        type="checkbox"
+        id="calc-fundador"
+        class="h-4 w-4 shrink-0 accent-[var(--color-brand)]"
+      />
+      {campos.founder}
+    </label>
+  </div>
+
+  <!-- Región viva: sin esto, quien usa lector de pantalla cambia un número y no
+       se entera de que el resultado se movió. `polite` y no `assertive` porque
+       el cambio no es urgente y se dispara en cada tecla. -->
+  <div
+    class="grid gap-px border-t border-line bg-line sm:grid-cols-2 lg:grid-cols-4"
+    role="status"
+    aria-live="polite"
+  >
+    <div class="bg-panel px-6 py-5">
+      <p class="text-[0.625rem] font-semibold tracking-[0.14em] text-muted uppercase">
+        {resultados.plan}
+      </p>
+      <p class="mt-2 text-lg font-semibold text-ink" data-resultado="plan">—</p>
+    </div>
+    <div class="bg-panel px-6 py-5">
+      <p class="text-[0.625rem] font-semibold tracking-[0.14em] text-muted uppercase">
+        {resultados.cost}
+      </p>
+      <p class="tnum mt-2 text-lg font-semibold text-ink" data-resultado="costo">—</p>
+    </div>
+    <div class="bg-panel px-6 py-5">
+      <p class="text-[0.625rem] font-semibold tracking-[0.14em] text-muted uppercase">
+        {resultados.revenue}
+      </p>
+      <p class="tnum mt-2 text-lg font-semibold text-ink" data-resultado="ingreso">—</p>
+    </div>
+    <div class="bg-panel px-6 py-5">
+      <p class="text-[0.625rem] font-semibold tracking-[0.14em] text-brand-text uppercase">
+        {resultados.margin}
+      </p>
+      <p class="tnum mt-2 text-lg font-semibold text-brand-text" data-resultado="margen">—</p>
+    </div>
+  </div>
+
+  <div class="border-t border-line px-6 py-4 lg:px-8">
+    <p class="text-xs text-muted" data-resultado="volumen" hidden></p>
+    <p class="text-xs text-muted">{resultados.tax}</p>
+  </div>
+</div>
+
+<script is:inline type="application/json" data-calculadora-datos set:html={JSON.stringify(datos)} />
+
+<script>
+  const raiz = document.querySelector<HTMLElement>('[data-calculadora]');
+  const crudo = document.querySelector<HTMLScriptElement>('[data-calculadora-datos]');
+
+  if (raiz && crudo) {
+    const datos = JSON.parse(crudo.textContent ?? '{}');
+    const dinero = new Intl.NumberFormat(datos.lang === 'es' ? 'es-MX' : 'en-US', {
+      style: 'currency',
+      currency: datos.moneda,
+      maximumFractionDigits: 0,
+    });
+
+    const campos = {
+      empresas: document.getElementById('calc-empresas') as HTMLInputElement,
+      pagan: document.getElementById('calc-pagan') as HTMLInputElement,
+      precio: document.getElementById('calc-precio') as HTMLInputElement,
+      fundador: document.getElementById('calc-fundador') as HTMLInputElement,
+    };
+    const salida = (nombre: string) =>
+      raiz.querySelector<HTMLElement>(`[data-resultado="${nombre}"]`);
+
+    const marcarError = (campo: HTMLInputElement, mensaje: string) => {
+      const slot = document.getElementById(`${campo.id}-error`);
+      if (!slot) return;
+      if (mensaje) {
+        campo.setAttribute('aria-invalid', 'true');
+        slot.textContent = mensaje;
+        slot.hidden = false;
+      } else {
+        campo.removeAttribute('aria-invalid');
+        slot.textContent = '';
+        slot.hidden = true;
+      }
+    };
+
+    const calcular = () => {
+      const N = Math.floor(Number(campos.empresas.value));
+      const n = Math.floor(Number(campos.pagan.value));
+      const p = Number(campos.precio.value);
+
+      const errorN = !Number.isFinite(N) || N < 1 || N > 500 ? datos.textos.errores.companies : '';
+      const errorP = !Number.isFinite(p) || p < 0 ? datos.textos.errores.price : '';
+      // El tope de «clientes que pagarían» depende de N, así que solo se
+      // comprueba cuando N es válido; si no, el mensaje acusaría de un error
+      // que la persona no cometió.
+      const errorn =
+        !Number.isFinite(n) || n < 0
+          ? datos.textos.errores.paying
+          : !errorN && n > N
+            ? datos.textos.errores.paying
+            : '';
+
+      marcarError(campos.empresas, errorN);
+      marcarError(campos.pagan, errorn);
+      marcarError(campos.precio, errorP);
+
+      if (errorN || errorn || errorP) {
+        ['plan', 'costo', 'ingreso', 'margen'].forEach((k) => {
+          const el = salida(k);
+          if (el) el.textContent = '—';
+        });
+        return;
+      }
+
+      // Plan más barato. La lista llega de menos a más empresas incluidas y la
+      // comparación es `<=`, así que en empate gana el que incluye más.
+      let mejor: { nombre: string; costo: number } | null = null;
+      for (const plan of datos.planes) {
+        const costo = plan.precio + Math.max(0, N - plan.empresas) * datos.adicional;
+        if (!mejor || costo <= mejor.costo) mejor = { nombre: plan.nombre, costo };
+      }
+
+      const costo = campos.fundador.checked
+        ? mejor!.costo * datos.descuentoFundador
+        : mejor!.costo;
+      const ingreso = n * p;
+
+      salida('plan')!.textContent = mejor!.nombre;
+      salida('costo')!.textContent = dinero.format(costo);
+      salida('ingreso')!.textContent = dinero.format(ingreso);
+      salida('margen')!.textContent = dinero.format(ingreso - costo);
+
+      const aviso = salida('volumen');
+      if (aviso) {
+        aviso.textContent = datos.textos.volumen;
+        aviso.hidden = N <= 100;
+      }
+    };
+
+    Object.values(campos).forEach((campo) => {
+      campo.addEventListener('input', calcular);
+      campo.addEventListener('change', calcular);
+    });
+    calcular();
+  }
+</script>

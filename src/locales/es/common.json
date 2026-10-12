@@ -3,19 +3,22 @@
     "name": "Forcelis Group",
     "wordmark": "FORCELIS",
     "wordmarkSuffix": "GROUP",
-    "tagline": "Inteligencia Financiera y Operativa"
+    "tagline": "Inteligencia financiera desde tus CFDI"
   },
   "skipToContent": "Ir al contenido principal",
   "nav": {
-    "solutions": "Soluciones",
+    "advisors": "Para contadores y consultores",
+    "business": "Para empresas",
     "platform": "Plataforma",
+    "pricing": "Precios",
     "diagnostic": "Diagnóstico Empresarial",
     "industries": "Industrias",
     "about": "Nosotros",
     "contact": "Contacto",
     "openMenu": "Abrir el menú de navegación",
     "closeMenu": "Cerrar el menú de navegación",
-    "cta": "Diagnóstico Empresarial",
+    "cta": "Agenda una llamada",
+    "app": "Entrar",
     "mainLabel": "Navegación principal"
   },
   "lang": {
@@ -24,30 +27,33 @@
     "switchTo": "View this page in English"
   },
   "cta": {
+    "schedule": "Agenda una llamada",
     "diagnostic": "Solicitar un Diagnóstico Empresarial",
     "diagnosticShort": "Solicitar un diagnóstico",
     "contact": "Contactar a Forcelis",
-    "howItWorks": "Ver cómo trabaja Forcelis",
+    "advisors": "Asesoro empresas",
+    "business": "Tengo una empresa",
     "learnMore": "Saber más",
     "seePlatform": "Ver la plataforma",
-    "seeSolutions": "Explorar soluciones",
+    "seePricing": "Ver precios",
     "seeIndustries": "Ver industrias"
   },
   "footer": {
-    "tagline": "Inteligencia Financiera y Operativa",
-    "blurb": "Forcelis conecta la información financiera y operativa de tu empresa para identificar riesgos, ineficiencias y oportunidades — y convertirlos en acciones medibles.",
+    "tagline": "Inteligencia financiera desde tus CFDI",
+    "blurb": "Forcelis convierte los CFDI que una empresa ya emite y recibe en reportes gerenciales, tableros y hallazgos.",
     "navHeading": "Navegación",
     "companyHeading": "Empresa",
     "legalHeading": "Legal",
     "privacy": "Aviso de privacidad",
     "terms": "Términos de servicio",
     "copyright": "© 2026 Forcelis Group. Todos los derechos reservados.",
-    "disclaimer": "Forcelis presta servicios de análisis y consultoría. No emite opiniones fiscales ni sustituye el juicio de un contador público o auditor autorizado."
+    "disclaimer": "Forcelis presta servicios de análisis. No hace contabilidad, no presenta declaraciones, no emite opiniones fiscales y no sustituye el juicio de un contador público o auditor autorizado."
   },
   "labels": {
     "illustrative": "Datos ilustrativos",
     "availableToday": "Disponible hoy",
     "inDevelopment": "En desarrollo",
+    "roadmap": "Hoja de ruta",
     "scoreOutOf": "de 100",
     "overallScore": "Desempeño global",
     "overallNote": "Promedio de las cinco dimensiones",
@@ -57,6 +63,13 @@
     "whyItMatters": "Por qué importa",
     "recommendedAction": "Acción recomendada",
     "priority": "Prioridad"
+  },
+  "cookies": {
+    "title": "Cookies",
+    "body": "Nos gustaría medir cómo se usa este sitio, con Google Analytics. No se carga nada hasta que aceptes, y decir que no no cambia nada de lo que puedes leer aquí.",
+    "accept": "Aceptar",
+    "reject": "Rechazar",
+    "more": "Aviso de privacidad"
   },
   "scores": [
     { "label": "Salud financiera", "value": 74, "note": "Estructura de margen, base de costos y calidad del resultado" },

@@ -15,6 +15,15 @@
     "company": "Company",
     "website": "Website",
     "websiteOptional": "Optional",
+    "intent": "What are you looking for?",
+    "intentHint": "Pick the one closest to your case. It changes who answers you.",
+    "intentOptions": {
+      "asesor": "I advise businesses (accountant, practice or consultant)",
+      "fundador": "I want the Founders programme",
+      "individual": "I have a business: Individual plan",
+      "diagnostico": "I want a diagnostic",
+      "monitoreo": "I am interested in Monthly Monitoring"
+    },
     "message": "What are you trying to understand?",
     "messageHint": "A specific question makes the first conversation more useful. One or two sentences are enough.",
     "consent": "I have read the Privacy Policy and consent to Forcelis processing this information in order to respond.",
@@ -30,6 +39,7 @@
     "unconfiguredBody": "This site has no form endpoint configured, so nothing would be delivered. Set PUBLIC_FORM_ENDPOINT before publishing — see the README.",
     "errors": {
       "required": "This field is required.",
+      "intent": "Pick what you are looking for.",
       "email": "Enter a valid email address — for example, name@company.com",
       "emailTypo": "Did you mean {suggestion}?",
       "emailTypoAction": "Use it",
@@ -43,17 +53,35 @@
   "next": {
     "title": "What happens next",
     "steps": [
-      { "title": "We read it", "body": "A person reviews your message, not a routing rule." },
-      { "title": "30 minutes", "body": "A short conversation to understand the business and the question. No preparation needed." },
-      { "title": "Concrete next step", "body": "Scope and approach based on the discussion, not on a standard package." }
+      {
+        "title": "We read it",
+        "body": "A person reviews your message, not a routing rule."
+      },
+      {
+        "title": "30 minutes",
+        "body": "A short conversation to understand the business and the question. No preparation needed."
+      },
+      {
+        "title": "Concrete next step",
+        "body": "Scope and approach based on the discussion, not on a standard package."
+      }
     ]
   },
   "assurance": {
     "title": "Before you write",
     "items": [
-      { "title": "No tax credentials", "body": "Forcelis never asks for tax portal access." },
-      { "title": "No banking credentials", "body": "Analysis works from files you export yourself." },
-      { "title": "No obligation", "body": "A first conversation is confidential, whether or not an engagement follows." }
+      {
+        "title": "No tax credentials",
+        "body": "Forcelis never asks for tax portal access."
+      },
+      {
+        "title": "No banking credentials",
+        "body": "Analysis works from files you export yourself."
+      },
+      {
+        "title": "No obligation",
+        "body": "A first conversation is confidential, whether or not an engagement follows."
+      }
     ]
   }
 }

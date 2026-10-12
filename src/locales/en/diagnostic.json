@@ -20,19 +20,48 @@
     "areas": [
       {
         "title": "Financial health",
-        "items": ["Revenue", "Expenses", "Profitability", "Margins", "Cash flow", "Accounts receivable", "Accounts payable"]
+        "items": [
+          "Revenue",
+          "Expenses",
+          "Profitability",
+          "Margins",
+          "Cash flow",
+          "Accounts receivable",
+          "Accounts payable"
+        ]
       },
       {
         "title": "Commercial performance",
-        "items": ["Customer concentration", "Product performance", "Revenue trends", "Customer profitability", "Price dispersion", "Customer churn"]
+        "items": [
+          "Customer concentration",
+          "Product performance",
+          "Revenue trends",
+          "Customer profitability",
+          "Price dispersion",
+          "Customer churn"
+        ]
       },
       {
         "title": "Operational performance",
-        "items": ["Inventory", "Suppliers", "Purchasing", "Operating costs", "Input cost inflation", "Efficiency"]
+        "items": [
+          "Inventory",
+          "Suppliers",
+          "Purchasing",
+          "Operating costs",
+          "Input cost inflation",
+          "Efficiency"
+        ]
       },
       {
         "title": "Accounting data",
-        "items": ["CFDI", "Income", "Expenses", "Transaction patterns", "Data inconsistencies", "Reconciliation gaps"]
+        "items": [
+          "CFDI",
+          "Income",
+          "Expenses",
+          "Transaction patterns",
+          "Data inconsistencies",
+          "Reconciliation gaps"
+        ]
       }
     ]
   },
@@ -76,12 +105,30 @@
     "title": "A document your management team can work from.",
     "intro": "Six sections, in the order a management team reads them. Written for the person who will not read the rest.",
     "items": [
-      { "title": "Executive summary", "body": "The situation in one page." },
-      { "title": "Financial analysis", "body": "Results, margins, costs and cash, restated in managerial terms with history." },
-      { "title": "Operational analysis", "body": "Inventory, purchasing, suppliers and the working capital they consume." },
-      { "title": "Key risks", "body": "What could damage the business, ordered by exposure." },
-      { "title": "Key opportunities", "body": "Where margin, cash or capacity is recoverable, with an estimated size." },
-      { "title": "Recommended actions", "body": "A short, sequenced list with an owner and a way to measure each one." }
+      {
+        "title": "Executive summary",
+        "body": "The situation in one page."
+      },
+      {
+        "title": "Financial analysis",
+        "body": "Results, margins, costs and cash, restated in managerial terms with history."
+      },
+      {
+        "title": "Operational analysis",
+        "body": "Inventory, purchasing, suppliers and the working capital they consume."
+      },
+      {
+        "title": "Key risks",
+        "body": "What could damage the business, ordered by exposure."
+      },
+      {
+        "title": "Key opportunities",
+        "body": "Where margin, cash or capacity is recoverable, with an estimated size."
+      },
+      {
+        "title": "Recommended actions",
+        "body": "A short, sequenced list with an owner and a way to measure each one."
+      }
     ],
     "report": {
       "docLabel": "Business Diagnostic",
@@ -94,10 +141,22 @@
     "eyebrow": "How it works",
     "title": "Four steps.",
     "steps": [
-      { "title": "Scope", "body": "A short call to understand the business, the period to analyze and the questions management already has." },
-      { "title": "Send data", "body": "Files you export from your own systems. Nothing is connected, nothing is installed." },
-      { "title": "Analyze", "body": "Ingestion, normalization and analysis on the platform, then review by the people who will present it." },
-      { "title": "Review", "body": "A working session on the findings and the recommended actions. The full document follows." }
+      {
+        "title": "Scope",
+        "body": "A short call to understand the business, the period to analyze and the questions management already has."
+      },
+      {
+        "title": "Send data",
+        "body": "Files you export from your own systems. Nothing is connected, nothing is installed."
+      },
+      {
+        "title": "Analyze",
+        "body": "Ingestion, normalization and analysis on the platform, then review by the people who will present it."
+      },
+      {
+        "title": "Review",
+        "body": "A working session on the findings and the recommended actions. The full document follows."
+      }
     ],
     "assurances": [
       "No system access required",
@@ -109,17 +168,40 @@
     "title": "What is needed from you",
     "intro": "The first item is the minimum. The rest deepen the analysis but are not required to start.",
     "items": [
-      { "text": "CFDI for the period — issued and received, including payment complements", "required": true },
-      { "text": "Trial balance or general ledger", "required": false },
-      { "text": "Inventory report, if the business holds stock", "required": false },
-      { "text": "Sales detail by customer and product, if kept outside invoicing", "required": false }
+      {
+        "text": "CFDI for the period — issued and received, including payment complements",
+        "required": true
+      },
+      {
+        "text": "Trial balance or general ledger",
+        "required": false
+      },
+      {
+        "text": "Inventory report, if the business holds stock",
+        "required": false
+      },
+      {
+        "text": "Sales detail by customer and product, if kept outside invoicing",
+        "required": false
+      }
     ],
     "note": "If something is missing, the affected metric is reported as unavailable with the reason. It is not estimated."
   },
   "closing": {
     "title": "Start with the diagnostic.",
-    "body": "It establishes the baseline. Everything after it — advisory, platform, managed services — is scoped from evidence rather than from a proposal.",
+    "body": "What comes after — the monthly plan or Monitoring — is decided with evidence, not with a proposal.",
     "primary": "Request a Business Diagnostic",
     "secondary": "See the platform"
+  },
+  "packages": {
+    "eyebrow": "Packages",
+    "title": "Two depths, one fixed price each.",
+    "columns": {
+      "name": "Package",
+      "asks": "What we ask for",
+      "gives": "What you receive"
+    },
+    "advisorNote": "If you advise businesses, there is a version of the Essential under your own brand, to resell.",
+    "advisorCta": "See it for advisors"
   }
 }

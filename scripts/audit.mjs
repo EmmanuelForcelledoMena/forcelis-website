@@ -44,7 +44,18 @@ const problems = [];
 const note = (file, kind, detail) => problems.push({ file: relative(DIST, file), kind, detail });
 
 for (const file of htmls) {
-  const html = readFileSync(file, 'utf8');
+  const crudo = readFileSync(file, 'utf8');
+
+  // Las paginas de redireccion no son paginas: no tienen h1, ni lang, ni
+  // description, y no deben tenerlos. Son el reenvio que Astro genera para una
+  // ruta retirada, con meta refresh, canonica al destino y noindex.
+  if (/<meta http-equiv="refresh"/i.test(crudo)) continue;
+
+  // Fuera los comentarios ANTES de analizar nada. Un comentario puede contener
+  // marcado de ejemplo —este proyecto los tiene, explicando por que un control
+  // NO es un select— y leerlo como marcado real produce hallazgos fantasma que
+  // nadie puede arreglar porque no existen en la pagina.
+  const html = crudo.replace(/<!--[sS]*?-->/g, '');
 
   // --- enlaces internos que no resuelven a un archivo del build ---------------
   for (const m of html.matchAll(/href="(\/[^"#?]*)"/g)) {

@@ -1,0 +1,189 @@
+---
+/**
+ * Para empresas. Sustituye a la antigua página de Soluciones.
+ *
+ * Responde «¿qué puedo comprar yo, que tengo una empresa?» con tres caminos y
+ * nada más: plan Individual para verla cada mes, diagnóstico de precio fijo
+ * para una respuesta de una sola vez, y Monitoreo para que alguien la mire
+ * cada mes. Debajo, qué se analiza —las cinco dimensiones del score, que es la
+ * misma escala del diagnóstico— y la aclaración que más se pregunta: que esto
+ * no pelea con su contador.
+ */
+import Base from '../../layouts/Base.astro';
+import Section from '../Section.astro';
+import SectionHeader from '../SectionHeader.astro';
+import Button from '../Button.astro';
+import PageHero from '../PageHero.astro';
+import ScorePanel from '../ScorePanel.astro';
+import Tag from '../Tag.astro';
+import Cta from '../Cta.astro';
+import { negocio, plan as planPorId, precio } from '../../config/negocio';
+import { contacto, registro } from '../../config/enlaces';
+import { path, type Lang } from '../../i18n/routes';
+import { t, common } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const b = t(lang, 'business');
+const p = t(lang, 'pricing');
+const c = common(lang);
+
+const mostrar = negocio.mostrar_precios;
+const individual = planPorId('individual');
+
+/** Precio de una opción, o cadena vacía con los precios apagados. */
+const conPrecio = (valor: number | null) =>
+  mostrar && valor !== null ? precio(valor, lang) : '';
+
+const opciones = [
+  {
+    id: 'individual',
+    titulo: b.options.individual.title,
+    lead: b.options.individual.lead,
+    nota: b.options.individual.note,
+    precio: conPrecio(individual.precio),
+    etiqueta: '',
+    cta: b.options.individual.cta,
+    href: registro(lang),
+  },
+  {
+    id: 'diagnostico',
+    titulo: b.options.diagnostic.title,
+    lead: b.options.diagnostic.lead,
+    nota: '',
+    precio: conPrecio(negocio.diagnosticos[0].precio),
+    etiqueta: '',
+    cta: b.options.diagnostic.cta,
+    href: path('diagnostic', lang),
+  },
+  {
+    id: 'monitoreo',
+    titulo: b.options.monitoring.title,
+    lead: b.options.monitoring.lead,
+    nota: '',
+    precio: conPrecio(negocio.monitoreo.precio),
+    etiqueta: b.options.monitoring.limited,
+    cta: b.options.monitoring.cta,
+    href: contacto('monitoreo', lang),
+  },
+];
+---
+
+<Base lang={lang} pageKey="business" title={b.meta.title} description={b.meta.description}>
+  <PageHero
+    photoKey="business"
+    eyebrow={b.hero.eyebrow}
+    title={b.hero.title}
+    intro={b.hero.subtitle}
+  >
+    <Fragment slot="actions">
+      <Button href={path('diagnostic', lang)} variant="onInk" size="lg">{b.hero.primary}</Button>
+      <Button href="#individual" variant="onInkGhost" size="lg">{b.hero.secondary}</Button>
+    </Fragment>
+  </PageHero>
+
+  <!-- ============================================================= OPCIONES -->
+  <Section tone="ground" id="individual">
+    <div class="reveal">
+      <SectionHeader eyebrow={b.options.eyebrow} title={b.options.title} />
+    </div>
+
+    <div class="mt-12 grid gap-px border border-line bg-line lg:grid-cols-3">
+      {
+        opciones.map((opcion, i) => (
+          <article class="reveal flex flex-col bg-panel p-7 lg:p-8" data-reveal-delay={i * 70}>
+            <div class="flex items-start justify-between gap-4">
+              <h3 class="text-xl leading-snug font-semibold tracking-[-0.02em] text-ink">
+                {opcion.titulo}
+              </h3>
+              {opcion.etiqueta && <Tag tone="brand">{opcion.etiqueta}</Tag>}
+            </div>
+
+            {opcion.precio && (
+              <p class="tnum font-display mt-5 text-[2rem] leading-none font-bold tracking-[-0.03em] text-ink">
+                {opcion.precio}
+              </p>
+            )}
+
+            <p class="mt-5 flex-1 text-[0.9375rem] leading-relaxed text-muted">{opcion.lead}</p>
+            {opcion.nota && (
+              <p class="mt-4 border-t border-line pt-4 text-sm leading-relaxed text-muted">
+                {opcion.nota}
+              </p>
+            )}
+
+            <div class="mt-7">
+              <Button href={opcion.href} variant={i === 1 ? 'primary' : 'secondary'}>
+                {opcion.cta}
+              </Button>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
+    {
+      mostrar && (
+        <p class="reveal mt-6 text-sm text-muted">{p.diagnostics.credit}</p>
+      )
+    }
+  </Section>
+
+  <!-- ========================================================= QUÉ ANALIZAMOS -->
+  <Section tone="panel">
+    <div class="grid gap-12 lg:grid-cols-[1fr_minmax(0,26rem)] lg:gap-20">
+      <div class="reveal">
+        <SectionHeader
+          eyebrow={b.analysis.eyebrow}
+          title={b.analysis.title}
+          intro={b.analysis.intro}
+        />
+        <div class="mt-10">
+          <Button href={path('diagnostic', lang)} variant="secondary">
+            {c.cta.diagnosticShort}
+          </Button>
+        </div>
+      </div>
+
+      <div class="reveal lg:self-center" data-reveal-delay="100">
+        <ScorePanel
+          title={c.labels.overallScore}
+          items={c.scores}
+          illustrativeLabel={c.labels.illustrative}
+          outOfLabel={c.labels.scoreOutOf}
+          overallLabel={c.labels.overallScore}
+          overallNote={c.labels.overallNote}
+          density="compact"
+        />
+      </div>
+    </div>
+  </Section>
+
+  <!-- ============================================================= CONTADOR -->
+  <Section tone="ground" size="compact">
+    <div class="reveal grid gap-8 lg:grid-cols-[minmax(0,24rem)_1fr] lg:items-center lg:gap-16">
+      <h2 class="text-2xl font-semibold tracking-[-0.02em] text-ink lg:text-3xl">
+        {b.accountant.title}
+      </h2>
+      <div>
+        <p class="max-w-3xl text-lg leading-relaxed text-muted">{b.accountant.body}</p>
+        <div class="mt-6">
+          <Button href={path('advisors', lang)} variant="secondary">{b.accountant.cta}</Button>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <Cta
+    lang={lang}
+    title={b.closing.title}
+    body={b.closing.body}
+    primaryLabel={b.closing.primary}
+    primaryTo="diagnostic"
+    secondaryLabel={b.closing.secondary}
+    secondaryTo="business"
+  />
+</Base>

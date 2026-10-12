@@ -1,7 +1,20 @@
 ---
+/**
+ * Barra de navegación.
+ *
+ * El botón es «Agenda una llamada» y apunta al cliente principal, que son los
+ * asesores. Contacto queda como enlace de texto a su lado: el sitio pide UNA
+ * cosa, y dos botones del mismo peso no piden ninguna.
+ *
+ * «Entrar» solo aparece si `negocio.url_app` tiene valor. Un enlace de acceso
+ * que no lleva a ningún lado es peor que no tenerlo: quien ya es cliente lo
+ * busca primero.
+ */
 import Wordmark from './Wordmark.astro';
 import LanguageSwitcher from './LanguageSwitcher.astro';
 import { NAV_PAGES, path, type Lang, type PageKey } from '../i18n/routes';
+import { negocio } from '../config/negocio';
+import { agenda } from '../config/enlaces';
 import { common } from '../i18n';
 
 interface Props {
@@ -18,12 +31,13 @@ const items = NAV_PAGES.map((key) => ({
   label: c.nav[key as keyof typeof c.nav] as string,
   current: key === pageKey,
 }));
+
+const agendaHref = agenda(lang);
+const appHref = negocio.url_app;
 ---
 
-<header
-  class="sticky top-0 z-50 border-b border-line bg-ground"
->
-  <div class="container-page flex h-16 items-center justify-between gap-6 lg:h-[4.5rem]">
+<header class="sticky top-0 z-50 border-b border-line bg-ground">
+  <div class="container-page flex h-16 items-center justify-between gap-5 lg:h-[4.5rem]">
     <a
       href={path('home', lang)}
       class="shrink-0"
@@ -32,11 +46,10 @@ const items = NAV_PAGES.map((key) => ({
       <Wordmark size="nav" />
     </a>
 
-    <!-- Separación menor en pantallas justas y `whitespace-nowrap` en cada
-         enlace. En español «Diagnóstico Empresarial» se partía en dos líneas
-         dentro de la barra, y eso además descuadraba el subrayado de la página
-         activa, que se posiciona contra el borde inferior del enlace. -->
-    <nav aria-label={c.nav.mainLabel} class="hidden items-center gap-5 lg:flex xl:gap-7">
+    <!-- `whitespace-nowrap` en cada enlace: «Para contadores y consultores» se
+         partía en dos líneas dentro de la barra, y eso descuadraba el subrayado
+         de la página activa, que se posiciona contra el borde inferior. -->
+    <nav aria-label={c.nav.mainLabel} class="hidden items-center gap-5 lg:flex xl:gap-6">
       {
         items.map((item) => (
           <a
@@ -59,9 +72,7 @@ const items = NAV_PAGES.map((key) => ({
       }
     </nav>
 
-    <div class="flex items-center gap-4 lg:gap-5">
-      <!-- Contacto es secundario a propósito: el sitio pide UNA cosa, el
-           diagnóstico, y esa es el botón. Contacto sigue a un clic, como texto. -->
+    <div class="flex items-center gap-3 lg:gap-4">
       <a
         href={path('contact', lang)}
         aria-current={pageKey === 'contact' ? 'page' : undefined}
@@ -72,14 +83,28 @@ const items = NAV_PAGES.map((key) => ({
       >
         {c.nav.contact}
       </a>
-      <!-- El selector va SIEMPRE visible, también en móvil. La Sección 53 del
-           brief lo pide explícitamente: esconder el cambio de idioma dentro del
-           menú de hamburguesa es esconderlo, y el mercado inicial es México
-           leyendo un sitio cuyo idioma por defecto es el inglés. -->
+
+      {
+        appHref && (
+          <a
+            href={appHref}
+            rel="noopener"
+            class="hidden text-sm whitespace-nowrap text-muted transition-colors hover:text-ink lg:inline"
+          >
+            {c.nav.app}
+          </a>
+        )
+      }
+
+      <!-- El selector va SIEMPRE visible, también en móvil: esconder el cambio
+           de idioma dentro de la hamburguesa es esconderlo, y el mercado
+           inicial es México leyendo un sitio cuyo idioma por defecto es el
+           inglés. -->
       <LanguageSwitcher lang={lang} pageKey={pageKey} />
+
       <a
-        href={path('diagnostic', lang)}
-        aria-current={pageKey === 'diagnostic' ? 'page' : undefined}
+        href={agendaHref}
+        data-cta="agenda"
         class="hidden bg-brand px-4 py-2.5 text-sm font-medium whitespace-nowrap text-white transition-colors hover:bg-brand-text lg:inline-flex"
       >
         {c.nav.cta}
@@ -130,13 +155,17 @@ const items = NAV_PAGES.map((key) => ({
       >
         {c.nav.contact}
       </a>
-      <!-- Sin selector de idioma aquí: ya está en la barra, visible en todos los
-           tamaños. Dos veces el mismo control significaría dos regiones de
-           navegación con la misma etiqueta en el árbol de accesibilidad. -->
+      {
+        appHref && (
+          <a href={appHref} rel="noopener" class="border-b border-line py-4 text-base text-muted">
+            {c.nav.app}
+          </a>
+        )
+      }
       <div class="py-5">
         <a
-          href={path('diagnostic', lang)}
-          aria-current={pageKey === 'diagnostic' ? 'page' : undefined}
+          href={agendaHref}
+          data-cta="agenda"
           class="block bg-brand px-4 py-3.5 text-center text-sm font-medium text-white"
         >
           {c.nav.cta}

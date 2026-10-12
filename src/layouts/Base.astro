@@ -2,7 +2,8 @@
 import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
-import { LANG_META, LANGS, path, type Lang, type PageKey } from '../i18n/routes';
+import CookieNotice from '../components/CookieNotice.astro';
+import { LANG_META, LANGS, isNoindex, path, type Lang, type PageKey } from '../i18n/routes';
 import { common } from '../i18n';
 
 interface Props {
@@ -15,6 +16,12 @@ interface Props {
 const { lang, pageKey, title, description } = Astro.props;
 const c = common(lang);
 
+// Qué páginas no se indexan lo decide `routes.ts`, no cada plantilla: la misma
+// lista alimenta esta etiqueta y el filtro del sitemap, y así no pueden
+// contradecirse. `follow` y no `nofollow`: la página de gracias enlaza al
+// inicio y no hay motivo para quemar esos enlaces.
+const noindex = isNoindex(pageKey);
+
 const site = Astro.site ?? new URL('https://forcelis-group.com');
 const canonical = new URL(path(pageKey, lang), site).href;
 const ogImage = new URL('/og-image.png', site).href;
@@ -26,11 +33,6 @@ const alternates = LANGS.map((l) => ({
   hreflang: LANG_META[l].hreflang,
   href: new URL(path(pageKey, l), site).href,
 }));
-
-// Analítica: solo se inyecta si la variable existe. Nunca hay un ID de prueba
-// en el código (Sección 50 del brief).
-const gaId = import.meta.env.PUBLIC_GA_ID;
-const clarityId = import.meta.env.PUBLIC_CLARITY_ID;
 
 const organizationJsonLd = {
   '@context': 'https://schema.org',
@@ -54,6 +56,7 @@ const organizationJsonLd = {
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
 
     {
       alternates.map((alt) => (
@@ -127,39 +130,6 @@ const organizationJsonLd = {
       document.documentElement.classList.add('js');
     </script>
 
-    {
-      gaId && (
-        <>
-          <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} />
-          <script is:inline define:vars={{ gaId }}>
-            window.dataLayer = window.dataLayer || [];
-            function gtag() {
-              dataLayer.push(arguments);
-            }
-            gtag('js', new Date());
-            gtag('config', gaId, { anonymize_ip: true });
-          </script>
-        </>
-      )
-    }
-    {
-      clarityId && (
-        <script is:inline define:vars={{ clarityId }}>
-          (function (c, l, a, r, i, t, y) {
-            c[a] =
-              c[a] ||
-              function () {
-                (c[a].q = c[a].q || []).push(arguments);
-              };
-            t = l.createElement(r);
-            t.async = 1;
-            t.src = 'https://www.clarity.ms/tag/' + i;
-            y = l.getElementsByTagName(r)[0];
-            y.parentNode.insertBefore(t, y);
-          })(window, document, 'clarity', 'script', clarityId);
-        </script>
-      )
-    }
   </head>
 
   <body class="min-h-screen">
@@ -177,6 +147,55 @@ const organizationJsonLd = {
     </main>
 
     <Footer lang={lang} pageKey={pageKey} />
+
+    <CookieNotice lang={lang} />
+
+    <script>
+      // Campaña: se arrastra por la URL, no se guarda.
+      //
+      // Los `utm_*` con los que alguien llega se copian a los enlaces internos
+      // y a la liga de agenda, para que el parámetro siga ahí cuando esa
+      // persona aterrice en el formulario dos clics después. Es la alternativa
+      // a guardarlos en el navegador, y se eligió a propósito: así el prospecto
+      // llega con su campaña aunque haya rechazado las cookies, porque nada de
+      // esto toca el almacenamiento.
+      //
+      // Solo se tocan enlaces del propio sitio y la liga de agenda. Las
+      // canónicas se escriben sin parámetros, así que esto no afecta al
+      // indexado.
+      const CAMPANA = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+      const entrada = new URLSearchParams(window.location.search);
+      const campana = CAMPANA.filter((k) => entrada.has(k)).map(
+        (k) => [k, entrada.get(k) as string] as const,
+      );
+
+      if (campana.length) {
+        const propio = (url: URL) => url.origin === window.location.origin;
+        document.querySelectorAll<HTMLAnchorElement>('a[href]').forEach((enlace) => {
+          const href = enlace.getAttribute('href') ?? '';
+          // Anclas, correo y teléfono no llevan campaña a ningún sitio.
+          if (href.startsWith('#') || /^(mailto|tel):/i.test(href)) return;
+          let url: URL;
+          try {
+            url = new URL(href, window.location.href);
+          } catch {
+            return;
+          }
+          const esAgenda = enlace.dataset.cta === 'agenda';
+          if (!propio(url) && !esAgenda) return;
+          campana.forEach(([k, v]) => url.searchParams.set(k, v));
+          enlace.href = url.href;
+        });
+      }
+
+      // Clic en «Agenda una llamada». El evento solo llega a algún lado si hay
+      // consentimiento; `forcelisEvento` se encarga de eso.
+      document.querySelectorAll('[data-cta="agenda"]').forEach((boton) => {
+        boton.addEventListener('click', () => {
+          window.forcelisEvento?.('agenda_click', { pagina: window.location.pathname });
+        });
+      });
+    </script>
 
     <script>
       // Revelado al entrar en pantalla.

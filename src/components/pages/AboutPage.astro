@@ -13,15 +13,15 @@
  *      párrafos largos a la entrada de la página.
  *   4. PRINCIPIOS — cuatro tarjetas: una etiqueta y una frase; el porqué
  *      plegado en cada una.
- *   5. ESTRUCTURA — Advisory → Intelligence → Managed Services como
- *      secuencia, con una línea por unidad.
+ *   5. QUÉ ES — una frase. Aquí estaban las tres líneas del grupo; los
+ *      servicios administrados y la consultoría como línea aparte dejaron de
+ *      ser la oferta con la reestructura, y la sección se quedó sin contenido.
  *   6. ETAPA — dos frases. La transparencia se conserva; la defensa larga no.
  */
 import Base from '../../layouts/Base.astro';
 import Section from '../Section.astro';
 import SectionHeader from '../SectionHeader.astro';
 import PageHero from '../PageHero.astro';
-import DataFlow from '../DataFlow.astro';
 import Disclosure from '../Disclosure.astro';
 import Cta from '../Cta.astro';
 import type { Lang } from '../../i18n/routes';
@@ -123,35 +123,21 @@ const a = t(lang, 'about');
     </ol>
   </Section>
 
-  <!-- ============================================================= ESTRUCTURA -->
+  <!-- ================================================================== QUÉ ES -->
+  <!-- Aquí vivían las tres líneas del grupo —Advisory, Intelligence, Managed
+       Services— dibujadas como secuencia. Los servicios administrados y la
+       consultoría como línea aparte dejaron de ser la oferta, así que la
+       sección se quedó sin contenido y se sustituyó por lo único que había que
+       decir ahí: qué es la empresa, en una frase. -->
   <Section tone="ink">
-    <div class="reveal">
-      <SectionHeader title={a.structure.title} intro={a.structure.intro} tone="light" />
+    <div class="reveal grid gap-8 lg:grid-cols-[minmax(0,20rem)_1fr] lg:gap-16">
+      <h2 class="text-2xl font-semibold tracking-[-0.02em] text-on-ink lg:text-3xl">
+        {a.what.title}
+      </h2>
+      <p class="max-w-[68ch] text-xl leading-relaxed text-on-ink-muted lg:text-2xl lg:leading-relaxed">
+        {a.what.body}
+      </p>
     </div>
-
-    <div class="reveal mt-14" data-reveal-delay="80">
-      <DataFlow items={a.structure.flow} tone="light" alt={a.structure.flowAlt} />
-    </div>
-
-    <dl class="mt-12 grid gap-10 border-t border-line-ink pt-10 sm:grid-cols-3 sm:gap-8">
-      {
-        a.structure.lines.map((line, i) => (
-          <div class="reveal" data-reveal-delay={i * 70}>
-            <dt>
-              <span class="block text-lg font-semibold text-on-ink">{line.name}</span>
-              <span class="mt-1 block text-[0.6875rem] font-semibold tracking-[0.14em] text-on-ink-muted uppercase">
-                {line.sub}
-              </span>
-            </dt>
-            <dd class="mt-4 text-[0.9375rem] leading-relaxed text-on-ink-muted">{line.body}</dd>
-          </div>
-        ))
-      }
-    </dl>
-
-    <p class="reveal mt-10 max-w-3xl text-[0.9375rem] leading-relaxed text-on-ink-muted" data-reveal-delay="100">
-      {a.structure.sequenceNote}
-    </p>
   </Section>
 
   <!-- ================================================================= ETAPA -->

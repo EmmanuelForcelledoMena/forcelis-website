@@ -1,0 +1,17 @@
+{
+  "meta": {
+    "title": "Thank you — Forcelis Group",
+    "description": "We received your message."
+  },
+  "title": "Thank you. We will write back within one business day.",
+  "body": "A person reads every message. If Forcelis is not the right fit, that is the answer you will get.",
+  "scheduleCta": "Book your call now",
+  "types": {
+    "asesor": "You told us you advise businesses. We will come back with what the platform would look like for your client list.",
+    "fundador": "You applied to the Founders programme. There are a limited number of places, and we answer in order of arrival.",
+    "individual": "You asked about the Individual plan. We will send you how to get started and how to download your XML files.",
+    "diagnostico": "You asked for a diagnostic. We will come back with the scope and what we need from you.",
+    "monitoreo": "You asked about Monthly Monitoring. We will come back with availability and how it starts."
+  },
+  "backHome": "Back to the home page"
+}

@@ -1,0 +1,232 @@
+---
+/**
+ * Para contadores y consultores. Es la página principal del sitio y la de
+ * aterrizaje de los anuncios, así que el orden está puesto para que el botón de
+ * agenda se vea sin hacer scroll en un teléfono de 375 px:
+ *
+ *   hero (titular corto + dos botones) → el problema → cómo funciona →
+ *   qué incluye → calculadora → planes → fundadores → preguntas → cierre.
+ *
+ * La calculadora y los planes con precio solo aparecen con
+ * `negocio.mostrar_precios: true`. Con los precios apagados, la sección de
+ * planes sigue ahí: dice qué incluye cada uno y el botón pide el precio. Lo
+ * que no se hace nunca es enseñar un margen sin el costo que lo produce.
+ */
+import Base from '../../layouts/Base.astro';
+import Section from '../Section.astro';
+import SectionHeader from '../SectionHeader.astro';
+import Button from '../Button.astro';
+import PageHero from '../PageHero.astro';
+import DataFlow from '../DataFlow.astro';
+import ProcessSteps from '../ProcessSteps.astro';
+import Checklist from '../Checklist.astro';
+import PlanCard from '../PlanCard.astro';
+import MarginCalculator from '../MarginCalculator.astro';
+import FaqList from '../FaqList.astro';
+import { negocio, plan as planPorId, precio } from '../../config/negocio';
+import { agenda, contacto } from '../../config/enlaces';
+import { type Lang } from '../../i18n/routes';
+import { t, common } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const a = t(lang, 'advisors');
+const p = t(lang, 'pricing');
+const c = common(lang);
+
+const agendaHref = agenda(lang);
+const mostrar = negocio.mostrar_precios;
+
+// Los tres planes con marca propia. Individual no lleva marca y Volumen se
+// cotiza, así que ninguno de los dos es para un asesor que empieza.
+const planesAsesor = ['profesional', 'despacho', 'firma'] as const;
+
+const etiquetasPlan = {
+  companies: p.platform.columns.companies,
+  brand: p.platform.columns.brand,
+  quote: p.platform.quote,
+  unlimited: p.platform.unlimited,
+  yes: p.platform.yes,
+};
+
+const nombresPlan = Object.fromEntries(
+  Object.entries(p.plans).map(([id, datos]) => [id, datos.name]),
+);
+
+const rellenar = (plantilla: string, valores: Record<string, string>) =>
+  Object.entries(valores).reduce((s, [k, v]) => s.replace(`{${k}}`, v), plantilla);
+---
+
+<Base lang={lang} pageKey="advisors" title={a.meta.title} description={a.meta.description}>
+  <PageHero
+    photoKey="advisors"
+    eyebrow={a.hero.eyebrow}
+    title={a.hero.title}
+    intro={a.hero.subtitle}
+  >
+    <Fragment slot="actions">
+      <Button href={agendaHref} variant="onInk" size="lg" data-cta="agenda">
+        {a.hero.primary}
+      </Button>
+      <Button href="#planes" variant="onInkGhost" size="lg">{a.hero.secondary}</Button>
+    </Fragment>
+  </PageHero>
+
+  <!-- ============================================================= PROBLEMA -->
+  <section class="border-b border-line bg-ground">
+    <div class="container-page grid gap-6 py-12 lg:grid-cols-[minmax(0,16rem)_1fr] lg:gap-16 lg:py-14">
+      <p class="reveal text-[0.6875rem] font-semibold tracking-[0.16em] text-brand-text uppercase">
+        {a.problem.eyebrow}
+      </p>
+      <div class="reveal" data-reveal-delay="80">
+        <h2 class="max-w-3xl text-[1.75rem] leading-tight font-semibold tracking-[-0.02em] text-ink lg:text-[2rem]">
+          {a.problem.title}
+        </h2>
+        <p class="mt-4 max-w-2xl text-lg leading-relaxed text-muted">{a.problem.body}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================= CÓMO -->
+  <Section tone="panel">
+    <div class="reveal">
+      <SectionHeader eyebrow={a.how.eyebrow} title={a.how.title} />
+    </div>
+
+    <div class="reveal mt-12" data-reveal-delay="80">
+      <DataFlow items={a.how.flow} emphasis={1} alt={a.how.flowAlt} />
+    </div>
+
+    <ProcessSteps items={a.how.steps} columns={3} class="mt-14" />
+  </Section>
+
+  <!-- ============================================================ QUÉ INCLUYE -->
+  <Section tone="ground">
+    <div class="grid gap-10 lg:grid-cols-[minmax(0,24rem)_1fr] lg:gap-16">
+      <div class="reveal">
+        <SectionHeader eyebrow={a.includes.eyebrow} title={a.includes.title} intro={a.includes.intro} />
+      </div>
+      <div class="reveal lg:self-center" data-reveal-delay="80">
+        <Checklist items={a.includes.items.map((text) => ({ text }))} layout="grid" />
+      </div>
+    </div>
+  </Section>
+
+  <!-- ========================================================== CALCULADORA -->
+  {
+    mostrar && (
+      <Section tone="panel" size="compact">
+        <div class="reveal">
+          <SectionHeader eyebrow={a.calculator.eyebrow} title={a.calculator.title} />
+        </div>
+        <div class="reveal mt-10" data-reveal-delay="80">
+          <MarginCalculator
+            lang={lang}
+            titulo={a.calculator.title}
+            intro={a.calculator.intro}
+            campos={a.calculator.fields}
+            resultados={a.calculator.results}
+            errores={a.calculator.errors}
+            nombres={nombresPlan}
+          />
+        </div>
+      </Section>
+    )
+  }
+
+  <!-- =============================================================== PLANES -->
+  <Section tone={mostrar ? 'ground' : 'panel'} id="planes">
+    <div class="reveal">
+      <SectionHeader eyebrow={a.plans.eyebrow} title={a.plans.title} intro={a.plans.intro} />
+    </div>
+
+    <div class="mt-12 grid gap-px border border-line bg-line lg:grid-cols-3">
+      {
+        planesAsesor.map((id, i) => (
+          <div class="reveal flex" data-reveal-delay={i * 70}>
+            <PlanCard
+              plan={planPorId(id)}
+              nombre={p.plans[id].name}
+              paraQuien={p.plans[id].for}
+              cta={mostrar ? c.cta.schedule : p.closing.primary}
+              href={agendaHref}
+              labels={etiquetasPlan}
+              lang={lang}
+              destacado={id === 'despacho'}
+              class="flex-1"
+            />
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="reveal mt-8 flex flex-col gap-4 border-t border-line pt-6 lg:flex-row lg:items-center lg:justify-between">
+      <div class="space-y-1.5 text-[0.9375rem] text-muted">
+        {
+          mostrar && (
+            <p>
+              {rellenar(p.platform.extra, { price: precio(negocio.empresa_adicional, lang) })}
+            </p>
+          )
+        }
+        {!mostrar && <p>{a.plans.extra}</p>}
+        <p>
+          {rellenar(a.plans.fairUse, {
+            n: new Intl.NumberFormat(lang === 'es' ? 'es-MX' : 'en-US').format(
+              negocio.uso_justo_cfdi_por_empresa_mes,
+            ),
+          })}
+        </p>
+        <p>{a.plans.volume}</p>
+      </div>
+      <Button href={contacto('asesor', lang)} variant="secondary">{a.plans.volumeCta}</Button>
+    </div>
+  </Section>
+
+  <!-- =========================================================== FUNDADORES -->
+  <Section tone="ink" size="compact">
+    <div class="reveal grid gap-10 lg:grid-cols-[1fr_auto] lg:items-center lg:gap-16">
+      <div>
+        <p class="text-[0.6875rem] font-semibold tracking-[0.16em] text-on-ink-muted uppercase">
+          {a.founders.eyebrow}
+        </p>
+        <h2 class="mt-4 max-w-3xl text-[1.75rem] leading-tight font-semibold tracking-[-0.02em] text-on-ink lg:text-[2rem]">
+          {rellenar(a.founders.title, {
+            n: String(negocio.fundadores.cupo),
+            months: String(negocio.fundadores.meses),
+          })}
+        </h2>
+        <p class="mt-5 max-w-2xl text-lg leading-relaxed text-on-ink-muted">{a.founders.body}</p>
+      </div>
+      <Button href={contacto('fundador', lang)} variant="onInk" size="lg">{a.founders.cta}</Button>
+    </div>
+  </Section>
+
+  <!-- ============================================================ PREGUNTAS -->
+  <Section tone="ground">
+    <div class="reveal">
+      <SectionHeader title={a.faq.title} />
+    </div>
+    <FaqList items={a.faq.items} class="reveal mt-10" />
+  </Section>
+
+  <!-- =============================================================== CIERRE -->
+  <section class="on-ink bg-ink text-on-ink">
+    <div class="container-page py-20 lg:py-28">
+      <div class="reveal max-w-3xl">
+        <h2 class="text-[2rem] leading-[1.1] font-semibold tracking-[-0.025em] sm:text-[2.75rem] lg:text-5xl">
+          {a.closing.title}
+        </h2>
+        <p class="mt-6 text-lg text-on-ink-muted">{a.closing.body}</p>
+        <div class="mt-10">
+          <Button href={agendaHref} variant="onInk" size="lg" data-cta="agenda">
+            {a.closing.cta}
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

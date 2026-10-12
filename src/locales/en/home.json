@@ -1,24 +1,26 @@
 {
   "meta": {
-    "title": "Forcelis Group — Know where your business stands",
-    "description": "Forcelis connects financial and operational data to identify risks, inefficiencies and opportunities — then turns them into measurable action. Start with a Business Diagnostic."
+    "title": "Forcelis Group — Financial intelligence from your CFDI",
+    "description": "Forcelis turns the CFDI a company already issues and receives into management reports, dashboards and findings. For the people who advise businesses, and for businesses themselves."
   },
   "hero": {
-    "eyebrow": "Financial & Operational Intelligence",
-    "titleLead": "Know where your business stands.",
-    "titleAccent": "Know what to do next.",
-    "subtitle": "Forcelis connects financial and operational data to identify risks, inefficiencies and opportunities — then turns them into measurable action.",
+    "eyebrow": "Financial intelligence from your CFDI",
+    "titleLead": "Your CFDI already say how the business is doing.",
+    "titleAccent": "Forcelis turns that into decisions.",
+    "subtitle": "A platform for the people who advise businesses — accountants, practices and consultants — and for businesses that want to understand their own numbers.",
     "panelTitle": "Business performance",
     "prioritiesLabel": "Key priorities",
     "priorities": [
       "Receivables growing faster than revenue",
       "Inventory below target turnover",
       "Margin compression in a key category"
-    ]
+    ],
+    "primary": "I advise businesses",
+    "secondary": "I have a business"
   },
   "audience": {
     "label": "Who it is for",
-    "body": "Companies with 10–100 employees, established revenue and real operating complexity — inventory, suppliers, credit terms.",
+    "body": "Accountants, practices and consultants who advise companies — and companies with real operating complexity: inventory, suppliers, credit terms.",
     "items": [
       "Manufacturing",
       "Distribution",
@@ -31,48 +33,49 @@
   "how": {
     "eyebrow": "How it works",
     "title": "From information to action.",
-    "intro": "Your systems already record what happened. Most companies hold everything needed to explain their own performance — invoices, accounting, sales, purchasing, inventory. What is missing is one place where it is connected and read by someone who knows what to look for.",
+    "intro": "Every company already issues and receives CFDI. That record says what was sold, to whom, at what price, what it cost and when it was actually collected. What is missing is one place where it is connected and read by someone who knows what to look for.",
     "flow": [
-      { "label": "Data", "sub": "What your business already produces" },
+      { "label": "Data", "sub": "The CFDI you already have" },
       { "label": "Intelligence", "sub": "Connected, compared, explained" },
       { "label": "Action", "sub": "Decisions with an owner and a measure" }
     ],
-    "flowAlt": "Data flows into intelligence, and intelligence flows into action.",
+    "flowAlt": "The CFDI you already have become intelligence, and intelligence becomes action.",
     "steps": [
-      {
-        "name": "See",
-        "body": "Connect the information your business already produces."
-      },
-      {
-        "name": "Understand",
-        "body": "Identify the risks, inefficiencies and drivers that matter."
-      },
-      {
-        "name": "Act",
-        "body": "Turn findings into decisions, improvements and measurable results."
-      }
+      { "name": "See", "body": "Connect the information your business already produces." },
+      { "name": "Understand", "body": "Identify the risks, inefficiencies and drivers that matter." },
+      { "name": "Act", "body": "Turn findings into decisions, improvements and measurable results." }
     ],
     "platformNote": "The Forcelis platform does the connecting and the calculating. People do the judgment."
   },
-  "improve": {
-    "eyebrow": "Solutions",
-    "title": "What we improve.",
-    "intro": "Four areas of business performance, read together — because margin, cash and operations are one system.",
-    "areas": [
-      { "key": "financial", "title": "Financial", "tags": ["Performance", "Profitability", "Cash"] },
-      { "key": "operational", "title": "Operations", "tags": ["Efficiency", "Processes", "Productivity"] },
-      { "key": "supply", "title": "Supply chain", "tags": ["Inventory", "Procurement", "Suppliers"] },
-      { "key": "accounting", "title": "Accounting", "tags": ["Data", "Control", "Reporting"] }
+  "paths": {
+    "eyebrow": "Two ways in",
+    "title": "Who is this for?",
+    "advisors": {
+      "title": "For accountants and consultants",
+      "body": "Reports and dashboards under your own brand, for every company you serve. Sell advisory without hiring analysts.",
+      "cta": "See how it works"
+    },
+    "business": {
+      "title": "For businesses",
+      "body": "A fixed-price diagnostic or a monthly plan to see how your business is doing, using what you already invoice.",
+      "cta": "See the options"
+    }
+  },
+  "platform": {
+    "eyebrow": "Forcelis Platform",
+    "title": "One view of your business.",
+    "body": "The Forcelis platform connects financial and operational information into a unified view of business performance. It is not an ERP and it does not replace your accounting system: it is the intelligence layer above them.",
+    "points": [
+      "Every number is computed by a deterministic engine. No figure is generated by a language model.",
+      "Each client's information is isolated at four independent layers, the last of them enforced by the database itself.",
+      "Tax credentials are never requested. Ingestion is by files the client downloads themselves."
     ],
-    "support": [
-      { "key": "advisory", "title": "Advisory", "body": "Turn findings into decisions." },
-      { "key": "managed", "title": "Managed Services", "body": "Keep the process running." }
-    ]
+    "cta": "See the platform"
   },
   "start": {
     "eyebrow": "Business Diagnostic",
     "title": "One starting point.",
-    "body": "Every engagement begins with the Business Diagnostic. You send files exported from your own systems. You receive a scored view of the business, the findings that matter and a sequenced action plan. Everything after it — advisory, implementation, managed services — is scoped from that evidence, not from a proposal.",
+    "body": "A company that wants an answer in one go starts with the Business Diagnostic. You send files exported from your own systems. You receive a scored view of the business, the findings that matter and a sequenced action plan.",
     "flow": [
       { "label": "Data" },
       { "label": "Analysis" },
@@ -84,9 +87,9 @@
     "secondary": "What you receive"
   },
   "closing": {
-    "title": "Find where your business can improve.",
-    "body": "Start with a structured view of your business performance.",
-    "primary": "Request a Business Diagnostic",
-    "secondary": "Contact Forcelis"
+    "title": "Start with the numbers you already have.",
+    "body": "No new system, no credentials, no implementation project.",
+    "primary": "I advise businesses",
+    "secondary": "I have a business"
   }
 }

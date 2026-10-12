@@ -27,9 +27,11 @@ import PageHero from '../PageHero.astro';
 import PlatformArchitecture from '../PlatformArchitecture.astro';
 import DashboardPreview from '../DashboardPreview.astro';
 import Disclosure from '../Disclosure.astro';
+import Tag from '../Tag.astro';
+import Button from '../Button.astro';
 import RuledRows from '../RuledRows.astro';
-import Cta from '../Cta.astro';
-import type { Lang } from '../../i18n/routes';
+import { agenda } from '../../config/enlaces';
+import { path, type Lang } from '../../i18n/routes';
 import { t, common } from '../../i18n';
 
 interface Props {
@@ -147,6 +149,41 @@ const c = common(lang);
     </div>
   </Section>
 
+  <!-- =========================================================== HOJA DE RUTA -->
+  <!-- Separada de «qué funciona hoy» por una sección entera y con la etiqueta
+       «En desarrollo» en cada entrada, no una sola vez arriba: quien llega
+       directo a este bloque desde un ancla o un buscador tiene que leer la
+       etiqueta junto al título, no tres párrafos más arriba. -->
+  <Section tone="ground" size="compact">
+    <div class="reveal grid gap-8 lg:grid-cols-[minmax(0,22rem)_1fr] lg:gap-16">
+      <div>
+        <p class="text-[0.6875rem] font-semibold tracking-[0.16em] text-brand-text uppercase">
+          {c.labels.roadmap}
+        </p>
+        <h2 class="mt-4 text-2xl font-semibold tracking-[-0.02em] text-ink lg:text-3xl">
+          {c.labels.inDevelopment}
+        </h2>
+        <p class="mt-4 text-[0.9375rem] leading-relaxed text-muted">{p.status.roadmapIntro}</p>
+      </div>
+
+      <ul class="divide-y divide-line border-t border-b border-line">
+        {
+          p.status.future.map((item) => (
+            <li class="py-6">
+              <div class="flex flex-wrap items-baseline gap-x-4 gap-y-2">
+                <h3 class="text-lg font-semibold text-ink">{item.title}</h3>
+                <Tag>{c.labels.inDevelopment}</Tag>
+              </div>
+              <p class="mt-2.5 max-w-[68ch] text-[0.9375rem] leading-relaxed text-muted">
+                {item.body}
+              </p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </Section>
+
   <!-- ============================================================= FRONTERAS -->
   <Section tone="ground" size="compact">
     <div class="grid gap-10 lg:grid-cols-[minmax(0,22rem)_1fr] lg:gap-16">
@@ -166,11 +203,26 @@ const c = common(lang);
     </div>
   </Section>
 
-  <Cta
-    lang={lang}
-    title={p.closing.title}
-    body={p.closing.body}
-    primaryLabel={p.closing.primary}
-    secondaryLabel={p.closing.secondary}
-  />
+  <!-- Cierre propio y no el `Cta` compartido: esta página la leen los dos
+       públicos, y cada uno necesita su botón. El diagnóstico es para la empresa
+       que quiere una respuesta sobre sí misma; la agenda, para el asesor que
+       está evaluando la plataforma. -->
+  <section class="on-ink bg-ink text-on-ink">
+    <div class="container-page py-20 lg:py-28">
+      <div class="reveal max-w-3xl">
+        <h2 class="text-[2rem] leading-[1.1] font-semibold tracking-[-0.025em] sm:text-[2.75rem] lg:text-5xl">
+          {p.closing.title}
+        </h2>
+        <p class="mt-6 text-lg text-on-ink-muted">{p.closing.body}</p>
+        <div class="mt-10 flex flex-col gap-3 sm:flex-row">
+          <Button href={path('diagnostic', lang)} variant="onInk" size="lg">
+            {p.closing.primary}
+          </Button>
+          <Button href={agenda(lang)} variant="onInkGhost" size="lg" data-cta="agenda">
+            {p.closing.schedule}
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
 </Base>

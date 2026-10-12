@@ -1,0 +1,97 @@
+---
+/**
+ * Gracias.
+ *
+ * Es el acuse del formulario y el lugar donde se dispara la conversión de los
+ * anuncios. No se indexa (`routes.ts` la marca) y no está en el menú ni en el
+ * pie: a esta página solo se llega enviando algo.
+ *
+ * El `?tipo=` viaja desde el formulario y hace dos cosas: enseña la línea que
+ * corresponde a lo que la persona pidió —no es lo mismo haber aplicado a
+ * Fundadores que haber pedido un diagnóstico— y entra como parámetro del
+ * evento de conversión, para poder separar las campañas por intención.
+ *
+ * Si alguien llega sin `?tipo=`, la página se ve completa sin esa línea. Nada
+ * aquí depende del parámetro para tener sentido.
+ */
+import Base from '../../layouts/Base.astro';
+import Section from '../Section.astro';
+import Button from '../Button.astro';
+import { negocio } from '../../config/negocio';
+import { agenda, TIPOS } from '../../config/enlaces';
+import { path, type Lang } from '../../i18n/routes';
+import { t } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const k = t(lang, 'thanks');
+
+const agendaHref = agenda(lang);
+// Solo se ofrece «agenda ahora» si hay una agenda de verdad: con la liga vacía,
+// el botón llevaría de vuelta al formulario que esta persona acaba de enviar.
+const hayAgenda = Boolean(negocio.url_agenda);
+---
+
+<Base lang={lang} pageKey="thanks" title={k.meta.title} description={k.meta.description}>
+  <Section tone="ground">
+    <div class="mx-auto max-w-2xl py-10 text-center lg:py-16">
+      <span
+        aria-hidden="true"
+        class="mx-auto flex h-14 w-14 items-center justify-center border-2 border-brand"
+      >
+        <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+          <path
+            d="M5 13.5 10.5 19 21 7"
+            stroke="var(--color-brand)"
+            stroke-width="2.2"
+            stroke-linecap="square"
+          ></path>
+        </svg>
+      </span>
+
+      <h1 class="mt-8 text-[2rem] leading-tight font-semibold tracking-[-0.025em] text-ink lg:text-[2.75rem]">
+        {k.title}
+      </h1>
+      <p class="mt-6 text-lg leading-relaxed text-muted">{k.body}</p>
+
+      <p
+        id="gracias-tipo"
+        hidden
+        class="mt-6 border-t border-line pt-6 text-[0.9375rem] leading-relaxed text-ink"
+      >
+      </p>
+
+      <div class="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        {
+          hayAgenda && (
+            <Button href={agendaHref} size="lg" data-cta="agenda">
+              {k.scheduleCta}
+            </Button>
+          )
+        }
+        <Button href={path('home', lang)} variant="secondary" size="lg">{k.backHome}</Button>
+      </div>
+    </div>
+  </Section>
+</Base>
+
+<script is:inline define:vars={{ textos: k.types, tiposPermitidos: TIPOS }}>
+  (() => {
+    const tipo = new URLSearchParams(window.location.search).get('tipo');
+    // Lista blanca: el parámetro viene de la URL y acaba en el DOM y en un
+    // evento de analítica. Solo se aceptan los cinco valores conocidos.
+    if (!tipo || !tiposPermitidos.includes(tipo)) return;
+
+    const slot = document.getElementById('gracias-tipo');
+    if (slot && textos[tipo]) {
+      slot.textContent = textos[tipo];
+      slot.hidden = false;
+    }
+
+    // La conversión. `forcelisEvento` no hace nada sin consentimiento.
+    window.forcelisEvento?.('generate_lead', { tipo });
+  })();
+</script>

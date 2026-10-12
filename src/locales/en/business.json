@@ -1,0 +1,50 @@
+{
+  "meta": {
+    "title": "For businesses — Know where your business stands",
+    "description": "With the CFDI you already issue and receive: a fixed-price diagnostic, a monthly plan, or the Individual plan to see your own company every month."
+  },
+  "hero": {
+    "eyebrow": "For businesses",
+    "title": "Know where your business stands.",
+    "subtitle": "With the CFDI you already issue and receive: a fixed-price diagnostic or a monthly plan to see how the business is doing.",
+    "primary": "Request a diagnostic",
+    "secondary": "See the Individual plan"
+  },
+  "options": {
+    "eyebrow": "Three ways in",
+    "title": "Pick the one that matches the question you have.",
+    "individual": {
+      "title": "Individual plan",
+      "lead": "For a founder who wants to see their own company every month.",
+      "note": "We give you a step-by-step guide to download your XML from the SAT, or you can ask your accountant for them.",
+      "cta": "I want it"
+    },
+    "diagnostic": {
+      "title": "Business Diagnostic",
+      "lead": "A one-off, fixed-price analysis with a scored view, the findings that matter and an action plan.",
+      "cta": "See the diagnostic"
+    },
+    "monitoring": {
+      "title": "Monthly Monitoring",
+      "lead": "A dashboard and a management report every month, with a 60-minute quarterly review.",
+      "limited": "Limited places",
+      "cta": "Ask about Monitoring"
+    }
+  },
+  "analysis": {
+    "eyebrow": "What we analyze",
+    "title": "Five dimensions, on one scale.",
+    "intro": "The same five that make up the Forcelis Business Score, so one period can be compared with the next."
+  },
+  "accountant": {
+    "title": "Already have an accountant? We work with them.",
+    "body": "Forcelis does not do accounting and does not file returns. If your accountant uses Forcelis, you receive your reports through them.",
+    "cta": "I am the accountant"
+  },
+  "closing": {
+    "title": "Start with your own numbers.",
+    "body": "A diagnostic answers the question once. The monthly plan keeps answering it.",
+    "primary": "Request a diagnostic",
+    "secondary": "See the Individual plan"
+  }
+}

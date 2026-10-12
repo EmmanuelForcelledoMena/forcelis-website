@@ -1,24 +1,26 @@
 {
   "meta": {
-    "title": "Forcelis Group — Conoce la posición real de tu empresa",
-    "description": "Forcelis conecta la información financiera y operativa de tu empresa para identificar riesgos, ineficiencias y oportunidades — y convertirlos en acciones medibles. Empieza con un Diagnóstico Empresarial."
+    "title": "Forcelis Group — Inteligencia financiera desde tus CFDI",
+    "description": "Forcelis convierte los CFDI que una empresa ya emite y recibe en reportes gerenciales, tableros y hallazgos. Para quienes asesoran empresas y para las empresas mismas."
   },
   "hero": {
-    "eyebrow": "Inteligencia Financiera y Operativa",
-    "titleLead": "Conoce la posición real de tu empresa.",
-    "titleAccent": "Y sabe qué hacer después.",
-    "subtitle": "Forcelis conecta la información financiera y operativa de tu empresa para identificar riesgos, ineficiencias y oportunidades — y convertirlos en acciones medibles.",
+    "eyebrow": "Inteligencia financiera desde los CFDI",
+    "titleLead": "Tus CFDI ya cuentan cómo va el negocio.",
+    "titleAccent": "Forcelis lo convierte en decisiones.",
+    "subtitle": "Una plataforma para quienes asesoran empresas —contadores, despachos y consultores— y para empresas que quieren entender sus números.",
     "panelTitle": "Desempeño del negocio",
     "prioritiesLabel": "Prioridades clave",
     "priorities": [
       "La cartera crece más rápido que las ventas",
       "Rotación de inventario por debajo del objetivo",
       "Compresión de margen en una categoría clave"
-    ]
+    ],
+    "primary": "Asesoro empresas",
+    "secondary": "Tengo una empresa"
   },
   "audience": {
     "label": "Para quién es",
-    "body": "Empresas de 10 a 100 empleados, con ingresos establecidos y complejidad operativa real: inventario, proveedores, crédito a clientes.",
+    "body": "Contadores, despachos y consultores que asesoran empresas — y empresas con complejidad operativa real: inventario, proveedores, crédito a clientes.",
     "items": [
       "Manufactura",
       "Distribución",
@@ -31,48 +33,49 @@
   "how": {
     "eyebrow": "Cómo funciona",
     "title": "De la información a la acción.",
-    "intro": "Tus sistemas ya registran lo que pasó. Casi todas las empresas tienen lo necesario para explicar su propio desempeño: facturas, contabilidad, ventas, compras, inventario. Lo que falta es un solo lugar donde esa información esté conectada y la lea alguien que sabe qué buscar.",
+    "intro": "Toda empresa ya emite y recibe CFDI. Ese registro dice qué se vendió, a quién, a qué precio, cuánto costó y cuándo se cobró de verdad. Lo que falta es un solo lugar donde esté conectado y lo lea alguien que sabe qué buscar.",
     "flow": [
-      { "label": "Datos", "sub": "Lo que tu empresa ya produce" },
+      { "label": "Datos", "sub": "Los CFDI que ya tienes" },
       { "label": "Inteligencia", "sub": "Conectados, comparados, explicados" },
       { "label": "Acción", "sub": "Decisiones con responsable y medida" }
     ],
-    "flowAlt": "Los datos se convierten en inteligencia, y la inteligencia en acción.",
+    "flowAlt": "Los CFDI que ya tienes se convierten en inteligencia, y la inteligencia en acción.",
     "steps": [
-      {
-        "name": "Ver",
-        "body": "Conectar la información que tu empresa ya produce."
-      },
-      {
-        "name": "Entender",
-        "body": "Identificar los riesgos, las ineficiencias y las palancas que importan."
-      },
-      {
-        "name": "Actuar",
-        "body": "Convertir los hallazgos en decisiones, mejoras y resultados medibles."
-      }
+      { "name": "Ver", "body": "Conectar la información que tu empresa ya produce." },
+      { "name": "Entender", "body": "Identificar los riesgos, las ineficiencias y las palancas que importan." },
+      { "name": "Actuar", "body": "Convertir los hallazgos en decisiones, mejoras y resultados medibles." }
     ],
     "platformNote": "La plataforma Forcelis conecta y calcula. Las personas ponen el criterio."
   },
-  "improve": {
-    "eyebrow": "Soluciones",
-    "title": "Qué mejoramos.",
-    "intro": "Cuatro áreas del desempeño del negocio, leídas juntas — porque margen, efectivo y operación son un solo sistema.",
-    "areas": [
-      { "key": "financial", "title": "Financiera", "tags": ["Desempeño", "Rentabilidad", "Efectivo"] },
-      { "key": "operational", "title": "Operaciones", "tags": ["Eficiencia", "Procesos", "Productividad"] },
-      { "key": "supply", "title": "Cadena de suministro", "tags": ["Inventario", "Compras", "Proveedores"] },
-      { "key": "accounting", "title": "Contabilidad", "tags": ["Datos", "Control", "Reporteo"] }
+  "paths": {
+    "eyebrow": "Dos caminos",
+    "title": "¿Para quién es esto?",
+    "advisors": {
+      "title": "Para contadores y consultores",
+      "body": "Reportes y tableros con tu marca para todas las empresas que atiendes. Vende asesoría sin contratar analistas.",
+      "cta": "Ver cómo funciona"
+    },
+    "business": {
+      "title": "Para empresas",
+      "body": "Un diagnóstico de precio fijo o un plan mensual para ver cómo va tu negocio con lo que ya facturas.",
+      "cta": "Ver las opciones"
+    }
+  },
+  "platform": {
+    "eyebrow": "Plataforma Forcelis",
+    "title": "Una sola vista de tu negocio.",
+    "body": "La plataforma Forcelis conecta la información financiera y operativa en una vista unificada del desempeño del negocio. No es un ERP y no sustituye tu sistema contable: es la capa de inteligencia que va encima.",
+    "points": [
+      "Cada cifra la calcula un motor determinista. Ningún número lo genera un modelo de lenguaje.",
+      "La información de cada cliente está aislada en cuatro capas independientes, la última dentro de la propia base de datos.",
+      "Nunca se piden credenciales fiscales. La ingesta es por archivos que el propio cliente descarga."
     ],
-    "support": [
-      { "key": "advisory", "title": "Consultoría", "body": "Convertir los hallazgos en decisiones." },
-      { "key": "managed", "title": "Servicios administrados", "body": "Mantener el proceso funcionando." }
-    ]
+    "cta": "Ver la plataforma"
   },
   "start": {
     "eyebrow": "Diagnóstico Empresarial",
     "title": "Un solo punto de partida.",
-    "body": "Todo proyecto empieza con el Diagnóstico Empresarial. Tú envías archivos exportados de tus propios sistemas. Recibes una vista calificada del negocio, los hallazgos que importan y un plan de acción en secuencia. Todo lo que sigue —consultoría, implementación, servicios administrados— se dimensiona a partir de esa evidencia, no de una propuesta.",
+    "body": "Una empresa que quiere una respuesta de una sola vez empieza con el Diagnóstico Empresarial. Envías archivos exportados de tus propios sistemas. Recibes una vista calificada del negocio, los hallazgos que importan y un plan de acción en secuencia.",
     "flow": [
       { "label": "Datos" },
       { "label": "Análisis" },
@@ -84,9 +87,9 @@
     "secondary": "Qué recibes"
   },
   "closing": {
-    "title": "Encuentra dónde puede mejorar tu empresa.",
-    "body": "Empieza con una vista estructurada del desempeño de tu negocio.",
-    "primary": "Solicitar un Diagnóstico Empresarial",
-    "secondary": "Contactar a Forcelis"
+    "title": "Empieza con los números que ya tienes.",
+    "body": "Sin un sistema nuevo, sin credenciales, sin proyecto de implementación.",
+    "primary": "Asesoro empresas",
+    "secondary": "Tengo una empresa"
   }
 }

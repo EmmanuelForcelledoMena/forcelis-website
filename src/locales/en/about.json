@@ -11,10 +11,22 @@
   "equation": {
     "title": "What Forcelis combines",
     "items": [
-      { "title": "Finance", "body": "The judgment to know which number explains the business and which one is noise." },
-      { "title": "Operations", "body": "Process, inventory and supply chain read as part of the financial picture, not separately from it." },
-      { "title": "Technology", "body": "A proprietary platform that does the work no consultant should be doing by hand twice." },
-      { "title": "Execution", "body": "The capacity to run a process on an ongoing basis, not only to recommend it." }
+      {
+        "title": "Finance",
+        "body": "The judgment to know which number explains the business and which one is noise."
+      },
+      {
+        "title": "Operations",
+        "body": "Process, inventory and supply chain read as part of the financial picture, not separately from it."
+      },
+      {
+        "title": "Technology",
+        "body": "A proprietary platform that does the work no consultant should be doing by hand twice."
+      },
+      {
+        "title": "Execution",
+        "body": "The capacity to run the analysis every month, not only to recommend it once."
+      }
     ],
     "result": "Business performance",
     "alt": "Finance plus operations plus technology plus execution equals business performance."
@@ -56,25 +68,9 @@
       }
     ]
   },
-  "structure": {
-    "title": "How Forcelis is organized",
-    "intro": "Three lines under one group, designed to work in sequence rather than as separate offerings.",
-    "lines": [
-      { "name": "Forcelis Advisory", "sub": "Diagnostics and business performance", "body": "Diagnostics, financial and operational analysis, and the advisory work that turns findings into decisions." },
-      { "name": "Forcelis Intelligence", "sub": "Data and software", "body": "The proprietary platform: ingestion, normalization, analytical engines and the deliverables built on top of them." },
-      { "name": "Forcelis Managed Services", "sub": "Ongoing business operations", "body": "Recurring reporting, analysis and operational support, run to a defined methodology under a single point of accountability." }
-    ],
-    "flow": [
-      { "label": "Advisory", "sub": "Diagnose and decide" },
-      { "label": "Intelligence", "sub": "Platform and data" },
-      { "label": "Managed Services", "sub": "Run it every month" }
-    ],
-    "flowAlt": "Advisory leads to Intelligence, which leads to Managed Services.",
-    "sequenceNote": "An engagement can stop after any of the three. How far it goes is the client's decision, not a package sold up front."
-  },
   "stage": {
     "title": "Where Forcelis is today",
-    "body": "Forcelis is an early-stage company working with businesses in Mexico, combining a running proprietary platform with financial and operational expertise. The platform page states plainly which capabilities are available today.",
+    "body": "Forcelis is an early-stage company working with businesses in Mexico, combining a running proprietary platform with financial and operational expertise. The platform page states plainly which capabilities are available today and which are still on the roadmap.",
     "location": "Working with businesses in Mexico."
   },
   "closing": {
@@ -82,5 +78,9 @@
     "body": "The fastest way to judge whether this is useful is to point it at your own numbers.",
     "primary": "Request a Business Diagnostic",
     "secondary": "Contact Forcelis"
+  },
+  "what": {
+    "title": "What Forcelis is",
+    "body": "Forcelis is the intelligence layer on top of the CFDI: it turns what a company already issues and receives into management reports, dashboards and findings, for whoever advises it and for the company itself."
   }
 }
