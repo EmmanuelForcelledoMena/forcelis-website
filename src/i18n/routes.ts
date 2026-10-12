@@ -1,15 +1,16 @@
 /**
  * Rutas bilingües.
  *
- * La URL es la única fuente de verdad del idioma (Sección 54 del brief). Este
- * archivo es el mapa entre una PÁGINA —un concepto estable— y su slug en cada
- * idioma. El selector de idioma no redirige a la portada: traduce la ruta
- * actual, y solo puede hacerlo porque la página sabe qué clave es.
+ * La URL es la única fuente de verdad del idioma. Este archivo es el mapa entre
+ * una PÁGINA —un concepto estable— y su slug en cada idioma. El selector de
+ * idioma no redirige a la portada: traduce la ruta actual, y solo puede hacerlo
+ * porque la página sabe qué clave es.
  *
- * Los slugs en español están traducidos a propósito (`/es/soluciones/`, no
- * `/es/solutions/`): el mercado inicial es México y la URL es contenido
- * indexable. El coste es este mapa, que es una tabla de nueve líneas.
+ * Los slugs en español están traducidos a propósito (`/es/para-empresas/`, no
+ * `/es/for-businesses/`): el mercado inicial es México y la URL es contenido
+ * indexable. El coste es este mapa, que es una tabla.
  */
+import { negocio } from '../config/negocio';
 
 export const LANGS = ['en', 'es'] as const;
 export type Lang = (typeof LANGS)[number];
@@ -20,29 +21,35 @@ export const LANG_META: Record<
   Lang,
   { label: string; short: string; hreflang: string; ogLocale: string }
 > = {
-  en: { label: 'English', short: 'EN', hreflang: 'en', ogLocale: 'en_US' },
+  en: { label: 'English', short: 'EN', hreflang: 'en-US', ogLocale: 'en_US' },
   es: { label: 'Español', short: 'ES', hreflang: 'es-MX', ogLocale: 'es_MX' },
 };
 
 export type PageKey =
   | 'home'
-  | 'solutions'
+  | 'advisors'
+  | 'business'
   | 'platform'
+  | 'pricing'
   | 'diagnostic'
   | 'industries'
   | 'about'
   | 'contact'
+  | 'thanks'
   | 'privacy'
   | 'terms';
 
 export const SLUGS: Record<PageKey, Record<Lang, string>> = {
   home: { en: '', es: '' },
-  solutions: { en: 'solutions', es: 'soluciones' },
+  advisors: { en: 'accountants-and-advisors', es: 'contadores-y-consultores' },
+  business: { en: 'for-businesses', es: 'para-empresas' },
   platform: { en: 'platform', es: 'plataforma' },
+  pricing: { en: 'pricing', es: 'precios' },
   diagnostic: { en: 'business-diagnostic', es: 'diagnostico-empresarial' },
   industries: { en: 'industries', es: 'industrias' },
   about: { en: 'about', es: 'nosotros' },
   contact: { en: 'contact', es: 'contacto' },
+  thanks: { en: 'thank-you', es: 'gracias' },
   privacy: { en: 'privacy', es: 'privacidad' },
   terms: { en: 'terms', es: 'terminos' },
 };
@@ -59,9 +66,39 @@ export function otherLangs(lang: Lang): Lang[] {
 }
 
 /**
- * Los enlaces de texto de la navegación principal, en orden. El diagnóstico
- * no está aquí porque no es un enlace más: es el botón de la barra, la única
- * acción que el sitio pide. Contacto tampoco: va como enlace secundario junto
- * al botón.
+ * Enlaces de texto de la navegación principal, en orden.
+ *
+ * El Diagnóstico Empresarial NO está aquí: dejó de ser una entrada de menú y se
+ * alcanza desde el hero de «Para empresas», que es donde tiene público. El
+ * botón de la barra es «Agenda una llamada», que va al cliente principal —los
+ * asesores—, y Contacto va como enlace secundario junto a ese botón.
+ *
+ * Precios aparece solo cuando hay precios que mostrar. Con los precios
+ * apagados, la página existe pero no se enlaza, no se indexa y no entra al
+ * sitemap: es la misma condición en los tres sitios, leída de la misma
+ * variable.
  */
-export const NAV_PAGES: PageKey[] = ['solutions', 'platform', 'industries', 'about'];
+export const NAV_PAGES: PageKey[] = [
+  'advisors',
+  'business',
+  'platform',
+  ...(negocio.mostrar_precios ? (['pricing'] as PageKey[]) : []),
+  'about',
+];
+
+/**
+ * Páginas que no deben indexarse. Gracias no es contenido —es el acuse de un
+ * envío— y Precios solo se oculta mientras los precios estén apagados.
+ *
+ * La MISMA lista alimenta la etiqueta `robots` del `<head>` y el filtro del
+ * sitemap, para que no puedan contradecirse: un sitemap que anuncia una URL
+ * marcada `noindex` es una señal contradictoria y los buscadores la reportan.
+ */
+export const NOINDEX_PAGES: PageKey[] = [
+  'thanks',
+  ...(negocio.mostrar_precios ? [] : (['pricing'] as PageKey[])),
+];
+
+export function isNoindex(key: PageKey): boolean {
+  return NOINDEX_PAGES.includes(key);
+}

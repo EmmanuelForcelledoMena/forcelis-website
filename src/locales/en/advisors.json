@@ -1,0 +1,124 @@
+{
+  "meta": {
+    "title": "For accountants & advisors — Turn your clients' CFDI into advisory you can bill",
+    "description": "Forcelis turns the XML files you already download into management reports and dashboards under your own brand, for every company you serve, from one place. No SAT or banking credentials."
+  },
+  "hero": {
+    "eyebrow": "For accountants, practices and consultants",
+    "title": "Your clients already give you their CFDI. Turn them into advisory you can bill.",
+    "subtitle": "Forcelis turns the XML files you already download into management reports and dashboards under your own brand, for every company you serve, from one place.",
+    "primary": "Book a 20-minute call",
+    "secondary": "See plans"
+  },
+  "problem": {
+    "eyebrow": "The problem",
+    "title": "Your clients ask how the business is doing, not just how much tax they owe.",
+    "body": "Answering that by hand in a spreadsheet, client by client, does not scale."
+  },
+  "how": {
+    "eyebrow": "How it works",
+    "title": "Three steps, every month.",
+    "steps": [
+      { "title": "You upload the XML you already download", "body": "Issued, received and payment complements. Nothing is connected to the SAT or to a bank." },
+      { "title": "The engine calculates", "body": "Margins, real collection, customer concentration, price dispersion, input cost inflation." },
+      { "title": "You deliver a report and a dashboard under your brand", "body": "Word, a self-contained HTML dashboard and Excel — the formats your client already circulates." }
+    ],
+    "flow": [
+      { "label": "Your clients' XML" },
+      { "label": "Forcelis" },
+      { "label": "Your report, your brand" }
+    ],
+    "flowAlt": "Your clients' XML files go into Forcelis, which produces a report under your own brand."
+  },
+  "includes": {
+    "eyebrow": "What is included",
+    "title": "Everything here is built and running today.",
+    "intro": "Not a roadmap. These are the capabilities in the product right now.",
+    "items": [
+      "CFDI ingestion: issued, received, payment complements, payroll and withholding",
+      "Managerial catalogue: the same item is the same item across suppliers and periods",
+      "Price dispersion engine",
+      "Customer concentration and churn engine",
+      "Input cost inflation engine",
+      "Business pulse engine",
+      "Forecast engine",
+      "Real collection, measured from payment complements",
+      "Managerial income statement, comparable period over period",
+      "Interactive dashboards with filters and drill-down",
+      "Deliverables in Word, HTML and Excel",
+      "Multi-company under one account, with your brand on the deliverables",
+      "Accounts with two-factor authentication",
+      "No SAT or banking credentials, ever"
+    ]
+  },
+  "calculator": {
+    "eyebrow": "Your margin",
+    "title": "What this leaves you every month.",
+    "intro": "Set how many companies you manage and how many would pay for a monthly report. We pick the cheapest plan that covers you.",
+    "fields": {
+      "companies": "Companies you manage",
+      "companiesHint": "1 to 500",
+      "paying": "Clients who would pay for a monthly report",
+      "price": "What you charge per report",
+      "founder": "Founder price (50% for 6 months)"
+    },
+    "results": {
+      "plan": "Recommended plan",
+      "cost": "Your cost per month",
+      "revenue": "Your revenue per month",
+      "margin": "Your margin per month",
+      "volume": "Above 100 companies, ask for Volume.",
+      "tax": "All figures before VAT."
+    },
+    "errors": {
+      "companies": "Enter a whole number between 1 and 500.",
+      "paying": "Cannot be more than the companies you manage.",
+      "price": "Enter an amount of 0 or more."
+    }
+  },
+  "plans": {
+    "eyebrow": "Plans",
+    "title": "Pick the one that fits how many companies you serve.",
+    "intro": "Every plan from Professional up puts your brand on the deliverables.",
+    "extra": "Each company beyond the included ones is added to your monthly bill.",
+    "fairUse": "Fair use: up to {n} CFDI per company per month.",
+    "volume": "More than 100 companies, or an enormous number of CFDI? Ask for Volume.",
+    "volumeCta": "Ask for Volume"
+  },
+  "founders": {
+    "eyebrow": "Founders programme",
+    "title": "The first {n} advisors pay half for {months} months.",
+    "body": "They also get a kick-off session. In exchange, they give us feedback every month, a testimonial, and their clients' authorization for the anonymous benchmark.",
+    "cta": "Apply to the programme"
+  },
+  "faq": {
+    "title": "Questions you are about to ask",
+    "items": [
+      {
+        "q": "Do you need my SAT credentials?",
+        "a": "No. You upload the XML files you already download every month. There is no field for an e.firma or a tax portal password anywhere in the product, and there never will be."
+      },
+      {
+        "q": "Will my clients see the Forcelis brand?",
+        "a": "No. From the Professional plan up, the deliverables carry your brand."
+      },
+      {
+        "q": "Is Forcelis going to sell accounting to my clients?",
+        "a": "No. Forcelis does not do accounting and does not file returns. The relationship with your client is yours."
+      },
+      {
+        "q": "What happens to my clients' data?",
+        "a": "Each company is isolated at four independent layers, the last one enforced by the database itself. A company only enters the anonymous benchmark with its own signed authorization."
+      },
+      {
+        "q": "Can I start with only a few clients?",
+        "a": "Yes. The Professional plan covers up to 10 companies, and each extra company is added to your monthly bill."
+      }
+    ]
+  },
+  "closing": {
+    "title": "See it against one of your own clients.",
+    "body": "Twenty minutes, and bring the XML of a company you already serve.",
+    "cta": "Book a call"
+  }
+}

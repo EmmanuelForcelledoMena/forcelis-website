@@ -11,10 +11,22 @@
   "equation": {
     "title": "Qué combina Forcelis",
     "items": [
-      { "title": "Finanzas", "body": "El criterio para saber qué número explica al negocio y cuál es ruido." },
-      { "title": "Operaciones", "body": "Proceso, inventario y cadena de suministro leídos como parte del cuadro financiero, no aparte de él." },
-      { "title": "Tecnología", "body": "Una plataforma propia que hace el trabajo que ningún consultor debería estar haciendo a mano dos veces." },
-      { "title": "Ejecución", "body": "La capacidad de operar un proceso de forma recurrente, no solo de recomendarlo." }
+      {
+        "title": "Finanzas",
+        "body": "El criterio para saber qué número explica al negocio y cuál es ruido."
+      },
+      {
+        "title": "Operaciones",
+        "body": "Proceso, inventario y cadena de suministro leídos como parte del cuadro financiero, no aparte de él."
+      },
+      {
+        "title": "Tecnología",
+        "body": "Una plataforma propia que hace el trabajo que ningún consultor debería estar haciendo a mano dos veces."
+      },
+      {
+        "title": "Ejecución",
+        "body": "La capacidad de correr el análisis cada mes, no solo de recomendarlo una vez."
+      }
     ],
     "result": "Desempeño del negocio",
     "alt": "Finanzas más operaciones más tecnología más ejecución es igual a desempeño del negocio."
@@ -56,25 +68,9 @@
       }
     ]
   },
-  "structure": {
-    "title": "Cómo está organizada Forcelis",
-    "intro": "Tres líneas bajo un mismo grupo, diseñadas para trabajar en secuencia y no como ofertas separadas.",
-    "lines": [
-      { "name": "Forcelis Advisory", "sub": "Diagnósticos y desempeño empresarial", "body": "Diagnósticos, análisis financiero y operativo, y el trabajo de asesoría que convierte los hallazgos en decisiones." },
-      { "name": "Forcelis Intelligence", "sub": "Datos y software", "body": "La plataforma propia: ingesta, normalización, motores de análisis y los entregables construidos sobre ellos." },
-      { "name": "Forcelis Managed Services", "sub": "Operación recurrente del negocio", "body": "Reporteo, análisis y soporte operativo recurrentes, ejecutados con una metodología definida y un solo responsable." }
-    ],
-    "flow": [
-      { "label": "Advisory", "sub": "Diagnosticar y decidir" },
-      { "label": "Intelligence", "sub": "Plataforma y datos" },
-      { "label": "Managed Services", "sub": "Operarlo cada mes" }
-    ],
-    "flowAlt": "Advisory lleva a Intelligence, que lleva a Managed Services.",
-    "sequenceNote": "Un proyecto puede detenerse después de cualquiera de las tres. Hasta dónde llega lo decide el cliente, no un paquete vendido de entrada."
-  },
   "stage": {
     "title": "Dónde está Forcelis hoy",
-    "body": "Forcelis es una empresa en etapa temprana que trabaja con empresas en México, y combina una plataforma propia en funcionamiento con experiencia financiera y operativa. La página de la plataforma dice con claridad qué capacidades están disponibles hoy.",
+    "body": "Forcelis es una empresa en etapa temprana que trabaja con empresas en México, y combina una plataforma propia en funcionamiento con experiencia financiera y operativa. La página de la plataforma dice con claridad qué capacidades están disponibles hoy y cuáles siguen en la hoja de ruta.",
     "location": "Trabajando con empresas en México."
   },
   "closing": {
@@ -82,5 +78,9 @@
     "body": "La forma más rápida de saber si esto sirve es apuntarlo a tus propios números.",
     "primary": "Solicitar un Diagnóstico Empresarial",
     "secondary": "Contactar a Forcelis"
+  },
+  "what": {
+    "title": "Qué es Forcelis",
+    "body": "Forcelis es la capa de inteligencia sobre los CFDI: convierte lo que una empresa ya emite y recibe en reportes gerenciales, tableros y hallazgos, para quien la asesora y para la empresa misma."
   }
 }

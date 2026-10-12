@@ -1,0 +1,50 @@
+{
+  "meta": {
+    "title": "Para empresas — Conoce la posición real de tu empresa",
+    "description": "Con los CFDI que ya emites y recibes: un diagnóstico de precio fijo, un plan mensual, o el plan Individual para ver tu propia empresa cada mes."
+  },
+  "hero": {
+    "eyebrow": "Para empresas",
+    "title": "Conoce la posición real de tu empresa.",
+    "subtitle": "Con los CFDI que ya emites y recibes: un diagnóstico de precio fijo o un plan mensual para ver cómo va tu negocio.",
+    "primary": "Solicitar un diagnóstico",
+    "secondary": "Ver plan Individual"
+  },
+  "options": {
+    "eyebrow": "Tres formas de empezar",
+    "title": "Elige la que va con la pregunta que traes.",
+    "individual": {
+      "title": "Plan Individual",
+      "lead": "Para emprendedores que quieren ver su propia empresa cada mes.",
+      "note": "Te damos una guía paso a paso para bajar tus XML del SAT, o puedes pedírselos a tu contador.",
+      "cta": "Lo quiero"
+    },
+    "diagnostic": {
+      "title": "Diagnóstico Empresarial",
+      "lead": "Un análisis de una sola vez, a precio fijo, con una vista calificada, los hallazgos que importan y un plan de acción.",
+      "cta": "Ver el diagnóstico"
+    },
+    "monitoring": {
+      "title": "Monitoreo Mensual",
+      "lead": "Tablero y reporte gerencial cada mes, con una revisión trimestral de 60 minutos.",
+      "limited": "Cupo limitado",
+      "cta": "Preguntar por el Monitoreo"
+    }
+  },
+  "analysis": {
+    "eyebrow": "Qué analizamos",
+    "title": "Cinco dimensiones, en una misma escala.",
+    "intro": "Las mismas cinco que forman el Forcelis Business Score, para poder comparar un periodo contra el siguiente."
+  },
+  "accountant": {
+    "title": "¿Ya tienes contador? Trabajamos con él.",
+    "body": "Forcelis no hace contabilidad ni declaraciones. Si tu contador usa Forcelis, recibes tus reportes a través de él.",
+    "cta": "Soy el contador"
+  },
+  "closing": {
+    "title": "Empieza con tus propios números.",
+    "body": "Un diagnóstico responde la pregunta una vez. El plan mensual la sigue respondiendo.",
+    "primary": "Solicitar un diagnóstico",
+    "secondary": "Ver plan Individual"
+  }
+}

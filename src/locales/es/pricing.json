@@ -1,0 +1,100 @@
+{
+  "meta": {
+    "title": "Precios — Precios claros desde una sola empresa",
+    "description": "Planes de plataforma de una empresa a cien, diagnósticos de precio fijo, monitoreo mensual y el programa Fundadores. Precios en pesos mexicanos, más IVA."
+  },
+  "hero": {
+    "eyebrow": "Precios",
+    "title": "Precios claros desde una sola empresa.",
+    "subtitle": "No hay plan gratis. No se cobra por usuario. Pagas por las empresas que analizas."
+  },
+  "platform": {
+    "eyebrow": "Plataforma",
+    "title": "Planes mensuales",
+    "columns": {
+      "plan": "Plan",
+      "for": "Para quién",
+      "companies": "Empresas incluidas",
+      "brand": "Marca propia",
+      "price": "Al mes"
+    },
+    "quote": "Cotización",
+    "unlimited": "Por convenir",
+    "yes": "Sí",
+    "no": "No",
+    "extra": "Cada empresa que pase de las incluidas: {price} al mes. El plan Individual no admite empresas adicionales.",
+    "fairUse": "Uso justo: hasta {n} CFDI por empresa al mes.",
+    "noFree": "No hay plan gratis.",
+    "trial": "Prueba de 14 días con una empresa."
+  },
+  "plans": {
+    "individual": {
+      "name": "Individual",
+      "for": "Emprendedor con su propia empresa"
+    },
+    "profesional": {
+      "name": "Profesional",
+      "for": "Consultor o contador independiente"
+    },
+    "despacho": {
+      "name": "Despacho",
+      "for": "Despacho contable"
+    },
+    "firma": {
+      "name": "Firma",
+      "for": "Despacho grande o consultora"
+    },
+    "volumen": {
+      "name": "Volumen",
+      "for": "Empresa o cuenta con muchísimos CFDI"
+    }
+  },
+  "diagnostics": {
+    "eyebrow": "Diagnósticos",
+    "title": "Una sola vez, a precio fijo",
+    "columns": {
+      "name": "Diagnóstico",
+      "asks": "Qué pedimos",
+      "gives": "Qué recibes",
+      "price": "Precio"
+    },
+    "items": {
+      "esencial": {
+        "name": "Diagnóstico Esencial",
+        "asks": "CFDI de 24 meses — emitidos, recibidos y complementos de pago",
+        "gives": "Business Score, informe de 6 secciones y sesión de 60 minutos"
+      },
+      "completo": {
+        "name": "Diagnóstico Completo",
+        "asks": "Lo del Esencial, más balanza o auxiliares, inventario y ventas por cliente y producto",
+        "gives": "Lo del Esencial, más análisis operativo y de inventario"
+      },
+      "asesores": {
+        "name": "Diagnóstico para asesores",
+        "asks": "Lo mismo que el Esencial",
+        "gives": "Informe con la marca del asesor, para revender"
+      }
+    },
+    "credit": "Si contratas Monitoreo en los 30 días siguientes, te acreditamos el 50% del diagnóstico.",
+    "monthsNote": "Veinticuatro meses, porque el Business Score compara los últimos 12 contra los 12 anteriores. Con menos de 24 meses, los indicadores de tendencia salen como no disponibles."
+  },
+  "monitoring": {
+    "eyebrow": "Mensual",
+    "name": "Monitoreo Mensual",
+    "includes": "Tablero y reporte gerencial cada mes, más una revisión trimestral de 60 minutos.",
+    "limited": "Cupo limitado."
+  },
+  "founders": {
+    "eyebrow": "Programa Fundadores",
+    "title": "Los primeros {n} asesores pagan la mitad durante {months} meses.",
+    "body": "Además reciben una sesión de arranque. A cambio, nos dan retroalimentación cada mes, un testimonio y la autorización de sus clientes para el benchmark anónimo.",
+    "cta": "Aplica al programa"
+  },
+  "tax": "Precios en pesos mexicanos, más IVA.",
+  "closing": {
+    "title": "¿No sabes cuál es el tuyo?",
+    "body": "Cuéntanos cuántas empresas atiendes y qué quieres responder. Te decimos cuál encaja, o si ninguno encaja.",
+    "primary": "Agenda una llamada",
+    "secondary": "Contactar a Forcelis"
+  }
+}

@@ -3,8 +3,16 @@
 Sitio corporativo bilingüe (inglés y español) de **Forcelis Group**, estático y
 publicado en GitHub Pages sobre el dominio `forcelis-group.com`.
 
-Nueve páginas por idioma: portada, soluciones, plataforma, diagnóstico
-empresarial, industrias, nosotros, contacto, aviso de privacidad y términos.
+Once páginas por idioma: portada, para contadores y consultores, para
+empresas, plataforma, precios, diagnóstico empresarial, industrias, nosotros,
+contacto, gracias, aviso de privacidad y términos.
+
+**El cliente principal son los asesores** —contadores, despachos y
+consultores— que usan Forcelis con su propia marca para vender asesoría a sus
+clientes. Los secundarios son el emprendedor que quiere ver su empresa (plan
+Individual) y la empresa que compra un diagnóstico o el Monitoreo Mensual.
+Forcelis no hace contabilidad ni declaraciones, y eso se dice en el pie de
+todas las páginas.
 
 ---
 
@@ -22,11 +30,19 @@ npm run dev
 preferencia guardada y, si no hay ninguna, según el idioma del navegador.
 
 ```bash
-npm run build       # genera dist/
-npm run preview     # sirve dist/ como lo hará GitHub Pages
-npm run check       # tipos de TypeScript y de las plantillas Astro
-npm run i18n:check  # paridad de claves entre inglés y español
-npm run audit       # revisa dist/: enlaces, encabezados, alt, metadatos
+npm run build          # genera dist/
+npm run preview        # sirve dist/ como lo hará GitHub Pages
+npm run check          # tipos de TypeScript y de las plantillas Astro
+npm run i18n:check     # paridad de claves entre inglés y español
+npm run test:calc      # los 8 casos de la calculadora de margen
+npm run audit          # revisa dist/: enlaces, encabezados, alt, metadatos
+npm run check:precios  # coherencia del interruptor de precios
+```
+
+Las seis de golpe, en el orden correcto:
+
+```bash
+npm run verify
 ```
 
 `npm run check` tiene que salir en **0 errores, 0 avisos, 0 sugerencias** antes
@@ -39,6 +55,9 @@ perdió una clave.
 
 ```
 src/
+├── config/
+│   ├── negocio.ts    PRECIOS, interruptores, ligas e IDs de analítica — archivo único
+│   └── enlaces.ts    resuelve los botones de agenda y registro, con su `?tipo=`
 ├── i18n/
 │   ├── routes.ts     mapa página → slug por idioma; lo usa el selector de idioma
 │   └── index.ts      carga de diccionarios, con el tipo anclado al inglés
@@ -59,9 +78,12 @@ src/
 public/               CNAME, favicons, og-image.png, tipografías Montserrat e Inter
 src/assets/heroes/    fotografía de cabecera por página (ver su README)
 src/assets/industries/ fotografía por sector (ver su README)
-scripts/build-og.mjs  regenera og-image.png, apple-touch-icon.png y los favicons
-scripts/i18n-check.mjs comprueba que los JSON en español tengan las claves del inglés
-scripts/audit.mjs     revisa el build: enlaces, encabezados, alt, metadatos
+scripts/build-og.mjs       regenera og-image.png, apple-touch-icon.png y los favicons
+scripts/build-linkedin.mjs recursos de la página de empresa en LinkedIn
+scripts/i18n-check.mjs     comprueba que los JSON en español tengan las claves del inglés
+scripts/audit.mjs          revisa el build: enlaces, encabezados, alt, metadatos
+scripts/calculator.test.mjs los casos de la calculadora de margen
+scripts/check-precios.mjs  comprueba el interruptor de precios contra el build
 ```
 
 ### Las dos reglas de este repositorio
@@ -98,6 +120,57 @@ que falte en español; para eso está `npm run i18n:check`, que compara los dos
 El español es de México y no una traducción literal. «Turn business data into
 better decisions» es «Convierte los datos de tu empresa en mejores decisiones»,
 no «Convierte datos de negocio en mejores decisiones».
+
+---
+
+## El interruptor de precios
+
+Todo el dinero del sitio vive en `src/config/negocio.ts`. Para publicar los
+precios:
+
+1. Abre `src/config/negocio.ts`.
+2. Cambia `mostrar_precios: false` por `mostrar_precios: true`.
+3. `git commit` y `git push`. El despliegue es automático.
+
+Eso es todo. No hay nada más que tocar. Con el interruptor encendido aparecen
+los precios en todas las páginas, la calculadora de margen en «Para contadores
+y consultores», y la página de Precios entra al menú y al sitemap y deja de
+servirse con `noindex`. Apagado, no hay **ni un importe** en ninguna de las dos
+versiones del sitio — y eso lo comprueba `npm run check:precios` contra el HTML
+construido, no contra la intención.
+
+Los demás valores del mismo archivo:
+
+| Clave | Qué hace si está vacía o en `false` |
+|---|---|
+| `prueba_disponible` | No se menciona la prueba de 14 días |
+| `url_agenda` | «Agenda una llamada» cae al formulario con `?tipo=asesor` |
+| `url_registro` | «Lo quiero» del plan Individual cae al formulario con `?tipo=individual` |
+| `url_app` | No se muestra el enlace «Entrar» en la barra |
+| `ga4_id`, `meta_pixel_id`, `google_ads_id` | Ese script no se carga, y si los tres están vacíos no sale el banner de cookies |
+
+---
+
+## Anuncios y medición
+
+**Ningún script de tercero se carga sin consentimiento.** El banner de
+`CookieNotice.astro` tiene rechazo por omisión y dos botones del mismo peso;
+hasta que alguien pulsa «Aceptar» no se pide nada a ningún dominio externo,
+Google Analytics incluido. Es lo que exige el RGPD, que es la norma aplicable
+mientras la sociedad esté domiciliada en la UE.
+
+**Antes de poner un identificador de analítica hay que actualizar el aviso de
+privacidad**, que hoy dice que no hay ningún servicio activo. Esa frase deja de
+ser cierta en cuanto `ga4_id` tenga valor.
+
+La campaña viaja **por la URL, no por el navegador**: los `utm_*` de la URL de
+llegada se copian a los enlaces internos y a la liga de agenda (`Base.astro`),
+y el formulario los lee de su propia URL hacia campos ocultos. No se guarda
+nada, así que un prospecto que rechaza las cookies llega igual con su campaña.
+
+Los eventos que se registran —solo con consentimiento— son `agenda_click` al
+pulsar el botón de la barra y `generate_lead` al aterrizar en Gracias, este
+último con el `tipo` de solicitud como parámetro.
 
 ---
 
@@ -233,27 +306,33 @@ Evita que otra cuenta reclame el dominio en Pages:
 
 ## Antes de publicar
 
-- [ ] `npm run check` — 0 errores, 0 avisos, 0 sugerencias
-- [ ] `npm run i18n:check` — diccionarios en paridad
-- [ ] `npm run build && npm run audit` — sin hallazgos
+- [ ] `npm run verify` — las seis comprobaciones, sin hallazgos
 - [ ] `npm run preview` — recorrer las dos versiones
-- [ ] `PUBLIC_FORM_ENDPOINT` configurada y **probada con un envío real**
+- [ ] `PUBLIC_FORM_ENDPOINT` configurada y **probada con un envío real de cada
+      uno de los cinco tipos**, comprobando que el correo llega con su tipo y
+      sus `utm_*`
 - [ ] Aviso de privacidad y términos revisados por alguien de legal
-- [ ] Si activaste analítica, actualizar el apartado «Cookies y analítica» del
-      aviso de privacidad: hoy afirma que no hay ningún servicio activo
+- [ ] **Antes de poner un identificador de analítica**, actualizar el apartado
+      «Cookies y analítica» del aviso de privacidad: hoy afirma que no hay
+      ningún servicio activo, y deja de ser cierto en cuanto `ga4_id` tenga
+      valor
 
 ---
 
 ## Decisiones que conviene conocer antes de tocar el código
 
 **Cada página responde una sola pregunta, y el orden de sus secciones es el de
-esa respuesta.** Portada: «¿qué es Forcelis?». Soluciones: «¿qué problemas
-resuelve?». Plataforma: «¿cómo funciona la tecnología?». Diagnóstico: «¿qué
-recibo exactamente?». Industrias: «¿es para mi negocio?». Nosotros: «¿por qué
-existe y por qué confiar?». Contacto: «¿qué pasa si escribo?». Antes de añadir
-una sección, pregúntate a cuál de esas preguntas contribuye; si a ninguna, va
-en otra página o no va. El hilo que une las siete es una secuencia —diagnosticar
-→ entender → actuar → mejorar— y el diagnóstico es la puerta de entrada de todo.
+esa respuesta.** Portada: «¿qué es Forcelis y para quién?». Para contadores:
+«¿cómo gano dinero con esto?». Para empresas: «¿qué puedo comprar?».
+Plataforma: «¿cómo funciona la tecnología?». Diagnóstico: «¿qué recibo
+exactamente?». Industrias: «¿es para mi negocio?». Nosotros: «¿por qué existe y
+por qué confiar?». Contacto: «¿qué pasa si escribo?». Antes de añadir una
+sección, pregúntate a cuál de esas preguntas contribuye; si a ninguna, va en
+otra página o no va.
+
+**La portada reparte, no vende.** Hay dos públicos con preguntas distintas, y
+lo único que tiene que hacer la portada es llevar a cada uno a su página en el
+primer clic. De ahí los dos botones del hero y las dos tarjetas del centro.
 
 **Lo largo se pliega, no se borra.** El detalle técnico de la plataforma, las
 nueve capacidades, los seis bloques de soluciones, los 25 indicadores del
@@ -308,11 +387,13 @@ que trabajan con números y notan un tablero que no cuadra.
 
 **La página de plataforma separa lo que funciona de lo que no.** Las nueve
 capacidades plegadas bajo «ver capacidades técnicas» están corriendo en el
-producto. Lo que está construido pero apagado —el benchmark sectorial, el
-copiloto— sigue en el diccionario (`status.future`) y no se renderiza, por
-decisión del cliente. Antes de mover algo de lista, verifícalo en el
-repositorio de la plataforma; esa distinción es la mitad de la credibilidad de
-la página.
+producto. La sección «Hoja de ruta», al final y con la etiqueta «En desarrollo»
+en cada entrada, lista solo dos cosas: la comparación sectorial con datos de
+INEGI y el benchmark anónimo. Los conectores directos a banca NO están ahí a
+propósito: contradicen la promesa de no pedir credenciales bancarias, que es
+de las pocas afirmaciones que el sitio repite en cuatro páginas. Antes de mover
+algo de lista, verifícalo en el repositorio de la plataforma; esa distinción es
+la mitad de la credibilidad de la página.
 
 **Sin logotipos de clientes, sin años de experiencia, sin premios.** Forcelis es
 una empresa nueva y el sitio lo dice en la página «Nosotros». La confianza la

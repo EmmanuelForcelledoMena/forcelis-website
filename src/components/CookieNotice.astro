@@ -1,0 +1,189 @@
+---
+/**
+ * Consentimiento de cookies, y los terceros que dependen de él.
+ *
+ * Este archivo es el ÚNICO sitio del proyecto donde se carga un script de
+ * terceros. Tenerlo junto al banner no es casualidad: si el consentimiento y la
+ * carga vivieran separados, sería posible —y tarde o temprano pasaría— añadir
+ * una etiqueta nueva en el `<head>` que se cargara sin preguntar.
+ *
+ * Tres reglas, y ninguna es opcional con una sociedad domiciliada en la UE:
+ *
+ *  1. **Rechazo por omisión.** Sin una decisión guardada no se carga nada. No
+ *     hay «al seguir navegando aceptas»: eso no es consentimiento.
+ *  2. **Analítica incluida.** Google Analytics entra en el banner igual que el
+ *     resto. El RGPD no distingue entre cookies «de medición» y «de
+ *     publicidad» por el nombre que les ponga quien las instala.
+ *  3. **Rechazar es tan fácil como aceptar.** Dos botones del mismo tamaño,
+ *     visibles a la vez, sin un paso extra para decir que no.
+ *
+ * `window.forcelisEvento(nombre, datos)` queda disponible siempre: si no hay
+ * consentimiento, no hace nada. Así el resto del sitio puede registrar un
+ * evento sin preguntar primero si hay analítica, y sin que esa llamada se
+ * convierta en una fuga.
+ */
+import { negocio } from '../config/negocio';
+import { path, type Lang } from '../i18n/routes';
+import { common } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const c = common(lang);
+
+// Si no hay ningún identificador configurado no hay nada que consentir, y un
+// banner que pregunta por cookies que no existen es ruido —y una afirmación
+// falsa—. En ese caso este componente no renderiza nada.
+const hayTerceros = Boolean(
+  negocio.ga4_id || negocio.meta_pixel_id || negocio.google_ads_id,
+);
+
+const privacidad = path('privacy', lang);
+---
+
+{
+  hayTerceros && (
+    <div
+      id="cookie-notice"
+      hidden
+      role="region"
+      aria-label={c.cookies.title}
+      class="fixed inset-x-0 bottom-0 z-[60] border-t border-line-ink bg-ink px-4 py-5 text-on-ink sm:px-6"
+    >
+      <div class="container-page flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+        <p class="max-w-2xl text-sm leading-relaxed text-on-ink-muted">
+          {c.cookies.body}{' '}
+          <a href={privacidad} class="text-on-ink underline underline-offset-4">
+            {c.cookies.more}
+          </a>
+        </p>
+        <div class="flex shrink-0 gap-3">
+          <button
+            type="button"
+            data-cookies="si"
+            class="bg-brand-on-ink px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[#e04a4a]"
+          >
+            {c.cookies.accept}
+          </button>
+          <button
+            type="button"
+            data-cookies="no"
+            class="border border-on-ink-muted/50 px-6 py-3 text-sm font-medium text-on-ink transition-colors hover:border-on-ink-muted hover:bg-white/5"
+          >
+            {c.cookies.reject}
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+<script
+  is:inline
+  define:vars={{
+    ga4: negocio.ga4_id,
+    pixel: negocio.meta_pixel_id,
+    ads: negocio.google_ads_id,
+  }}
+>
+  (() => {
+    const CLAVE = 'forcelis-cookies';
+    const banner = document.getElementById('cookie-notice');
+
+    /** Lee la decisión guardada. En modo privado el acceso lanza: se trata como «sin decidir». */
+    const decision = () => {
+      try {
+        return localStorage.getItem(CLAVE);
+      } catch {
+        return null;
+      }
+    };
+    const guardar = (valor) => {
+      try {
+        localStorage.setItem(CLAVE, valor);
+      } catch {
+        /* Almacenamiento bloqueado: la decisión vale para esta visita y ya. */
+      }
+    };
+
+    let cargado = false;
+
+    const cargarTerceros = () => {
+      if (cargado) return;
+      cargado = true;
+
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () {
+        window.dataLayer.push(arguments);
+      };
+      window.gtag('js', new Date());
+
+      // Google Analytics 4 y Google Ads comparten la misma etiqueta. Se pide
+      // una sola vez, con el primer identificador que haya.
+      const etiquetaGoogle = ga4 || ads;
+      if (etiquetaGoogle) {
+        const s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=' + etiquetaGoogle;
+        document.head.appendChild(s);
+        if (ga4) window.gtag('config', ga4, { anonymize_ip: true });
+        if (ads) window.gtag('config', ads);
+      }
+
+      if (pixel) {
+        /* eslint-disable */
+        !(function (f, b, e, v, n, t, s) {
+          if (f.fbq) return;
+          n = f.fbq = function () {
+            n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+          };
+          if (!f._fbq) f._fbq = n;
+          n.push = n;
+          n.loaded = !0;
+          n.version = '2.0';
+          n.queue = [];
+          t = b.createElement(e);
+          t.async = !0;
+          t.src = v;
+          s = b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t, s);
+        })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+        /* eslint-enable */
+        window.fbq('init', pixel);
+        window.fbq('track', 'PageView');
+      }
+
+      // Los eventos que se acumularon antes del consentimiento se descartan a
+      // propósito: pertenecen a una visita que pidió no ser medida.
+      document.dispatchEvent(new CustomEvent('forcelis:consentimiento'));
+    };
+
+    /**
+     * Registra un evento si —y solo si— hay consentimiento. Está definido
+     * siempre, para que quien lo llama no tenga que comprobar nada.
+     */
+    window.forcelisEvento = (nombre, datos) => {
+      if (decision() !== 'si') return;
+      if (typeof window.gtag === 'function') window.gtag('event', nombre, datos || {});
+      if (typeof window.fbq === 'function') window.fbq('trackCustom', nombre, datos || {});
+    };
+
+    const cerrar = (valor) => {
+      guardar(valor);
+      if (banner) banner.hidden = true;
+      if (valor === 'si') cargarTerceros();
+    };
+
+    if (banner) {
+      banner.querySelectorAll('[data-cookies]').forEach((boton) => {
+        boton.addEventListener('click', () => cerrar(boton.dataset.cookies));
+      });
+    }
+
+    const guardada = decision();
+    if (guardada === 'si') cargarTerceros();
+    else if (guardada !== 'no' && banner) banner.hidden = false;
+  })();
+</script>

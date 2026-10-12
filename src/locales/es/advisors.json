@@ -1,0 +1,124 @@
+{
+  "meta": {
+    "title": "Para contadores y consultores — Convierte los CFDI de tus clientes en asesoría que puedes cobrar",
+    "description": "Forcelis convierte los XML que ya descargas en reportes gerenciales y tableros con tu marca, para todas las empresas que atiendes, desde un solo lugar. Sin credenciales del SAT ni del banco."
+  },
+  "hero": {
+    "eyebrow": "Para contadores, despachos y consultores",
+    "title": "Tus clientes ya te dan sus CFDI. Conviértelos en asesoría que puedes cobrar.",
+    "subtitle": "Forcelis convierte los XML que ya descargas en reportes gerenciales y tableros con tu marca, para todas las empresas que atiendes, desde un solo lugar.",
+    "primary": "Agenda una llamada de 20 minutos",
+    "secondary": "Ver planes"
+  },
+  "problem": {
+    "eyebrow": "El problema",
+    "title": "Tus clientes te preguntan cómo va su negocio, no solo cuánto pagan de impuestos.",
+    "body": "Contestarlo a mano en Excel, cliente por cliente, no escala."
+  },
+  "how": {
+    "eyebrow": "Cómo funciona",
+    "title": "Tres pasos, cada mes.",
+    "steps": [
+      { "title": "Subes los XML que ya descargas", "body": "Emitidos, recibidos y complementos de pago. No se conecta nada al SAT ni a un banco." },
+      { "title": "El motor calcula", "body": "Márgenes, cobranza real, concentración de clientes, dispersión de precios, inflación de insumos." },
+      { "title": "Entregas un reporte y un tablero con tu marca", "body": "Word, tablero HTML autocontenido y Excel — los formatos que tu cliente ya hace circular." }
+    ],
+    "flow": [
+      { "label": "Los XML de tus clientes" },
+      { "label": "Forcelis" },
+      { "label": "Tu reporte, tu marca" }
+    ],
+    "flowAlt": "Los XML de tus clientes entran a Forcelis, que produce un reporte con tu propia marca."
+  },
+  "includes": {
+    "eyebrow": "Qué incluye",
+    "title": "Todo esto está construido y funcionando hoy.",
+    "intro": "No es una hoja de ruta. Son las capacidades que están en el producto ahora mismo.",
+    "items": [
+      "Ingesta de CFDI: emitidos, recibidos, complementos de pago, nómina y retenciones",
+      "Catálogo gerencial: el mismo artículo es el mismo artículo entre proveedores y periodos",
+      "Motor de dispersión de precios",
+      "Motor de concentración y fuga de clientes",
+      "Motor de inflación de insumos",
+      "Motor de pulso del negocio",
+      "Motor de pronóstico",
+      "Cobranza real, medida desde los complementos de pago",
+      "Estado de resultados gerencial, comparable periodo contra periodo",
+      "Tableros interactivos con filtros y detalle",
+      "Entregables en Word, HTML y Excel",
+      "Multi-empresa en una sola cuenta, con tu marca en los entregables",
+      "Cuentas con segundo factor de autenticación",
+      "Nunca credenciales del SAT ni del banco"
+    ]
+  },
+  "calculator": {
+    "eyebrow": "Tu margen",
+    "title": "Cuánto te deja al mes.",
+    "intro": "Pon cuántas empresas administras y cuántas pagarían un reporte mensual. Elegimos el plan más barato que te cubre.",
+    "fields": {
+      "companies": "Empresas que administras",
+      "companiesHint": "De 1 a 500",
+      "paying": "Clientes que pagarían un reporte mensual",
+      "price": "Lo que cobras por reporte",
+      "founder": "Precio fundador (50% durante 6 meses)"
+    },
+    "results": {
+      "plan": "Plan recomendado",
+      "cost": "Tu costo al mes",
+      "revenue": "Tu ingreso al mes",
+      "margin": "Tu margen al mes",
+      "volume": "Con más de 100 empresas, pide Volumen.",
+      "tax": "Todas las cifras, más IVA."
+    },
+    "errors": {
+      "companies": "Escribe un número entero entre 1 y 500.",
+      "paying": "No puede ser mayor que las empresas que administras.",
+      "price": "Escribe una cantidad de 0 o más."
+    }
+  },
+  "plans": {
+    "eyebrow": "Planes",
+    "title": "Elige el que va con cuántas empresas atiendes.",
+    "intro": "Del plan Profesional en adelante, los entregables salen con tu marca.",
+    "extra": "Cada empresa que pase de las incluidas se suma a tu mensualidad.",
+    "fairUse": "Uso justo: hasta {n} CFDI por empresa al mes.",
+    "volume": "¿Más de 100 empresas o muchísimos CFDI? Pide Volumen.",
+    "volumeCta": "Pedir Volumen"
+  },
+  "founders": {
+    "eyebrow": "Programa Fundadores",
+    "title": "Los primeros {n} asesores pagan la mitad durante {months} meses.",
+    "body": "Además reciben una sesión de arranque. A cambio, nos dan retroalimentación cada mes, un testimonio y la autorización de sus clientes para el benchmark anónimo.",
+    "cta": "Aplica al programa"
+  },
+  "faq": {
+    "title": "Lo que estás a punto de preguntar",
+    "items": [
+      {
+        "q": "¿Necesitan mis credenciales del SAT?",
+        "a": "No. Subes los XML que ya descargas cada mes. No existe un campo para la e.firma ni para la contraseña del portal fiscal en ninguna parte del producto, y no va a existir."
+      },
+      {
+        "q": "¿Mis clientes ven la marca Forcelis?",
+        "a": "No. Desde el plan Profesional, los entregables salen con tu marca."
+      },
+      {
+        "q": "¿Forcelis le va a vender contabilidad a mis clientes?",
+        "a": "No. Forcelis no hace contabilidad ni declaraciones. La relación con tu cliente es tuya."
+      },
+      {
+        "q": "¿Qué pasa con los datos de mis clientes?",
+        "a": "Cada empresa está aislada en cuatro capas independientes, la última dentro de la propia base de datos. Una empresa solo entra al benchmark anónimo con su autorización firmada."
+      },
+      {
+        "q": "¿Puedo empezar con pocos clientes?",
+        "a": "Sí. El plan Profesional cubre hasta 10 empresas, y cada adicional se suma a tu mensualidad."
+      }
+    ]
+  },
+  "closing": {
+    "title": "Pruébalo con uno de tus propios clientes.",
+    "body": "Veinte minutos, y trae los XML de una empresa que ya atiendes.",
+    "cta": "Agenda una llamada"
+  }
+}

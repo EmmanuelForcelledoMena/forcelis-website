@@ -1,0 +1,100 @@
+{
+  "meta": {
+    "title": "Pricing — Clear prices from one company up",
+    "description": "Platform plans from one company to a hundred, fixed-price diagnostics, monthly monitoring and the founders programme. Prices in Mexican pesos, before VAT."
+  },
+  "hero": {
+    "eyebrow": "Pricing",
+    "title": "Clear prices, from one company up.",
+    "subtitle": "No free plan. No per-seat pricing. You pay for the companies you analyze."
+  },
+  "platform": {
+    "eyebrow": "Platform",
+    "title": "Monthly plans",
+    "columns": {
+      "plan": "Plan",
+      "for": "Who it is for",
+      "companies": "Companies included",
+      "brand": "Your own brand",
+      "price": "Per month"
+    },
+    "quote": "Quote",
+    "unlimited": "By agreement",
+    "yes": "Yes",
+    "no": "No",
+    "extra": "Each company beyond the included ones: {price} per month. The Individual plan does not take extra companies.",
+    "fairUse": "Fair use: up to {n} CFDI per company per month.",
+    "noFree": "There is no free plan.",
+    "trial": "14-day trial with one company."
+  },
+  "plans": {
+    "individual": {
+      "name": "Individual",
+      "for": "A founder with their own company"
+    },
+    "profesional": {
+      "name": "Professional",
+      "for": "An independent consultant or accountant"
+    },
+    "despacho": {
+      "name": "Practice",
+      "for": "An accounting practice"
+    },
+    "firma": {
+      "name": "Firm",
+      "for": "A large practice or consultancy"
+    },
+    "volumen": {
+      "name": "Volume",
+      "for": "A company or account with an enormous number of CFDI"
+    }
+  },
+  "diagnostics": {
+    "eyebrow": "Diagnostics",
+    "title": "One-off, fixed price",
+    "columns": {
+      "name": "Diagnostic",
+      "asks": "What we ask for",
+      "gives": "What you receive",
+      "price": "Price"
+    },
+    "items": {
+      "esencial": {
+        "name": "Essential Diagnostic",
+        "asks": "24 months of CFDI — issued, received and payment complements",
+        "gives": "Business Score, a six-section report and a 60-minute session"
+      },
+      "completo": {
+        "name": "Complete Diagnostic",
+        "asks": "Everything in the Essential, plus trial balance or ledger, inventory, and sales by customer and product",
+        "gives": "Everything in the Essential, plus operational and inventory analysis"
+      },
+      "asesores": {
+        "name": "Diagnostic for advisors",
+        "asks": "The same as the Essential",
+        "gives": "A report under the advisor's brand, to resell"
+      }
+    },
+    "credit": "If you take Monitoring within the next 30 days, we credit you 50% of the diagnostic.",
+    "monthsNote": "Twenty-four months, because the Business Score compares the last 12 against the 12 before them. With less than 24 months, the trend indicators are reported as unavailable."
+  },
+  "monitoring": {
+    "eyebrow": "Monthly",
+    "name": "Monthly Monitoring",
+    "includes": "A dashboard and a management report every month, plus a 60-minute quarterly review.",
+    "limited": "Limited places."
+  },
+  "founders": {
+    "eyebrow": "Founders programme",
+    "title": "The first {n} advisors pay half for {months} months.",
+    "body": "They also get a kick-off session. In exchange, they give us feedback every month, a testimonial, and their clients' authorization for the anonymous benchmark.",
+    "cta": "Apply to the programme"
+  },
+  "tax": "Prices in Mexican pesos, before VAT.",
+  "closing": {
+    "title": "Not sure which one is yours?",
+    "body": "Tell us how many companies you serve and what you want to answer. We will say which plan fits, or whether none does.",
+    "primary": "Book a call",
+    "secondary": "Contact Forcelis"
+  }
+}

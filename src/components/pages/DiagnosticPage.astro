@@ -30,7 +30,10 @@ import ProcessSteps from '../ProcessSteps.astro';
 import Checklist from '../Checklist.astro';
 import Disclosure from '../Disclosure.astro';
 import Tag from '../Tag.astro';
+import Button from '../Button.astro';
 import Cta from '../Cta.astro';
+import { negocio, precio } from '../../config/negocio';
+import { contacto } from '../../config/enlaces';
 import { path, type Lang } from '../../i18n/routes';
 import { t, common } from '../../i18n';
 
@@ -40,7 +43,13 @@ interface Props {
 
 const { lang } = Astro.props;
 const d = t(lang, 'diagnostic');
+const p = t(lang, 'pricing');
 const c = common(lang);
+
+const mostrarPrecios = negocio.mostrar_precios;
+
+// Esencial y Completo. El de asesores vive en la pagina de contadores.
+const paquetes = negocio.diagnosticos.filter((x) => x.id !== 'asesores');
 
 // La misma cifra que enseña el panel: media de las cinco dimensiones.
 const overall = Math.round(c.scores.reduce((sum, s) => sum + s.value, 0) / c.scores.length);
@@ -53,7 +62,7 @@ const overall = Math.round(c.scores.reduce((sum, s) => sum + s.value, 0) / c.sco
     eyebrow={d.hero.eyebrow}
     title={d.hero.title}
     intro={d.hero.subtitle}
-    cta={{ href: path('contact', lang), label: d.hero.cta }}
+    cta={{ href: contacto('diagnostico', lang), label: d.hero.cta }}
   >
     <div class="reveal lg:self-center" data-reveal-delay="120">
       <ScorePanel
@@ -187,6 +196,98 @@ const overall = Math.round(c.scores.reduce((sum, s) => sum + s.value, 0) / c.sco
     </ul>
   </Section>
 
+  <!-- =============================================================== PAQUETES -->
+  <!-- Esencial y Completo. Con los precios apagados se enseña igual qué pide y
+       qué entrega cada uno —la diferencia entre los dos es de alcance, no de
+       precio— y la columna del importe simplemente no se dibuja. El de asesores
+       no está en esta tabla: es el mismo Esencial con otra marca, y su público
+       está en otra página. -->
+  <Section tone="ground">
+    <div class="reveal">
+      <SectionHeader eyebrow={d.packages.eyebrow} title={d.packages.title} />
+    </div>
+
+    <div class="reveal mt-12 overflow-x-auto" data-reveal-delay="80">
+      <table class="w-full min-w-[40rem] border-collapse">
+        <thead>
+          <tr class="border-b-2 border-ink">
+            <th
+              scope="col"
+              class="px-5 py-3 text-left text-[0.625rem] font-semibold tracking-[0.14em] text-muted uppercase"
+            >
+              {d.packages.columns.name}
+            </th>
+            <th
+              scope="col"
+              class="px-5 py-3 text-left text-[0.625rem] font-semibold tracking-[0.14em] text-muted uppercase"
+            >
+              {d.packages.columns.asks}
+            </th>
+            <th
+              scope="col"
+              class="px-5 py-3 text-left text-[0.625rem] font-semibold tracking-[0.14em] text-muted uppercase"
+            >
+              {d.packages.columns.gives}
+            </th>
+            {
+              mostrarPrecios && (
+                <th
+                  scope="col"
+                  class="px-5 py-3 text-right text-[0.625rem] font-semibold tracking-[0.14em] text-muted uppercase"
+                >
+                  {p.diagnostics.columns.price}
+                </th>
+              )
+            }
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-line">
+          {
+            paquetes.map((paquete) => (
+              <tr>
+                <th scope="row" class="px-5 py-5 align-top text-left text-base font-semibold text-ink">
+                  {p.diagnostics.items[paquete.id].name}
+                </th>
+                <td class="max-w-[22rem] px-5 py-5 align-top text-[0.9375rem] leading-relaxed text-muted">
+                  {p.diagnostics.items[paquete.id].asks}
+                </td>
+                <td class="max-w-[22rem] px-5 py-5 align-top text-[0.9375rem] leading-relaxed text-muted">
+                  {p.diagnostics.items[paquete.id].gives}
+                </td>
+                {mostrarPrecios && (
+                  <td class="tnum px-5 py-5 text-right align-top text-base font-semibold whitespace-nowrap text-ink">
+                    {precio(paquete.precio, lang)}
+                  </td>
+                )}
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+
+    {
+      mostrarPrecios && (
+        <p class="reveal mt-6 max-w-2xl border-l-2 border-brand pl-5 text-[0.9375rem] leading-relaxed text-ink">
+          {p.diagnostics.credit}
+        </p>
+      )
+    }
+
+    <!-- Por qué 24 meses y no 12. Va junto a la tabla y no en una nota al pie:
+         es el requisito que decide si una empresa puede contratar hoy o tiene
+         que esperar, y enterarse después de pagar sería la peor forma de
+         descubrirlo. -->
+    <p class="reveal mt-6 max-w-2xl text-[0.9375rem] leading-relaxed text-muted">
+      {p.diagnostics.monthsNote}
+    </p>
+
+    <div class="reveal mt-8 flex flex-col gap-4 border-t border-line pt-6 sm:flex-row sm:items-center sm:justify-between">
+      <p class="max-w-2xl text-[0.9375rem] leading-relaxed text-muted">{d.packages.advisorNote}</p>
+      <Button href={path('advisors', lang)} variant="secondary">{d.packages.advisorCta}</Button>
+    </div>
+  </Section>
+
   <!-- ================================================================ INSUMOS -->
   <Section tone="panel" size="compact">
     <div class="grid gap-10 lg:grid-cols-[minmax(0,22rem)_1fr] lg:gap-16">
@@ -212,7 +313,7 @@ const overall = Math.round(c.scores.reduce((sum, s) => sum + s.value, 0) / c.sco
     title={d.closing.title}
     body={d.closing.body}
     primaryLabel={d.closing.primary}
-    primaryTo="contact"
+    primaryHref={contacto('diagnostico', lang)}
     secondaryLabel={d.closing.secondary}
     secondaryTo="platform"
   />

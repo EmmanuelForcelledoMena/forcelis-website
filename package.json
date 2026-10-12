@@ -13,7 +13,10 @@
     "build:og": "node scripts/build-og.mjs",
     "build:linkedin": "node scripts/build-linkedin.mjs",
     "audit": "node scripts/audit.mjs",
-    "i18n:check": "node scripts/i18n-check.mjs"
+    "i18n:check": "node scripts/i18n-check.mjs",
+    "test:calc": "node --experimental-strip-types --disable-warning=ExperimentalWarning scripts/calculator.test.mjs",
+    "verify": "npm run check && npm run i18n:check && npm run test:calc && npm run build && npm run audit && npm run check:precios",
+    "check:precios": "node --experimental-strip-types --disable-warning=ExperimentalWarning scripts/check-precios.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.2.1",

@@ -24,6 +24,14 @@
  *    dominios mal escritos más comunes y se ofrece la corrección — como
  *    sugerencia, no como bloqueo: `gmial.com` podría existir algún día.
  *
+ * Reestructura CFDI: el formulario es también el embudo. Lleva un campo
+ * obligatorio «¿Qué buscas?» con las cinco intenciones del negocio, que llega
+ * preseleccionado desde el `?tipo=` del botón que trajo a la persona, viaja en
+ * el envío y acaba en la URL de la página de gracias, donde se dispara la
+ * conversión. Los `utm_*` van en campos ocultos leídos de la URL de llegada:
+ * no se guarda nada en el navegador, así que funcionan igual si alguien
+ * rechazó las cookies.
+ *
  * Rediseño v3: cinco campos, no once. Teléfono, industria, tamaño y la lista de
  * intereses se fueron: ninguno lo exige el proveedor del formulario, y un
  * primer contacto que parece un formulario de compras no se llena. Lo que
@@ -33,6 +41,7 @@
  */
 import type { Lang } from '../i18n/routes';
 import { path } from '../i18n/routes';
+import { TIPOS } from '../config/enlaces';
 import { t } from '../i18n';
 import FormField from './FormField.astro';
 
@@ -58,6 +67,10 @@ const subject =
   lang === 'es'
     ? 'Nueva solicitud desde forcelis-group.com'
     : 'New enquiry from forcelis-group.com';
+
+// A dónde se manda a la persona al terminar. El `?tipo=` se añade en el
+// navegador con lo que haya elegido.
+const gracias = path('thanks', lang);
 
 const inputClass =
   'mt-2 w-full border border-line-strong bg-panel px-4 py-3 text-[0.9375rem] text-ink ' +
@@ -140,6 +153,39 @@ const inputClass =
     </div>
   </fieldset>
 
+  <fieldset>
+    <legend class="block text-sm font-medium text-ink">{f.intent}</legend>
+    <p class="mt-1.5 text-xs text-muted">{f.intentHint}</p>
+    <!-- Botones de radio y no una lista desplegable: son cinco opciones
+         cortas y excluyentes, se leen todas de un golpe, y en un teléfono no
+         obligan a abrir una rueda del sistema para descubrir qué hay dentro.
+         El `?tipo=` de la URL marca una al cargar. -->
+    <div class="mt-4 grid gap-3 sm:grid-cols-2">
+      {
+        TIPOS.map((tipo) => (
+          <label class="flex cursor-pointer items-start gap-3 border border-line bg-panel px-4 py-3.5 text-[0.9375rem] text-ink transition-colors hover:border-line-strong has-[:checked]:border-brand has-[:checked]:bg-[#fdf6f4]">
+            <input
+              type="radio"
+              name="tipo"
+              value={tipo}
+              id={`tipo-${tipo}`}
+              required
+              class="mt-0.5 h-4 w-4 shrink-0 accent-[var(--color-brand)]"
+            />
+            {f.intentOptions[tipo]}
+          </label>
+        ))
+      }
+    </div>
+    <p
+      id="tipo-error"
+      data-field-error
+      hidden
+      class="mt-2 flex items-start gap-1.5 text-xs font-medium text-brand-text"
+    >
+    </p>
+  </fieldset>
+
   <FormField id="message" label={f.message} hint={f.messageHint}>
     <textarea
       class={`${inputClass} min-h-40 resize-y`}
@@ -209,6 +255,16 @@ const inputClass =
     <input type="checkbox" id="botcheck" name="botcheck" tabindex="-1" autocomplete="off" />
   </div>
 
+  <!-- Campaña. Se llenan en el navegador desde la URL de llegada; si alguien
+       entra por la puerta principal, se envían vacíos. No se guardan en el
+       navegador: la campaña viaja por la URL (ver `Base.astro`). -->
+  <input type="hidden" name="utm_source" />
+  <input type="hidden" name="utm_medium" />
+  <input type="hidden" name="utm_campaign" />
+  <input type="hidden" name="utm_content" />
+  <input type="hidden" name="utm_term" />
+  <input type="hidden" name="pagina_origen" />
+
   {accessKey && <input type="hidden" name="access_key" value={accessKey} />}
   <input type="hidden" name="subject" value={subject} />
   <input type="hidden" name="from_name" value="Forcelis Group" />
@@ -224,6 +280,8 @@ const inputClass =
     successBody: f.successBody,
     errorTitle: f.errorTitle,
     errorBody: f.errorBody,
+    gracias,
+    tiposPermitidos: TIPOS,
   }}
 >
   (() => {
@@ -236,6 +294,24 @@ const inputClass =
     // La validación nativa se apaga AQUÍ y no en el marcado: si este script no
     // llega a ejecutarse, el navegador sigue validando por su cuenta.
     form.setAttribute('novalidate', '');
+
+    // Campaña y página de origen, desde la URL de llegada. No se guarda nada
+    // en el navegador: si la persona rechaza las cookies, esto sigue viajando.
+    const entrada = new URLSearchParams(window.location.search);
+    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].forEach((clave) => {
+      const campo = form.querySelector(`[name="${clave}"]`);
+      if (campo) campo.value = entrada.get(clave) ?? '';
+    });
+    const origen = form.querySelector('[name="pagina_origen"]');
+    if (origen) origen.value = document.referrer || '';
+
+    // El botón que trajo a esta persona dice qué venía a pedir. Se marca esa
+    // opción, pero se puede cambiar: es una preselección, no una decisión.
+    const tipoEntrada = entrada.get('tipo');
+    if (tipoEntrada && tiposPermitidos.includes(tipoEntrada)) {
+      const radio = form.querySelector(`input[name="tipo"][value="${tipoEntrada}"]`);
+      if (radio) radio.checked = true;
+    }
 
     // Marca de tiempo de carga. Ningún humano llena cinco campos en tres
     // segundos; un robot sí.
@@ -264,6 +340,7 @@ const inputClass =
     const URL_LIKE = /^(https?:\/\/)?(www\.)?[a-z0-9](?:[a-z0-9-]*[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)*\.[a-z]{2,}(?:[\/?#]\S*)?$/i;
 
     const RULES = [
+      { id: 'tipo', required: true, radio: true },
       { id: 'name', required: true, min: 2 },
       { id: 'email', required: true, email: true },
       { id: 'company', required: true, min: 2 },
@@ -277,10 +354,22 @@ const inputClass =
 
     /** Devuelve el mensaje de error del campo, o '' si está bien. */
     const errorFor = (rule) => {
+      // El tipo son cinco radios, no un elemento con ese id: se resuelve antes
+      // de buscar nada en el documento.
+      if (rule.radio) {
+        return form.querySelector('input[name="tipo"]:checked') ? '' : messages.intent;
+      }
       const el = document.getElementById(rule.id);
       if (!el) return '';
 
       if (rule.checkbox) return el.checked ? '' : messages.consent;
+
+      // Grupo de radios: el campo no es un control, son cinco. Se pregunta al
+      // formulario si alguno está marcado.
+      if (rule.radio) {
+        const marcado = form.querySelector('input[name="tipo"]:checked');
+        return marcado ? '' : messages.intent;
+      }
 
       // Se valida el valor RECORTADO: `required` del navegador da por bueno un
       // campo con tres espacios dentro.
@@ -295,8 +384,11 @@ const inputClass =
 
     const slotFor = (id) => document.getElementById(id + '-error');
 
+    const elementoDe = (rule) =>
+      rule.radio ? form.querySelector('input[name="tipo"]') : document.getElementById(rule.id);
+
     const clearField = (rule) => {
-      const el = document.getElementById(rule.id);
+      const el = elementoDe(rule);
       const slot = slotFor(rule.id);
       if (!el || !slot) return;
       el.removeAttribute('aria-invalid');
@@ -312,7 +404,7 @@ const inputClass =
     };
 
     const showField = (rule, message) => {
-      const el = document.getElementById(rule.id);
+      const el = elementoDe(rule);
       const slot = slotFor(rule.id);
       if (!el || !slot) return;
       el.setAttribute('aria-invalid', 'true');
@@ -376,7 +468,7 @@ const inputClass =
     // llenar es hostil.
     let attempted = false;
     RULES.forEach((rule) => {
-      const el = document.getElementById(rule.id);
+      const el = elementoDe(rule);
       if (!el) return;
       const revalidate = () => {
         if (!attempted) return;
@@ -387,8 +479,14 @@ const inputClass =
           if (rule.email) suggestEmail();
         }
       };
-      el.addEventListener('input', revalidate);
-      el.addEventListener('change', revalidate);
+      if (rule.radio) {
+        form
+          .querySelectorAll('input[name="tipo"]')
+          .forEach((radio) => radio.addEventListener('change', revalidate));
+      } else {
+        el.addEventListener('input', revalidate);
+        el.addEventListener('change', revalidate);
+      }
       if (rule.email) el.addEventListener('blur', () => !attempted && suggestEmail());
     });
 
@@ -428,7 +526,7 @@ const inputClass =
             : fill(messages.summaryMany, { n: failures.length }),
           '',
         );
-        const first = document.getElementById(failures[0].id);
+        const first = elementoDe(failures[0]);
         if (first) {
           first.focus({ preventScroll: true });
           first.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -454,10 +552,27 @@ const inputClass =
           headers: { Accept: 'application/json' },
         });
         if (!response.ok) throw new Error(String(response.status));
+
+        const elegido = form.querySelector('input[name="tipo"]:checked');
+        const tipo = elegido ? elegido.value : '';
+
+        // La conversión se dispara en la página de gracias, no aquí: así cuenta
+        // una vez por envío entregado y no una por clic en el botón.
+        const destino = new URL(gracias, window.location.origin);
+        if (tipo) destino.searchParams.set('tipo', tipo);
+        ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].forEach((clave) => {
+          const valor = entrada.get(clave);
+          if (valor) destino.searchParams.set(clave, valor);
+        });
+
+        // El mensaje de éxito se pinta igual: si la navegación tarda, la
+        // persona no se queda mirando un botón que ya no responde.
         form.reset();
         RULES.forEach(clearField);
         attempted = false;
         render('ok', successTitle, successBody);
+        window.location.assign(destino.href);
+        return;
       } catch {
         render('error', errorTitle, errorBody);
       } finally {

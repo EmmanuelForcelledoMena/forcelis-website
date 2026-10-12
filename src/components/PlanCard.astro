@@ -1,0 +1,92 @@
+---
+/**
+ * Tarjeta de plan.
+ *
+ * Con los precios apagados enseña qué incluye y un botón que los pide; con los
+ * precios encendidos, la mensualidad. La decisión se lee una sola vez, de
+ * `negocio.mostrar_precios`, y no hay una segunda versión de la tarjeta: una
+ * tarjeta «sin precio» y otra «con precio» se desincronizan a la primera
+ * corrección de copy.
+ *
+ * El precio nunca se escribe aquí ni en el diccionario: llega formateado desde
+ * `negocio.ts`.
+ */
+import Button from './Button.astro';
+import Tag from './Tag.astro';
+import { negocio, precio as formatoPrecio, type Plan } from '../config/negocio';
+import type { Lang } from '../i18n/routes';
+
+interface Props {
+  plan: Plan;
+  /** Nombre del plan en el idioma de la página. */
+  nombre: string;
+  /** Para quién es, una línea. */
+  paraQuien: string;
+  /** Texto del botón. */
+  cta: string;
+  href: string;
+  labels: {
+    companies: string;
+    brand: string;
+    quote: string;
+    unlimited: string;
+    yes: string;
+  };
+  lang: Lang;
+  /** Resalta la tarjeta. Para el plan que se recomienda por omisión. */
+  destacado?: boolean;
+  class?: string;
+}
+
+const { plan, nombre, paraQuien, cta, href, labels, lang, destacado = false, class: className = '' } =
+  Astro.props;
+
+const mostrar = negocio.mostrar_precios;
+const empresas = plan.empresas === null ? labels.unlimited : String(plan.empresas);
+---
+
+<article
+  class:list={[
+    'flex flex-col bg-panel p-7',
+    destacado && 'ring-2 ring-brand ring-inset',
+    className,
+  ]}
+>
+  <h3 class="text-sm font-semibold tracking-[0.14em] text-ink uppercase">{nombre}</h3>
+  <p class="mt-3 text-[0.9375rem] leading-relaxed text-muted">{paraQuien}</p>
+
+  {
+    mostrar && (
+      <p class="tnum mt-6 flex items-baseline gap-1.5">
+        {plan.precio === null ? (
+          <span class="text-2xl font-semibold tracking-[-0.02em] text-ink">{labels.quote}</span>
+        ) : (
+          <>
+            <span class="font-display text-[2.25rem] leading-none font-bold tracking-[-0.03em] text-ink">
+              {formatoPrecio(plan.precio, lang)}
+            </span>
+            <span class="text-sm text-muted">{negocio.moneda}</span>
+          </>
+        )}
+      </p>
+    )
+  }
+
+  <dl class="mt-6 flex-1 divide-y divide-line border-t border-b border-line">
+    <div class="flex items-baseline justify-between gap-4 py-3">
+      <dt class="text-[0.8125rem] text-muted">{labels.companies}</dt>
+      <dd class="tnum text-base font-semibold text-ink">{empresas}</dd>
+    </div>
+    {
+      plan.marca_propia && (
+        <div class="py-3">
+          <Tag tone="brand">{labels.brand}</Tag>
+        </div>
+      )
+    }
+  </dl>
+
+  <div class="mt-7">
+    <Button href={href} variant={destacado ? 'primary' : 'secondary'}>{cta}</Button>
+  </div>
+</article>

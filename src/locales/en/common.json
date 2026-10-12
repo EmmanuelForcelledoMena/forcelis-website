@@ -3,19 +3,22 @@
     "name": "Forcelis Group",
     "wordmark": "FORCELIS",
     "wordmarkSuffix": "GROUP",
-    "tagline": "Financial & Operational Intelligence"
+    "tagline": "Financial intelligence from your CFDI"
   },
   "skipToContent": "Skip to main content",
   "nav": {
-    "solutions": "Solutions",
+    "advisors": "For accountants & advisors",
+    "business": "For businesses",
     "platform": "Platform",
+    "pricing": "Pricing",
     "diagnostic": "Business Diagnostic",
     "industries": "Industries",
     "about": "About",
     "contact": "Contact",
     "openMenu": "Open navigation menu",
     "closeMenu": "Close navigation menu",
-    "cta": "Business Diagnostic",
+    "cta": "Book a call",
+    "app": "Sign in",
     "mainLabel": "Main navigation"
   },
   "lang": {
@@ -24,30 +27,33 @@
     "switchTo": "Ver esta página en español"
   },
   "cta": {
+    "schedule": "Book a call",
     "diagnostic": "Request a Business Diagnostic",
-    "diagnosticShort": "Request a Diagnostic",
+    "diagnosticShort": "Request a diagnostic",
     "contact": "Contact Forcelis",
-    "howItWorks": "See how Forcelis works",
+    "advisors": "I advise businesses",
+    "business": "I have a business",
     "learnMore": "Learn more",
     "seePlatform": "See the platform",
-    "seeSolutions": "Explore solutions",
+    "seePricing": "See pricing",
     "seeIndustries": "See industries"
   },
   "footer": {
-    "tagline": "Financial & Operational Intelligence",
-    "blurb": "Forcelis connects financial and operational data to identify risks, inefficiencies and opportunities — then turns them into measurable action.",
+    "tagline": "Financial intelligence from your CFDI",
+    "blurb": "Forcelis turns the CFDI a company already issues and receives into management reports, dashboards and findings.",
     "navHeading": "Navigation",
     "companyHeading": "Company",
     "legalHeading": "Legal",
     "privacy": "Privacy Policy",
     "terms": "Terms of Service",
     "copyright": "© 2026 Forcelis Group. All rights reserved.",
-    "disclaimer": "Forcelis provides analysis and advisory services. It does not issue tax opinions and does not replace the judgment of a licensed accountant or auditor."
+    "disclaimer": "Forcelis provides analysis services. It does not do accounting, does not file tax returns, does not issue tax opinions and does not replace the judgment of a licensed accountant or auditor."
   },
   "labels": {
     "illustrative": "Illustrative data",
     "availableToday": "Available today",
     "inDevelopment": "In development",
+    "roadmap": "Roadmap",
     "scoreOutOf": "out of 100",
     "overallScore": "Overall performance",
     "overallNote": "Average of the five dimensions",
@@ -57,6 +63,13 @@
     "whyItMatters": "Why it matters",
     "recommendedAction": "Recommended action",
     "priority": "Priority"
+  },
+  "cookies": {
+    "title": "Cookies",
+    "body": "We would like to measure how this site is used, with Google Analytics. Nothing is loaded until you accept, and saying no changes nothing about what you can read here.",
+    "accept": "Accept",
+    "reject": "Reject",
+    "more": "Privacy Policy"
   },
   "scores": [
     { "label": "Financial health", "value": 74, "note": "Margin structure, cost base and result quality" },

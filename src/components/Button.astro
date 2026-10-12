@@ -16,9 +16,11 @@ interface Props {
   variant?: 'primary' | 'secondary' | 'onInk' | 'onInkGhost';
   size?: 'md' | 'lg';
   class?: string;
+  /** Cualquier otro atributo —`data-cta`, `rel`, `target`— pasa al enlace. */
+  [key: string]: unknown;
 }
 
-const { href, variant = 'primary', size = 'md', class: className = '' } = Astro.props;
+const { href, variant = 'primary', size = 'md', class: className = '', ...rest } = Astro.props;
 
 // `group` para que la flecha reaccione al pasar el ratón por el botón entero y
 // no solo por encima de ella. Es el mismo gesto que ya hacen las tarjetas de
@@ -40,7 +42,7 @@ const variants = {
 };
 ---
 
-<a href={href} class={`${base} ${sizes[size]} ${variants[variant]} ${className}`}>
+<a href={href} class={`${base} ${sizes[size]} ${variants[variant]} ${className}`} {...rest}>
   <slot />
   <svg
     width="14"

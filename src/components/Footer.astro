@@ -12,9 +12,12 @@ interface Props {
 const { lang, pageKey } = Astro.props;
 const c = common(lang);
 
+// El pie lista TODAS las páginas que existen, también las que salieron del
+// menú —el diagnóstico y las industrias—: un menú se poda para que se entienda,
+// un pie se completa para que se encuentre.
 const columns: { heading: string; links: PageKey[] }[] = [
-  { heading: c.footer.navHeading, links: ['solutions', 'platform', 'diagnostic', 'industries'] },
-  { heading: c.footer.companyHeading, links: ['about', 'contact'] },
+  { heading: c.footer.navHeading, links: ['advisors', 'business', 'platform', 'diagnostic'] },
+  { heading: c.footer.companyHeading, links: ['industries', 'about', 'contact'] },
 ];
 
 const legalLinks: { key: PageKey; label: string }[] = [
@@ -23,7 +26,8 @@ const legalLinks: { key: PageKey; label: string }[] = [
 ];
 
 const navLabels: Record<string, string> = {
-  solutions: c.nav.solutions,
+  advisors: c.nav.advisors,
+  business: c.nav.business,
   platform: c.nav.platform,
   diagnostic: c.nav.diagnostic,
   industries: c.nav.industries,

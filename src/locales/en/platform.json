@@ -12,9 +12,23 @@
     "title": "How it fits together",
     "intro": "Nothing is replaced. The platform sits above the systems you already run.",
     "sourcesLabel": "Your systems",
-    "sources": ["ERP", "Accounting", "CFDI", "Sales", "Purchasing", "Inventory", "Banking", "Spreadsheets"],
+    "sources": [
+      "ERP",
+      "Accounting",
+      "CFDI",
+      "Sales",
+      "Purchasing",
+      "Inventory",
+      "Banking",
+      "Spreadsheets"
+    ],
     "platformLabel": "Forcelis",
-    "steps": ["Connect", "Normalize", "Analyze", "Explain"],
+    "steps": [
+      "Connect",
+      "Normalize",
+      "Analyze",
+      "Explain"
+    ],
     "outcomeLabel": "Business decisions",
     "outcomeSub": "Findings, priorities and recommended actions",
     "diagramAlt": "Diagram: eight kinds of systems — ERP, accounting, CFDI, sales, purchasing, inventory, banking and spreadsheets — feed Forcelis, which connects, normalizes, analyzes and explains the data, and produces business decisions."
@@ -49,48 +63,121 @@
   },
   "status": {
     "title": "What runs today",
-    "intro": "Everything on this page is built and running. Nothing here is a plan.",
+    "intro": "Everything in this section is built and running. What is coming is below, marked as roadmap.",
     "steps": [
-      { "title": "Connect data", "body": "Files exported from your own systems: invoices, ledger, inventory, sales." },
-      { "title": "Standardize", "body": "Concepts and products grouped into one stable managerial catalogue." },
-      { "title": "Analyze", "body": "Five tested engines: margin, concentration, cost inflation, collection, forecast." },
-      { "title": "Identify findings", "body": "What moved, why, and what it is worth — stated with the action it implies." },
-      { "title": "Deliver results", "body": "Report, interactive dashboard and Excel: the formats a finance team already uses." }
+      {
+        "title": "Connect data",
+        "body": "Files exported from your own systems: invoices, ledger, inventory, sales."
+      },
+      {
+        "title": "Standardize",
+        "body": "Concepts and products grouped into one stable managerial catalogue."
+      },
+      {
+        "title": "Analyze",
+        "body": "Five tested engines: margin, concentration, cost inflation, collection, forecast."
+      },
+      {
+        "title": "Identify findings",
+        "body": "What moved, why, and what it is worth — stated with the action it implies."
+      },
+      {
+        "title": "Deliver results",
+        "body": "Report, interactive dashboard and Excel: the formats a finance team already uses."
+      }
     ],
     "capabilitiesLabel": "View technical capabilities",
     "capabilitiesMeta": "9 capabilities, all in use",
     "todayLabel": "Available today",
     "futureLabel": "In development",
     "today": [
-      { "title": "CFDI ingestion", "body": "Issued and received invoices, payment complements, payroll and withholding documents, uploaded as files. Handles the mess that comes with real data: duplicates, malformed XML, unnormalizable units." },
-      { "title": "Normalization and managerial curation", "body": "Concepts and products grouped into a stable managerial catalogue, so the same item is the same item across suppliers and periods." },
-      { "title": "Five analytical engines", "body": "Price dispersion, customer concentration and churn, input cost inflation, business pulse, and forecast — each tested against scenarios with known answers." },
-      { "title": "Real cash collection", "body": "Collection measured from payment complements rather than assumed from invoice dates, with receivable and payable aging and a stated coverage percentage." },
-      { "title": "Managerial income statement", "body": "Restated results with history, comparable period over period, reconciled against the underlying documents." },
-      { "title": "Interactive dashboards", "body": "Charts, filters and drill-down, rendered by a purpose-built engine so the product works on a slow connection." },
-      { "title": "Multi-tenant with channel", "body": "An accounting firm can administer dozens of companies under one hierarchy, with its own branding on the deliverables." },
-      { "title": "Accounts, login and MFA", "body": "Working user accounts with time-based two-factor authentication, encrypted secrets and single-use recovery codes." },
-      { "title": "Deliverables", "body": "Word report, self-contained HTML dashboard and Excel export — the formats a finance team already circulates." }
+      {
+        "title": "Multi-company under the advisor's brand",
+        "body": "An accountant, practice or consultant administers dozens of companies from a single account and delivers reports under their own brand."
+      },
+      {
+        "title": "CFDI ingestion",
+        "body": "Issued and received invoices, payment complements, payroll and withholding documents, uploaded as files. Handles the mess that comes with real data: duplicates, malformed XML, unnormalizable units."
+      },
+      {
+        "title": "Normalization and managerial curation",
+        "body": "Concepts and products grouped into a stable managerial catalogue, so the same item is the same item across suppliers and periods."
+      },
+      {
+        "title": "Five analytical engines",
+        "body": "Price dispersion, customer concentration and churn, input cost inflation, business pulse, and forecast — each tested against scenarios with known answers."
+      },
+      {
+        "title": "Real cash collection",
+        "body": "Collection measured from payment complements rather than assumed from invoice dates, with receivable and payable aging and a stated coverage percentage."
+      },
+      {
+        "title": "Managerial income statement",
+        "body": "Restated results with history, comparable period over period, reconciled against the underlying documents."
+      },
+      {
+        "title": "Interactive dashboards",
+        "body": "Charts, filters and drill-down, rendered by a purpose-built engine so the product works on a slow connection."
+      },
+      {
+        "title": "Accounts, login and MFA",
+        "body": "Working user accounts with time-based two-factor authentication, encrypted secrets and single-use recovery codes."
+      },
+      {
+        "title": "Deliverables",
+        "body": "Word report, self-contained HTML dashboard and Excel export — the formats a finance team already circulates."
+      }
     ],
     "future": [
-      { "title": "Anonymized sector benchmark", "body": "Compare against your sector rather than only against your own history. Built and tested with a k≥3 anonymity floor; it switches on only when there are enough companies per cell for the comparison to mean anything and to stay anonymous." },
-      { "title": "AI narrative layer", "body": "A copilot that drafts the written narrative around figures the engine has already computed. The privacy guard that constrains it is built and heavily tested; the copilot itself has not yet been run against a live model, so it is not being offered." },
-      { "title": "Direct connectors", "body": "Automatic ingestion from ERP and banking systems. The plugin contract exists; no concrete connector has been built. Today, ingestion is by file." },
-      { "title": "External economic context", "body": "Public INEGI and Banxico series alongside your own figures, to separate a company-specific movement from a market-wide one." },
-      { "title": "Second country", "body": "The core is already country-agnostic — base currency per client, country on the data model. What is missing is the tax document parser for the next country." }
-    ]
+      {
+        "title": "Sector comparison",
+        "body": "Compare against your sector using public INEGI data, instead of only against your own history."
+      },
+      {
+        "title": "Anonymous benchmark",
+        "body": "A benchmark built from CFDI, released only in groups of at least 3 companies and only with each company's signed authorization."
+      }
+    ],
+    "roadmapIntro": "Built or in progress, but not offered yet. It is here so you know where the product is going, not so you can count on it today."
   },
   "dashboard": {
     "title": "Business performance",
     "period": "Trailing 12 months",
     "metrics": [
-      { "label": "Revenue", "value": "184.2M", "unit": "MXN", "delta": "+8.4%", "tone": "up" },
-      { "label": "Gross margin", "value": "31.6", "unit": "%", "delta": "−1.2 pp", "tone": "down" },
-      { "label": "Days sales outstanding", "value": "47", "unit": "days", "delta": "+6", "tone": "down" },
-      { "label": "Top-5 customer concentration", "value": "42", "unit": "%", "delta": "+3 pp", "tone": "down" }
+      {
+        "label": "Revenue",
+        "value": "184.2M",
+        "unit": "MXN",
+        "delta": "+8.4%",
+        "tone": "up"
+      },
+      {
+        "label": "Gross margin",
+        "value": "31.6",
+        "unit": "%",
+        "delta": "−1.2 pp",
+        "tone": "down"
+      },
+      {
+        "label": "Days sales outstanding",
+        "value": "47",
+        "unit": "days",
+        "delta": "+6",
+        "tone": "down"
+      },
+      {
+        "label": "Top-5 customer concentration",
+        "value": "42",
+        "unit": "%",
+        "delta": "+3 pp",
+        "tone": "down"
+      }
     ],
     "chartTitle": "Revenue and gross margin by month",
-    "chartSeries": { "revenue": "Revenue", "margin": "Gross margin" },
+    "chartSeries": {
+      "revenue": "Revenue",
+      "margin": "Gross margin"
+    },
     "chartAlt": "Illustrative chart: monthly revenue rising through the year while gross margin declines from 33.4 percent to 29.2 percent."
   },
   "boundaries": {
@@ -106,6 +193,7 @@
     "title": "See it against your own numbers.",
     "body": "The most useful demonstration is not a demo account. It is a diagnostic run on your data.",
     "primary": "Request a Business Diagnostic",
-    "secondary": "Contact Forcelis"
+    "secondary": "Contact Forcelis",
+    "schedule": "Book a call"
   }
 }

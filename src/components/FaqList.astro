@@ -1,0 +1,41 @@
+---
+/**
+ * Preguntas frecuentes, como filas plegables.
+ *
+ * Reutiliza `Disclosure`, que es `<details>` nativo: funciona sin JavaScript,
+ * el navegador lo anuncia como expandible y Ctrl+F encuentra una respuesta
+ * cerrada y la abre. Añade el `FAQPage` de schema.org con las mismas cadenas
+ * —no una segunda copia escrita a mano—, que es lo que permite que una de estas
+ * respuestas salga directamente en el buscador.
+ */
+import Disclosure from './Disclosure.astro';
+
+interface Props {
+  items: readonly { q: string; a: string }[];
+  class?: string;
+}
+
+const { items, class: className = '' }: Props = Astro.props;
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: items.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<div class:list={['border-b border-line', className]}>
+  {
+    items.map((item) => (
+      <Disclosure summary={item.q}>
+        <p class="max-w-[72ch] text-[0.9375rem] leading-relaxed text-muted">{item.a}</p>
+      </Disclosure>
+    ))
+  }
+</div>
+
+<script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} is:inline />

@@ -1,4 +1,11 @@
 ---
+/**
+ * Cierre en tinta con dos botones.
+ *
+ * Los destinos se dan como clave de página (`primaryTo`), que es lo normal, o
+ * como URL ya resuelta (`primaryHref`), que hace falta cuando el botón lleva
+ * un `?tipo=` o sale a una agenda externa. La URL gana si están las dos.
+ */
 import Button from './Button.astro';
 import { path, type Lang, type PageKey } from '../i18n/routes';
 
@@ -8,8 +15,10 @@ interface Props {
   body: string;
   primaryLabel: string;
   primaryTo?: PageKey;
+  primaryHref?: string;
   secondaryLabel: string;
   secondaryTo?: PageKey;
+  secondaryHref?: string;
 }
 
 const {
@@ -18,9 +27,14 @@ const {
   body,
   primaryLabel,
   primaryTo = 'diagnostic',
+  primaryHref,
   secondaryLabel,
   secondaryTo = 'contact',
+  secondaryHref,
 } = Astro.props;
+
+const primary = primaryHref ?? path(primaryTo, lang);
+const secondary = secondaryHref ?? path(secondaryTo, lang);
 ---
 
 <section class="on-ink bg-ink text-on-ink">
@@ -33,10 +47,8 @@ const {
       </h2>
       <p class="mt-6 text-lg text-on-ink-muted">{body}</p>
       <div class="mt-10 flex flex-col gap-3 sm:flex-row">
-        <Button href={path(primaryTo, lang)} variant="onInk" size="lg">{primaryLabel}</Button>
-        <Button href={path(secondaryTo, lang)} variant="onInkGhost" size="lg">
-          {secondaryLabel}
-        </Button>
+        <Button href={primary} variant="onInk" size="lg">{primaryLabel}</Button>
+        <Button href={secondary} variant="onInkGhost" size="lg">{secondaryLabel}</Button>
       </div>
     </div>
   </div>

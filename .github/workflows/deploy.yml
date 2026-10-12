@@ -58,8 +58,18 @@ jobs:
           # `contacto@forcelis-group.com`, no personal— basta con descomentar la
           # línea siguiente y definir la variable.
           # PUBLIC_CONTACT_EMAIL: ${{ vars.PUBLIC_CONTACT_EMAIL }}
-          PUBLIC_GA_ID: ${{ vars.PUBLIC_GA_ID }}
-          PUBLIC_CLARITY_ID: ${{ vars.PUBLIC_CLARITY_ID }}
+          #
+          # La analítica ya NO viene de aquí. Los identificadores de GA4, Meta
+          # Pixel y Google Ads viven en `src/config/negocio.ts`, versionados:
+          # son públicos de todos modos —acaban en el HTML— y tenerlos junto a
+          # los precios y las ligas significa que hay UN solo archivo que tocar
+          # para encender el embudo. Microsoft Clarity se retiró.
+          #
+          # Y aunque estén puestos, ningún script de tercero se carga hasta que
+          # la persona acepta las cookies: eso lo decide `CookieNotice.astro`.
+          #
+          # Las variables PUBLIC_GA_ID y PUBLIC_CLARITY_ID pueden borrarse de
+          # los ajustes del repositorio; ya no las lee nadie.
 
       - uses: actions/upload-pages-artifact@v3
         with:

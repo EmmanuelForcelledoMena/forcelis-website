@@ -1,0 +1,212 @@
+---
+/**
+ * Precios.
+ *
+ * Mientras `negocio.mostrar_precios` sea `false` esta página existe pero no se
+ * enlaza, no entra al sitemap y se sirve con `noindex` (lo decide
+ * `routes.ts`). Se construye igual para que el día que se encienda el
+ * interruptor no haya que escribirla con prisa.
+ *
+ * Las tres tablas son tablas de verdad —`<table>` con `<th scope>`— y no
+ * retículas de `<div>`: un comparador de planes es dato tabulado, y en un
+ * lector de pantalla la diferencia es poder preguntar «¿qué dice la columna
+ * Empresas incluidas de la fila Despacho?» en vez de leerlo todo en orden.
+ * En móvil cada tabla hace scroll horizontal dentro de su propio contenedor.
+ */
+import Base from '../../layouts/Base.astro';
+import Section from '../Section.astro';
+import SectionHeader from '../SectionHeader.astro';
+import Button from '../Button.astro';
+import PageHero from '../PageHero.astro';
+import Tag from '../Tag.astro';
+import { negocio, precio } from '../../config/negocio';
+import { agenda, contacto } from '../../config/enlaces';
+import { type Lang } from '../../i18n/routes';
+import { t } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const p = t(lang, 'pricing');
+
+// Con el interruptor apagado esta página existe —sin enlazar, sin indexar y
+// fuera del sitemap— pero tampoco imprime importes. La promesa es que no hay
+// ni un precio en el sitio, y una URL que alguien podría teclear a mano sigue
+// siendo el sitio. Lo que se enseña es la estructura: qué planes hay, qué
+// incluye cada uno y a quién va dirigido.
+const mostrar = negocio.mostrar_precios;
+
+const rellenar = (plantilla: string, valores: Record<string, string>) =>
+  Object.entries(valores).reduce((s, [k, v]) => s.replace(`{${k}}`, v), plantilla);
+
+const numero = new Intl.NumberFormat(lang === 'es' ? 'es-MX' : 'en-US');
+
+const celda = 'px-5 py-4 text-[0.9375rem] text-ink align-top';
+const encabezado =
+  'px-5 py-3 text-left text-[0.625rem] font-semibold tracking-[0.14em] text-muted uppercase';
+---
+
+<Base lang={lang} pageKey="pricing" title={p.meta.title} description={p.meta.description}>
+  <PageHero photoKey="pricing" eyebrow={p.hero.eyebrow} title={p.hero.title} intro={p.hero.subtitle} />
+
+  <!-- ============================================================ PLATAFORMA -->
+  <Section tone="ground">
+    <div class="reveal">
+      <SectionHeader eyebrow={p.platform.eyebrow} title={p.platform.title} />
+    </div>
+
+    <div class="reveal mt-10 overflow-x-auto" data-reveal-delay="80">
+      <table class="w-full min-w-[46rem] border-collapse">
+        <thead>
+          <tr class="border-b-2 border-ink">
+            <th scope="col" class={encabezado}>{p.platform.columns.plan}</th>
+            <th scope="col" class={encabezado}>{p.platform.columns.for}</th>
+            <th scope="col" class={encabezado}>{p.platform.columns.companies}</th>
+            <th scope="col" class={encabezado}>{p.platform.columns.brand}</th>
+            {mostrar && (
+              <th scope="col" class={`${encabezado} text-right`}>{p.platform.columns.price}</th>
+            )}
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-line">
+          {
+            negocio.planes.map((plan) => (
+              <tr>
+                <th scope="row" class={`${celda} font-semibold whitespace-nowrap`}>
+                  {p.plans[plan.id].name}
+                </th>
+                <td class={`${celda} text-muted`}>{p.plans[plan.id].for}</td>
+                <td class={`${celda} tnum`}>
+                  {plan.empresas === null ? p.platform.unlimited : numero.format(plan.empresas)}
+                </td>
+                <td class={celda}>
+                  {plan.marca_propia ? p.platform.yes : p.platform.no}
+                </td>
+                {mostrar && (
+                  <td class={`${celda} tnum text-right font-semibold whitespace-nowrap`}>
+                    {plan.precio === null ? p.platform.quote : precio(plan.precio, lang)}
+                  </td>
+                )}
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <ul class="reveal mt-8 space-y-2 text-[0.9375rem] text-muted">
+      {mostrar && (
+        <li>{rellenar(p.platform.extra, { price: precio(negocio.empresa_adicional, lang) })}</li>
+      )}
+      <li>{rellenar(p.platform.fairUse, { n: numero.format(negocio.uso_justo_cfdi_por_empresa_mes) })}</li>
+      <li class="font-medium text-ink">{p.platform.noFree}</li>
+      {negocio.prueba_disponible && <li class="font-medium text-ink">{p.platform.trial}</li>}
+    </ul>
+  </Section>
+
+  <!-- ========================================================= DIAGNÓSTICOS -->
+  <Section tone="panel">
+    <div class="reveal">
+      <SectionHeader eyebrow={p.diagnostics.eyebrow} title={p.diagnostics.title} />
+    </div>
+
+    <div class="reveal mt-10 overflow-x-auto" data-reveal-delay="80">
+      <table class="w-full min-w-[46rem] border-collapse">
+        <thead>
+          <tr class="border-b-2 border-ink">
+            <th scope="col" class={encabezado}>{p.diagnostics.columns.name}</th>
+            <th scope="col" class={encabezado}>{p.diagnostics.columns.asks}</th>
+            <th scope="col" class={encabezado}>{p.diagnostics.columns.gives}</th>
+            {mostrar && (
+              <th scope="col" class={`${encabezado} text-right`}>{p.diagnostics.columns.price}</th>
+            )}
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-line">
+          {
+            negocio.diagnosticos.map((d) => (
+              <tr>
+                <th scope="row" class={`${celda} font-semibold`}>{p.diagnostics.items[d.id].name}</th>
+                <td class={`${celda} max-w-[22rem] text-muted`}>{p.diagnostics.items[d.id].asks}</td>
+                <td class={`${celda} max-w-[22rem] text-muted`}>{p.diagnostics.items[d.id].gives}</td>
+                {mostrar && (
+                  <td class={`${celda} tnum text-right font-semibold whitespace-nowrap`}>
+                    {precio(d.precio, lang)}
+                  </td>
+                )}
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <p class="reveal mt-6 max-w-2xl text-[0.9375rem] leading-relaxed text-muted">
+      {p.diagnostics.monthsNote}
+    </p>
+
+    <p class="reveal mt-6 max-w-2xl border-l-2 border-brand pl-5 text-[0.9375rem] leading-relaxed text-ink">
+      {p.diagnostics.credit}
+    </p>
+  </Section>
+
+  <!-- ============================================================= MONITOREO -->
+  <Section tone="ground" size="compact">
+    <div class="reveal grid gap-8 border-t-2 border-ink pt-8 lg:grid-cols-[minmax(0,22rem)_1fr_auto] lg:items-baseline lg:gap-12">
+      <div>
+        <p class="text-[0.6875rem] font-semibold tracking-[0.16em] text-brand-text uppercase">
+          {p.monitoring.eyebrow}
+        </p>
+        <h2 class="mt-3 text-2xl font-semibold tracking-[-0.02em] text-ink">{p.monitoring.name}</h2>
+        <div class="mt-3">
+          <Tag tone="brand">{p.monitoring.limited}</Tag>
+        </div>
+      </div>
+      <p class="max-w-2xl text-lg leading-relaxed text-muted">{p.monitoring.includes}</p>
+      {mostrar && (
+        <p class="tnum font-display text-[2rem] leading-none font-bold tracking-[-0.03em] whitespace-nowrap text-ink">
+          {precio(negocio.monitoreo.precio, lang)}
+        </p>
+      )}
+    </div>
+  </Section>
+
+  <!-- ============================================================ FUNDADORES -->
+  <Section tone="ink" size="compact">
+    <div class="reveal grid gap-10 lg:grid-cols-[1fr_auto] lg:items-center lg:gap-16">
+      <div>
+        <p class="text-[0.6875rem] font-semibold tracking-[0.16em] text-on-ink-muted uppercase">
+          {p.founders.eyebrow}
+        </p>
+        <h2 class="mt-4 max-w-3xl text-[1.75rem] leading-tight font-semibold tracking-[-0.02em] text-on-ink lg:text-[2rem]">
+          {
+            rellenar(p.founders.title, {
+              n: String(negocio.fundadores.cupo),
+              months: String(negocio.fundadores.meses),
+            })
+          }
+        </h2>
+        <p class="mt-5 max-w-2xl text-lg leading-relaxed text-on-ink-muted">{p.founders.body}</p>
+      </div>
+      <Button href={contacto('fundador', lang)} variant="onInk" size="lg">{p.founders.cta}</Button>
+    </div>
+  </Section>
+
+  <Section tone="ground" size="compact">
+    {mostrar && <p class="reveal text-sm font-medium text-muted">{p.tax}</p>}
+    <div class="reveal mt-10 max-w-3xl border-t border-line pt-10">
+      <h2 class="text-2xl font-semibold tracking-[-0.02em] text-ink lg:text-3xl">
+        {p.closing.title}
+      </h2>
+      <p class="mt-5 text-lg leading-relaxed text-muted">{p.closing.body}</p>
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+        <Button href={agenda(lang)} size="lg" data-cta="agenda">{p.closing.primary}</Button>
+        <Button href={contacto('asesor', lang)} variant="secondary" size="lg">
+          {p.closing.secondary}
+        </Button>
+      </div>
+    </div>
+  </Section>
+</Base>
