@@ -16,7 +16,7 @@
   },
   "analysis": {
     "title": "Qué se analiza",
-    "meta": "25 indicadores en cuatro áreas",
+    "meta": "24 indicadores en cuatro áreas",
     "areas": [
       {
         "title": "Salud financiera",
@@ -59,8 +59,7 @@
           "Ingresos",
           "Egresos",
           "Patrones de transacción",
-          "Inconsistencias de datos",
-          "Brechas de conciliación"
+          "Inconsistencias de datos"
         ]
       }
     ]
@@ -169,7 +168,7 @@
     "intro": "El primer punto es el mínimo. El resto profundiza el análisis, pero no hace falta para empezar.",
     "items": [
       {
-        "text": "CFDI del periodo — emitidos y recibidos, incluyendo complementos de pago",
+        "text": "CFDI de los últimos 24 meses — emitidos y recibidos, incluyendo complementos de pago",
         "required": true
       },
       {

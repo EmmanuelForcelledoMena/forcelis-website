@@ -28,20 +28,40 @@
     "trial": "14-day trial with one company."
   },
   "plans": {
-    "individual": { "name": "Individual", "for": "A founder with their own company" },
-    "profesional": { "name": "Professional", "for": "An independent consultant or accountant" },
-    "despacho": { "name": "Practice", "for": "An accounting practice" },
-    "firma": { "name": "Firm", "for": "A large practice or consultancy" },
-    "volumen": { "name": "Volume", "for": "A company or account with an enormous number of CFDI" }
+    "individual": {
+      "name": "Individual",
+      "for": "A founder with their own company"
+    },
+    "profesional": {
+      "name": "Professional",
+      "for": "An independent consultant or accountant"
+    },
+    "despacho": {
+      "name": "Practice",
+      "for": "An accounting practice"
+    },
+    "firma": {
+      "name": "Firm",
+      "for": "A large practice or consultancy"
+    },
+    "volumen": {
+      "name": "Volume",
+      "for": "A company or account with an enormous number of CFDI"
+    }
   },
   "diagnostics": {
     "eyebrow": "Diagnostics",
     "title": "One-off, fixed price",
-    "columns": { "name": "Diagnostic", "asks": "What we ask for", "gives": "What you receive", "price": "Price" },
+    "columns": {
+      "name": "Diagnostic",
+      "asks": "What we ask for",
+      "gives": "What you receive",
+      "price": "Price"
+    },
     "items": {
       "esencial": {
         "name": "Essential Diagnostic",
-        "asks": "12 months of CFDI — issued, received and payment complements",
+        "asks": "24 months of CFDI — issued, received and payment complements",
         "gives": "Business Score, a six-section report and a 60-minute session"
       },
       "completo": {
@@ -55,7 +75,8 @@
         "gives": "A report under the advisor's brand, to resell"
       }
     },
-    "credit": "If you take Monitoring within the next 30 days, we credit you 50% of the diagnostic."
+    "credit": "If you take Monitoring within the next 30 days, we credit you 50% of the diagnostic.",
+    "monthsNote": "Twenty-four months, because the Business Score compares the last 12 against the 12 before them. With less than 24 months, the trend indicators are reported as unavailable."
   },
   "monitoring": {
     "eyebrow": "Monthly",

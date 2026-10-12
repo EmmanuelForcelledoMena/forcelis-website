@@ -16,7 +16,7 @@
   },
   "analysis": {
     "title": "What gets analyzed",
-    "meta": "25 indicators across four areas",
+    "meta": "24 indicators across four areas",
     "areas": [
       {
         "title": "Financial health",
@@ -59,8 +59,7 @@
           "Income",
           "Expenses",
           "Transaction patterns",
-          "Data inconsistencies",
-          "Reconciliation gaps"
+          "Data inconsistencies"
         ]
       }
     ]
@@ -169,7 +168,7 @@
     "intro": "The first item is the minimum. The rest deepen the analysis but are not required to start.",
     "items": [
       {
-        "text": "CFDI for the period — issued and received, including payment complements",
+        "text": "CFDI for the last 24 months — issued and received, including payment complements",
         "required": true
       },
       {

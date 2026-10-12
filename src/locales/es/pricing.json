@@ -28,20 +28,40 @@
     "trial": "Prueba de 14 días con una empresa."
   },
   "plans": {
-    "individual": { "name": "Individual", "for": "Emprendedor con su propia empresa" },
-    "profesional": { "name": "Profesional", "for": "Consultor o contador independiente" },
-    "despacho": { "name": "Despacho", "for": "Despacho contable" },
-    "firma": { "name": "Firma", "for": "Despacho grande o consultora" },
-    "volumen": { "name": "Volumen", "for": "Empresa o cuenta con muchísimos CFDI" }
+    "individual": {
+      "name": "Individual",
+      "for": "Emprendedor con su propia empresa"
+    },
+    "profesional": {
+      "name": "Profesional",
+      "for": "Consultor o contador independiente"
+    },
+    "despacho": {
+      "name": "Despacho",
+      "for": "Despacho contable"
+    },
+    "firma": {
+      "name": "Firma",
+      "for": "Despacho grande o consultora"
+    },
+    "volumen": {
+      "name": "Volumen",
+      "for": "Empresa o cuenta con muchísimos CFDI"
+    }
   },
   "diagnostics": {
     "eyebrow": "Diagnósticos",
     "title": "Una sola vez, a precio fijo",
-    "columns": { "name": "Diagnóstico", "asks": "Qué pedimos", "gives": "Qué recibes", "price": "Precio" },
+    "columns": {
+      "name": "Diagnóstico",
+      "asks": "Qué pedimos",
+      "gives": "Qué recibes",
+      "price": "Precio"
+    },
     "items": {
       "esencial": {
         "name": "Diagnóstico Esencial",
-        "asks": "CFDI de 12 meses — emitidos, recibidos y complementos de pago",
+        "asks": "CFDI de 24 meses — emitidos, recibidos y complementos de pago",
         "gives": "Business Score, informe de 6 secciones y sesión de 60 minutos"
       },
       "completo": {
@@ -55,7 +75,8 @@
         "gives": "Informe con la marca del asesor, para revender"
       }
     },
-    "credit": "Si contratas Monitoreo en los 30 días siguientes, te acreditamos el 50% del diagnóstico."
+    "credit": "Si contratas Monitoreo en los 30 días siguientes, te acreditamos el 50% del diagnóstico.",
+    "monthsNote": "Veinticuatro meses, porque el Business Score compara los últimos 12 contra los 12 anteriores. Con menos de 24 meses, los indicadores de tendencia salen como no disponibles."
   },
   "monitoring": {
     "eyebrow": "Mensual",
