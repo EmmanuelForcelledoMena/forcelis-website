@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Plataforma — La capa de inteligencia detrás de tu negocio",
-    "description": "La plataforma Forcelis conecta la información de tu ERP, contabilidad, CFDI, ventas, compras, inventario y bancos, la estructura y la convierte en inteligencia accionable. Determinista, privada, segura, honesta."
+    "description": "La plataforma Forcelis lee los archivos que ya generan tus sistemas —CFDI, contabilidad electrónica del SAT y estados de cuenta bancarios— y los convierte en inteligencia accionable. Determinista, privada, segura, honesta."
   },
   "hero": {
     "eyebrow": "Plataforma Forcelis",
@@ -10,28 +10,24 @@
   },
   "architecture": {
     "title": "Cómo encaja todo",
-    "intro": "No se reemplaza nada. La plataforma se coloca encima de los sistemas que ya operas.",
+    "intro": "No se reemplaza nada. La plataforma lee los archivos que ya exportan tus sistemas.",
     "sourcesLabel": "Tus sistemas",
     "sources": [
-      "ERP",
-      "Contabilidad",
-      "CFDI",
-      "Ventas",
-      "Compras",
-      "Inventario",
-      "Bancos",
-      "Hojas de cálculo"
+      "CFDI emitidos y recibidos",
+      "Complementos de pago",
+      "Contabilidad electrónica del SAT",
+      "Estados de cuenta bancarios (beta)"
     ],
     "platformLabel": "Forcelis",
     "steps": [
-      "Conectar",
+      "Importar",
       "Normalizar",
       "Analizar",
       "Explicar"
     ],
     "outcomeLabel": "Decisiones de negocio",
     "outcomeSub": "Hallazgos, prioridades y acciones recomendadas",
-    "diagramAlt": "Diagrama: ocho tipos de sistema —ERP, contabilidad, CFDI, ventas, compras, inventario, bancos y hojas de cálculo— alimentan a Forcelis, que conecta, normaliza, analiza y explica los datos, y produce decisiones de negocio."
+    "diagramAlt": "Diagrama: los CFDI emitidos y recibidos, los complementos de pago, la contabilidad electrónica del SAT y los estados de cuenta bancarios (en beta) entran a Forcelis, que los importa, normaliza, analiza y explica, y produce decisiones de negocio."
   },
   "principles": {
     "title": "Cuatro decisiones que definen el producto",
@@ -66,8 +62,8 @@
     "intro": "Todo lo que está en esta sección está construido y funcionando. Lo que viene está abajo, marcado como hoja de ruta.",
     "steps": [
       {
-        "title": "Conectar datos",
-        "body": "Archivos exportados de tus propios sistemas: facturas, auxiliares, inventario, ventas."
+        "title": "Importar datos",
+        "body": "Archivos que exportas tú: CFDI, contabilidad electrónica del SAT y estados de cuenta bancarios."
       },
       {
         "title": "Estandarizar",
@@ -75,7 +71,7 @@
       },
       {
         "title": "Analizar",
-        "body": "Cinco motores probados: margen, concentración, inflación de insumos, cobranza, pronóstico."
+        "body": "Motores probados: margen, precios, concentración de clientes, inflación de insumos, cobranza y pronóstico."
       },
       {
         "title": "Identificar hallazgos",
@@ -87,7 +83,7 @@
       }
     ],
     "capabilitiesLabel": "Ver capacidades técnicas",
-    "capabilitiesMeta": "9 capacidades, todas en uso",
+    "capabilitiesMeta": "11 capacidades, una de ellas en beta",
     "todayLabel": "Disponible hoy",
     "futureLabel": "En desarrollo",
     "today": [
@@ -97,7 +93,7 @@
       },
       {
         "title": "Ingesta de CFDI",
-        "body": "Comprobantes emitidos y recibidos, complementos de pago, nómina y retenciones, cargados como archivos. Aguanta el desorden que traen los datos reales: duplicados, XML corruptos, unidades no normalizables."
+        "body": "Comprobantes emitidos y recibidos, complementos de pago y retenciones, cargados como archivos. La nómina se excluye por omisión porque trae datos personales de los empleados. Aguanta el desorden que traen los datos reales: duplicados, XML corruptos, unidades no normalizables."
       },
       {
         "title": "Normalización y curación gerencial",
@@ -114,6 +110,14 @@
       {
         "title": "Estado de resultados gerencial",
         "body": "Resultados reexpresados con histórico, comparables periodo contra periodo y conciliados contra los comprobantes que los sustentan."
+      },
+      {
+        "title": "Contabilidad electrónica del SAT",
+        "body": "Lee el catálogo, la balanza y las pólizas en XML (versión 1.3), los valida contra el esquema del SAT, cruza pólizas contra balanza y arma estados y razones financieras con la cuenta de la que sale cada cifra. La compatibilidad con las exportaciones de cada sistema contable se confirma con archivos reales; todavía no se afirma."
+      },
+      {
+        "title": "Estados de cuenta bancarios (beta)",
+        "body": "Importación en CSV o TXT con el formato que declaras, revisión antes de guardar y conciliación con tus CFDI que el sistema sugiere y tú confirmas. Sin conexión con el banco ni credenciales. En beta: probado solo con datos de prueba."
       },
       {
         "title": "Tableros interactivos",

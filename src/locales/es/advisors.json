@@ -35,7 +35,8 @@
     "title": "Todo esto está construido y funcionando hoy.",
     "intro": "No es una hoja de ruta. Son las capacidades que están en el producto ahora mismo.",
     "items": [
-      "Ingesta de CFDI: emitidos, recibidos, complementos de pago, nómina y retenciones",
+      "Ingesta de CFDI: emitidos, recibidos, complementos de pago y retenciones (la nómina, solo si se activa)",
+      "Contabilidad electrónica del SAT: catálogo, balanza y pólizas, con estados y razones desde la balanza",
       "Catálogo gerencial: el mismo artículo es el mismo artículo entre proveedores y periodos",
       "Motor de dispersión de precios",
       "Motor de concentración y fuga de clientes",

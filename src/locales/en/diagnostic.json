@@ -72,8 +72,8 @@
       {
         "severity": "high",
         "severityLabel": "High priority",
-        "title": "Accounts receivable grew faster than revenue.",
-        "body": "Collection is slowing relative to sales. The gap is financed by the company, and it never shows up in the income statement.",
+        "title": "Collection lags far behind payment.",
+        "body": "Customers take longer to pay than the company takes to pay its suppliers. The gap is financed by the company, and it never shows up in the income statement.",
         "action": "Review credit terms by customer segment and separate genuine disputes from routine late payment."
       },
       {
@@ -86,9 +86,9 @@
       {
         "severity": "medium",
         "severityLabel": "Medium priority",
-        "title": "Inventory turnover is below target.",
-        "body": "A share of working capital is held in items that do not move at the rate the rest of the catalogue does.",
-        "action": "Identify slow-moving items by value and decide, per item, whether to discount, return or stop reordering."
+        "title": "Your input costs rise faster than inflation.",
+        "body": "What you buy is getting more expensive faster than the price index, and the margin absorbs it without showing up on any single invoice.",
+        "action": "Identify the fastest-rising inputs by value and decide, one by one, whether to renegotiate, switch suppliers or pass it on to price."
       },
       {
         "severity": "medium",
@@ -172,15 +172,15 @@
         "required": true
       },
       {
-        "text": "Trial balance or general ledger",
+        "text": "Trial balance in SAT electronic accounting XML",
         "required": false
       },
       {
-        "text": "Inventory report, if the business holds stock",
+        "text": "Inventory report, if the business holds stock (in development)",
         "required": false
       },
       {
-        "text": "Sales detail by customer and product, if kept outside invoicing",
+        "text": "Sales detail by customer and product kept outside invoicing (in development)",
         "required": false
       }
     ],

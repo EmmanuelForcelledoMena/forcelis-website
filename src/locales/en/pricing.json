@@ -66,8 +66,8 @@
       },
       "completo": {
         "name": "Complete Diagnostic",
-        "asks": "Everything in the Essential, plus trial balance or ledger, inventory, and sales by customer and product",
-        "gives": "Everything in the Essential, plus operational and inventory analysis"
+        "asks": "Everything in the Essential, plus the trial balance",
+        "gives": "Everything in the Essential, plus statements and ratios from your trial balance (inventory analysis is in development)"
       },
       "asesores": {
         "name": "Diagnostic for advisors",

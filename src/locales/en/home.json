@@ -11,9 +11,9 @@
     "panelTitle": "Business performance",
     "prioritiesLabel": "Key priorities",
     "priorities": [
-      "Receivables growing faster than revenue",
-      "Inventory below target turnover",
-      "Margin compression in a key category"
+      "Collection lags far behind payment",
+      "One customer carries a third of revenue",
+      "The business grows while the margin shrinks"
     ],
     "primary": "I advise businesses",
     "secondary": "I have a business"

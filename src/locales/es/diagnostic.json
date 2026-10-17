@@ -72,8 +72,8 @@
       {
         "severity": "high",
         "severityLabel": "Prioridad alta",
-        "title": "Las cuentas por cobrar crecieron más rápido que las ventas.",
-        "body": "La cobranza se está desacelerando frente a la venta. Esa diferencia la financia la empresa, y nunca aparece en el estado de resultados.",
+        "title": "Se cobra mucho después de lo que se paga.",
+        "body": "Los clientes tardan más en pagar que lo que la empresa tarda en pagar a sus proveedores. Esa diferencia la financia la empresa, y nunca aparece en el estado de resultados.",
         "action": "Revisar condiciones de crédito por segmento de cliente y separar las disputas reales del atraso rutinario."
       },
       {
@@ -86,9 +86,9 @@
       {
         "severity": "medium",
         "severityLabel": "Prioridad media",
-        "title": "La rotación de inventario está por debajo del objetivo.",
-        "body": "Una parte del capital de trabajo está detenida en artículos que no se mueven al ritmo del resto del catálogo.",
-        "action": "Identificar los artículos de lento movimiento por valor y decidir, uno por uno, si se descuenta, se devuelve o se deja de reponer."
+        "title": "Tus insumos suben más que la inflación.",
+        "body": "El precio de lo que compras sube por encima del índice de precios, y el margen lo absorbe sin que se vea en una sola factura.",
+        "action": "Identificar los insumos que más suben por valor y decidir, uno por uno, si se renegocia, se cambia de proveedor o se traslada al precio."
       },
       {
         "severity": "medium",
@@ -172,15 +172,15 @@
         "required": true
       },
       {
-        "text": "Balanza de comprobación o auxiliares contables",
+        "text": "Balanza de comprobación en XML de contabilidad electrónica",
         "required": false
       },
       {
-        "text": "Reporte de inventario, si el negocio maneja existencias",
+        "text": "Reporte de inventario, si el negocio maneja existencias (en desarrollo)",
         "required": false
       },
       {
-        "text": "Detalle de ventas por cliente y producto, si se lleva fuera de la facturación",
+        "text": "Detalle de ventas por cliente y producto fuera de la facturación (en desarrollo)",
         "required": false
       }
     ],

@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Platform — The intelligence layer behind your business",
-    "description": "The Forcelis platform connects ERP, accounting, CFDI, sales, purchasing, inventory and banking data, structures it and turns it into actionable intelligence. Deterministic, private, secure, honest."
+    "description": "The Forcelis platform reads the files your systems already produce — CFDI, SAT electronic accounting and bank statements — and turns them into actionable intelligence. Deterministic, private, secure, honest."
   },
   "hero": {
     "eyebrow": "Forcelis Platform",
@@ -10,28 +10,24 @@
   },
   "architecture": {
     "title": "How it fits together",
-    "intro": "Nothing is replaced. The platform sits above the systems you already run.",
+    "intro": "Nothing is replaced. The platform reads the files your systems already export.",
     "sourcesLabel": "Your systems",
     "sources": [
-      "ERP",
-      "Accounting",
-      "CFDI",
-      "Sales",
-      "Purchasing",
-      "Inventory",
-      "Banking",
-      "Spreadsheets"
+      "Issued and received CFDI",
+      "Payment complements",
+      "SAT electronic accounting",
+      "Bank statements (beta)"
     ],
     "platformLabel": "Forcelis",
     "steps": [
-      "Connect",
+      "Import",
       "Normalize",
       "Analyze",
       "Explain"
     ],
     "outcomeLabel": "Business decisions",
     "outcomeSub": "Findings, priorities and recommended actions",
-    "diagramAlt": "Diagram: eight kinds of systems — ERP, accounting, CFDI, sales, purchasing, inventory, banking and spreadsheets — feed Forcelis, which connects, normalizes, analyzes and explains the data, and produces business decisions."
+    "diagramAlt": "Diagram: issued and received CFDI, payment complements, SAT electronic accounting and bank statements (in beta) feed Forcelis, which imports, normalizes, analyzes and explains them, and produces business decisions."
   },
   "principles": {
     "title": "Four decisions that shape the product",
@@ -66,8 +62,8 @@
     "intro": "Everything in this section is built and running. What is coming is below, marked as roadmap.",
     "steps": [
       {
-        "title": "Connect data",
-        "body": "Files exported from your own systems: invoices, ledger, inventory, sales."
+        "title": "Import data",
+        "body": "Files you export yourself: CFDI, SAT electronic accounting and bank statements."
       },
       {
         "title": "Standardize",
@@ -75,7 +71,7 @@
       },
       {
         "title": "Analyze",
-        "body": "Five tested engines: margin, concentration, cost inflation, collection, forecast."
+        "body": "Tested engines: margin, pricing, customer concentration, input cost inflation, collection and forecast."
       },
       {
         "title": "Identify findings",
@@ -87,7 +83,7 @@
       }
     ],
     "capabilitiesLabel": "View technical capabilities",
-    "capabilitiesMeta": "9 capabilities, all in use",
+    "capabilitiesMeta": "11 capabilities, one of them in beta",
     "todayLabel": "Available today",
     "futureLabel": "In development",
     "today": [
@@ -97,7 +93,7 @@
       },
       {
         "title": "CFDI ingestion",
-        "body": "Issued and received invoices, payment complements, payroll and withholding documents, uploaded as files. Handles the mess that comes with real data: duplicates, malformed XML, unnormalizable units."
+        "body": "Issued and received invoices, payment complements and withholding documents, uploaded as files. Payroll is excluded by default because it carries employees' personal data. Handles the mess that comes with real data: duplicates, malformed XML, unnormalizable units."
       },
       {
         "title": "Normalization and managerial curation",
@@ -114,6 +110,14 @@
       {
         "title": "Managerial income statement",
         "body": "Restated results with history, comparable period over period, reconciled against the underlying documents."
+      },
+      {
+        "title": "SAT electronic accounting",
+        "body": "Reads the chart of accounts, trial balance and journal entries in XML (version 1.3), validates them against the SAT schema, checks entries against the trial balance and builds financial statements and ratios showing the account behind every figure. Compatibility with each accounting system's exports is confirmed with real files; it is not claimed yet."
+      },
+      {
+        "title": "Bank statements (beta)",
+        "body": "CSV or TXT import using the format you declare, a review before anything is saved, and reconciliation against your CFDI that the system suggests and you confirm. No bank connection, no credentials. In beta: tested only with test data."
       },
       {
         "title": "Interactive dashboards",

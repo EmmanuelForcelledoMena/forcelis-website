@@ -66,8 +66,8 @@
       },
       "completo": {
         "name": "Diagnóstico Completo",
-        "asks": "Lo del Esencial, más balanza o auxiliares, inventario y ventas por cliente y producto",
-        "gives": "Lo del Esencial, más análisis operativo y de inventario"
+        "asks": "Lo del Esencial, más la balanza de comprobación",
+        "gives": "Lo del Esencial, más estados y razones desde tu balanza (el análisis de inventario está en desarrollo)"
       },
       "asesores": {
         "name": "Diagnóstico para asesores",

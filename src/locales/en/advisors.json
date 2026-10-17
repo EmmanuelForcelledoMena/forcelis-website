@@ -35,7 +35,8 @@
     "title": "Everything here is built and running today.",
     "intro": "Not a roadmap. These are the capabilities in the product right now.",
     "items": [
-      "CFDI ingestion: issued, received, payment complements, payroll and withholding",
+      "CFDI ingestion: issued, received, payment complements and withholding (payroll only if enabled)",
+      "SAT electronic accounting: chart of accounts, trial balance and entries, with statements and ratios from the trial balance",
       "Managerial catalogue: the same item is the same item across suppliers and periods",
       "Price dispersion engine",
       "Customer concentration and churn engine",
