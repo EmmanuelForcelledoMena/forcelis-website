@@ -104,7 +104,7 @@ existe sin prueba dedicada), **NOT IMPLEMENTED** (no existe).
 | Aislamiento en cuatro capas, la última en PostgreSQL | Filtro por inquilino, propiedad, autorización, RLS | `test_aislamiento_tenant.py`, `test_cuarta_capa.py`, `test_rls_escrituras.py` | SUPPORTED |
 | Ningún número lo genera un modelo de lenguaje | `copiloto/` solo redacta y está apagado; la inteligencia lee | `test_copiloto_en_pantalla.py`, `test_guardia_privacidad.py`, `test_inteligencia_lectura.py` | SUPPORTED |
 | Lo que falta se reporta, no se inventa | Toda la analítica | `test_business_score.py`, `test_inteligencia_indicadores.py` | SUPPORTED |
-| Nunca credenciales del SAT ni del banco | No existe ningún campo para la e.firma, la CIEC ni el banco | Inspección de las plantillas; **sin prueba dedicada** | PARTIAL (cierto; falta la prueba) |
+| Nunca credenciales del SAT ni del banco | No existe ningún campo para la e.firma, la CIEC ni el banco | `test_sin_credenciales.py` (producto `61337b8`, escrita para esta matriz: recorre todas las plantillas) | SUPPORTED |
 | Business Score de cinco dimensiones, 12 meses contra los 12 anteriores | `analitica/business_score.py`, `config/business_score.yaml` | `test_business_score.py` | SUPPORTED |
 | La lógica sectorial vive en configuración | `config/sectores/` | `test_analitica.py` | SUPPORTED |
 | Diagnóstico: las seis secciones del informe en ese orden | Entregable Word | **No reverificado** contra el Word actual (pendiente desde el 2026-10-16) | PARTIAL |
