@@ -6,7 +6,7 @@
   "hero": {
     "eyebrow": "Plataforma Forcelis",
     "title": "La capa de inteligencia detrás de tu negocio.",
-    "subtitle": "Tus sistemas ya registran lo que pasó. Forcelis los conecta, estructura la información y la convierte en inteligencia accionable."
+    "subtitle": "Tus sistemas ya registran lo que pasó. Forcelis los lee, estructura la información y la convierte en inteligencia accionable."
   },
   "architecture": {
     "title": "Cómo encaja todo",
@@ -83,7 +83,7 @@
       }
     ],
     "capabilitiesLabel": "Ver capacidades técnicas",
-    "capabilitiesMeta": "11 capacidades, una de ellas en beta",
+    "capabilitiesMeta": "12 capacidades, dos de ellas en beta",
     "todayLabel": "Disponible hoy",
     "futureLabel": "En desarrollo",
     "today": [
@@ -113,11 +113,15 @@
       },
       {
         "title": "Contabilidad electrónica del SAT",
-        "body": "Lee el catálogo, la balanza y las pólizas en XML (versión 1.3), los valida contra el esquema del SAT, cruza pólizas contra balanza y arma estados y razones financieras con la cuenta de la que sale cada cifra. La compatibilidad con las exportaciones de cada sistema contable se confirma con archivos reales; todavía no se afirma."
+        "body": "Lee el catálogo, la balanza y las pólizas en XML (versión 1.3), los valida contra el esquema del SAT, cruza pólizas contra balanza y arma estados y razones financieras con la cuenta de la que sale cada cifra; concilia cada CFDI con las pólizas que lo citan y da el auxiliar de cada cuenta, póliza por póliza. La compatibilidad con las exportaciones de cada sistema contable se confirma con archivos reales; todavía no se afirma."
       },
       {
         "title": "Estados de cuenta bancarios (beta)",
-        "body": "Importación en CSV o TXT con el formato que declaras, revisión antes de guardar y conciliación con tus CFDI que el sistema sugiere y tú confirmas. Sin conexión con el banco ni credenciales. En beta: probado solo con datos de prueba."
+        "body": "Importación en CSV o TXT con el formato que declaras, revisión antes de guardar y conciliación con tus CFDI y con tus pólizas que el sistema sugiere y tú confirmas, con la hoja de conciliación del mes en Excel. Sin conexión con el banco ni credenciales. En beta: probado solo con datos de prueba."
+      },
+      {
+        "title": "Inteligencia financiera (beta)",
+        "body": "Diecinueve indicadores desde la balanza —liquidez, rentabilidad, capital de trabajo, endeudamiento y flujo de efectivo—, cada uno con su fórmula, las cuentas de donde sale y su nivel de confianza; diagnósticos de lo que conviene revisar cada mes, y el camino de cada uno hasta la póliza y el CFDI. Solo lee: no crea pólizas ni toca CFDI. En beta: probado solo con datos de prueba, y con los umbrales de los diagnósticos todavía en revisión."
       },
       {
         "title": "Tableros interactivos",
@@ -125,7 +129,7 @@
       },
       {
         "title": "Cuentas, acceso y segundo factor",
-        "body": "Cuentas de usuario funcionales con segundo factor basado en tiempo, secretos cifrados en reposo y códigos de recuperación de un solo uso."
+        "body": "Cuentas de usuario funcionales con segundo factor basado en tiempo, secretos cifrados en reposo y códigos de recuperación de un solo uso. El dueño de cada empresa invita a su equipo con tres roles y retira accesos."
       },
       {
         "title": "Entregables",

@@ -29,35 +29,35 @@
       "title": "Manufacturing",
       "tags": ["Margin", "Inventory", "Suppliers"],
       "lead": "Where margin is made or lost between the purchase order and the finished unit.",
-      "points": ["Input cost inflation by material", "Product-level margin structure", "Inventory and work-in-process", "Supplier concentration and dependency"]
+      "points": ["Input cost inflation by material", "Product-level margin structure", "Inventory days from the trial balance (work-in-process in development)", "Supplier concentration and dependency"]
     },
     {
       "key": "distribution",
       "title": "Distribution",
       "tags": ["Inventory", "Pricing", "Cash"],
       "lead": "High volume, thin margin, and a working capital cycle that punishes small errors.",
-      "points": ["Inventory turnover by item", "Price dispersion across customers", "Purchase price versus list price", "Days sales outstanding by segment"]
+      "points": ["Inventory turnover by item (in development)", "Price dispersion across customers", "Purchase price jumps by supplier", "Days sales outstanding by customer"]
     },
     {
       "key": "b2b",
       "title": "B2B Commerce",
       "tags": ["Customers", "Margin", "Collections"],
       "lead": "A handful of accounts usually explain most of the revenue — and most of the risk.",
-      "points": ["Customer concentration and churn", "Profitability by customer", "Discount and pricing consistency", "Collection behavior by account"]
+      "points": ["Customer concentration and churn", "Revenue by customer and its trend", "Discount and pricing consistency", "Collection behavior by account"]
     },
     {
       "key": "trade",
       "title": "Import & Export",
       "tags": ["Landed cost", "Currency", "Lead time"],
       "lead": "Currency, landed cost and lead time turn a simple margin question into a timing question.",
-      "points": ["Landed cost by shipment", "Currency exposure in the cost base", "Inventory held against lead time", "Supplier terms versus customer terms"]
+      "points": ["Landed cost by shipment (in development)", "Currency exposure in the cost base (in development)", "Inventory held against lead time (in development)", "Supplier terms versus customer terms"]
     },
     {
       "key": "services",
       "title": "Professional Services",
       "tags": ["Utilization", "Margin", "Collections"],
       "lead": "No inventory to hide behind. Profitability is a question of mix, utilization and collection.",
-      "points": ["Profitability by client and engagement", "Revenue concentration", "Collection cycle and aging", "Cost base structure"]
+      "points": ["Profitability by client and engagement (in development)", "Revenue concentration", "Collection cycle and aging", "Cost base structure"]
     },
     {
       "key": "growth",

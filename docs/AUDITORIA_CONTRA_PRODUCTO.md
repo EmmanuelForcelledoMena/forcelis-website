@@ -68,3 +68,85 @@ las 28 páginas).
 5. **Prueba de 14 días:** `prueba_disponible: false`. El producto ya tiene el
    ciclo de prueba, pero el alta libre sigue cerrada. No se enciende hasta
    que haya alta libre, correo y pasarela (D3).
+
+---
+
+## 3. Matriz del 2026-10-18: afirmación → funcionalidad → prueba → estado
+
+**Producto revisado:** `Forcelis`, rama `comercial/fase-1` en `cda7b65`. Cada
+fila se verificó en el código y en sus pruebas, no de memoria. Las pruebas son
+de datos sintéticos: **SUPPORTED quiere decir que existe y está probado, no que
+se haya verificado con datos reales de un cliente** (ninguna lo está).
+
+Estados: **SUPPORTED** (existe y tiene prueba), **PARTIAL** (existe una parte, o
+existe sin prueba dedicada), **NOT IMPLEMENTED** (no existe).
+
+### Lo que el sitio dice que hace
+
+| Afirmación del sitio (clave) | Funcionalidad en el producto | Prueba | Estado |
+|---|---|---|---|
+| Ingesta de CFDI emitidos, recibidos, complementos de pago y retenciones; la nómina, solo si se activa (`platform.status.today[1]`, `advisors.includes`) | `fiscal/ingesta.py`, retenciones | `test_ingesta_zip.py`, `test_retenciones.py`, `test_analitica.py` | SUPPORTED |
+| Aguanta duplicados, XML corruptos, unidades no normalizables | Ingesta y curación | `test_ingesta_zip.py`, `test_curacion.py` | SUPPORTED |
+| Catálogo gerencial: el mismo artículo entre proveedores y periodos | `analitica/curacion.py` | `test_curacion.py` | SUPPORTED |
+| Motores: precios, concentración y fuga, inflación de insumos, pulso, pronóstico | `analitica/` | `test_analitica.py`, `test_inflacion.py`, `test_invariantes_analisis.py` | SUPPORTED |
+| «Cuatro clientes al 25 % dan un HHI de 0.25 exacto» (`platform.principles`) | `analitica/concentracion.py` | `test_analitica.py` | SUPPORTED |
+| Cobranza real desde los complementos, con antigüedad por cobrar y por pagar | `analitica/cobranza.py`, `gerencial.py` | `test_analitica.py`, `test_gerencial.py` | SUPPORTED |
+| Estado de resultados gerencial comparable periodo contra periodo | `analitica/gerencial.py` | `test_gerencial.py` | SUPPORTED |
+| Contabilidad electrónica 1.3: catálogo, balanza y pólizas, validación, cruce, estados y razones con su cuenta | `contabilidad/` | `test_contabilidad_xml_sat.py`, `test_contabilidad_polizas_sat.py`, `test_contabilidad_estados_sat.py` | SUPPORTED. Compatibilidad con cada sistema contable: **no se afirma** (sin muestras reales) |
+| **Nuevo en el sitio:** conciliación de cada CFDI con las pólizas que lo citan; auxiliar por cuenta | CE-3B/CE-3E, `contabilidad/auxiliar.py` | `test_contabilidad_conciliacion_web.py`, `test_contabilidad_auxiliar.py` | SUPPORTED |
+| Estados de cuenta bancarios (beta), conciliación con CFDI; **nuevo:** contra las pólizas y hoja en Excel | `bancos/` | `test_bancos_*.py` (siete archivos) | SUPPORTED, en beta: sin layouts de bancos reales |
+| **Nuevo en el sitio:** inteligencia financiera (beta): 19 indicadores, diagnósticos, traza hasta el CFDI, solo lectura | `app/inteligencia/` | `test_inteligencia_*.py` (104 pruebas) | SUPPORTED, en beta: umbrales sin aprobar (D19) |
+| Tableros interactivos con un motor propio | `static/graficas.js` | `test_graficas_js.py`, `test_accesibilidad.py` | SUPPORTED |
+| Entregables en Word, HTML y Excel | `exportes/` | `test_exporte_estados.py`, `test_comercial_marca.py` | SUPPORTED |
+| Multiempresa con la marca del asesor; marca desde Profesional; Profesional 10 empresas; Individual sin adicionales; uso justo de 10 000 CFDI | `comercial/`, `config/comercial/catalogo_inicial.yaml` | `test_comercial_marca.py`, `test_comercial_uso_justo.py`, `test_comercial_derechos.py` | SUPPORTED |
+| Segundo factor, secretos cifrados, códigos de un solo uso | `auth/mfa` | `test_mfa.py` | SUPPORTED |
+| **Nuevo en el sitio:** equipo con tres roles que administra el dueño | `auth/equipo.py` | `test_equipo.py` | SUPPORTED |
+| Aislamiento en cuatro capas, la última en PostgreSQL | Filtro por inquilino, propiedad, autorización, RLS | `test_aislamiento_tenant.py`, `test_cuarta_capa.py`, `test_rls_escrituras.py` | SUPPORTED |
+| Ningún número lo genera un modelo de lenguaje | `copiloto/` solo redacta y está apagado; la inteligencia lee | `test_copiloto_en_pantalla.py`, `test_guardia_privacidad.py`, `test_inteligencia_lectura.py` | SUPPORTED |
+| Lo que falta se reporta, no se inventa | Toda la analítica | `test_business_score.py`, `test_inteligencia_indicadores.py` | SUPPORTED |
+| Nunca credenciales del SAT ni del banco | No existe ningún campo para la e.firma, la CIEC ni el banco | Inspección de las plantillas; **sin prueba dedicada** | PARTIAL (cierto; falta la prueba) |
+| Business Score de cinco dimensiones, 12 meses contra los 12 anteriores | `analitica/business_score.py`, `config/business_score.yaml` | `test_business_score.py` | SUPPORTED |
+| La lógica sectorial vive en configuración | `config/sectores/` | `test_analitica.py` | SUPPORTED |
+| Diagnóstico: las seis secciones del informe en ese orden | Entregable Word | **No reverificado** contra el Word actual (pendiente desde el 2026-10-16) | PARTIAL |
+| Diagnóstico Completo: estados y razones desde la balanza | `estados_sat`, `inteligencia` | Las de contabilidad | SUPPORTED (página de precios oculta) |
+
+### Corregido en este commit, porque no se sostenía
+
+| Página y clave | Decía | Estado antes | Ahora dice |
+|---|---|---|---|
+| Diagnóstico, `analysis.areas[1].items[3]` | Rentabilidad por cliente | NOT IMPLEMENTED: no hay costo por cliente | Ingreso y cobranza por cliente |
+| Diagnóstico, `analysis.areas[2].items[0]` y `deliverables.items[2]` | Inventario | PARTIAL: solo los días de inventario desde la balanza | Días de inventario (desde la balanza) |
+| Industrias, manufactura | Inventario y producción en proceso | NOT IMPLEMENTED | Días de inventario desde la balanza (producción en proceso, en desarrollo) |
+| Industrias, distribución | Rotación de inventario por artículo | NOT IMPLEMENTED: necesita una fuente que no se puede subir | (en desarrollo) |
+| Industrias, distribución | Precio de compra contra precio de lista | NOT IMPLEMENTED: no se leen listas de precios | Saltos en el precio de compra por proveedor (existe: `anomalias.saltos_precio_proveedor`) |
+| Industrias, distribución | Días de cartera por segmento | PARTIAL: existe por cliente | Días de cartera por cliente |
+| Industrias, B2B | Rentabilidad por cliente | NOT IMPLEMENTED | Ingreso por cliente y su tendencia |
+| Industrias, importación | Costo puesto en almacén; exposición cambiaria; inventario contra tiempo de entrega | NOT IMPLEMENTED | Los tres, (en desarrollo) |
+| Industrias, servicios | Rentabilidad por cliente y por proyecto | NOT IMPLEMENTED | (en desarrollo) |
+| Inicio y Plataforma | «Conectar la información», «la plataforma conecta», «Forcelis los conecta» | Ambiguo: sugiere conectores, que no hay | «Reunir», «reúne», «los lee» |
+
+### Existe en el producto y el sitio lo calla (decisión tuya)
+
+- **IVA y DIOT** (pantalla Fiscal). El pie dice que Forcelis no presenta
+  declaraciones, y es cierto: el producto lo dice en la pantalla. Anunciarlas es
+  decisión comercial (pendiente desde el 2026-10-16).
+- **Hallazgos de calidad del dato y posibles duplicados** (pantalla Calidad).
+  Se mencionan solo como «inconsistencias de datos» en el Diagnóstico.
+
+### Lo que no cambia y conviene saber
+
+- Las etiquetas de los sectores (por ejemplo «Utilización» en servicios,
+  «Costo en almacén» en importación) describen las palancas del sector, no
+  funciones del producto; lo que el producto mira está en los puntos de cada
+  tarjeta, que ahora dicen qué está en desarrollo.
+- «Nosotros» describe la experiencia de la empresa (finanzas, operaciones,
+  cadena de suministro), no funciones de la plataforma.
+
+**Verificado:** `npm run verify` en verde:
+- tipos y paridad es/en;
+- calculadora;
+- build de 26 páginas;
+- auditoría de 28 páginas sin hallazgos;
+- precios apagados coherentes.
+
+**Nada publicado:** commit local, sin *push*.

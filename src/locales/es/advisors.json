@@ -37,6 +37,9 @@
     "items": [
       "Ingesta de CFDI: emitidos, recibidos, complementos de pago y retenciones (la nómina, solo si se activa)",
       "Contabilidad electrónica del SAT: catálogo, balanza y pólizas, con estados y razones desde la balanza",
+      "Conciliación de cada CFDI con las pólizas que lo citan, y el auxiliar de cada cuenta, póliza por póliza",
+      "Estados de cuenta bancarios (beta): conciliación con tus CFDI y con tus pólizas, y la hoja de conciliación en Excel",
+      "Inteligencia financiera desde la balanza (beta): indicadores con su fórmula y sus cuentas, diagnósticos mensuales y el camino hasta la póliza y el CFDI",
       "Catálogo gerencial: el mismo artículo es el mismo artículo entre proveedores y periodos",
       "Motor de dispersión de precios",
       "Motor de concentración y fuga de clientes",
@@ -48,7 +51,7 @@
       "Tableros interactivos con filtros y detalle",
       "Entregables en Word, HTML y Excel",
       "Multi-empresa en una sola cuenta, con tu marca en los entregables",
-      "Cuentas con segundo factor de autenticación",
+      "Cuentas con segundo factor de autenticación, y un equipo con roles que administra el dueño de cada empresa",
       "Nunca credenciales del SAT ni del banco"
     ]
   },

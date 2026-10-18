@@ -37,6 +37,9 @@
     "items": [
       "CFDI ingestion: issued, received, payment complements and withholding (payroll only if enabled)",
       "SAT electronic accounting: chart of accounts, trial balance and entries, with statements and ratios from the trial balance",
+      "Reconciliation of every CFDI with the journal entries that cite it, and a ledger for each account, entry by entry",
+      "Bank statements (beta): reconciliation against your CFDI and your journal entries, with the reconciliation sheet in Excel",
+      "Financial intelligence from the trial balance (beta): ratios with their formula and accounts, monthly diagnostics and the path down to the entry and the CFDI",
       "Managerial catalogue: the same item is the same item across suppliers and periods",
       "Price dispersion engine",
       "Customer concentration and churn engine",
@@ -48,7 +51,7 @@
       "Interactive dashboards with filters and drill-down",
       "Deliverables in Word, HTML and Excel",
       "Multi-company under one account, with your brand on the deliverables",
-      "Accounts with two-factor authentication",
+      "Accounts with two-factor authentication, and a team with roles managed by each company's owner",
       "No SAT or banking credentials, ever"
     ]
   },

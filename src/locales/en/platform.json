@@ -6,7 +6,7 @@
   "hero": {
     "eyebrow": "Forcelis Platform",
     "title": "The intelligence layer behind your business.",
-    "subtitle": "Your systems already record what happened. Forcelis connects them, structures the information and turns it into actionable intelligence."
+    "subtitle": "Your systems already record what happened. Forcelis reads them, structures the information and turns it into actionable intelligence."
   },
   "architecture": {
     "title": "How it fits together",
@@ -83,7 +83,7 @@
       }
     ],
     "capabilitiesLabel": "View technical capabilities",
-    "capabilitiesMeta": "11 capabilities, one of them in beta",
+    "capabilitiesMeta": "12 capabilities, two of them in beta",
     "todayLabel": "Available today",
     "futureLabel": "In development",
     "today": [
@@ -113,11 +113,15 @@
       },
       {
         "title": "SAT electronic accounting",
-        "body": "Reads the chart of accounts, trial balance and journal entries in XML (version 1.3), validates them against the SAT schema, checks entries against the trial balance and builds financial statements and ratios showing the account behind every figure. Compatibility with each accounting system's exports is confirmed with real files; it is not claimed yet."
+        "body": "Reads the chart of accounts, trial balance and journal entries in XML (version 1.3), validates them against the SAT schema, checks entries against the trial balance and builds financial statements and ratios showing the account behind every figure; it reconciles every CFDI with the journal entries that cite it and gives the ledger of each account, entry by entry. Compatibility with each accounting system's exports is confirmed with real files; it is not claimed yet."
       },
       {
         "title": "Bank statements (beta)",
-        "body": "CSV or TXT import using the format you declare, a review before anything is saved, and reconciliation against your CFDI that the system suggests and you confirm. No bank connection, no credentials. In beta: tested only with test data."
+        "body": "CSV or TXT import using the format you declare, a review before anything is saved, and reconciliation against your CFDI and your journal entries that the system suggests and you confirm, with the month's reconciliation sheet in Excel. No bank connection, no credentials. In beta: tested only with test data."
+      },
+      {
+        "title": "Financial intelligence (beta)",
+        "body": "Nineteen ratios from the trial balance — liquidity, profitability, working capital, leverage and cash flow — each with its formula, the accounts behind it and its confidence level; monthly diagnostics of what is worth reviewing, and the path from each one down to the journal entry and the CFDI. Read-only: it never creates entries or touches CFDI. In beta: tested only with test data, and the diagnostic thresholds are still under review."
       },
       {
         "title": "Interactive dashboards",
@@ -125,7 +129,7 @@
       },
       {
         "title": "Accounts, login and MFA",
-        "body": "Working user accounts with time-based two-factor authentication, encrypted secrets and single-use recovery codes."
+        "body": "Working user accounts with time-based two-factor authentication, encrypted secrets and single-use recovery codes. Each company's owner invites their team with three roles and removes access."
       },
       {
         "title": "Deliverables",

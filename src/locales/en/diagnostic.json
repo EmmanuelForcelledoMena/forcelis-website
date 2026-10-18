@@ -36,7 +36,7 @@
           "Customer concentration",
           "Product performance",
           "Revenue trends",
-          "Customer profitability",
+          "Revenue and collections by customer",
           "Price dispersion",
           "Customer churn"
         ]
@@ -44,7 +44,7 @@
       {
         "title": "Operational performance",
         "items": [
-          "Inventory",
+          "Inventory days (from the trial balance)",
           "Suppliers",
           "Purchasing",
           "Operating costs",
@@ -114,7 +114,7 @@
       },
       {
         "title": "Operational analysis",
-        "body": "Inventory, purchasing, suppliers and the working capital they consume."
+        "body": "Purchasing, suppliers and the working capital they consume; inventory days, from the trial balance."
       },
       {
         "title": "Key risks",

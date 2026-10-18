@@ -29,35 +29,35 @@
       "title": "Manufactura",
       "tags": ["Margen", "Inventario", "Proveedores"],
       "lead": "Donde el margen se hace o se pierde entre la orden de compra y la unidad terminada.",
-      "points": ["Inflación de insumos por material", "Estructura de margen a nivel producto", "Inventario y producción en proceso", "Concentración y dependencia de proveedores"]
+      "points": ["Inflación de insumos por material", "Estructura de margen a nivel producto", "Días de inventario desde la balanza (producción en proceso, en desarrollo)", "Concentración y dependencia de proveedores"]
     },
     {
       "key": "distribution",
       "title": "Distribución",
       "tags": ["Inventario", "Precios", "Efectivo"],
       "lead": "Volumen alto, margen delgado y un ciclo de capital de trabajo que castiga los errores pequeños.",
-      "points": ["Rotación de inventario por artículo", "Dispersión de precios entre clientes", "Precio de compra contra precio de lista", "Días de cartera por segmento"]
+      "points": ["Rotación de inventario por artículo (en desarrollo)", "Dispersión de precios entre clientes", "Saltos en el precio de compra por proveedor", "Días de cartera por cliente"]
     },
     {
       "key": "b2b",
       "title": "Comercio B2B",
       "tags": ["Clientes", "Margen", "Cobranza"],
       "lead": "Un puñado de cuentas suele explicar la mayor parte de los ingresos — y la mayor parte del riesgo.",
-      "points": ["Concentración y fuga de clientes", "Rentabilidad por cliente", "Consistencia de descuentos y precios", "Comportamiento de pago por cuenta"]
+      "points": ["Concentración y fuga de clientes", "Ingreso por cliente y su tendencia", "Consistencia de descuentos y precios", "Comportamiento de pago por cuenta"]
     },
     {
       "key": "trade",
       "title": "Importación y exportación",
       "tags": ["Costo en almacén", "Tipo de cambio", "Tiempo de entrega"],
       "lead": "El tipo de cambio, el costo puesto en almacén y el tiempo de entrega convierten una pregunta de margen en una pregunta de tiempo.",
-      "points": ["Costo puesto en almacén por embarque", "Exposición cambiaria en la base de costos", "Inventario sostenido contra el tiempo de entrega", "Condiciones de proveedores contra las de clientes"]
+      "points": ["Costo puesto en almacén por embarque (en desarrollo)", "Exposición cambiaria en la base de costos (en desarrollo)", "Inventario sostenido contra el tiempo de entrega (en desarrollo)", "Condiciones de proveedores contra las de clientes"]
     },
     {
       "key": "services",
       "title": "Servicios profesionales",
       "tags": ["Utilización", "Margen", "Cobranza"],
       "lead": "No hay inventario detrás del cual esconderse. La rentabilidad es cuestión de mezcla, utilización y cobranza.",
-      "points": ["Rentabilidad por cliente y por proyecto", "Concentración de ingresos", "Ciclo de cobranza y antigüedad", "Estructura de la base de costos"]
+      "points": ["Rentabilidad por cliente y por proyecto (en desarrollo)", "Concentración de ingresos", "Ciclo de cobranza y antigüedad", "Estructura de la base de costos"]
     },
     {
       "key": "growth",

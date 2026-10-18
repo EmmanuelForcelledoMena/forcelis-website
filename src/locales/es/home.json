@@ -41,11 +41,11 @@
     ],
     "flowAlt": "Los CFDI que ya tienes se convierten en inteligencia, y la inteligencia en acción.",
     "steps": [
-      { "name": "Ver", "body": "Conectar la información que tu empresa ya produce." },
+      { "name": "Ver", "body": "Reunir la información que tu empresa ya produce." },
       { "name": "Entender", "body": "Identificar los riesgos, las ineficiencias y las palancas que importan." },
       { "name": "Actuar", "body": "Convertir los hallazgos en decisiones, mejoras y resultados medibles." }
     ],
-    "platformNote": "La plataforma Forcelis conecta y calcula. Las personas ponen el criterio."
+    "platformNote": "La plataforma Forcelis reúne y calcula. Las personas ponen el criterio."
   },
   "paths": {
     "eyebrow": "Dos caminos",
@@ -64,7 +64,7 @@
   "platform": {
     "eyebrow": "Plataforma Forcelis",
     "title": "Una sola vista de tu negocio.",
-    "body": "La plataforma Forcelis conecta la información financiera y operativa en una vista unificada del desempeño del negocio. No es un ERP y no sustituye tu sistema contable: es la capa de inteligencia que va encima.",
+    "body": "La plataforma Forcelis reúne la información financiera y operativa en una vista unificada del desempeño del negocio. No es un ERP y no sustituye tu sistema contable: es la capa de inteligencia que va encima.",
     "points": [
       "Cada cifra la calcula un motor determinista. Ningún número lo genera un modelo de lenguaje.",
       "La información de cada cliente está aislada en cuatro capas independientes, la última dentro de la propia base de datos.",
