@@ -150,3 +150,34 @@ existe sin prueba dedicada), **NOT IMPLEMENTED** (no existe).
 - precios apagados coherentes.
 
 **Nada publicado:** commit local, sin *push*.
+
+---
+
+## 2026-10-23: otra pasada, contra el producto en `29c3760`
+
+Lo que cambió en el producto desde el 18 y podía afectar a una afirmación:
+la conciliación bancaria en grupos (D20) y sus estados, la recuperación de la
+cuenta y la verificación del correo (escritas; **sin proveedor de correo**),
+la pantalla de soporte, dos diagnósticos nuevos, el significado y la variación
+de cada indicador, y el tope de subida (ahora 200 MB, el del proxy).
+
+| Afirmación del sitio | ¿Existe? | ¿Probado? | ¿Debe cambiar? |
+|---|---|---|---|
+| Estados de cuenta bancarios (beta): importación CSV o TXT con el formato que declaras, conciliación que el sistema sugiere y tú confirmas, sin credenciales del banco | Sí. Ahora también agrupaciones, pagos en partes, comisiones, notas de crédito y traspasos, cada uno con su estado | Solo con datos sintéticos (`test_bancos_*.py`) | **No.** Agregar las agrupaciones es decisión tuya; no hace falta para que sea verdad |
+| Inteligencia financiera (beta): diecinueve indicadores con fórmula, cuentas y confianza; diagnósticos mensuales; camino hasta la póliza y el CFDI; solo lee | Sí: 19 indicadores, 12 diagnósticos, qué significa y qué cambió cada indicador | Solo con datos sintéticos (`test_inteligencia_*.py`) | **No** |
+| Sin credenciales del portal fiscal ni del banco | Sí | `test_sin_credenciales.py` | **No** |
+| Cuentas con segundo factor, secretos cifrados y códigos de un solo uso; el dueño invita con tres roles | Sí | `test_mfa.py`, `test_totp.py`, `test_equipo.py` | **No** |
+| Contabilidad electrónica: «la compatibilidad con las exportaciones de cada sistema contable se confirma con…» | Sí, y **no** se afirma compatibilidad con CONTPAQi ni Aspel | Solo sintéticos | **No**: es la forma correcta |
+| Ningún número lo genera un modelo de lenguaje | Sí: el LLM está apagado | `test_guardia_privacidad.py` | **No** |
+| «Determinista, privada, segura, honesta» (descripción de Plataforma) | RLS, segundo factor, secretos cifrados, sin credenciales; dependencias sin vulnerabilidades conocidas desde `9880677` | Las de seguridad | **No**, mientras no prometa un nivel concreto |
+
+**Lo que el producto tiene y el sitio no dice, y está bien que no lo diga
+todavía:** la recuperación de la cuenta por correo y los avisos de la
+suscripción (sin proveedor de correo no llegan) y la pantalla de soporte (sin
+buzón real).
+
+**Las cuatro etiquetas** que pide el décimo mensaje: el sitio usa «(beta)» y
+«En desarrollo». Ninguna capacidad que requiera una integración aparece como
+disponible: no hay que inventar una cuarta etiqueta.
+
+**Nada publicado:** solo este documento, en un commit local, sin *push*.
