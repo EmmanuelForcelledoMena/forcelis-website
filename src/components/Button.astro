@@ -25,9 +25,15 @@ const { href, variant = 'primary', size = 'md', class: className = '', ...rest }
 // `group` para que la flecha reaccione al pasar el ratón por el botón entero y
 // no solo por encima de ella. Es el mismo gesto que ya hacen las tarjetas de
 // solución; tenerlo en un sitio y no en el otro se nota.
+//
+// Por debajo de `sm` el texto PUEDE partirse en dos líneas. Con
+// `whitespace-nowrap` fijo, un botón largo dentro de una retícula de una
+// columna imponía su ancho a la columna entera, y a 320 px el hero de Asesores
+// cortaba su propio texto. A partir de `sm` hay ancho de sobra y el botón
+// vuelve a ser de una sola línea.
 const base =
-  'group inline-flex items-center justify-center gap-2 font-medium transition-colors duration-200 ' +
-  'whitespace-nowrap rounded-none';
+  'group inline-flex max-w-full items-center justify-center gap-2 text-center font-medium ' +
+  'transition-colors duration-200 rounded-none sm:whitespace-nowrap';
 
 const sizes = {
   md: 'text-sm px-5 py-3',

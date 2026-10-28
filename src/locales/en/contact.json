@@ -47,7 +47,8 @@
       "url": "Enter a website address like company.com, or leave the field empty.",
       "consent": "Accept the Privacy Policy to continue.",
       "summaryOne": "One field needs your attention.",
-      "summaryMany": "{n} fields need your attention."
+      "summaryMany": "{n} fields need your attention.",
+      "tooFast": "One moment: press Send again in a couple of seconds."
     }
   },
   "next": {

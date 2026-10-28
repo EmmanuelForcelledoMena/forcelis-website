@@ -57,7 +57,9 @@ const encabezado =
       <SectionHeader eyebrow={p.platform.eyebrow} title={p.platform.title} />
     </div>
 
-    <div class="reveal mt-10 overflow-x-auto" data-reveal-delay="80">
+    <!-- `tabindex` y `role="region"`: en móvil la tabla se desplaza de lado, y
+         quien navega con teclado tiene que poder enfocar la zona para moverla. -->
+    <div class="reveal mt-10 overflow-x-auto" data-reveal-delay="80" role="region" tabindex="0" aria-label={p.platform.title}>
       <table class="w-full min-w-[46rem] border-collapse">
         <thead>
           <tr class="border-b-2 border-ink">
@@ -112,7 +114,7 @@ const encabezado =
       <SectionHeader eyebrow={p.diagnostics.eyebrow} title={p.diagnostics.title} />
     </div>
 
-    <div class="reveal mt-10 overflow-x-auto" data-reveal-delay="80">
+    <div class="reveal mt-10 overflow-x-auto" data-reveal-delay="80" role="region" tabindex="0" aria-label={p.diagnostics.title}>
       <table class="w-full min-w-[46rem] border-collapse">
         <thead>
           <tr class="border-b-2 border-ink">

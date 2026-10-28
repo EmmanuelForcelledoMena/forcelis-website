@@ -30,8 +30,12 @@ const light = tone === 'light';
 //
 // La alternativa era darle el ancho completo de la página, donde a 1.75rem
 // entra en 4/2; se descartó porque cambia la composición de la sección.
+//
+// Por debajo de `sm` baja a 1.1875rem por la misma razón: a 1.5rem
+// «Importación y exportación ·» mide más que la columna de un teléfono de
+// 320 px y, como no puede partirse, empujaba la página hacia los lados.
 const sizes = {
-  default: 'text-2xl lg:leading-[1.4]',
+  default: 'text-[1.1875rem] sm:text-2xl lg:leading-[1.4]',
   large: 'text-[1.75rem] lg:text-[2.25rem] lg:leading-[1.3]',
 };
 ---

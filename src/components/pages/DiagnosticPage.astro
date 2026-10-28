@@ -207,7 +207,9 @@ const overall = Math.round(c.scores.reduce((sum, s) => sum + s.value, 0) / c.sco
       <SectionHeader eyebrow={d.packages.eyebrow} title={d.packages.title} />
     </div>
 
-    <div class="reveal mt-12 overflow-x-auto" data-reveal-delay="80">
+    <!-- `tabindex` y `role="region"`: en móvil la tabla se desplaza de lado, y
+         quien navega con teclado tiene que poder enfocar la zona para moverla. -->
+    <div class="reveal mt-12 overflow-x-auto" data-reveal-delay="80" role="region" tabindex="0" aria-label={d.packages.title}>
       <table class="w-full min-w-[40rem] border-collapse">
         <thead>
           <tr class="border-b-2 border-ink">

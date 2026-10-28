@@ -495,11 +495,11 @@ const inputClass =
       attempted = true;
 
       // Trampas de robot: se descarta en silencio, sin pistas para quien lo
-      // intente automatizar.
+      // intente automatizar. Solo los campos ocultos: una persona nunca los
+      // llena.
       const gotcha = form.querySelector('[name="_gotcha"]');
       const botcheck = form.querySelector('[name="botcheck"]');
       if ((gotcha && gotcha.value) || (botcheck && botcheck.checked)) return;
-      if (Date.now() - loadedAt < 3000) return;
 
       const failures = [];
       RULES.forEach((rule) => {
@@ -539,6 +539,15 @@ const inputClass =
       // con ningún campo marcado en rojo, que es peor que no decir nada.
       status.textContent = '';
       suggestEmail();
+
+      // Envío en menos de tres segundos desde la carga: casi siempre un robot,
+      // pero también quien llena todo con el autocompletado del navegador.
+      // Antes se descartaba en silencio y esa persona creía haber enviado. Ahora
+      // no se envía y se le pide volver a pulsar; el segundo intento ya pasa.
+      if (Date.now() - loadedAt < 3000) {
+        render('error', messages.tooFast, '');
+        return;
+      }
 
       if (form.dataset.configured !== 'true') return;
 

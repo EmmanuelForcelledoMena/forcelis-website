@@ -47,7 +47,8 @@
       "url": "Escribe una dirección web como empresa.com, o deja el campo vacío.",
       "consent": "Acepta el Aviso de Privacidad para continuar.",
       "summaryOne": "Hay un campo por revisar.",
-      "summaryMany": "Hay {n} campos por revisar."
+      "summaryMany": "Hay {n} campos por revisar.",
+      "tooFast": "Un momento: vuelve a pulsar Enviar en un par de segundos."
     }
   },
   "next": {

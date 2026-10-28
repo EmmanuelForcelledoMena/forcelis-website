@@ -72,11 +72,16 @@ const empresas = plan.empresas === null ? labels.unlimited : String(plan.empresa
     )
   }
 
-  <dl class="mt-6 flex-1 divide-y divide-line border-t border-b border-line">
-    <div class="flex items-baseline justify-between gap-4 py-3">
-      <dt class="text-[0.8125rem] text-muted">{labels.companies}</dt>
-      <dd class="tnum text-base font-semibold text-ink">{empresas}</dd>
-    </div>
+  <!-- La etiqueta de marca propia va FUERA del `<dl>`: dentro, un `<div>` sin
+       `<dt>`/`<dd>` invalida la lista para los lectores de pantalla. Las rayas
+       las pone el contenedor, así que se ve igual que antes. -->
+  <div class="mt-6 flex-1 divide-y divide-line border-t border-b border-line">
+    <dl>
+      <div class="flex items-baseline justify-between gap-4 py-3">
+        <dt class="text-[0.8125rem] text-muted">{labels.companies}</dt>
+        <dd class="tnum text-base font-semibold text-ink">{empresas}</dd>
+      </div>
+    </dl>
     {
       plan.marca_propia && (
         <div class="py-3">
@@ -84,7 +89,7 @@ const empresas = plan.empresas === null ? labels.unlimited : String(plan.empresa
         </div>
       )
     }
-  </dl>
+  </div>
 
   <div class="mt-7">
     <Button href={href} variant={destacado ? 'primary' : 'secondary'}>{cta}</Button>
