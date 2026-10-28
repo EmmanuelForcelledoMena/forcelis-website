@@ -61,7 +61,7 @@
       "name": "Diagnóstico",
       "asks": "Qué pedimos",
       "gives": "Qué recibes",
-      "price": "Precio"
+      "price": "Precio (MXN)"
     },
     "items": {
       "esencial": {
@@ -141,7 +141,7 @@
     "caption": "Comparación de los planes de Forcelis",
     "rows": {
       "for": "Para quién",
-      "price": "Precio al mes, más IVA",
+      "price": "Precio al mes (MXN), más IVA",
       "companies": "Empresas incluidas",
       "extra": "Empresa adicional",
       "brand": "Entregables con tu marca",

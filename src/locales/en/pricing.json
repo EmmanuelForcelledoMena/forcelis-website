@@ -61,7 +61,7 @@
       "name": "Diagnostic",
       "asks": "What we ask for",
       "gives": "What you receive",
-      "price": "Price"
+      "price": "Price (MXN)"
     },
     "items": {
       "esencial": {
@@ -141,7 +141,7 @@
     "caption": "Comparison of Forcelis plans",
     "rows": {
       "for": "Who it is for",
-      "price": "Monthly price, before VAT",
+      "price": "Monthly price (MXN), before VAT",
       "companies": "Companies included",
       "extra": "Additional company",
       "brand": "Deliverables under your brand",

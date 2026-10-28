@@ -125,6 +125,10 @@ export function precio(valor: number, lang: 'en' | 'es'): string {
   return new Intl.NumberFormat(lang === 'es' ? 'es-MX' : 'en-US', {
     style: 'currency',
     currency: negocio.moneda,
+    // `narrowSymbol`: en inglés, el símbolo por omisión de MXN es «MX$», y
+    // junto al «MXN» que el sitio escribe al lado salía la moneda dos veces.
+    // Solo cambia la presentación, no el importe.
+    currencyDisplay: 'narrowSymbol',
     maximumFractionDigits: 0,
   }).format(valor);
 }
