@@ -6,12 +6,16 @@
   "hero": {
     "eyebrow": "Para empresas",
     "title": "Conoce la posición real de tu empresa.",
-    "subtitle": "Con los CFDI que ya emites y recibes: un diagnóstico de precio fijo o un plan mensual para ver cómo va tu negocio.",
-    "primary": "Solicitar un diagnóstico",
-    "secondary": "Ver plan Individual"
+    "subtitle": "Con los CFDI que ya emites y recibes: un plan mensual para ver cómo va tu negocio y, si quieres una revisión profesional, un diagnóstico aparte.",
+    "primary": "Ver el plan Individual",
+    "secondary": "Ver el Diagnóstico"
   },
   "options": {
-    "eyebrow": "Tres formas de empezar",
+    "eyebrow": "Una suscripción y dos servicios",
+    "subscription": "Suscripción",
+    "service": "Servicio profesional",
+    "perMonth": "al mes, más IVA",
+    "oneOff": "una sola vez, más IVA",
     "title": "Elige la que va con la pregunta que traes.",
     "individual": {
       "title": "Plan Individual",
@@ -43,8 +47,8 @@
   },
   "closing": {
     "title": "Empieza con tus propios números.",
-    "body": "Un diagnóstico responde la pregunta una vez. El plan mensual la sigue respondiendo.",
-    "primary": "Solicitar un diagnóstico",
-    "secondary": "Ver plan Individual"
+    "body": "El plan mensual responde cada mes cómo va tu negocio. Si quieres una respuesta de una sola vez con revisión profesional, está el Diagnóstico.",
+    "primary": "Solicitar el plan Individual",
+    "secondary": "Ver el Diagnóstico"
   }
 }

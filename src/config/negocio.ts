@@ -48,7 +48,7 @@ export interface Diagnostico {
 
 export const negocio = {
   // ----------------------------------------------------------- interruptores
-  mostrar_precios: false,
+  mostrar_precios: true,
   /** Prueba de 14 días con una empresa. Encender solo cuando la plataforma la permita. */
   prueba_disponible: false,
 

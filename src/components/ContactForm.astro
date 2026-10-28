@@ -41,7 +41,7 @@
  */
 import type { Lang } from '../i18n/routes';
 import { path } from '../i18n/routes';
-import { TIPOS } from '../config/enlaces';
+import { TIPOS, PLANES_SOLICITABLES } from '../config/enlaces';
 import { t } from '../i18n';
 import FormField from './FormField.astro';
 
@@ -51,6 +51,13 @@ interface Props {
 
 const { lang } = Astro.props;
 const f = t(lang, 'contact').form;
+
+// Nombre de cada plan en el idioma de la página, para el aviso «Plan que te
+// interesa». Sale del mismo diccionario que las tarjetas de Precios.
+const planes = t(lang, 'pricing').plans;
+const nombresPlan = Object.fromEntries(
+  PLANES_SOLICITABLES.map((id) => [id, planes[id as keyof typeof planes].name]),
+);
 
 const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? '';
 const configured = endpoint.length > 0;
@@ -156,7 +163,10 @@ const inputClass =
   <fieldset>
     <legend class="block text-sm font-medium text-ink">{f.intent}</legend>
     <p class="mt-1.5 text-xs text-muted">{f.intentHint}</p>
-    <!-- Botones de radio y no una lista desplegable: son cinco opciones
+    <!-- El plan que la persona eligió en una tarjeta. Se rellena desde `?plan=`
+         y solo si es un plan que existe; si no, el aviso no aparece. -->
+    <p id="plan-note" hidden class="mt-4 border-l-2 border-brand bg-panel-alt px-4 py-3 text-sm text-ink"></p>
+    <!-- Botones de radio y no una lista desplegable: son seis opciones
          cortas y excluyentes, se leen todas de un golpe, y en un teléfono no
          obligan a abrir una rueda del sistema para descubrir qué hay dentro.
          El `?tipo=` de la URL marca una al cargar. -->
@@ -264,6 +274,7 @@ const inputClass =
   <input type="hidden" name="utm_content" />
   <input type="hidden" name="utm_term" />
   <input type="hidden" name="pagina_origen" />
+  <input type="hidden" name="plan" />
 
   {accessKey && <input type="hidden" name="access_key" value={accessKey} />}
   <input type="hidden" name="subject" value={subject} />
@@ -282,6 +293,8 @@ const inputClass =
     errorBody: f.errorBody,
     gracias,
     tiposPermitidos: TIPOS,
+    nombresPlan,
+    planLabel: f.planSelected,
   }}
 >
   (() => {
@@ -307,6 +320,19 @@ const inputClass =
 
     // El botón que trajo a esta persona dice qué venía a pedir. Se marca esa
     // opción, pero se puede cambiar: es una preselección, no una decisión.
+    // El plan de la tarjeta de origen viaja en el envío y se le enseña a la
+    // persona, que así no tiene que repetirlo en el mensaje.
+    const planEntrada = entrada.get('plan');
+    if (planEntrada && Object.prototype.hasOwnProperty.call(nombresPlan, planEntrada)) {
+      const campoPlan = form.querySelector('[name="plan"]');
+      const aviso = document.getElementById('plan-note');
+      if (campoPlan) campoPlan.value = nombresPlan[planEntrada];
+      if (aviso) {
+        aviso.textContent = planLabel.replace('{plan}', nombresPlan[planEntrada]);
+        aviso.hidden = false;
+      }
+    }
+
     const tipoEntrada = entrada.get('tipo');
     if (tipoEntrada && tiposPermitidos.includes(tipoEntrada)) {
       const radio = form.querySelector(`input[name="tipo"][value="${tipoEntrada}"]`);

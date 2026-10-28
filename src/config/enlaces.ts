@@ -11,26 +11,49 @@
  * El `?tipo=` preselecciona la opción correcta en el formulario y viaja hasta
  * la página de gracias, donde se dispara la conversión.
  */
-import { negocio } from './negocio';
+import { negocio, type Plan } from './negocio';
 import { path, type Lang } from '../i18n/routes';
 
-/** Las cinco intenciones del formulario. Son las opciones de «¿Qué buscas?». */
-export const TIPOS = ['asesor', 'fundador', 'individual', 'diagnostico', 'monitoreo'] as const;
+/**
+ * Las intenciones del formulario. Son las opciones de «¿Qué buscas?».
+ *
+ * `demo` es quien quiere ver el producto sin decir todavía si asesora empresas
+ * o tiene una. Antes esa persona caía en `asesor` desde cualquier página, y una
+ * empresa que pedía una demostración llegaba etiquetada como despacho.
+ */
+export const TIPOS = ['demo', 'asesor', 'fundador', 'individual', 'diagnostico', 'monitoreo'] as const;
 export type Tipo = (typeof TIPOS)[number];
 
-/** Formulario de contacto con la intención ya marcada. */
-export function contacto(tipo: Tipo, lang: Lang): string {
-  return `${path('contact', lang)}?tipo=${tipo}`;
+/** Planes que se pueden pedir desde una tarjeta. Viajan en `?plan=`. */
+export const PLANES_SOLICITABLES = negocio.planes.map((p) => p.id);
+
+/**
+ * Formulario de contacto con la intención ya marcada y, si viene de una
+ * tarjeta, el plan. El plan no es una compra: es el dato que la persona ya
+ * eligió y que no tiene que volver a escribir en el mensaje.
+ */
+export function contacto(tipo: Tipo, lang: Lang, plan?: Plan['id']): string {
+  return `${path('contact', lang)}?tipo=${tipo}${plan ? `&plan=${plan}` : ''}`;
 }
 
-/** «Agenda una llamada». Cae al formulario como asesor si no hay liga de agenda. */
-export function agenda(lang: Lang): string {
-  return negocio.url_agenda || contacto('asesor', lang);
+/**
+ * «Solicitar una demostración». Lleva a la agenda si hay liga, y si no, al
+ * formulario con la intención de la página: `demo` por omisión, `asesor` en
+ * las páginas de asesores, donde la respuesta se adapta a una cartera.
+ */
+export function agenda(lang: Lang, tipo: Tipo = 'demo'): string {
+  return negocio.url_agenda || contacto(tipo, lang);
 }
 
-/** «Lo quiero», del plan Individual. Cae al formulario si no hay registro abierto. */
+/** Solicitar un plan desde su tarjeta. Cae al formulario si no hay registro abierto. */
+export function solicitarPlan(plan: Plan['id'], lang: Lang): string {
+  if (plan === 'individual') return negocio.url_registro || contacto('individual', lang, plan);
+  return contacto('asesor', lang, plan);
+}
+
+/** «Solicitar acceso», del plan Individual. Cae al formulario si no hay registro abierto. */
 export function registro(lang: Lang): string {
-  return negocio.url_registro || contacto('individual', lang);
+  return solicitarPlan('individual', lang);
 }
 
 /** Si la liga sale del sitio, el enlace necesita `rel` y `target` propios. */

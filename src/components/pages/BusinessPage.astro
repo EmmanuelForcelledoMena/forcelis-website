@@ -17,7 +17,7 @@ import PageHero from '../PageHero.astro';
 import ScorePanel from '../ScorePanel.astro';
 import Tag from '../Tag.astro';
 import Cta from '../Cta.astro';
-import { negocio, plan as planPorId, precio } from '../../config/negocio';
+import { negocio, plan as planPorId, diagnostico, precio } from '../../config/negocio';
 import { contacto, registro } from '../../config/enlaces';
 import { path, type Lang } from '../../i18n/routes';
 import { t, common } from '../../i18n';
@@ -45,6 +45,8 @@ const opciones = [
     lead: b.options.individual.lead,
     nota: b.options.individual.note,
     precio: conPrecio(individual.precio),
+    unidad: b.options.perMonth,
+    clase: b.options.subscription,
     etiqueta: '',
     cta: b.options.individual.cta,
     href: registro(lang),
@@ -54,7 +56,9 @@ const opciones = [
     titulo: b.options.diagnostic.title,
     lead: b.options.diagnostic.lead,
     nota: '',
-    precio: conPrecio(negocio.diagnosticos[0].precio),
+    precio: conPrecio(diagnostico('esencial').precio),
+    unidad: b.options.oneOff,
+    clase: b.options.service,
     etiqueta: '',
     cta: b.options.diagnostic.cta,
     href: path('diagnostic', lang),
@@ -65,6 +69,8 @@ const opciones = [
     lead: b.options.monitoring.lead,
     nota: '',
     precio: conPrecio(negocio.monitoreo.precio),
+    unidad: b.options.perMonth,
+    clase: b.options.service,
     etiqueta: b.options.monitoring.limited,
     cta: b.options.monitoring.cta,
     href: contacto('monitoreo', lang),
@@ -80,8 +86,8 @@ const opciones = [
     intro={b.hero.subtitle}
   >
     <Fragment slot="actions">
-      <Button href={path('diagnostic', lang)} variant="onInk" size="lg">{b.hero.primary}</Button>
-      <Button href="#individual" variant="onInkGhost" size="lg">{b.hero.secondary}</Button>
+      <Button href="#individual" variant="onInk" size="lg">{b.hero.primary}</Button>
+      <Button href={path('diagnostic', lang)} variant="onInkGhost" size="lg">{b.hero.secondary}</Button>
     </Fragment>
   </PageHero>
 
@@ -95,6 +101,9 @@ const opciones = [
       {
         opciones.map((opcion, i) => (
           <article class="reveal flex flex-col bg-panel p-7 lg:p-8" data-reveal-delay={i * 70}>
+            <p class="mb-3 text-[0.6875rem] font-semibold tracking-[0.16em] text-brand-text uppercase">
+              {opcion.clase}
+            </p>
             <div class="flex items-start justify-between gap-4">
               <h3 class="text-xl leading-snug font-semibold tracking-[-0.02em] text-ink">
                 {opcion.titulo}
@@ -103,8 +112,11 @@ const opciones = [
             </div>
 
             {opcion.precio && (
-              <p class="tnum font-display mt-5 text-[2rem] leading-none font-bold tracking-[-0.03em] text-ink">
-                {opcion.precio}
+              <p class="tnum mt-5 flex flex-wrap items-baseline gap-x-1.5">
+                <span class="font-display text-[2rem] leading-none font-bold tracking-[-0.03em] text-ink">
+                  {opcion.precio}
+                </span>
+                <span class="text-sm text-muted">{negocio.moneda} {opcion.unidad}</span>
               </p>
             )}
 
@@ -116,7 +128,7 @@ const opciones = [
             )}
 
             <div class="mt-7">
-              <Button href={opcion.href} variant={i === 1 ? 'primary' : 'secondary'}>
+              <Button href={opcion.href} variant={i === 0 ? 'primary' : 'secondary'}>
                 {opcion.cta}
               </Button>
             </div>
@@ -143,7 +155,7 @@ const opciones = [
         />
         <div class="mt-10">
           <Button href={path('diagnostic', lang)} variant="secondary">
-            {c.cta.diagnosticShort}
+            {b.options.diagnostic.cta}
           </Button>
         </div>
       </div>
@@ -182,8 +194,8 @@ const opciones = [
     title={b.closing.title}
     body={b.closing.body}
     primaryLabel={b.closing.primary}
-    primaryTo="diagnostic"
+    primaryHref={registro(lang)}
     secondaryLabel={b.closing.secondary}
-    secondaryTo="business"
+    secondaryTo="diagnostic"
   />
 </Base>

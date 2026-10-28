@@ -187,8 +187,8 @@
   },
   "closing": {
     "title": "See it against your own numbers.",
-    "body": "The most useful demonstration is not a demo account. It is a diagnostic run on your data.",
-    "primary": "Request a Business Diagnostic",
+    "body": "See the plans and their prices, or ask for a product demo. How long it takes depends on the type of client.",
+    "primary": "View plans and pricing",
     "secondary": "Contact Forcelis",
     "schedule": "Request a demo"
   }

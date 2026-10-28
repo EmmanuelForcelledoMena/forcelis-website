@@ -17,7 +17,9 @@
     "websiteOptional": "Optional",
     "intent": "What are you looking for?",
     "intentHint": "Pick the one closest to your case. It changes who answers you.",
+    "planSelected": "Plan you are interested in: {plan}. You can change it in your message.",
     "intentOptions": {
+      "demo": "I want to see a product demo",
       "asesor": "I advise businesses (accountant, practice or consultant)",
       "fundador": "I want the Founders programme",
       "individual": "I have a business: Individual plan",

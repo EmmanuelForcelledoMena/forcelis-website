@@ -2,19 +2,41 @@
 /**
  * Tarjeta de plan.
  *
- * Con los precios apagados enseña qué incluye y un botón que los pide; con los
- * precios encendidos, la mensualidad. La decisión se lee una sola vez, de
- * `negocio.mostrar_precios`, y no hay una segunda versión de la tarjeta: una
- * tarjeta «sin precio» y otra «con precio» se desincronizan a la primera
- * corrección de copy.
+ * Todo lo que la tarjeta afirma sale de `negocio.ts`: el precio, las empresas
+ * incluidas, si admite adicionales, si lleva marca propia y el uso justo. El
+ * diccionario solo pone las palabras. Así una tarjeta no puede prometer un
+ * límite o una prestación que la configuración no tiene: si mañana cambia una
+ * cifra, cambia aquí sin tocar el copy.
  *
- * El precio nunca se escribe aquí ni en el diccionario: llega formateado desde
- * `negocio.ts`.
+ * Lo que distingue a un plan de otro, hoy, es la capacidad —cuántas empresas— y
+ * si los entregables salen con la marca del asesor. La tarjeta enseña eso y no
+ * una lista de funciones por plan, porque la configuración no la define.
+ *
+ * Con los precios apagados la tarjeta sigue sirviendo: dice para quién es y qué
+ * incluye, y el botón pide el precio.
  */
 import Button from './Button.astro';
-import Tag from './Tag.astro';
 import { negocio, precio as formatoPrecio, type Plan } from '../config/negocio';
 import type { Lang } from '../i18n/routes';
+
+export interface EtiquetasPlan {
+  companies: string;
+  unlimited: string;
+  quote: string;
+  perMonth: string;
+  tax: string;
+  ownBrand: string;
+  noBrand: string;
+  /** Plantilla con `{price}`. */
+  extra: string;
+  /** Lo mismo, sin importe, para cuando los precios están apagados. */
+  extraNoPrice: string;
+  noExtra: string;
+  /** Plantilla con `{n}`. */
+  fairUse: string;
+  customTerms: string;
+  recommended: string;
+}
 
 interface Props {
   plan: Plan;
@@ -22,73 +44,119 @@ interface Props {
   nombre: string;
   /** Para quién es, una línea. */
   paraQuien: string;
+  /** Qué resuelve, una frase. Opcional. */
+  resumen?: string;
   /** Texto del botón. */
   cta: string;
   href: string;
-  labels: {
-    companies: string;
-    brand: string;
-    quote: string;
-    unlimited: string;
-    yes: string;
-  };
+  labels: EtiquetasPlan;
   lang: Lang;
   /** Resalta la tarjeta. Para el plan que se recomienda por omisión. */
   destacado?: boolean;
   class?: string;
 }
 
-const { plan, nombre, paraQuien, cta, href, labels, lang, destacado = false, class: className = '' } =
-  Astro.props;
+const {
+  plan,
+  nombre,
+  paraQuien,
+  resumen,
+  cta,
+  href,
+  labels,
+  lang,
+  destacado = false,
+  class: className = '',
+} = Astro.props;
 
 const mostrar = negocio.mostrar_precios;
-const empresas = plan.empresas === null ? labels.unlimited : String(plan.empresas);
+const numero = new Intl.NumberFormat(lang === 'es' ? 'es-MX' : 'en-US');
+const empresas = plan.empresas === null ? labels.unlimited : numero.format(plan.empresas);
+const cotizado = plan.precio === null;
+
+// Lo que incluye, en el orden en que se decide: marca, crecimiento, límite.
+const incluye: string[] = [plan.marca_propia ? labels.ownBrand : labels.noBrand];
+if (cotizado) {
+  incluye.push(labels.customTerms);
+} else {
+  incluye.push(
+    plan.admite_adicionales
+      ? mostrar
+        ? labels.extra.replace('{price}', formatoPrecio(negocio.empresa_adicional, lang))
+        : labels.extraNoPrice
+      : labels.noExtra,
+  );
+  incluye.push(labels.fairUse.replace('{n}', numero.format(negocio.uso_justo_cfdi_por_empresa_mes)));
+}
 ---
 
 <article
   class:list={[
-    'flex flex-col bg-panel p-7',
+    'relative flex flex-col bg-panel p-7',
     destacado && 'ring-2 ring-brand ring-inset',
     className,
   ]}
 >
-  <h3 class="text-sm font-semibold tracking-[0.14em] text-ink uppercase">{nombre}</h3>
-  <p class="mt-3 text-[0.9375rem] leading-relaxed text-muted">{paraQuien}</p>
+  <!-- La etiqueta va en la misma línea que el nombre: encima, empujaba el
+       precio de esta tarjeta más abajo que el de sus vecinas. -->
+  <div class="flex items-center justify-between gap-3">
+    <h3 class="text-sm font-semibold tracking-[0.14em] text-ink uppercase">{nombre}</h3>
+    {
+      destacado && (
+        <p class="bg-brand px-2 py-0.5 text-[0.625rem] font-semibold tracking-[0.14em] whitespace-nowrap text-white uppercase">
+          {labels.recommended}
+        </p>
+      )
+    }
+  </div>
+  <p class="mt-2 text-[0.9375rem] leading-relaxed text-muted">{paraQuien}</p>
 
   {
     mostrar && (
-      <p class="tnum mt-6 flex items-baseline gap-1.5">
-        {plan.precio === null ? (
-          <span class="text-2xl font-semibold tracking-[-0.02em] text-ink">{labels.quote}</span>
+      <div class="mt-6">
+        {cotizado ? (
+          <p class="text-2xl font-semibold tracking-[-0.02em] text-ink">{labels.quote}</p>
         ) : (
           <>
-            <span class="font-display text-[2.25rem] leading-none font-bold tracking-[-0.03em] text-ink">
-              {formatoPrecio(plan.precio, lang)}
-            </span>
-            <span class="text-sm text-muted">{negocio.moneda}</span>
+            <p class="tnum flex flex-wrap items-baseline gap-x-1.5">
+              <span class="font-display text-[2.25rem] leading-none font-bold tracking-[-0.03em] text-ink">
+                {formatoPrecio(plan.precio as number, lang)}
+              </span>
+              <span class="text-sm text-muted">
+                {negocio.moneda} {labels.perMonth}
+              </span>
+            </p>
+            <p class="mt-1.5 text-xs text-muted">{labels.tax}</p>
           </>
         )}
-      </p>
+      </div>
     )
   }
 
-  <!-- La etiqueta de marca propia va FUERA del `<dl>`: dentro, un `<div>` sin
-       `<dt>`/`<dd>` invalida la lista para los lectores de pantalla. Las rayas
-       las pone el contenedor, así que se ve igual que antes. -->
-  <div class="mt-6 flex-1 divide-y divide-line border-t border-b border-line">
+  {resumen && <p class="mt-5 text-[0.9375rem] leading-relaxed text-ink">{resumen}</p>}
+
+  <!-- La lista de definiciones solo lleva pares `<dt>`/`<dd>`: cualquier otro
+       hijo la invalida para los lectores de pantalla. Lo demás va en su
+       propia lista. -->
+  <div class="mt-6 flex-1 border-t border-line">
     <dl>
-      <div class="flex items-baseline justify-between gap-4 py-3">
+      <div class="flex items-baseline justify-between gap-4 border-b border-line py-3">
         <dt class="text-[0.8125rem] text-muted">{labels.companies}</dt>
         <dd class="tnum text-base font-semibold text-ink">{empresas}</dd>
       </div>
     </dl>
-    {
-      plan.marca_propia && (
-        <div class="py-3">
-          <Tag tone="brand">{labels.brand}</Tag>
-        </div>
-      )
-    }
+    <ul class="mt-4 space-y-2.5 text-[0.875rem] leading-snug text-ink">
+      {
+        incluye.map((linea) => (
+          <li class="flex gap-2.5">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" class="mt-[0.2rem] shrink-0 text-brand-text">
+              <path d="M2.5 7.5 5.5 10.5 11.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" />
+            </svg>
+            {linea}
+          </li>
+        ))
+      }
+    </ul>
   </div>
 
   <div class="mt-7">

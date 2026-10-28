@@ -17,7 +17,9 @@
     "websiteOptional": "Opcional",
     "intent": "¿Qué buscas?",
     "intentHint": "Elige la más cercana a tu caso. Cambia quién te responde.",
+    "planSelected": "Plan que te interesa: {plan}. Puedes cambiarlo en tu mensaje.",
     "intentOptions": {
+      "demo": "Quiero ver una demostración del producto",
       "asesor": "Asesoro empresas (contador, despacho o consultor)",
       "fundador": "Quiero el Programa Fundadores",
       "individual": "Tengo una empresa: plan Individual",

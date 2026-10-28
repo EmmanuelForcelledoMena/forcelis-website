@@ -24,6 +24,8 @@ import ScorePanel from '../ScorePanel.astro';
 import DataFlow from '../DataFlow.astro';
 import InlineTermList from '../InlineTermList.astro';
 import Icon from '../Icon.astro';
+import { negocio, plan as planPorId, diagnostico, precio } from '../../config/negocio';
+import { contacto } from '../../config/enlaces';
 import { path, type Lang } from '../../i18n/routes';
 import { t, common } from '../../i18n';
 
@@ -34,6 +36,25 @@ interface Props {
 const { lang } = Astro.props;
 const h = t(lang, 'home');
 const c = common(lang);
+
+// Precios de entrada de cada camino, leídos de la configuración: el plan
+// Individual para una empresa, y el plan de asesor más pequeño con su rango
+// de empresas. Con los precios apagados no se imprime ninguno.
+const mostrar = negocio.mostrar_precios;
+const numero = new Intl.NumberFormat(lang === 'es' ? 'es-MX' : 'en-US');
+const planesAsesor = negocio.planes.filter((p) => p.marca_propia && p.precio !== null);
+const rellenar = (plantilla: string, valores: Record<string, string>) =>
+  Object.entries(valores).reduce((s, [k, v]) => s.replace(`{${k}}`, v), plantilla);
+const desde = {
+  business: rellenar(h.paths.business.price, {
+    price: precio(planPorId('individual').precio as number, lang),
+  }),
+  advisors: rellenar(h.paths.advisors.price, {
+    price: precio(Math.min(...planesAsesor.map((p) => p.precio as number)), lang),
+    min: numero.format(Math.min(...planesAsesor.map((p) => p.empresas as number))),
+    max: numero.format(Math.max(...planesAsesor.map((p) => p.empresas as number))),
+  }),
+};
 
 const caminos = [
   {
@@ -151,7 +172,12 @@ const caminos = [
               {camino.title}
             </h3>
             <p class="mt-4 flex-1 text-base leading-relaxed text-muted lg:text-lg">{camino.body}</p>
-            <span class="mt-8 inline-flex items-center gap-2 text-sm font-medium text-ink">
+            {mostrar && (
+              <p class="tnum mt-6 border-t border-line pt-4 text-[0.9375rem] font-semibold text-ink">
+                {desde[camino.key]}
+              </p>
+            )}
+            <span class="mt-6 inline-flex items-center gap-2 text-sm font-medium text-ink">
               {camino.cta}
               <svg
                 width="14"
@@ -168,6 +194,15 @@ const caminos = [
         ))
       }
     </div>
+
+    {
+      mostrar && (
+        <div class="reveal mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <p class="max-w-2xl text-[0.9375rem] leading-relaxed text-muted">{h.paths.pricingNote}</p>
+          <Button href={path('pricing', lang)} variant="secondary">{c.cta.seePricing}</Button>
+        </div>
+      )
+    }
   </Section>
 
   <!-- ============================================================ PLATAFORMA -->
@@ -194,25 +229,42 @@ const caminos = [
     </div>
   </Section>
 
-  <!-- ======================================================= PUNTO DE PARTIDA -->
+  <!-- ============================================================= SERVICIOS -->
+  <!-- Antes esta sección presentaba el Diagnóstico como «un solo punto de
+       partida». El punto de partida es la plataforma; el Diagnóstico y el
+       Monitoreo son servicios profesionales que se contratan aparte. -->
   <Section tone="ground">
-    <div class="grid gap-12 lg:grid-cols-[1fr_minmax(0,22rem)] lg:gap-24">
+    <div class="grid gap-12 lg:grid-cols-[1fr_minmax(0,30rem)] lg:gap-20">
       <div class="reveal">
         <SectionHeader eyebrow={h.start.eyebrow} title={h.start.title} />
         <p class="mt-6 max-w-2xl text-lg leading-relaxed text-muted">{h.start.body}</p>
         <div class="mt-10 flex flex-col gap-3 sm:flex-row">
-          <Button href={path('diagnostic', lang)} size="lg">{c.cta.diagnosticShort}</Button>
-          <Button href={`${path('diagnostic', lang)}#deliverables`} variant="secondary" size="lg">
+          <Button href={path('diagnostic', lang)} variant="secondary" size="lg">{h.start.primary}</Button>
+          <Button href={contacto('monitoreo', lang)} variant="secondary" size="lg">
             {h.start.secondary}
           </Button>
         </div>
       </div>
 
-      <!-- Vertical a propósito, también en escritorio: al lado del texto se lee
-           como la columna de un informe, que es lo que representa. -->
-      <div class="reveal lg:self-center" data-reveal-delay="100">
-        <DataFlow items={h.start.flow} emphasis={4} direction="column" alt={h.start.flowAlt} />
-      </div>
+      <ul class="reveal divide-y divide-line border-t border-b border-line" data-reveal-delay="100">
+        {
+          h.start.items.map((item, i) => (
+            <li class="py-6">
+              <p class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                <span class="text-lg font-semibold text-ink">{item.title}</span>
+                {mostrar && (
+                  <span class="tnum text-[0.9375rem] font-semibold text-ink">
+                    {i === 0
+                      ? rellenar(h.start.fromPrice, { price: precio(diagnostico('esencial').precio, lang) })
+                      : rellenar(h.start.monthly, { price: precio(negocio.monitoreo.precio, lang) })}
+                  </span>
+                )}
+              </p>
+              <p class="mt-2 text-[0.9375rem] leading-relaxed text-muted">{item.body}</p>
+            </li>
+          ))
+        }
+      </ul>
     </div>
   </Section>
 

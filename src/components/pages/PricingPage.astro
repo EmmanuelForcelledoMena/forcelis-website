@@ -2,26 +2,38 @@
 /**
  * Precios.
  *
- * Mientras `negocio.mostrar_precios` sea `false` esta página existe pero no se
- * enlaza, no entra al sitemap y se sirve con `noindex` (lo decide
- * `routes.ts`). Se construye igual para que el día que se encienda el
- * interruptor no haya que escribirla con prisa.
+ * La página responde, en este orden: cómo está organizada la oferta, cuánto
+ * cuesta el plan para una empresa, cuánto cuestan los planes para asesores,
+ * en qué se diferencian, qué no cambia, y —aparte, con otro fondo— qué
+ * servicios profesionales existen. El visitante tiene que poder elegir un plan
+ * sin hablar con nadie; la demostración es una opción, no la puerta.
  *
- * Las tres tablas son tablas de verdad —`<table>` con `<th scope>`— y no
- * retículas de `<div>`: un comparador de planes es dato tabulado, y en un
- * lector de pantalla la diferencia es poder preguntar «¿qué dice la columna
- * Empresas incluidas de la fila Despacho?» en vez de leerlo todo en orden.
- * En móvil cada tabla hace scroll horizontal dentro de su propio contenedor.
+ * Todo importe, límite y condición sale de `negocio.ts`. Lo que la
+ * configuración define de cada plan es su capacidad (empresas incluidas, si
+ * admite adicionales, uso justo) y si los entregables llevan la marca del
+ * asesor; eso es lo que se compara. No hay funciones por plan porque la
+ * configuración no las define, y la página no las inventa.
+ *
+ * Mientras `negocio.mostrar_precios` sea `false` esta página existe pero no se
+ * enlaza, no entra al sitemap y se sirve con `noindex` (lo decide `routes.ts`),
+ * y no imprime ni un importe.
+ *
+ * La comparación es una tabla de verdad —`<table>` con `<caption>` y `<th
+ * scope>`—: en un lector de pantalla la diferencia es poder preguntar «¿qué dice
+ * la columna Despacho en la fila Empresas incluidas?». En móvil se desplaza de
+ * lado dentro de una región enfocable, con la primera columna fija.
  */
 import Base from '../../layouts/Base.astro';
 import Section from '../Section.astro';
 import SectionHeader from '../SectionHeader.astro';
 import Button from '../Button.astro';
 import PageHero from '../PageHero.astro';
+import PlanCard from '../PlanCard.astro';
+import FaqList from '../FaqList.astro';
 import Tag from '../Tag.astro';
-import { negocio, precio } from '../../config/negocio';
-import { agenda, contacto } from '../../config/enlaces';
-import { type Lang } from '../../i18n/routes';
+import { negocio, plan as planPorId, precio } from '../../config/negocio';
+import { agenda, contacto, solicitarPlan } from '../../config/enlaces';
+import { path, type Lang } from '../../i18n/routes';
 import { t } from '../../i18n';
 
 interface Props {
@@ -31,113 +43,221 @@ interface Props {
 const { lang } = Astro.props;
 const p = t(lang, 'pricing');
 
-// Con el interruptor apagado esta página existe —sin enlazar, sin indexar y
-// fuera del sitemap— pero tampoco imprime importes. La promesa es que no hay
-// ni un precio en el sitio, y una URL que alguien podría teclear a mano sigue
-// siendo el sitio. Lo que se enseña es la estructura: qué planes hay, qué
-// incluye cada uno y a quién va dirigido.
 const mostrar = negocio.mostrar_precios;
 
 const rellenar = (plantilla: string, valores: Record<string, string>) =>
   Object.entries(valores).reduce((s, [k, v]) => s.replace(`{${k}}`, v), plantilla);
 
 const numero = new Intl.NumberFormat(lang === 'es' ? 'es-MX' : 'en-US');
+const adicional = mostrar ? precio(negocio.empresa_adicional, lang) : '';
 
-const celda = 'px-5 py-4 text-[0.9375rem] text-ink align-top';
+const etiquetas = {
+  companies: p.platform.columns.companies,
+  unlimited: p.platform.unlimited,
+  quote: p.platform.quote,
+  ...p.card,
+};
+
+const planesAsesor = ['profesional', 'despacho', 'firma'] as const;
+const volumen = planPorId('volumen');
+
+// Las preguntas que mencionan el importe de la empresa adicional lo reciben
+// formateado; con los precios apagados esa respuesta no se publica.
+const preguntas = p.faq.items
+  .filter((item) => mostrar || !item.a.includes('{price}'))
+  .map((item) => ({ q: item.q, a: rellenar(item.a, { price: adicional }) }));
+
+const celda = 'px-4 py-3.5 text-[0.9375rem] text-ink align-top';
 const encabezado =
-  'px-5 py-3 text-left text-[0.625rem] font-semibold tracking-[0.14em] text-muted uppercase';
+  'px-4 py-3 text-left text-[0.625rem] font-semibold tracking-[0.14em] text-muted uppercase';
+const primeraColumna =
+  'sticky left-0 z-10 w-44 min-w-[9rem] bg-panel px-4 py-3.5 text-left text-[0.8125rem] font-medium text-muted align-top';
+
+const valorPrecio = (id: (typeof negocio.planes)[number]['id']) => {
+  const pl = planPorId(id);
+  return pl.precio === null ? p.platform.quote : precio(pl.precio, lang);
+};
+const valorEmpresas = (id: (typeof negocio.planes)[number]['id']) => {
+  const pl = planPorId(id);
+  return pl.empresas === null ? p.platform.unlimited : numero.format(pl.empresas);
+};
+const valorAdicional = (id: (typeof negocio.planes)[number]['id']) => {
+  const pl = planPorId(id);
+  if (pl.precio === null) return p.compare.agreed;
+  if (!pl.admite_adicionales) return p.compare.notAllowed;
+  return rellenar(p.compare.perCompany, { price: adicional });
+};
+const valorUso = (id: (typeof negocio.planes)[number]['id']) =>
+  planPorId(id).precio === null
+    ? p.compare.agreed
+    : rellenar(p.compare.fairUseValue, { n: numero.format(negocio.uso_justo_cfdi_por_empresa_mes) });
+
+const filas = [
+  { label: p.compare.rows.for, valor: (id: (typeof negocio.planes)[number]['id']) => p.plans[id].for, muted: true },
+  ...(mostrar ? [{ label: p.compare.rows.price, valor: valorPrecio, fuerte: true }] : []),
+  { label: p.compare.rows.companies, valor: valorEmpresas, fuerte: true },
+  ...(mostrar ? [{ label: p.compare.rows.extra, valor: valorAdicional }] : []),
+  {
+    label: p.compare.rows.brand,
+    valor: (id: (typeof negocio.planes)[number]['id']) =>
+      planPorId(id).marca_propia ? p.platform.yes : p.platform.no,
+  },
+  { label: p.compare.rows.fairUse, valor: valorUso },
+];
 ---
 
 <Base lang={lang} pageKey="pricing" title={p.meta.title} description={p.meta.description}>
   <PageHero photoKey="pricing" eyebrow={p.hero.eyebrow} title={p.hero.title} intro={p.hero.subtitle} />
 
-  <!-- ============================================================ PLATAFORMA -->
-  <Section tone="ground">
+  <!-- ============================================================ ESTRUCTURA -->
+  <section class="border-b border-line bg-ground" aria-labelledby="estructura">
+    <div class="container-page py-10 lg:py-12">
+      <h2 id="estructura" class="text-[0.6875rem] font-semibold tracking-[0.16em] text-brand-text uppercase">
+        {p.structure.label}
+      </h2>
+      <ol class="mt-6 grid gap-6 sm:grid-cols-3 sm:gap-8">
+        {
+          p.structure.items.map((item, i) => (
+            <li class="border-t-2 border-ink pt-4">
+              <p class="tnum text-[0.6875rem] font-semibold text-brand-text">{String(i + 1).padStart(2, '0')}</p>
+              <p class="mt-2 text-base font-semibold text-ink">{item.title}</p>
+              <p class="mt-1.5 text-[0.9375rem] leading-relaxed text-muted">{item.body}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============================================================== EMPRESAS -->
+  <Section tone="ground" id="empresas">
+    <div class="grid gap-10 lg:grid-cols-[1fr_minmax(0,24rem)] lg:items-start lg:gap-16">
+      <div class="reveal">
+        <SectionHeader eyebrow={p.business.eyebrow} title={p.business.title} intro={p.business.intro} />
+        <p class="mt-6 max-w-xl text-[0.9375rem] leading-relaxed text-muted">{p.business.accountant}</p>
+        <a
+          href={path('business', lang)}
+          class="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-ink underline decoration-line-strong underline-offset-4 hover:decoration-ink"
+        >
+          {p.business.more}
+        </a>
+      </div>
+      <div class="reveal flex border border-line" data-reveal-delay="80">
+        <PlanCard
+          plan={planPorId('individual')}
+          nombre={p.plans.individual.name}
+          paraQuien={p.plans.individual.for}
+          resumen={p.plans.individual.summary}
+          cta={p.card.request}
+          href={solicitarPlan('individual', lang)}
+          labels={etiquetas}
+          lang={lang}
+          class="flex-1"
+        />
+      </div>
+    </div>
+  </Section>
+
+  <!-- =============================================================== ASESORES -->
+  <Section tone="panel" id="asesores">
     <div class="reveal">
-      <SectionHeader eyebrow={p.platform.eyebrow} title={p.platform.title} />
+      <SectionHeader eyebrow={p.advisors.eyebrow} title={p.advisors.title} intro={p.advisors.intro} />
+    </div>
+
+    <div class="mt-12 grid gap-px border border-line bg-line lg:grid-cols-3">
+      {
+        planesAsesor.map((id, i) => (
+          <div class="reveal flex" data-reveal-delay={i * 70}>
+            <PlanCard
+              plan={planPorId(id)}
+              nombre={p.plans[id].name}
+              paraQuien={p.plans[id].for}
+              resumen={p.plans[id].summary}
+              cta={p.card.request}
+              href={solicitarPlan(id, lang)}
+              labels={etiquetas}
+              lang={lang}
+              destacado={id === 'despacho'}
+              class="flex-1"
+            />
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="reveal mt-8 flex flex-col gap-5 border-t border-line pt-6 lg:flex-row lg:items-center lg:justify-between">
+      <div class="max-w-2xl">
+        <p class="text-base font-semibold text-ink">
+          {p.plans.volumen.name}
+          {mostrar && volumen.precio === null && <span class="font-normal text-muted"> · {p.platform.quote}</span>}
+        </p>
+        <p class="mt-1 text-[0.9375rem] leading-relaxed text-muted">
+          {p.advisors.volumeTitle} {p.advisors.volumeBody}
+        </p>
+      </div>
+      <Button href={solicitarPlan('volumen', lang)} variant="secondary">{p.card.contactSales}</Button>
+    </div>
+
+    {
+      mostrar && (
+        <a
+          href={`${path('advisors', lang)}#margen`}
+          class="reveal mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-ink underline decoration-line-strong underline-offset-4 hover:decoration-ink"
+        >
+          {p.advisors.calculator}
+        </a>
+      )
+    }
+  </Section>
+
+  <!-- ============================================================ COMPARACIÓN -->
+  <Section tone="ground" id="comparacion">
+    <div class="reveal">
+      <SectionHeader eyebrow={p.compare.eyebrow} title={p.compare.title} />
     </div>
 
     <!-- `tabindex` y `role="region"`: en móvil la tabla se desplaza de lado, y
          quien navega con teclado tiene que poder enfocar la zona para moverla. -->
-    <div class="reveal mt-10 overflow-x-auto" data-reveal-delay="80" role="region" tabindex="0" aria-label={p.platform.title}>
-      <table class="w-full min-w-[46rem] border-collapse">
+    <div
+      class="reveal mt-10 overflow-x-auto border border-line"
+      data-reveal-delay="80"
+      role="region"
+      tabindex="0"
+      aria-label={p.compare.caption}
+    >
+      <table class="w-full min-w-[52rem] border-collapse bg-panel">
+        <caption class="sr-only">{p.compare.caption}</caption>
         <thead>
           <tr class="border-b-2 border-ink">
-            <th scope="col" class={encabezado}>{p.platform.columns.plan}</th>
-            <th scope="col" class={encabezado}>{p.platform.columns.for}</th>
-            <th scope="col" class={encabezado}>{p.platform.columns.companies}</th>
-            <th scope="col" class={encabezado}>{p.platform.columns.brand}</th>
-            {mostrar && (
-              <th scope="col" class={`${encabezado} text-right`}>{p.platform.columns.price}</th>
-            )}
-          </tr>
-        </thead>
-        <tbody class="divide-y divide-line">
-          {
-            negocio.planes.map((plan) => (
-              <tr>
-                <th scope="row" class={`${celda} font-semibold whitespace-nowrap`}>
-                  {p.plans[plan.id].name}
+            <td class={`${encabezado} sticky left-0 z-10 bg-panel`}></td>
+            {
+              negocio.planes.map((pl) => (
+                <th scope="col" class:list={[encabezado, pl.id === 'despacho' && 'text-brand-text']}>
+                  {p.plans[pl.id].name}
                 </th>
-                <td class={`${celda} text-muted`}>{p.plans[plan.id].for}</td>
-                <td class={`${celda} tnum`}>
-                  {plan.empresas === null ? p.platform.unlimited : numero.format(plan.empresas)}
-                </td>
-                <td class={celda}>
-                  {plan.marca_propia ? p.platform.yes : p.platform.no}
-                </td>
-                {mostrar && (
-                  <td class={`${celda} tnum text-right font-semibold whitespace-nowrap`}>
-                    {plan.precio === null ? p.platform.quote : precio(plan.precio, lang)}
-                  </td>
-                )}
-              </tr>
-            ))
-          }
-        </tbody>
-      </table>
-    </div>
-
-    <ul class="reveal mt-8 space-y-2 text-[0.9375rem] text-muted">
-      {mostrar && (
-        <li>{rellenar(p.platform.extra, { price: precio(negocio.empresa_adicional, lang) })}</li>
-      )}
-      <li>{rellenar(p.platform.fairUse, { n: numero.format(negocio.uso_justo_cfdi_por_empresa_mes) })}</li>
-      <li class="font-medium text-ink">{p.platform.noFree}</li>
-      {negocio.prueba_disponible && <li class="font-medium text-ink">{p.platform.trial}</li>}
-    </ul>
-  </Section>
-
-  <!-- ========================================================= DIAGNÓSTICOS -->
-  <Section tone="panel">
-    <div class="reveal">
-      <SectionHeader eyebrow={p.diagnostics.eyebrow} title={p.diagnostics.title} />
-    </div>
-
-    <div class="reveal mt-10 overflow-x-auto" data-reveal-delay="80" role="region" tabindex="0" aria-label={p.diagnostics.title}>
-      <table class="w-full min-w-[46rem] border-collapse">
-        <thead>
-          <tr class="border-b-2 border-ink">
-            <th scope="col" class={encabezado}>{p.diagnostics.columns.name}</th>
-            <th scope="col" class={encabezado}>{p.diagnostics.columns.asks}</th>
-            <th scope="col" class={encabezado}>{p.diagnostics.columns.gives}</th>
-            {mostrar && (
-              <th scope="col" class={`${encabezado} text-right`}>{p.diagnostics.columns.price}</th>
-            )}
+              ))
+            }
           </tr>
         </thead>
         <tbody class="divide-y divide-line">
           {
-            negocio.diagnosticos.map((d) => (
+            filas.map((fila) => (
               <tr>
-                <th scope="row" class={`${celda} font-semibold`}>{p.diagnostics.items[d.id].name}</th>
-                <td class={`${celda} max-w-[22rem] text-muted`}>{p.diagnostics.items[d.id].asks}</td>
-                <td class={`${celda} max-w-[22rem] text-muted`}>{p.diagnostics.items[d.id].gives}</td>
-                {mostrar && (
-                  <td class={`${celda} tnum text-right font-semibold whitespace-nowrap`}>
-                    {precio(d.precio, lang)}
+                <th scope="row" class={primeraColumna}>
+                  {fila.label}
+                </th>
+                {negocio.planes.map((pl) => (
+                  <td
+                    class:list={[
+                      celda,
+                      'tnum',
+                      fila.muted && 'text-muted',
+                      fila.fuerte && 'font-semibold',
+                    ]}
+                  >
+                    {fila.valor(pl.id)}
                   </td>
-                )}
+                ))}
               </tr>
             ))
           }
@@ -145,33 +265,20 @@ const encabezado =
       </table>
     </div>
 
-    <p class="reveal mt-6 max-w-2xl text-[0.9375rem] leading-relaxed text-muted">
-      {p.diagnostics.monthsNote}
-    </p>
-
-    <p class="reveal mt-6 max-w-2xl border-l-2 border-brand pl-5 text-[0.9375rem] leading-relaxed text-ink">
-      {p.diagnostics.credit}
-    </p>
-  </Section>
-
-  <!-- ============================================================= MONITOREO -->
-  <Section tone="ground" size="compact">
-    <div class="reveal grid gap-8 border-t-2 border-ink pt-8 lg:grid-cols-[minmax(0,22rem)_1fr_auto] lg:items-baseline lg:gap-12">
+    <div class="reveal mt-10 grid gap-6 border-t border-line pt-8 lg:grid-cols-[minmax(0,20rem)_1fr] lg:gap-16">
+      <h2 class="text-lg font-semibold tracking-[-0.01em] text-ink">{p.shared.title}</h2>
       <div>
-        <p class="text-[0.6875rem] font-semibold tracking-[0.16em] text-brand-text uppercase">
-          {p.monitoring.eyebrow}
-        </p>
-        <h2 class="mt-3 text-2xl font-semibold tracking-[-0.02em] text-ink">{p.monitoring.name}</h2>
-        <div class="mt-3">
-          <Tag tone="brand">{p.monitoring.limited}</Tag>
-        </div>
+        <ul class="space-y-2 text-[0.9375rem] text-ink">
+          {p.shared.items.map((item) => <li>{item}</li>)}
+          {negocio.prueba_disponible && <li>{p.platform.trial}</li>}
+        </ul>
+        <a
+          href={path('platform', lang)}
+          class="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-ink underline decoration-line-strong underline-offset-4 hover:decoration-ink"
+        >
+          {p.shared.platform}
+        </a>
       </div>
-      <p class="max-w-2xl text-lg leading-relaxed text-muted">{p.monitoring.includes}</p>
-      {mostrar && (
-        <p class="tnum font-display text-[2rem] leading-none font-bold tracking-[-0.03em] whitespace-nowrap text-ink">
-          {precio(negocio.monitoreo.precio, lang)}
-        </p>
-      )}
     </div>
   </Section>
 
@@ -191,21 +298,110 @@ const encabezado =
           }
         </h2>
         <p class="mt-5 max-w-2xl text-lg leading-relaxed text-on-ink-muted">{p.founders.body}</p>
+        <p class="mt-4 max-w-2xl text-[0.9375rem] leading-relaxed text-on-ink-muted">
+          {rellenar(p.founders.note, { months: String(negocio.fundadores.meses) })}
+        </p>
       </div>
       <Button href={contacto('fundador', lang)} variant="onInk" size="lg">{p.founders.cta}</Button>
     </div>
   </Section>
 
+  <!-- ============================================================= SERVICIOS -->
+  <!-- Otro fondo y otro encabezado a propósito: lo que sigue no es parte de
+       ningún plan. -->
+  <Section tone="panel" id="servicios">
+    <div class="reveal">
+      <SectionHeader eyebrow={p.services.eyebrow} title={p.services.title} intro={p.services.intro} />
+    </div>
+
+    <h3 class="reveal mt-12 text-lg font-semibold tracking-[-0.01em] text-ink">{p.diagnostics.title}</h3>
+    <div
+      class="reveal mt-5 overflow-x-auto"
+      data-reveal-delay="80"
+      role="region"
+      tabindex="0"
+      aria-label={p.diagnostics.title}
+    >
+      <table class="w-full min-w-[46rem] border-collapse">
+        <thead>
+          <tr class="border-b-2 border-ink">
+            <th scope="col" class={encabezado}>{p.diagnostics.columns.name}</th>
+            <th scope="col" class={encabezado}>{p.diagnostics.columns.asks}</th>
+            <th scope="col" class={encabezado}>{p.diagnostics.columns.gives}</th>
+            {mostrar && (
+              <th scope="col" class={`${encabezado} text-right`}>{p.diagnostics.columns.price}</th>
+            )}
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-line">
+          {
+            negocio.diagnosticos.map((d) => (
+              <tr>
+                <th scope="row" class={`${celda} text-left font-semibold`}>{p.diagnostics.items[d.id].name}</th>
+                <td class={`${celda} max-w-[22rem] text-muted`}>{p.diagnostics.items[d.id].asks}</td>
+                <td class={`${celda} max-w-[22rem] text-muted`}>{p.diagnostics.items[d.id].gives}</td>
+                {mostrar && (
+                  <td class={`${celda} tnum text-right font-semibold whitespace-nowrap`}>
+                    {precio(d.precio, lang)}
+                  </td>
+                )}
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+    <p class="reveal mt-5 max-w-2xl text-[0.9375rem] leading-relaxed text-muted">{p.diagnostics.monthsNote}</p>
+    <p class="reveal mt-4 max-w-2xl border-l-2 border-brand pl-5 text-[0.9375rem] leading-relaxed text-ink">
+      {p.diagnostics.credit}
+    </p>
+    <div class="reveal mt-6">
+      <Button href={path('diagnostic', lang)} variant="secondary">{p.services.diagnosticCta}</Button>
+    </div>
+
+    <div class="reveal mt-14 grid gap-6 border-t-2 border-ink pt-8 lg:grid-cols-[minmax(0,20rem)_1fr_auto] lg:items-baseline lg:gap-12">
+      <div>
+        <h3 class="text-lg font-semibold tracking-[-0.01em] text-ink">{p.monitoring.name}</h3>
+        <div class="mt-3">
+          <Tag tone="brand">{p.monitoring.limited}</Tag>
+        </div>
+      </div>
+      <p class="max-w-2xl text-[0.9375rem] leading-relaxed text-muted">{p.monitoring.includes}</p>
+      {
+        mostrar && (
+          <p class="tnum text-2xl font-semibold tracking-[-0.02em] whitespace-nowrap text-ink">
+            {precio(negocio.monitoreo.precio, lang)}
+            <span class="ml-1 text-sm font-normal text-muted">
+              {negocio.moneda} {p.card.perMonth}
+            </span>
+          </p>
+        )
+      }
+    </div>
+    <div class="reveal mt-6">
+      <Button href={contacto('monitoreo', lang)} variant="secondary">{p.services.monitoringCta}</Button>
+    </div>
+  </Section>
+
+  <!-- ============================================================= PREGUNTAS -->
+  <Section tone="ground">
+    <div class="reveal">
+      <SectionHeader title={p.faq.title} />
+    </div>
+    <FaqList items={preguntas} class="reveal mt-10" />
+  </Section>
+
+  <!-- ================================================================= CIERRE -->
   <Section tone="ground" size="compact">
     {mostrar && <p class="reveal text-sm font-medium text-muted">{p.tax}</p>}
-    <div class="reveal mt-10 max-w-3xl border-t border-line pt-10">
+    <div class="reveal mt-8 max-w-3xl border-t border-line pt-10">
       <h2 class="text-2xl font-semibold tracking-[-0.02em] text-ink lg:text-3xl">
         {p.closing.title}
       </h2>
       <p class="mt-5 text-lg leading-relaxed text-muted">{p.closing.body}</p>
       <div class="mt-8 flex flex-col gap-3 sm:flex-row">
         <Button href={agenda(lang)} size="lg" data-cta="agenda">{p.closing.primary}</Button>
-        <Button href={contacto('asesor', lang)} variant="secondary" size="lg">
+        <Button href={path('contact', lang)} variant="secondary" size="lg">
           {p.closing.secondary}
         </Button>
       </div>

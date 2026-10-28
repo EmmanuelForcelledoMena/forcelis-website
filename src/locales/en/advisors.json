@@ -83,7 +83,8 @@
     "extra": "Each company beyond the included ones is added to your monthly bill.",
     "fairUse": "Fair use: up to {n} CFDI per company per month.",
     "volume": "More than 100 companies, or an enormous number of CFDI? Ask for Volume.",
-    "volumeCta": "Ask for Volume"
+    "volumeCta": "Ask for Volume",
+    "compare": "Compare all plans"
   },
   "founders": {
     "eyebrow": "Founders programme",

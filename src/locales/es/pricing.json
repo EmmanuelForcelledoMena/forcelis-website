@@ -1,12 +1,12 @@
 {
   "meta": {
-    "title": "Precios — Precios claros desde una sola empresa",
-    "description": "Planes de plataforma de una empresa a cien, diagnósticos de precio fijo, monitoreo mensual y el programa Fundadores. Precios en pesos mexicanos, más IVA."
+    "title": "Precios — Planes de Forcelis para empresas y asesores",
+    "description": "Planes mensuales en pesos mexicanos, más IVA: Individual para tu empresa y planes para contadores y despachos de 10 a 100 empresas. Los servicios profesionales se contratan aparte."
   },
   "hero": {
-    "eyebrow": "Precios",
-    "title": "Precios claros desde una sola empresa.",
-    "subtitle": "No hay plan gratis. No se cobra por usuario. Pagas por las empresas que analizas."
+    "eyebrow": "Planes y precios",
+    "title": "Planes claros, desde una sola empresa.",
+    "subtitle": "Precios mensuales en pesos mexicanos, más IVA. Pagas por las empresas que analizas, no por usuario. No necesitas una llamada para saber cuánto cuesta."
   },
   "platform": {
     "eyebrow": "Plataforma",
@@ -30,23 +30,28 @@
   "plans": {
     "individual": {
       "name": "Individual",
-      "for": "Emprendedor con su propia empresa"
+      "for": "Emprendedor con su propia empresa",
+      "summary": "Ve tu propia empresa cada mes con los CFDI que ya emites y recibes."
     },
     "profesional": {
       "name": "Profesional",
-      "for": "Consultor o contador independiente"
+      "for": "Consultor o contador independiente",
+      "summary": "Hasta 10 empresas, con tus reportes y tableros bajo tu propia marca."
     },
     "despacho": {
       "name": "Despacho",
-      "for": "Despacho contable"
+      "for": "Despacho contable",
+      "summary": "Hasta 40 empresas para la cartera de un despacho, con tu marca."
     },
     "firma": {
       "name": "Firma",
-      "for": "Despacho grande o consultora"
+      "for": "Despacho grande o consultora",
+      "summary": "Hasta 100 empresas para despachos grandes y consultoras, con tu marca."
     },
     "volumen": {
       "name": "Volumen",
-      "for": "Empresa o cuenta con muchísimos CFDI"
+      "for": "Empresa o cuenta con muchísimos CFDI",
+      "summary": "Para carteras de más de 100 empresas o volúmenes de CFDI fuera de lo común."
     }
   },
   "diagnostics": {
@@ -88,13 +93,122 @@
     "eyebrow": "Programa Fundadores",
     "title": "Los primeros {n} asesores pagan la mitad durante {months} meses.",
     "body": "Además reciben una sesión de arranque. A cambio, nos dan retroalimentación cada mes, un testimonio y la autorización de sus clientes para el benchmark anónimo.",
-    "cta": "Aplica al programa"
+    "cta": "Aplica al programa",
+    "note": "El descuento es temporal: al terminar los {months} meses se paga el precio regular del plan. Ningún dato de un cliente entra al benchmark sin la autorización firmada de ese cliente. El cupo es limitado y respondemos por orden de llegada."
   },
   "tax": "Precios en pesos mexicanos, más IVA.",
   "closing": {
     "title": "¿No sabes cuál es el tuyo?",
     "body": "Cuéntanos cuántas empresas atiendes y qué quieres responder. Te decimos cuál encaja, o si ninguno encaja.",
     "primary": "Solicitar una demostración",
-    "secondary": "Contactar a Forcelis"
+    "secondary": "Contactar con ventas"
+  },
+  "structure": {
+    "label": "Cómo está organizada la oferta",
+    "items": [
+      {
+        "title": "Para tu empresa",
+        "body": "El plan Individual: una empresa, la tuya, con los CFDI que ya emites y recibes."
+      },
+      {
+        "title": "Para asesores",
+        "body": "Profesional, Despacho y Firma llevan tu marca en los entregables. Cambian en cuántas empresas incluye la mensualidad."
+      },
+      {
+        "title": "Servicios, aparte",
+        "body": "El Diagnóstico y el Monitoreo los presta el equipo de Forcelis. No forman parte de ningún plan."
+      }
+    ]
+  },
+  "business": {
+    "eyebrow": "Para tu empresa",
+    "title": "Una empresa, cada mes.",
+    "intro": "Para dueños y equipos directivos que quieren ver su propia empresa con los CFDI que ya emiten y reciben.",
+    "accountant": "¿Ya tienes contador? Si él usa Forcelis, puedes recibir tus reportes a través de él.",
+    "more": "Qué ves cada mes"
+  },
+  "advisors": {
+    "eyebrow": "Para contadores, despachos y consultores",
+    "title": "Elige según cuántas empresas atiendes.",
+    "intro": "Los tres planes entregan tus reportes y tableros con tu marca. Lo que cambia es la capacidad: cuántas empresas entran en la mensualidad.",
+    "calculator": "Calcula tu margen con tu cartera",
+    "volumeTitle": "¿Más de 100 empresas o muchísimos CFDI?",
+    "volumeBody": "El plan Volumen se cotiza según la cartera y el volumen de comprobantes."
+  },
+  "compare": {
+    "eyebrow": "Comparación",
+    "title": "Los planes, lado a lado.",
+    "caption": "Comparación de los planes de Forcelis",
+    "rows": {
+      "for": "Para quién",
+      "price": "Precio al mes, más IVA",
+      "companies": "Empresas incluidas",
+      "extra": "Empresa adicional",
+      "brand": "Entregables con tu marca",
+      "fairUse": "Uso justo de CFDI"
+    },
+    "fairUseValue": "{n} por empresa al mes",
+    "perCompany": "{price} al mes",
+    "notAllowed": "No admite",
+    "agreed": "A convenir"
+  },
+  "shared": {
+    "title": "Lo que no cambia entre planes",
+    "items": [
+      "Pagas por las empresas que analizas, no por usuarios.",
+      "Precios en pesos mexicanos, más IVA.",
+      "No hay plan gratis."
+    ],
+    "platform": "Qué hace la plataforma"
+  },
+  "card": {
+    "perMonth": "al mes",
+    "tax": "Más IVA",
+    "ownBrand": "Entregables con tu marca",
+    "noBrand": "Para tu propia empresa, sin marca de asesor",
+    "extra": "Empresas adicionales: {price} al mes cada una",
+    "extraNoPrice": "Admite empresas adicionales",
+    "noExtra": "No admite empresas adicionales",
+    "fairUse": "Hasta {n} CFDI por empresa al mes",
+    "customTerms": "Capacidad y condiciones a convenir",
+    "recommended": "Recomendado",
+    "request": "Solicitar este plan",
+    "contactSales": "Contactar con ventas"
+  },
+  "services": {
+    "eyebrow": "Servicios profesionales",
+    "title": "Aparte de la suscripción, si quieres criterio humano.",
+    "intro": "No forman parte de ningún plan ni son necesarios para usar la plataforma. Los presta el equipo de Forcelis y se contratan por separado.",
+    "diagnosticCta": "Ver el Diagnóstico",
+    "monitoringCta": "Preguntar por el Monitoreo"
+  },
+  "faq": {
+    "title": "Preguntas sobre planes y precios",
+    "items": [
+      {
+        "q": "¿Cómo contrato un plan?",
+        "a": "Hoy la contratación no es en línea. Eliges el plan en esta página, nos envías la solicitud y una persona te responde con los pasos para activar tu cuenta."
+      },
+      {
+        "q": "¿Necesito una demostración para contratar?",
+        "a": "No. Los precios y lo que incluye cada plan están en esta página. Si quieres ver el producto antes, puedes pedir una demostración; su duración depende del tipo de cliente."
+      },
+      {
+        "q": "¿Qué pasa si atiendo más empresas de las incluidas?",
+        "a": "Cada empresa adicional se suma a tu mensualidad: {price} al mes por empresa. El plan Individual no admite empresas adicionales."
+      },
+      {
+        "q": "¿Se cobra por usuario?",
+        "a": "No. Pagas por las empresas que analizas."
+      },
+      {
+        "q": "¿Los precios incluyen IVA?",
+        "a": "No. Los precios están en pesos mexicanos, más IVA."
+      },
+      {
+        "q": "¿El Diagnóstico o el Monitoreo vienen en algún plan?",
+        "a": "No. Son servicios profesionales que se contratan aparte. La plataforma funciona sin ellos."
+      }
+    ]
   }
 }

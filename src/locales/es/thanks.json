@@ -7,6 +7,7 @@
   "body": "Una persona lee cada mensaje. Si Forcelis no es lo que necesitas, esa es la respuesta que vas a recibir.",
   "scheduleCta": "Agenda tu llamada ahora",
   "types": {
+    "demo": "Pediste una demostración. Te escribimos para acordarla; su duración depende de lo que necesites ver.",
     "asesor": "Nos dijiste que asesoras empresas. Te respondemos con cómo se vería la plataforma para tu cartera de clientes.",
     "fundador": "Aplicaste al programa Fundadores. El cupo es limitado y respondemos por orden de llegada.",
     "individual": "Solicitaste acceso al plan Individual. Te respondemos con cómo sería tu acceso y qué XML necesitarías descargar.",

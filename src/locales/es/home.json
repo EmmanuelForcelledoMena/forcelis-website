@@ -53,13 +53,16 @@
     "advisors": {
       "title": "Para contadores y consultores",
       "body": "Reportes y tableros con tu marca para todas las empresas que atiendes. Vende asesoría sin contratar analistas.",
+      "price": "Desde {price} MXN al mes, más IVA · de {min} a {max} empresas",
       "cta": "Ver cómo funciona"
     },
     "business": {
       "title": "Para empresas",
-      "body": "Un diagnóstico de precio fijo o un plan mensual para ver cómo va tu negocio con lo que ya facturas.",
+      "body": "Un plan mensual para ver tu empresa con lo que ya facturas. Si quieres una revisión profesional, el Diagnóstico se contrata aparte.",
+      "price": "Plan Individual: {price} MXN al mes, más IVA",
       "cta": "Ver las opciones"
-    }
+    },
+    "pricingNote": "Los precios están publicados. Puedes comparar los planes sin hablar con nadie."
   },
   "platform": {
     "eyebrow": "Plataforma Forcelis",
@@ -73,18 +76,17 @@
     "cta": "Ver la plataforma"
   },
   "start": {
-    "eyebrow": "Diagnóstico Empresarial",
-    "title": "Un solo punto de partida.",
-    "body": "Una empresa que quiere una respuesta de una sola vez empieza con el Diagnóstico Empresarial. Envías archivos exportados de tus propios sistemas. Recibes una vista calificada del negocio, los hallazgos que importan y un plan de acción en secuencia.",
-    "flow": [
-      { "label": "Datos" },
-      { "label": "Análisis" },
-      { "label": "Hallazgos clave" },
-      { "label": "Prioridades" },
-      { "label": "Plan de acción" }
+    "eyebrow": "Servicios profesionales",
+    "title": "Si quieres criterio humano, está aparte.",
+    "body": "La plataforma funciona sola. El Diagnóstico Empresarial y el Monitoreo los presta el equipo de Forcelis y se contratan por separado de cualquier plan.",
+    "items": [
+      { "title": "Diagnóstico Empresarial", "body": "Un análisis de una sola vez, a precio fijo: una vista calificada del negocio, los hallazgos que importan y un plan de acción." },
+      { "title": "Monitoreo Mensual", "body": "Tablero y reporte gerencial cada mes, con una revisión trimestral de 60 minutos. Cupo limitado." }
     ],
-    "flowAlt": "Tus datos pasan por el análisis, que produce hallazgos clave, después prioridades y después un plan de acción.",
-    "secondary": "Qué recibes"
+    "fromPrice": "Desde {price} MXN",
+    "monthly": "{price} MXN al mes",
+    "primary": "Ver el Diagnóstico",
+    "secondary": "Preguntar por el Monitoreo"
   },
   "closing": {
     "title": "Empieza con los números que ya tienes.",

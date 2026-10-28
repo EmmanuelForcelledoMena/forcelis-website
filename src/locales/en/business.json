@@ -6,12 +6,16 @@
   "hero": {
     "eyebrow": "For businesses",
     "title": "Know where your business stands.",
-    "subtitle": "With the CFDI you already issue and receive: a fixed-price diagnostic or a monthly plan to see how the business is doing.",
-    "primary": "Request a diagnostic",
-    "secondary": "See the Individual plan"
+    "subtitle": "Using the CFDI you already issue and receive: a monthly plan to see how your business is doing and, if you want a professional review, a separate diagnostic.",
+    "primary": "See the Individual plan",
+    "secondary": "See the Diagnostic"
   },
   "options": {
-    "eyebrow": "Three ways in",
+    "eyebrow": "One subscription and two services",
+    "subscription": "Subscription",
+    "service": "Professional service",
+    "perMonth": "per month, before VAT",
+    "oneOff": "one-off, before VAT",
     "title": "Pick the one that matches the question you have.",
     "individual": {
       "title": "Individual plan",
@@ -43,8 +47,8 @@
   },
   "closing": {
     "title": "Start with your own numbers.",
-    "body": "A diagnostic answers the question once. The monthly plan keeps answering it.",
-    "primary": "Request a diagnostic",
-    "secondary": "See the Individual plan"
+    "body": "The monthly plan answers how your business is doing, every month. If you want a one-off answer with a professional review, there is the Diagnostic.",
+    "primary": "Request the Individual plan",
+    "secondary": "See the Diagnostic"
   }
 }

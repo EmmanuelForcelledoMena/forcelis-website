@@ -203,10 +203,10 @@ const c = common(lang);
     </div>
   </Section>
 
-  <!-- Cierre propio y no el `Cta` compartido: esta página la leen los dos
-       públicos, y cada uno necesita su botón. El diagnóstico es para la empresa
-       que quiere una respuesta sobre sí misma; la agenda, para el asesor que
-       está evaluando la plataforma. -->
+  <!-- Cierre propio y no el `Cta` compartido. Quien llega al final de esta
+       página ya sabe qué hace la plataforma: lo siguiente es ver cuánto cuesta,
+       o verla funcionar. El Diagnóstico es un servicio y no se ofrece aquí como
+       sustituto de una demostración. -->
   <section class="on-ink bg-ink text-on-ink">
     <div class="container-page py-20 lg:py-28">
       <div class="reveal max-w-3xl">
@@ -215,7 +215,7 @@ const c = common(lang);
         </h2>
         <p class="mt-6 text-lg text-on-ink-muted">{p.closing.body}</p>
         <div class="mt-10 flex flex-col gap-3 sm:flex-row">
-          <Button href={path('diagnostic', lang)} variant="onInk" size="lg">
+          <Button href={path('pricing', lang)} variant="onInk" size="lg">
             {p.closing.primary}
           </Button>
           <Button href={agenda(lang)} variant="onInkGhost" size="lg" data-cta="agenda">

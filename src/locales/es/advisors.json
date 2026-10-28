@@ -83,7 +83,8 @@
     "extra": "Cada empresa que pase de las incluidas se suma a tu mensualidad.",
     "fairUse": "Uso justo: hasta {n} CFDI por empresa al mes.",
     "volume": "¿Más de 100 empresas o muchísimos CFDI? Pide Volumen.",
-    "volumeCta": "Pedir Volumen"
+    "volumeCta": "Pedir Volumen",
+    "compare": "Comparar todos los planes"
   },
   "founders": {
     "eyebrow": "Programa Fundadores",

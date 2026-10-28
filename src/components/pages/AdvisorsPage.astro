@@ -23,10 +23,10 @@ import Checklist from '../Checklist.astro';
 import PlanCard from '../PlanCard.astro';
 import MarginCalculator from '../MarginCalculator.astro';
 import FaqList from '../FaqList.astro';
-import { negocio, plan as planPorId, precio } from '../../config/negocio';
-import { agenda, contacto } from '../../config/enlaces';
-import { type Lang } from '../../i18n/routes';
-import { t, common } from '../../i18n';
+import { negocio, plan as planPorId } from '../../config/negocio';
+import { agenda, contacto, solicitarPlan } from '../../config/enlaces';
+import { path, type Lang } from '../../i18n/routes';
+import { t } from '../../i18n';
 
 interface Props {
   lang: Lang;
@@ -35,9 +35,8 @@ interface Props {
 const { lang } = Astro.props;
 const a = t(lang, 'advisors');
 const p = t(lang, 'pricing');
-const c = common(lang);
 
-const agendaHref = agenda(lang);
+const agendaHref = agenda(lang, 'asesor');
 const mostrar = negocio.mostrar_precios;
 
 // Los tres planes con marca propia. Individual no lleva marca y Volumen se
@@ -46,10 +45,9 @@ const planesAsesor = ['profesional', 'despacho', 'firma'] as const;
 
 const etiquetasPlan = {
   companies: p.platform.columns.companies,
-  brand: p.platform.columns.brand,
-  quote: p.platform.quote,
   unlimited: p.platform.unlimited,
-  yes: p.platform.yes,
+  quote: p.platform.quote,
+  ...p.card,
 };
 
 const nombresPlan = Object.fromEntries(
@@ -118,7 +116,7 @@ const rellenar = (plantilla: string, valores: Record<string, string>) =>
   <!-- ========================================================== CALCULADORA -->
   {
     mostrar && (
-      <Section tone="panel" size="compact">
+      <Section tone="panel" size="compact" id="margen">
         <div class="reveal">
           <SectionHeader eyebrow={a.calculator.eyebrow} title={a.calculator.title} />
         </div>
@@ -151,8 +149,9 @@ const rellenar = (plantilla: string, valores: Record<string, string>) =>
               plan={planPorId(id)}
               nombre={p.plans[id].name}
               paraQuien={p.plans[id].for}
-              cta={mostrar ? c.cta.schedule : p.closing.primary}
-              href={agendaHref}
+              resumen={p.plans[id].summary}
+              cta={p.card.request}
+              href={solicitarPlan(id, lang)}
               labels={etiquetasPlan}
               lang={lang}
               destacado={id === 'despacho'}
@@ -164,25 +163,17 @@ const rellenar = (plantilla: string, valores: Record<string, string>) =>
     </div>
 
     <div class="reveal mt-8 flex flex-col gap-4 border-t border-line pt-6 lg:flex-row lg:items-center lg:justify-between">
+      <!-- Empresa adicional y uso justo ya están en cada tarjeta. -->
       <div class="space-y-1.5 text-[0.9375rem] text-muted">
-        {
-          mostrar && (
-            <p>
-              {rellenar(p.platform.extra, { price: precio(negocio.empresa_adicional, lang) })}
-            </p>
-          )
-        }
-        {!mostrar && <p>{a.plans.extra}</p>}
-        <p>
-          {rellenar(a.plans.fairUse, {
-            n: new Intl.NumberFormat(lang === 'es' ? 'es-MX' : 'en-US').format(
-              negocio.uso_justo_cfdi_por_empresa_mes,
-            ),
-          })}
-        </p>
         <p>{a.plans.volume}</p>
+        <a
+          href={`${path('pricing', lang)}#comparacion`}
+          class="inline-flex items-center gap-1.5 text-sm font-medium text-ink underline decoration-line-strong underline-offset-4 hover:decoration-ink"
+        >
+          {a.plans.compare}
+        </a>
       </div>
-      <Button href={contacto('asesor', lang)} variant="secondary">{a.plans.volumeCta}</Button>
+      <Button href={solicitarPlan('volumen', lang)} variant="secondary">{a.plans.volumeCta}</Button>
     </div>
   </Section>
 
