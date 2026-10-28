@@ -23,6 +23,7 @@
   },
   "lang": {
     "label": "Idioma",
+    "footerLabel": "Idioma, pie de página",
     "current": "Idioma actual: español",
     "switchTo": "View this page in English"
   },

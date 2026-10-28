@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "About — Not an accounting firm. Not another software tool.",
-    "description": "Forcelis is a business performance company combining finance, operations, technology and execution. Early-stage, with a running proprietary platform, working with businesses in Mexico."
+    "description": "Forcelis combines finance, operations, technology and execution. An early-stage company with its own platform, working with businesses in Mexico."
   },
   "hero": {
     "eyebrow": "About Forcelis",
@@ -74,9 +74,9 @@
     "location": "Working with businesses in Mexico."
   },
   "closing": {
-    "title": "Start with a conversation.",
-    "body": "The fastest way to judge whether this is useful is to point it at your own numbers.",
-    "primary": "Request a Business Diagnostic",
+    "title": "See the plans, or start with a conversation.",
+    "body": "Plans and prices are published. If you would rather talk first, write to us.",
+    "primary": "View plans and pricing",
     "secondary": "Contact Forcelis"
   },
   "what": {

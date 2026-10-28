@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Plataforma — La capa de inteligencia detrás de tu negocio",
-    "description": "La plataforma Forcelis importa tus CFDI, complementos de pago, contabilidad electrónica del SAT y estados de cuenta bancarios (beta), estructura la información y la convierte en inteligencia accionable. Determinista, privada, segura, honesta."
+    "description": "Importa CFDI, complementos de pago, contabilidad electrónica del SAT y estados de cuenta (beta) y conviértelos en reportes y hallazgos."
   },
   "hero": {
     "eyebrow": "Plataforma Forcelis",
@@ -171,8 +171,8 @@
     ],
     "chartTitle": "Ingresos y margen bruto por mes",
     "chartSeries": {
-      "revenue": "Ingresos",
-      "margin": "Margen bruto"
+      "revenue": "Ingresos (MXN millones, eje izquierdo)",
+      "margin": "Margen bruto (%, eje derecho)"
     },
     "chartAlt": "Gráfica ilustrativa: los ingresos mensuales suben a lo largo del año mientras el margen bruto baja del 33.4 al 29.2 por ciento."
   },

@@ -17,10 +17,16 @@ interface Props {
   lang: Lang;
   pageKey: PageKey;
   tone?: 'ink' | 'light';
+  /**
+   * Dónde está. La cabecera y el pie tienen cada uno su selector, y dos `nav`
+   * con la misma etiqueta no se distinguen en la lista de regiones de un lector
+   * de pantalla (axe `landmark-unique`).
+   */
+  ubicacion?: 'cabecera' | 'pie';
   class?: string;
 }
 
-const { lang, pageKey, tone = 'ink', class: className = '' } = Astro.props;
+const { lang, pageKey, tone = 'ink', ubicacion = 'cabecera', class: className = '' } = Astro.props;
 const c = common(lang);
 const others = otherLangs(lang);
 
@@ -30,7 +36,10 @@ const idleColor =
 const dividerColor = tone === 'light' ? 'text-line-ink' : 'text-line-strong';
 ---
 
-<nav aria-label={c.lang.label} class={`flex items-center gap-2 text-xs ${className}`}>
+<nav
+  aria-label={ubicacion === 'pie' ? c.lang.footerLabel : c.lang.label}
+  class={`flex items-center gap-2 text-xs ${className}`}
+>
   <span class={`font-semibold tracking-[0.08em] ${activeColor}`} aria-current="true">
     {LANG_META[lang].short}
     <span class="sr-only">— {c.lang.current}</span>
@@ -46,7 +55,7 @@ const dividerColor = tone === 'light' ? 'text-line-ink' : 'text-line-strong';
           lang={LANG_META[other].hreflang}
           hreflang={LANG_META[other].hreflang}
           data-lang-choice={other}
-          class={`font-medium tracking-[0.08em] transition-colors ${idleColor}`}
+          class={`-m-1 inline-flex min-h-6 min-w-6 items-center justify-center p-1 font-medium tracking-[0.08em] transition-colors ${idleColor}`}
         >
           {LANG_META[other].short}
           <span class="sr-only">— {c.lang.switchTo}</span>

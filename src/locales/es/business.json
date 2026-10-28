@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Para empresas — Conoce la posición real de tu empresa",
-    "description": "Con los CFDI que ya emites y recibes: un diagnóstico de precio fijo, un plan mensual, o el plan Individual para ver tu propia empresa cada mes."
+    "title": "Para empresas — Tu empresa, cada mes, con tus CFDI",
+    "description": "Con los CFDI que ya emites y recibes: el plan Individual para ver tu empresa cada mes y, aparte, un diagnóstico profesional de precio fijo."
   },
   "hero": {
     "eyebrow": "Para empresas",
@@ -26,7 +26,7 @@
     "diagnostic": {
       "title": "Diagnóstico Empresarial",
       "lead": "Un análisis de una sola vez, a precio fijo, con una vista calificada, los hallazgos que importan y un plan de acción.",
-      "cta": "Ver el diagnóstico"
+      "cta": "Ver el Diagnóstico"
     },
     "monitoring": {
       "title": "Monitoreo Mensual",

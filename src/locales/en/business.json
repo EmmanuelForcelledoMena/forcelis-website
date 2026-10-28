@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "For businesses — Know where your business stands",
-    "description": "With the CFDI you already issue and receive: a fixed-price diagnostic, a monthly plan, or the Individual plan to see your own company every month."
+    "title": "For businesses — Your company, every month, from your CFDI",
+    "description": "Using the CFDI you already issue and receive: the Individual plan to see your company every month and, separately, a fixed-price professional diagnostic."
   },
   "hero": {
     "eyebrow": "For businesses",
@@ -26,7 +26,7 @@
     "diagnostic": {
       "title": "Business Diagnostic",
       "lead": "A one-off, fixed-price analysis with a scored view, the findings that matter and an action plan.",
-      "cta": "See the diagnostic"
+      "cta": "See the Diagnostic"
     },
     "monitoring": {
       "title": "Monthly Monitoring",

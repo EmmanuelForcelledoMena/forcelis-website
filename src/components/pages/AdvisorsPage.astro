@@ -191,6 +191,9 @@ const rellenar = (plantilla: string, valores: Record<string, string>) =>
           })}
         </h2>
         <p class="mt-5 max-w-2xl text-lg leading-relaxed text-on-ink-muted">{a.founders.body}</p>
+        <p class="mt-4 max-w-2xl text-[0.9375rem] leading-relaxed text-on-ink-muted">
+          {rellenar(p.founders.note, { months: String(negocio.fundadores.meses) })}
+        </p>
       </div>
       <Button href={contacto('fundador', lang)} variant="onInk" size="lg">{a.founders.cta}</Button>
     </div>

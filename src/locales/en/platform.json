@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Platform — The intelligence layer behind your business",
-    "description": "The Forcelis platform imports your CFDI, payment complements, SAT electronic accounting and bank statements (beta), structures the information and turns it into actionable intelligence. Deterministic, private, secure, honest."
+    "description": "Import CFDI, payment complements, SAT electronic accounting and bank statements (beta), and turn them into management reports and findings."
   },
   "hero": {
     "eyebrow": "Forcelis Platform",
@@ -171,8 +171,8 @@
     ],
     "chartTitle": "Revenue and gross margin by month",
     "chartSeries": {
-      "revenue": "Revenue",
-      "margin": "Gross margin"
+      "revenue": "Revenue (MXN millions, left axis)",
+      "margin": "Gross margin (%, right axis)"
     },
     "chartAlt": "Illustrative chart: monthly revenue rising through the year while gross margin declines from 33.4 percent to 29.2 percent."
   },

@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Nosotros — Ni despacho contable. Ni otra herramienta de software.",
-    "description": "Forcelis es una empresa de desempeño empresarial que combina finanzas, operaciones, tecnología y ejecución. En etapa temprana, con una plataforma propia funcionando, trabajando con empresas en México."
+    "title": "Nosotros — Ni despacho contable ni otra herramienta",
+    "description": "Forcelis combina finanzas, operaciones, tecnología y ejecución. Empresa en etapa temprana, con plataforma propia, que trabaja con empresas en México."
   },
   "hero": {
     "eyebrow": "Sobre Forcelis",
@@ -74,9 +74,9 @@
     "location": "Trabajando con empresas en México."
   },
   "closing": {
-    "title": "Empieza con una conversación.",
-    "body": "La forma más rápida de saber si esto sirve es apuntarlo a tus propios números.",
-    "primary": "Solicitar un Diagnóstico Empresarial",
+    "title": "Mira los planes, o empieza con una conversación.",
+    "body": "Los planes y sus precios están publicados. Si prefieres hablar primero, escríbenos.",
+    "primary": "Ver planes y precios",
     "secondary": "Contactar a Forcelis"
   },
   "what": {

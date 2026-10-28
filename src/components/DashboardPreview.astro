@@ -49,7 +49,9 @@ const months = Array.from({ length: 12 }, (_, i) =>
 // fijas, y traerse una biblioteca para dibujarlas costaría más que el sitio.
 const W = 640;
 const H = 200;
-const PAD = { top: 16, right: 8, bottom: 26, left: 34 };
+// `right` deja sitio a la escala del margen: dos series con dos unidades
+// necesitan dos ejes, o la línea no se puede leer.
+const PAD = { top: 16, right: 34, bottom: 26, left: 34 };
 const plotW = W - PAD.left - PAD.right;
 const plotH = H - PAD.top - PAD.bottom;
 
@@ -83,6 +85,7 @@ const linePoints = margin
 const gridLines = [0, 0.25, 0.5, 0.75, 1].map((ratio) => ({
   y: PAD.top + plotH * ratio,
   label: Math.round(revMax * (1 - ratio)),
+  marginLabel: `${Math.round(marginMin + (marginMax - marginMin) * (1 - ratio))}%`,
 }));
 ---
 
@@ -178,6 +181,15 @@ const gridLines = [0, 0.25, 0.5, 0.75, 1].map((ratio) => ({
               fill="var(--color-muted)"
             >
               {line.label}
+            </text>
+            <text
+              x={W - PAD.right + 8}
+              y={line.y + 3.5}
+              text-anchor="start"
+              font-size="9"
+              fill="var(--color-brand-text)"
+            >
+              {line.marginLabel}
             </text>
           </>
         ))

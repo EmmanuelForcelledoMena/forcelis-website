@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Industries — Is Forcelis for your business?",
-    "description": "Forcelis works with manufacturing, distribution, B2B commerce, import and export, professional services and growing businesses — companies with 10 to 100 employees, established revenue, and inventory or credit terms."
+    "description": "Manufacturing, distribution, B2B commerce, import and export, professional services and growing businesses: where Forcelis is most useful."
   },
   "hero": {
     "eyebrow": "Industries",
@@ -75,6 +75,6 @@
     "title": "Your industry is not on the list?",
     "body": "The list reflects where the analysis is strongest today, not where it is possible. Tell us about the business and we will say plainly whether we can help.",
     "primary": "Contact Forcelis",
-    "secondary": "Request a Business Diagnostic"
+    "secondary": "View plans and pricing"
   }
 }

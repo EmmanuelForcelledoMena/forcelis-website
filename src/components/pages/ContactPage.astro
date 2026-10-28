@@ -40,7 +40,9 @@ const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL ?? '';
         <ContactForm lang={lang} />
       </div>
 
-      <aside class="reveal space-y-12" data-reveal-delay="100">
+      <!-- `section` y no `aside`: un `aside` dentro de `main` es una región
+           complementaria anidada (axe `landmark-complementary-is-top-level`). -->
+      <section class="reveal space-y-12" data-reveal-delay="100" aria-label={k.next.title}>
         <div>
           <h2 class="text-[0.6875rem] font-semibold tracking-[0.16em] text-muted uppercase">
             {k.next.title}
@@ -95,7 +97,7 @@ const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL ?? '';
             </div>
           )
         }
-      </aside>
+      </section>
     </div>
   </Section>
 </Base>
