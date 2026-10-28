@@ -33,19 +33,19 @@
   "how": {
     "eyebrow": "Cómo funciona",
     "title": "De la información a la acción.",
-    "intro": "Toda empresa ya emite y recibe CFDI. Ese registro dice qué se vendió, a quién, a qué precio, cuánto costó y cuándo se cobró de verdad. Lo que falta es un solo lugar donde esté conectado y lo lea alguien que sabe qué buscar.",
+    "intro": "Toda empresa ya emite y recibe CFDI. Ese registro dice qué se vendió, a quién, a qué precio, cuánto costó y cuándo se cobró de verdad. Lo que falta es un solo lugar donde esté reunido y lo lea alguien que sabe qué buscar.",
     "flow": [
       { "label": "Datos", "sub": "Los CFDI que ya tienes" },
-      { "label": "Inteligencia", "sub": "Conectados, comparados, explicados" },
+      { "label": "Inteligencia", "sub": "Reunidos, comparados, explicados" },
       { "label": "Acción", "sub": "Decisiones con responsable y medida" }
     ],
     "flowAlt": "Los CFDI que ya tienes se convierten en inteligencia, y la inteligencia en acción.",
     "steps": [
-      { "name": "Ver", "body": "Conectar la información que tu empresa ya produce." },
+      { "name": "Ver", "body": "Importar la información que tu empresa ya produce." },
       { "name": "Entender", "body": "Identificar los riesgos, las ineficiencias y las palancas que importan." },
       { "name": "Actuar", "body": "Convertir los hallazgos en decisiones, mejoras y resultados medibles." }
     ],
-    "platformNote": "La plataforma Forcelis conecta y calcula. Las personas ponen el criterio."
+    "platformNote": "La plataforma Forcelis importa y calcula. Las personas ponen el criterio."
   },
   "paths": {
     "eyebrow": "Dos caminos",
@@ -64,7 +64,7 @@
   "platform": {
     "eyebrow": "Plataforma Forcelis",
     "title": "Una sola vista de tu negocio.",
-    "body": "La plataforma Forcelis conecta la información financiera y operativa en una vista unificada del desempeño del negocio. No es un ERP y no sustituye tu sistema contable: es la capa de inteligencia que va encima.",
+    "body": "La plataforma Forcelis reúne tus CFDI y tu contabilidad electrónica en una vista unificada del desempeño del negocio. No es un ERP y no sustituye tu sistema contable: es la capa de inteligencia que va encima.",
     "points": [
       "Cada cifra la calcula un motor determinista. Ningún número lo genera un modelo de lenguaje.",
       "La información de cada cliente está aislada en cuatro capas independientes, la última dentro de la propia base de datos.",

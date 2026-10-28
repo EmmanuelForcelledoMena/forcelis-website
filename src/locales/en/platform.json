@@ -1,37 +1,33 @@
 {
   "meta": {
     "title": "Platform — The intelligence layer behind your business",
-    "description": "The Forcelis platform connects ERP, accounting, CFDI, sales, purchasing, inventory and banking data, structures it and turns it into actionable intelligence. Deterministic, private, secure, honest."
+    "description": "The Forcelis platform imports your CFDI, payment complements, SAT electronic accounting and bank statements (beta), structures the information and turns it into actionable intelligence. Deterministic, private, secure, honest."
   },
   "hero": {
     "eyebrow": "Forcelis Platform",
     "title": "The intelligence layer behind your business.",
-    "subtitle": "Your systems already record what happened. Forcelis connects them, structures the information and turns it into actionable intelligence."
+    "subtitle": "Your invoices and your books already record what happened. Forcelis imports them, structures the information and turns it into actionable intelligence."
   },
   "architecture": {
     "title": "How it fits together",
-    "intro": "Nothing is replaced. The platform sits above the systems you already run.",
-    "sourcesLabel": "Your systems",
+    "intro": "Nothing is replaced. You import files you already download, and the platform works on top of them.",
+    "sourcesLabel": "What you import",
     "sources": [
-      "ERP",
-      "Accounting",
       "CFDI",
-      "Sales",
-      "Purchasing",
-      "Inventory",
-      "Banking",
-      "Spreadsheets"
+      "Payment complements",
+      "SAT electronic accounting",
+      "Banking (beta)"
     ],
     "platformLabel": "Forcelis",
     "steps": [
-      "Connect",
+      "Import",
       "Normalize",
       "Analyze",
       "Explain"
     ],
     "outcomeLabel": "Business decisions",
     "outcomeSub": "Findings, priorities and recommended actions",
-    "diagramAlt": "Diagram: eight kinds of systems — ERP, accounting, CFDI, sales, purchasing, inventory, banking and spreadsheets — feed Forcelis, which connects, normalizes, analyzes and explains the data, and produces business decisions."
+    "diagramAlt": "Diagram: four sources of information — CFDI, payment complements, SAT electronic accounting and banking, the last one in beta — feed Forcelis, which imports, normalizes, analyzes and explains the data, and produces business decisions."
   },
   "principles": {
     "title": "Four decisions that shape the product",
@@ -66,8 +62,8 @@
     "intro": "Everything in this section is built and running. What is coming is below, marked as roadmap.",
     "steps": [
       {
-        "title": "Connect data",
-        "body": "Files exported from your own systems: invoices, ledger, inventory, sales."
+        "title": "Import data",
+        "body": "Files you already download: CFDI, payment complements, SAT electronic accounting and, in beta, bank statements."
       },
       {
         "title": "Standardize",

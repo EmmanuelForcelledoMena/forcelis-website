@@ -1,37 +1,33 @@
 {
   "meta": {
     "title": "Plataforma — La capa de inteligencia detrás de tu negocio",
-    "description": "La plataforma Forcelis conecta la información de tu ERP, contabilidad, CFDI, ventas, compras, inventario y bancos, la estructura y la convierte en inteligencia accionable. Determinista, privada, segura, honesta."
+    "description": "La plataforma Forcelis importa tus CFDI, complementos de pago, contabilidad electrónica del SAT y estados de cuenta bancarios (beta), estructura la información y la convierte en inteligencia accionable. Determinista, privada, segura, honesta."
   },
   "hero": {
     "eyebrow": "Plataforma Forcelis",
     "title": "La capa de inteligencia detrás de tu negocio.",
-    "subtitle": "Tus sistemas ya registran lo que pasó. Forcelis los conecta, estructura la información y la convierte en inteligencia accionable."
+    "subtitle": "Tus comprobantes y tu contabilidad ya registran lo que pasó. Forcelis los importa, estructura la información y la convierte en inteligencia accionable."
   },
   "architecture": {
     "title": "Cómo encaja todo",
-    "intro": "No se reemplaza nada. La plataforma se coloca encima de los sistemas que ya operas.",
-    "sourcesLabel": "Tus sistemas",
+    "intro": "No se reemplaza nada. Importas archivos que ya descargas, y la plataforma trabaja encima de ellos.",
+    "sourcesLabel": "Lo que importas",
     "sources": [
-      "ERP",
-      "Contabilidad",
       "CFDI",
-      "Ventas",
-      "Compras",
-      "Inventario",
-      "Bancos",
-      "Hojas de cálculo"
+      "Complementos de pago",
+      "Contabilidad electrónica del SAT",
+      "Bancos (beta)"
     ],
     "platformLabel": "Forcelis",
     "steps": [
-      "Conectar",
+      "Importar",
       "Normalizar",
       "Analizar",
       "Explicar"
     ],
     "outcomeLabel": "Decisiones de negocio",
     "outcomeSub": "Hallazgos, prioridades y acciones recomendadas",
-    "diagramAlt": "Diagrama: ocho tipos de sistema —ERP, contabilidad, CFDI, ventas, compras, inventario, bancos y hojas de cálculo— alimentan a Forcelis, que conecta, normaliza, analiza y explica los datos, y produce decisiones de negocio."
+    "diagramAlt": "Diagrama: cuatro fuentes de información —CFDI, complementos de pago, contabilidad electrónica del SAT y bancos, esta última en beta— entran a Forcelis, que importa, normaliza, analiza y explica los datos, y produce decisiones de negocio."
   },
   "principles": {
     "title": "Cuatro decisiones que definen el producto",
@@ -66,8 +62,8 @@
     "intro": "Todo lo que está en esta sección está construido y funcionando. Lo que viene está abajo, marcado como hoja de ruta.",
     "steps": [
       {
-        "title": "Conectar datos",
-        "body": "Archivos exportados de tus propios sistemas: facturas, auxiliares, inventario, ventas."
+        "title": "Importar datos",
+        "body": "Archivos que ya descargas: CFDI, complementos de pago, contabilidad electrónica del SAT y, en beta, estados de cuenta bancarios."
       },
       {
         "title": "Estandarizar",
