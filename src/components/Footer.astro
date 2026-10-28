@@ -2,6 +2,7 @@
 import Wordmark from './Wordmark.astro';
 import LanguageSwitcher from './LanguageSwitcher.astro';
 import { path, type Lang, type PageKey } from '../i18n/routes';
+import { negocio } from '../config/negocio';
 import { common } from '../i18n';
 
 interface Props {
@@ -16,7 +17,17 @@ const c = common(lang);
 // menú —el diagnóstico y las industrias—: un menú se poda para que se entienda,
 // un pie se completa para que se encuentre.
 const columns: { heading: string; links: PageKey[] }[] = [
-  { heading: c.footer.navHeading, links: ['advisors', 'business', 'platform', 'diagnostic'] },
+  // Precios entra con la misma condición que en el menú y en el sitemap.
+  {
+    heading: c.footer.navHeading,
+    links: [
+      'advisors',
+      'business',
+      'platform',
+      ...(negocio.mostrar_precios ? (['pricing'] as PageKey[]) : []),
+      'diagnostic',
+    ],
+  },
   { heading: c.footer.companyHeading, links: ['industries', 'about', 'contact'] },
 ];
 
@@ -29,6 +40,7 @@ const navLabels: Record<string, string> = {
   advisors: c.nav.advisors,
   business: c.nav.business,
   platform: c.nav.platform,
+  pricing: c.nav.pricing,
   diagnostic: c.nav.diagnostic,
   industries: c.nav.industries,
   about: c.nav.about,
