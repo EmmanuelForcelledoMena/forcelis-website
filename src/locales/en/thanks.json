@@ -9,7 +9,7 @@
   "types": {
     "asesor": "You told us you advise businesses. We will come back with what the platform would look like for your client list.",
     "fundador": "You applied to the Founders programme. There are a limited number of places, and we answer in order of arrival.",
-    "individual": "You asked about the Individual plan. We will send you how to get started and how to download your XML files.",
+    "individual": "You requested access to the Individual plan. We will reply with how your access would work and which XML files you would need to download.",
     "diagnostico": "You asked for a diagnostic. We will come back with the scope and what we need from you.",
     "monitoreo": "You asked about Monthly Monitoring. We will come back with availability and how it starts."
   },

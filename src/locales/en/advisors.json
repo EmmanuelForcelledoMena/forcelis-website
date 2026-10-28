@@ -7,7 +7,7 @@
     "eyebrow": "For accountants, practices and consultants",
     "title": "Your clients already give you their CFDI. Turn them into advisory you can bill.",
     "subtitle": "Forcelis turns the XML files you already download into management reports and dashboards under your own brand, for every company you serve, from one place.",
-    "primary": "Book a 20-minute call",
+    "primary": "Request a demo",
     "secondary": "See plans"
   },
   "problem": {
@@ -119,6 +119,6 @@
   "closing": {
     "title": "See it against one of your own clients.",
     "body": "Twenty minutes, and bring the XML of a company you already serve.",
-    "cta": "Book a call"
+    "cta": "Request a demo"
   }
 }

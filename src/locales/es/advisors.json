@@ -7,7 +7,7 @@
     "eyebrow": "Para contadores, despachos y consultores",
     "title": "Tus clientes ya te dan sus CFDI. Conviértelos en asesoría que puedes cobrar.",
     "subtitle": "Forcelis convierte los XML que ya descargas en reportes gerenciales y tableros con tu marca, para todas las empresas que atiendes, desde un solo lugar.",
-    "primary": "Agenda una llamada de 20 minutos",
+    "primary": "Solicitar una demostración",
     "secondary": "Ver planes"
   },
   "problem": {
@@ -119,6 +119,6 @@
   "closing": {
     "title": "Pruébalo con uno de tus propios clientes.",
     "body": "Veinte minutos, y trae los XML de una empresa que ya atiendes.",
-    "cta": "Agenda una llamada"
+    "cta": "Solicitar una demostración"
   }
 }

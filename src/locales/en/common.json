@@ -17,7 +17,7 @@
     "contact": "Contact",
     "openMenu": "Open navigation menu",
     "closeMenu": "Close navigation menu",
-    "cta": "Book a call",
+    "cta": "Request a demo",
     "app": "Sign in",
     "mainLabel": "Main navigation"
   },
@@ -27,7 +27,7 @@
     "switchTo": "Ver esta página en español"
   },
   "cta": {
-    "schedule": "Book a call",
+    "schedule": "Request a demo",
     "diagnostic": "Request a Business Diagnostic",
     "diagnosticShort": "Request a diagnostic",
     "contact": "Contact Forcelis",
