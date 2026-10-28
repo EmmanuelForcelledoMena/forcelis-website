@@ -17,7 +17,7 @@
     "contact": "Contacto",
     "openMenu": "Abrir el menú de navegación",
     "closeMenu": "Cerrar el menú de navegación",
-    "cta": "Agenda una llamada",
+    "cta": "Solicitar una demostración",
     "app": "Entrar",
     "mainLabel": "Navegación principal"
   },
@@ -27,7 +27,7 @@
     "switchTo": "View this page in English"
   },
   "cta": {
-    "schedule": "Agenda una llamada",
+    "schedule": "Solicitar una demostración",
     "diagnostic": "Solicitar un Diagnóstico Empresarial",
     "diagnosticShort": "Solicitar un diagnóstico",
     "contact": "Contactar a Forcelis",
