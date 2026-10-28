@@ -35,9 +35,11 @@ const base =
   'group inline-flex max-w-full items-center justify-center gap-2 text-center font-medium ' +
   'transition-colors duration-200 rounded-none sm:whitespace-nowrap';
 
+// `lg` es más compacto por debajo de `sm`: con 28 px de margen a cada lado,
+// «Solicitar un Diagnóstico Empresarial» ya no cabía en una línea a 360 px.
 const sizes = {
   md: 'text-sm px-5 py-3',
-  lg: 'text-[0.9375rem] px-7 py-4',
+  lg: 'text-sm px-5 py-4 sm:text-[0.9375rem] sm:px-7',
 };
 
 const variants = {

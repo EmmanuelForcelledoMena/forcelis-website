@@ -467,6 +467,10 @@ const inputClass =
     // envío. Marcar en rojo un campo que la persona todavía no termina de
     // llenar es hostil.
     let attempted = false;
+    // Hay un envío en curso. El botón deshabilitado frena los clics y el Enter,
+    // pero no un `requestSubmit()` lanzado por un script o una extensión, que
+    // dispara el evento de envío aunque el botón esté deshabilitado.
+    let sending = false;
     RULES.forEach((rule) => {
       const el = elementoDe(rule);
       if (!el) return;
@@ -492,6 +496,7 @@ const inputClass =
 
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
+      if (sending) return;
       attempted = true;
 
       // Trampas de robot: se descarta en silencio, sin pistas para quien lo
@@ -551,6 +556,7 @@ const inputClass =
 
       if (form.dataset.configured !== 'true') return;
 
+      sending = true;
       button.disabled = true;
       button.textContent = button.dataset.sending;
 
@@ -585,6 +591,7 @@ const inputClass =
       } catch {
         render('error', errorTitle, errorBody);
       } finally {
+        sending = false;
         button.disabled = false;
         button.textContent = button.dataset.label;
         status.scrollIntoView({ behavior: 'smooth', block: 'center' });
