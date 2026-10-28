@@ -167,7 +167,9 @@ const appHref = negocio.url_app;
           </a>
         )
       }
-      <div class="py-5">
+      <!-- Desde `md` el botón ya está en la barra: repetirlo aquí ponía dos
+           botones rojos idénticos en pantalla con el menú abierto. -->
+      <div class="py-5 md:hidden">
         <a
           href={agendaHref}
           data-cta="agenda"
