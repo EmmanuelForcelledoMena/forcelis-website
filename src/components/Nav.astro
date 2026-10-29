@@ -54,7 +54,9 @@ const appHref = negocio.url_app;
     <!-- `whitespace-nowrap` en cada enlace: «Para contadores y consultores» se
          partía en dos líneas dentro de la barra, y eso descuadraba el subrayado
          de la página activa, que se posiciona contra el borde inferior. -->
-    <nav aria-label={c.nav.mainLabel} class="hidden items-center gap-6 xl:flex">
+    <!-- 16 px entre enlaces hasta 1400 px: con seis enlaces en español, a 1280
+         px el botón se comía el margen lateral de la página. -->
+    <nav aria-label={c.nav.mainLabel} class="hidden items-center gap-4 xl:flex min-[1400px]:gap-6">
       {
         items.map((item) => (
           <a

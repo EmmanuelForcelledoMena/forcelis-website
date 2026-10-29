@@ -1,0 +1,269 @@
+---
+/**
+ * Servicios profesionales.
+ *
+ * Todo lo que no es la plataforma: el trabajo que hace el equipo de Forcelis y
+ * que se contrata aparte de cualquier plan. La página existe para que nadie
+ * confunda un servicio con una función del software ni crea que hace falta
+ * contratar uno para usarlo.
+ *
+ * Orden: qué necesitas (para elegir por problema y no por nombre), los seis
+ * servicios por modalidad de contratación, en qué se distinguen los tres
+ * mensuales —que es donde se confunden—, cómo se contrata y el cierre.
+ *
+ * Los importes salen de `negocio.ts`: los del Diagnóstico y el Monitoreo de sus
+ * claves de siempre, los demás de `negocio.servicios`. El texto distingue
+ * precio fijo, «desde» y pago único; ningún importe se escribe aquí.
+ */
+import Base from '../../layouts/Base.astro';
+import Section from '../Section.astro';
+import SectionHeader from '../SectionHeader.astro';
+import Button from '../Button.astro';
+import PageHero from '../PageHero.astro';
+import Cta from '../Cta.astro';
+import { negocio, diagnostico, precio } from '../../config/negocio';
+import { preciosServicios, ORDEN_SERVICIOS, type IdServicio } from '../../i18n/servicios';
+import { contacto, contratarServicio } from '../../config/enlaces';
+import { path, type Lang } from '../../i18n/routes';
+import { t } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const s = t(lang, 'services');
+const pr = t(lang, 'pricing');
+const mostrar = negocio.mostrar_precios;
+
+const rellenar = (plantilla: string, valores: Record<string, string>) =>
+  Object.entries(valores).reduce((acc, [k, v]) => acc.replace(`{${k}}`, v), plantilla);
+
+type Id = IdServicio;
+const orden = ORDEN_SERVICIOS;
+
+const destino: Record<Id, string> = {
+  diagnostico: contacto('diagnostico', lang),
+  sesion: contratarServicio('sesion', lang),
+  acompanamiento: contratarServicio('acompanamiento', lang),
+  proyecto: contratarServicio('proyecto', lang),
+  monitoreo: contacto('monitoreo', lang),
+  gestionado: contratarServicio('gestionado', lang),
+};
+
+const precios = preciosServicios(lang);
+
+const mensuales = ['monitoreo', 'acompanamiento', 'gestionado'] as const;
+const precioMensual = {
+  monitoreo: precios.monitoreo[0],
+  acompanamiento: precios.acompanamiento[0],
+  gestionado: precios.gestionado[0],
+};
+
+const encabezado =
+  'px-4 py-3 text-left text-[0.625rem] font-semibold tracking-[0.14em] text-muted uppercase';
+const celda = 'px-4 py-3.5 text-[0.9375rem] text-ink align-top';
+---
+
+<Base lang={lang} pageKey="services" title={s.meta.title} description={s.meta.description}>
+  <PageHero photoKey="services" eyebrow={s.hero.eyebrow} title={s.hero.title} intro={s.hero.subtitle} />
+
+  <!-- ========================================================== QUÉ NECESITAS -->
+  <Section tone="ground" size="compact">
+    <div class="grid gap-8 lg:grid-cols-[minmax(0,20rem)_1fr] lg:gap-16">
+      <div class="reveal">
+        <h2 class="text-2xl font-semibold tracking-[-0.02em] text-ink">{s.guide.title}</h2>
+        <p class="mt-3 text-[0.9375rem] leading-relaxed text-muted">{s.guide.intro}</p>
+      </div>
+      <ul class="reveal grid gap-px border border-line bg-line sm:grid-cols-2" data-reveal-delay="80">
+        {
+          s.guide.items.map((item) => (
+            <li class="flex">
+              <a
+                href={`#${item.id}`}
+                class="group flex flex-1 items-start justify-between gap-4 bg-panel px-5 py-4 text-[0.9375rem] text-ink transition-colors hover:bg-panel-alt"
+              >
+                <span>
+                  {item.need}
+                  <span class="mt-1 block text-sm font-semibold text-brand-text">
+                    {s.items[item.id as Id].name}
+                  </span>
+                </span>
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" class="mt-1 shrink-0 transition-transform group-hover:translate-y-0.5">
+                  <path d="M7 2.5v9M3.5 8 7 11.5 10.5 8" stroke="currentColor" stroke-width="1.4" />
+                </svg>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </Section>
+
+  <!-- ============================================================= SERVICIOS -->
+  <Section tone="panel">
+    <div class="grid gap-px border border-line bg-line lg:grid-cols-2">
+      {
+        orden.map((id) => {
+          const it = s.items[id];
+          return (
+            <article id={id} class="reveal flex scroll-mt-24 flex-col bg-panel p-7 lg:p-9">
+              <p class="text-[0.6875rem] font-semibold tracking-[0.16em] text-brand-text uppercase">
+                {it.modality}
+              </p>
+              <h2 class="mt-2 text-2xl leading-snug font-semibold tracking-[-0.02em] text-ink">{it.name}</h2>
+
+              {mostrar && (
+                <div class="mt-4 space-y-1">
+                  {precios[id].map((pr) => (
+                    <p class="tnum flex flex-wrap items-baseline gap-x-2">
+                      <span class="text-[1.625rem] leading-tight font-bold tracking-[-0.02em] text-ink">
+                        {pr.importe}
+                      </span>
+                      <span class="text-sm text-muted">{pr.unidad}</span>
+                    </p>
+                  ))}
+                  {id === 'diagnostico' && (
+                    <>
+                      <p class="text-sm text-muted">
+                        {rellenar(s.labels.advisors, {
+                          price: `${precio(diagnostico('asesores').precio, lang)} ${negocio.moneda}`,
+                        })}
+                      </p>
+                      <p class="mt-2 border-l-2 border-brand pl-3 text-sm text-ink">{pr.diagnostics.credit}</p>
+                    </>
+                  )}
+                </div>
+              )}
+
+              <dl class="mt-6 space-y-4 text-[0.9375rem] leading-relaxed">
+                <div>
+                  <dt class="text-[0.8125rem] font-medium text-muted">{s.labels.for}</dt>
+                  <dd class="mt-1 text-ink">{it.for}</dd>
+                </div>
+                <div>
+                  <dt class="text-[0.8125rem] font-medium text-muted">{s.labels.problem}</dt>
+                  <dd class="mt-1 text-ink">{it.problem}</dd>
+                </div>
+                <div>
+                  <dt class="text-[0.8125rem] font-medium text-muted">{s.labels.includes}</dt>
+                  <dd class="mt-1">
+                    <ul class="space-y-1.5">
+                      {it.includes.map((linea) => (
+                        <li class="flex gap-2.5 text-ink">
+                          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" class="mt-[0.3rem] shrink-0 text-brand-text">
+                            <path d="M2.5 7.5 5.5 10.5 11.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" />
+                          </svg>
+                          {linea}
+                        </li>
+                      ))}
+                    </ul>
+                  </dd>
+                </div>
+                <div>
+                  <dt class="text-[0.8125rem] font-medium text-muted">{s.labels.limits}</dt>
+                  <dd class="mt-1">
+                    <ul class="space-y-1.5 text-muted">
+                      {it.limits.map((linea) => <li>{linea}</li>)}
+                    </ul>
+                  </dd>
+                </div>
+                <div>
+                  <dt class="text-[0.8125rem] font-medium text-muted">{s.labels.duration}</dt>
+                  <dd class="mt-1 text-ink">{it.duration}</dd>
+                </div>
+              </dl>
+
+              <div class="mt-auto flex flex-col gap-3 pt-8 sm:flex-row sm:items-center sm:gap-5">
+                <Button href={destino[id]} variant="secondary">{it.cta}</Button>
+                {id === 'diagnostico' && (
+                  <a
+                    href={path('diagnostic', lang)}
+                    class="text-sm font-medium text-ink underline decoration-line-strong underline-offset-4 hover:decoration-ink"
+                  >
+                    {s.labels.packages}
+                  </a>
+                )}
+              </div>
+            </article>
+          );
+        })
+      }
+    </div>
+    {mostrar && <p class="reveal mt-6 text-sm text-muted">{s.tax}</p>}
+  </Section>
+
+  <!-- ============================================================ MENSUALES -->
+  <Section tone="ground">
+    <div class="reveal">
+      <SectionHeader title={s.monthly.title} />
+    </div>
+    <div
+      class="reveal mt-10 overflow-x-auto border border-line"
+      data-reveal-delay="80"
+      role="region"
+      tabindex="0"
+      aria-label={s.monthly.caption}
+    >
+      <table class="w-full min-w-[44rem] border-collapse bg-panel">
+        <caption class="sr-only">{s.monthly.caption}</caption>
+        <thead>
+          <tr class="border-b-2 border-ink">
+            <td class={`${encabezado} w-44`}></td>
+            {mensuales.map((id) => <th scope="col" class={encabezado}>{s.items[id].name}</th>)}
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-line">
+          <tr>
+            <th scope="row" class={`${celda} text-left text-[0.8125rem] font-medium text-muted`}>{s.monthly.rows.what}</th>
+            {mensuales.map((id) => <td class={celda}>{s.monthly.values[id].what}</td>)}
+          </tr>
+          <tr>
+            <th scope="row" class={`${celda} text-left text-[0.8125rem] font-medium text-muted`}>{s.monthly.rows.who}</th>
+            {mensuales.map((id) => <td class={celda}>{s.monthly.values[id].who}</td>)}
+          </tr>
+          {
+            mostrar && (
+              <tr>
+                <th scope="row" class={`${celda} text-left text-[0.8125rem] font-medium text-muted`}>{s.monthly.rows.price}</th>
+                {mensuales.map((id) => (
+                  <td class={`${celda} tnum font-semibold`}>
+                    {precioMensual[id].importe} {precioMensual[id].unidad}
+                  </td>
+                ))}
+              </tr>
+            )
+          }
+        </tbody>
+      </table>
+    </div>
+  </Section>
+
+  <!-- ============================================================ CONTRATACIÓN -->
+  <Section tone="panel" size="compact">
+    <div class="reveal">
+      <SectionHeader title={s.process.title} intro={s.process.intro} />
+    </div>
+    <ol class="reveal mt-10 grid gap-6 sm:grid-cols-3 sm:gap-8" data-reveal-delay="80">
+      {
+        s.process.steps.map((step, i) => (
+          <li class="border-t-2 border-ink pt-4">
+            <p class="tnum text-[0.6875rem] font-semibold text-brand-text">{String(i + 1).padStart(2, '0')}</p>
+            <p class="mt-2 text-base font-semibold text-ink">{step.title}</p>
+            <p class="mt-1.5 text-[0.9375rem] leading-relaxed text-muted">{step.body}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </Section>
+
+  <Cta
+    lang={lang}
+    title={s.closing.title}
+    body={s.closing.body}
+    primaryLabel={s.closing.primary}
+    primaryHref={contacto('servicio', lang)}
+    secondaryLabel={s.closing.secondary}
+    secondaryTo={mostrar ? 'pricing' : 'platform'}
+  />
+</Base>

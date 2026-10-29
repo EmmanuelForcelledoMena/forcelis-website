@@ -78,15 +78,8 @@
   "start": {
     "eyebrow": "Professional services",
     "title": "If you want human judgment, it is separate.",
-    "body": "The platform works on its own. The Business Diagnostic and Monitoring are delivered by the Forcelis team and contracted separately from any plan.",
-    "items": [
-      { "title": "Business Diagnostic", "body": "A one-off, fixed-price analysis: a scored view of the business, the findings that matter and an action plan." },
-      { "title": "Monthly Monitoring", "body": "A dashboard and a management report every month, with a 60-minute quarterly review. Limited places." }
-    ],
-    "fromPrice": "From {price} MXN",
-    "monthly": "{price} MXN per month",
-    "primary": "See the Diagnostic",
-    "secondary": "Ask about Monitoring"
+    "body": "The platform works on its own. The Diagnostic, consulting sessions, advisory, projects, Monitoring and the managed service are delivered by the Forcelis team and contracted separately from any plan.",
+    "primary": "See all services"
   },
   "closing": {
     "title": "Start with the numbers you already have.",

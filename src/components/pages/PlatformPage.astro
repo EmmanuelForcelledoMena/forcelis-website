@@ -33,6 +33,7 @@ import RuledRows from '../RuledRows.astro';
 import { agenda } from '../../config/enlaces';
 import { path, type Lang } from '../../i18n/routes';
 import { t, common } from '../../i18n';
+import { negocio } from '../../config/negocio';
 
 interface Props {
   lang: Lang;
@@ -215,12 +216,22 @@ const c = common(lang);
         </h2>
         <p class="mt-6 text-lg text-on-ink-muted">{p.closing.body}</p>
         <div class="mt-10 flex flex-col gap-3 sm:flex-row">
-          <Button href={path('pricing', lang)} variant="onInk" size="lg">
-            {p.closing.primary}
-          </Button>
-          <Button href={agenda(lang)} variant="onInkGhost" size="lg" data-cta="agenda">
-            {p.closing.schedule}
-          </Button>
+          {
+            negocio.mostrar_precios ? (
+              <>
+                <Button href={path('pricing', lang)} variant="onInk" size="lg">
+                  {p.closing.primary}
+                </Button>
+                <Button href={agenda(lang)} variant="onInkGhost" size="lg" data-cta="agenda">
+                  {p.closing.schedule}
+                </Button>
+              </>
+            ) : (
+              <Button href={agenda(lang)} variant="onInk" size="lg" data-cta="agenda">
+                {p.closing.schedule}
+              </Button>
+            )
+          }
         </div>
       </div>
     </div>

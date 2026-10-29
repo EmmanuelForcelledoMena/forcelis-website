@@ -78,15 +78,8 @@
   "start": {
     "eyebrow": "Servicios profesionales",
     "title": "Si quieres criterio humano, está aparte.",
-    "body": "La plataforma funciona sola. El Diagnóstico Empresarial y el Monitoreo los presta el equipo de Forcelis y se contratan por separado de cualquier plan.",
-    "items": [
-      { "title": "Diagnóstico Empresarial", "body": "Un análisis de una sola vez, a precio fijo: una vista calificada del negocio, los hallazgos que importan y un plan de acción." },
-      { "title": "Monitoreo Mensual", "body": "Tablero y reporte gerencial cada mes, con una revisión trimestral de 60 minutos. Cupo limitado." }
-    ],
-    "fromPrice": "Desde {price} MXN",
-    "monthly": "{price} MXN al mes",
-    "primary": "Ver el Diagnóstico",
-    "secondary": "Preguntar por el Monitoreo"
+    "body": "La plataforma funciona sola. El Diagnóstico, las sesiones de consultoría, el acompañamiento, los proyectos, el Monitoreo y el servicio gestionado los presta el equipo de Forcelis y se contratan por separado de cualquier plan.",
+    "primary": "Ver todos los servicios"
   },
   "closing": {
     "title": "Empieza con los números que ya tienes.",

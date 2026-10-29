@@ -30,11 +30,11 @@ import Button from '../Button.astro';
 import PageHero from '../PageHero.astro';
 import PlanCard from '../PlanCard.astro';
 import FaqList from '../FaqList.astro';
-import Tag from '../Tag.astro';
 import { negocio, plan as planPorId, precio } from '../../config/negocio';
 import { agenda, contacto, solicitarPlan } from '../../config/enlaces';
 import { path, type Lang } from '../../i18n/routes';
 import { t } from '../../i18n';
+import { preciosServicios, ORDEN_SERVICIOS } from '../../i18n/servicios';
 
 interface Props {
   lang: Lang;
@@ -42,6 +42,8 @@ interface Props {
 
 const { lang } = Astro.props;
 const p = t(lang, 'pricing');
+const sv = t(lang, 'services');
+const preciosSv = preciosServicios(lang);
 
 const mostrar = negocio.mostrar_precios;
 
@@ -59,7 +61,6 @@ const etiquetas = {
 };
 
 const planesAsesor = ['profesional', 'despacho', 'firma'] as const;
-const volumen = planPorId('volumen');
 
 // Las preguntas que mencionan el importe de la empresa adicional lo reciben
 // formateado; con los precios apagados esa respuesta no se publica.
@@ -185,17 +186,33 @@ const filas = [
       }
     </div>
 
-    <div class="reveal mt-8 flex flex-col gap-5 border-t border-line pt-6 lg:flex-row lg:items-center lg:justify-between">
-      <div class="max-w-2xl">
-        <p class="text-base font-semibold text-ink">
-          {p.plans.volumen.name}
-          {mostrar && volumen.precio === null && <span class="font-normal text-muted"> · {p.platform.quote}</span>}
-        </p>
-        <p class="mt-1 text-[0.9375rem] leading-relaxed text-muted">
-          {p.advisors.volumeTitle} {p.advisors.volumeBody}
-        </p>
+    <!-- Enterprise: se cotiza. No tiene precio ni mínimo publicados, ni
+         funciones propias: es una forma de contratar la misma plataforma para
+         lo que no cabe en los planes publicados. -->
+    <div id="enterprise" class="reveal mt-8 grid scroll-mt-24 gap-8 border border-line bg-panel p-7 lg:grid-cols-[1fr_minmax(0,16rem)_minmax(0,17rem)] lg:gap-10 lg:p-9">
+      <div>
+        <p class="text-[0.6875rem] font-semibold tracking-[0.16em] text-brand-text uppercase">{p.enterprise.eyebrow}</p>
+        <h3 class="mt-2 text-xl leading-snug font-semibold tracking-[-0.02em] text-ink">{p.enterprise.title}</h3>
+        <p class="mt-3 text-[0.9375rem] leading-relaxed text-muted">{p.enterprise.body}</p>
       </div>
-      <Button href={solicitarPlan('volumen', lang)} variant="secondary">{p.card.contactSales}</Button>
+      <div>
+        <p class="text-[0.8125rem] font-medium text-muted">{p.enterprise.basisTitle}</p>
+        <ul class="mt-3 space-y-2 text-[0.9375rem] text-ink">
+          {p.enterprise.basis.map((linea) => (
+            <li class="flex gap-2.5">
+              <span aria-hidden="true" class="mt-2.5 block h-[2px] w-3 shrink-0 bg-brand"></span>
+              {linea}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div class="flex flex-col gap-4 lg:border-l lg:border-line lg:pl-10">
+        {mostrar && <p class="text-xl font-semibold tracking-[-0.01em] text-ink">{p.platform.quote}</p>}
+        <p class="text-sm leading-relaxed text-muted">{p.enterprise.note}</p>
+        <div>
+          <Button href={solicitarPlan('enterprise', lang)} variant="primary">{p.card.requestQuote}</Button>
+        </div>
+      </div>
     </div>
 
     {
@@ -314,35 +331,46 @@ const filas = [
       <SectionHeader eyebrow={p.services.eyebrow} title={p.services.title} intro={p.services.intro} />
     </div>
 
-    <h3 class="reveal mt-12 text-lg font-semibold tracking-[-0.01em] text-ink">{p.diagnostics.title}</h3>
+    <!-- Resumen del catálogo: nombre, cómo se paga y cuánto. El detalle de cada
+         servicio —para quién es, qué incluye, sus límites— vive en Servicios,
+         y no se repite aquí. -->
     <div
-      class="reveal mt-5 overflow-x-auto"
+      class="reveal mt-10 overflow-x-auto border border-line"
       data-reveal-delay="80"
       role="region"
       tabindex="0"
-      aria-label={p.diagnostics.title}
+      aria-label={p.services.caption}
     >
-      <table class="w-full min-w-[46rem] border-collapse">
+      <table class="w-full min-w-[40rem] border-collapse bg-panel">
+        <caption class="sr-only">{p.services.caption}</caption>
         <thead>
           <tr class="border-b-2 border-ink">
-            <th scope="col" class={encabezado}>{p.diagnostics.columns.name}</th>
-            <th scope="col" class={encabezado}>{p.diagnostics.columns.asks}</th>
-            <th scope="col" class={encabezado}>{p.diagnostics.columns.gives}</th>
-            {mostrar && (
-              <th scope="col" class={`${encabezado} text-right`}>{p.diagnostics.columns.price}</th>
-            )}
+            <th scope="col" class={encabezado}>{p.services.cols.service}</th>
+            <th scope="col" class={encabezado}>{p.services.cols.modality}</th>
+            {mostrar && <th scope="col" class={encabezado}>{p.services.cols.price}</th>}
           </tr>
         </thead>
         <tbody class="divide-y divide-line">
           {
-            negocio.diagnosticos.map((d) => (
+            ORDEN_SERVICIOS.map((id) => (
               <tr>
-                <th scope="row" class={`${celda} text-left font-semibold`}>{p.diagnostics.items[d.id].name}</th>
-                <td class={`${celda} max-w-[22rem] text-muted`}>{p.diagnostics.items[d.id].asks}</td>
-                <td class={`${celda} max-w-[22rem] text-muted`}>{p.diagnostics.items[d.id].gives}</td>
+                <th scope="row" class={`${celda} text-left font-semibold`}>
+                  <a
+                    href={`${path('services', lang)}#${id}`}
+                    class="underline decoration-line-strong underline-offset-4 hover:decoration-ink"
+                  >
+                    {sv.items[id].name}
+                  </a>
+                </th>
+                <td class={`${celda} text-muted`}>{sv.items[id].modality}</td>
                 {mostrar && (
-                  <td class={`${celda} tnum text-right font-semibold whitespace-nowrap`}>
-                    {precio(d.precio, lang)}
+                  <td class={`${celda} tnum`}>
+                    {preciosSv[id].map((pr) => (
+                      <span class="block whitespace-nowrap">
+                        <span class="font-semibold">{pr.importe}</span>{' '}
+                        <span class="text-muted">{pr.unidad}</span>
+                      </span>
+                    ))}
                   </td>
                 )}
               </tr>
@@ -351,35 +379,11 @@ const filas = [
         </tbody>
       </table>
     </div>
-    <p class="reveal mt-5 max-w-2xl text-[0.9375rem] leading-relaxed text-muted">{p.diagnostics.monthsNote}</p>
-    <p class="reveal mt-4 max-w-2xl border-l-2 border-brand pl-5 text-[0.9375rem] leading-relaxed text-ink">
+    <p class="reveal mt-5 max-w-2xl border-l-2 border-brand pl-5 text-[0.9375rem] leading-relaxed text-ink">
       {p.diagnostics.credit}
     </p>
-    <div class="reveal mt-6">
-      <Button href={path('diagnostic', lang)} variant="secondary">{p.services.diagnosticCta}</Button>
-    </div>
-
-    <div class="reveal mt-14 grid gap-6 border-t-2 border-ink pt-8 lg:grid-cols-[minmax(0,20rem)_1fr_auto] lg:items-baseline lg:gap-12">
-      <div>
-        <h3 class="text-lg font-semibold tracking-[-0.01em] text-ink">{p.monitoring.name}</h3>
-        <div class="mt-3">
-          <Tag tone="brand">{p.monitoring.limited}</Tag>
-        </div>
-      </div>
-      <p class="max-w-2xl text-[0.9375rem] leading-relaxed text-muted">{p.monitoring.includes}</p>
-      {
-        mostrar && (
-          <p class="tnum text-2xl font-semibold tracking-[-0.02em] whitespace-nowrap text-ink">
-            {precio(negocio.monitoreo.precio, lang)}
-            <span class="ml-1 text-sm font-normal text-muted">
-              {negocio.moneda} {p.card.perMonth}
-            </span>
-          </p>
-        )
-      }
-    </div>
-    <div class="reveal mt-6">
-      <Button href={contacto('monitoreo', lang)} variant="secondary">{p.services.monitoringCta}</Button>
+    <div class="reveal mt-8">
+      <Button href={path('services', lang)} variant="secondary">{p.services.cta}</Button>
     </div>
   </Section>
 

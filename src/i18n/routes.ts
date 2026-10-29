@@ -31,6 +31,7 @@ export type PageKey =
   | 'business'
   | 'platform'
   | 'pricing'
+  | 'services'
   | 'diagnostic'
   | 'industries'
   | 'about'
@@ -45,6 +46,7 @@ export const SLUGS: Record<PageKey, Record<Lang, string>> = {
   business: { en: 'for-businesses', es: 'para-empresas' },
   platform: { en: 'platform', es: 'plataforma' },
   pricing: { en: 'pricing', es: 'precios' },
+  services: { en: 'services', es: 'servicios' },
   diagnostic: { en: 'business-diagnostic', es: 'diagnostico-empresarial' },
   industries: { en: 'industries', es: 'industrias' },
   about: { en: 'about', es: 'nosotros' },
@@ -83,6 +85,7 @@ export const NAV_PAGES: PageKey[] = [
   'business',
   'platform',
   ...(negocio.mostrar_precios ? (['pricing'] as PageKey[]) : []),
+  'services',
   'about',
 ];
 

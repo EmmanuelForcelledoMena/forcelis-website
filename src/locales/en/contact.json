@@ -18,13 +18,17 @@
     "intent": "What are you looking for?",
     "intentHint": "Pick the one closest to your case. It changes who answers you.",
     "planSelected": "Plan you are interested in: {plan}. You can change it in your message.",
+    "serviceSelected": "Service you are interested in: {service}. You can change it in your message.",
+    "enterpriseNote": "To quote, tell us in your message how many companies, the approximate monthly CFDI volume, the support you need and the scope you are looking for.",
     "intentOptions": {
       "demo": "I want to see a product demo",
       "asesor": "I advise businesses (accountant, practice or consultant)",
       "fundador": "I want the Founders programme",
       "individual": "I have a business: Individual plan",
+        "enterprise": "I want an Enterprise quote",
       "diagnostico": "I want a diagnostic",
-      "monitoreo": "I am interested in Monthly Monitoring"
+      "monitoreo": "I am interested in Monthly Monitoring",
+        "servicio": "I am interested in a professional service"
     },
     "message": "What are you trying to understand?",
     "messageHint": "A specific question makes the first conversation more useful. One or two sentences are enough.",

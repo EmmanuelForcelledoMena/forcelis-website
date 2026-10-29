@@ -18,13 +18,17 @@
     "intent": "¿Qué buscas?",
     "intentHint": "Elige la más cercana a tu caso. Cambia quién te responde.",
     "planSelected": "Plan que te interesa: {plan}. Puedes cambiarlo en tu mensaje.",
+    "serviceSelected": "Servicio que te interesa: {service}. Puedes cambiarlo en tu mensaje.",
+    "enterpriseNote": "Para cotizar, cuéntanos en tu mensaje cuántas empresas, qué volumen aproximado de CFDI al mes, qué soporte necesitas y qué alcance buscas.",
     "intentOptions": {
       "demo": "Quiero ver una demostración del producto",
       "asesor": "Asesoro empresas (contador, despacho o consultor)",
       "fundador": "Quiero el Programa Fundadores",
       "individual": "Tengo una empresa: plan Individual",
+        "enterprise": "Quiero una cotización Enterprise",
       "diagnostico": "Quiero un diagnóstico",
-      "monitoreo": "Me interesa el Monitoreo Mensual"
+      "monitoreo": "Me interesa el Monitoreo Mensual",
+        "servicio": "Me interesa un servicio profesional"
     },
     "message": "¿Qué estás tratando de entender?",
     "messageHint": "Una pregunta concreta hace más útil la primera conversación. Con una o dos frases basta.",

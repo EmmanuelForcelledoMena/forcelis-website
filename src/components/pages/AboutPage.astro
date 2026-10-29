@@ -25,7 +25,8 @@ import PageHero from '../PageHero.astro';
 import Disclosure from '../Disclosure.astro';
 import Cta from '../Cta.astro';
 import type { Lang } from '../../i18n/routes';
-import { t } from '../../i18n';
+import { t, common } from '../../i18n';
+import { negocio } from '../../config/negocio';
 
 interface Props {
   lang: Lang;
@@ -33,6 +34,10 @@ interface Props {
 
 const { lang } = Astro.props;
 const a = t(lang, 'about');
+const c = common(lang);
+// Precios solo existe para el visitante con el interruptor encendido: apagado,
+// el cierre lleva a la plataforma y no a una página oculta.
+const mostrar = negocio.mostrar_precios;
 ---
 
 <Base lang={lang} pageKey="about" title={a.meta.title} description={a.meta.description}>
@@ -157,8 +162,8 @@ const a = t(lang, 'about');
     lang={lang}
     title={a.closing.title}
     body={a.closing.body}
-    primaryLabel={a.closing.primary}
-    primaryTo="pricing"
+    primaryLabel={mostrar ? a.closing.primary : c.cta.seePlatform}
+    primaryTo={mostrar ? 'pricing' : 'platform'}
     secondaryLabel={a.closing.secondary}
   />
 </Base>

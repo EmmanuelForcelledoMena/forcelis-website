@@ -45,6 +45,7 @@ const importes = [
   ...negocio.planes.map((p) => p.precio),
   ...negocio.diagnosticos.map((d) => d.precio),
   negocio.monitoreo.precio,
+  ...negocio.servicios.map((s) => s.precio),
   negocio.empresa_adicional,
 ].filter((n) => n !== null);
 
@@ -90,7 +91,8 @@ for (const archivo of htmls) {
   // Nadie debe enlazar a Precios mientras esté apagada.
   if (!negocio.mostrar_precios && !esPrecios) {
     for (const ruta of rutasPrecios) {
-      if (html.includes(`href="${ruta}"`)) anota(archivo, `enlaza a ${ruta} estando oculta`);
+      // Sin cerrar la comilla: también cuenta un enlace con ancla o parámetros.
+      if (html.includes(`href="${ruta}`)) anota(archivo, `enlaza a ${ruta} estando oculta`);
     }
   }
 }

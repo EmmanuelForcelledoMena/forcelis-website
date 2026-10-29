@@ -39,7 +39,7 @@ const p = t(lang, 'pricing');
 const agendaHref = agenda(lang, 'asesor');
 const mostrar = negocio.mostrar_precios;
 
-// Los tres planes con marca propia. Individual no lleva marca y Volumen se
+// Los tres planes con marca propia. Individual no lleva marca y Enterprise se
 // cotiza, así que ninguno de los dos es para un asesor que empieza.
 const planesAsesor = ['profesional', 'despacho', 'firma'] as const;
 
@@ -166,14 +166,18 @@ const rellenar = (plantilla: string, valores: Record<string, string>) =>
       <!-- Empresa adicional y uso justo ya están en cada tarjeta. -->
       <div class="space-y-1.5 text-[0.9375rem] text-muted">
         <p>{a.plans.volume}</p>
-        <a
-          href={`${path('pricing', lang)}#comparacion`}
-          class="inline-flex items-center gap-1.5 text-sm font-medium text-ink underline decoration-line-strong underline-offset-4 hover:decoration-ink"
-        >
-          {a.plans.compare}
-        </a>
+        {
+          mostrar && (
+            <a
+              href={`${path('pricing', lang)}#comparacion`}
+              class="inline-flex items-center gap-1.5 text-sm font-medium text-ink underline decoration-line-strong underline-offset-4 hover:decoration-ink"
+            >
+              {a.plans.compare}
+            </a>
+          )
+        }
       </div>
-      <Button href={solicitarPlan('volumen', lang)} variant="secondary">{a.plans.volumeCta}</Button>
+      <Button href={solicitarPlan('enterprise', lang)} variant="secondary">{a.plans.volumeCta}</Button>
     </div>
   </Section>
 

@@ -22,7 +22,8 @@ import Checklist from '../Checklist.astro';
 import IndustryCard from '../IndustryCard.astro';
 import Cta from '../Cta.astro';
 import type { Lang } from '../../i18n/routes';
-import { t } from '../../i18n';
+import { t, common } from '../../i18n';
+import { negocio } from '../../config/negocio';
 
 interface Props {
   lang: Lang;
@@ -30,6 +31,10 @@ interface Props {
 
 const { lang } = Astro.props;
 const ind = t(lang, 'industries');
+const c = common(lang);
+// Precios solo existe para el visitante con el interruptor encendido: apagado,
+// el cierre lleva a la plataforma y no a una página oculta.
+const mostrar = negocio.mostrar_precios;
 ---
 
 <Base lang={lang} pageKey="industries" title={ind.meta.title} description={ind.meta.description}>
@@ -95,7 +100,7 @@ const ind = t(lang, 'industries');
     body={ind.closing.body}
     primaryLabel={ind.closing.primary}
     primaryTo="contact"
-    secondaryLabel={ind.closing.secondary}
-    secondaryTo="pricing"
+    secondaryLabel={mostrar ? ind.closing.secondary : c.cta.seePlatform}
+    secondaryTo={mostrar ? 'pricing' : 'platform'}
   />
 </Base>

@@ -1,0 +1,201 @@
+{
+  "meta": {
+    "title": "Servicios — Consultoría y acompañamiento de Forcelis",
+    "description": "Diagnóstico, sesiones de consultoría, acompañamiento mensual, proyectos, Monitoreo y servicio gestionado. Se contratan aparte de cualquier plan."
+  },
+  "hero": {
+    "eyebrow": "Servicios profesionales",
+    "title": "Criterio humano, aparte de la plataforma.",
+    "subtitle": "Cada servicio se contrata por separado de cualquier plan y no hace falta para usar Forcelis. Los presta el equipo de Forcelis."
+  },
+  "guide": {
+    "title": "¿Qué necesitas?",
+    "intro": "Elige por lo que quieres resolver, no por el nombre del servicio.",
+    "items": [
+      {
+        "need": "Una respuesta de una sola vez sobre tu empresa",
+        "id": "diagnostico"
+      },
+      {
+        "need": "Resolver dudas concretas sobre tus indicadores",
+        "id": "sesion"
+      },
+      {
+        "need": "Orientación para decidir, mes a mes",
+        "id": "acompanamiento"
+      },
+      {
+        "need": "Un trabajo con entregables definidos",
+        "id": "proyecto"
+      },
+      {
+        "need": "Un tablero y un reporte cada mes, con revisión trimestral",
+        "id": "monitoreo"
+      },
+      {
+        "need": "Que Forcelis haga el trabajo de análisis por ti, cada mes",
+        "id": "gestionado"
+      }
+    ]
+  },
+  "labels": {
+    "for": "Para quién",
+    "problem": "Qué resuelve",
+    "includes": "Qué incluye",
+    "limits": "Límites",
+    "duration": "Duración",
+    "from": "Desde {price}",
+    "perSession": "por sesión",
+    "perMonth": "al mes",
+    "perProject": "por proyecto",
+    "limited": "Cupo limitado",
+    "packages": "Qué incluye cada paquete",
+    "advisors": "Versión para asesores, con su marca: {price}"
+  },
+  "items": {
+    "diagnostico": {
+      "name": "Diagnóstico Empresarial",
+      "modality": "pago único",
+      "for": "Empresas que quieren una respuesta de una sola vez sobre su situación.",
+      "problem": "Saber dónde está el negocio, qué hallazgos importan y qué atender primero.",
+      "includes": [
+        "Business Score e informe de 6 secciones",
+        "Una sesión de 60 minutos sobre los hallazgos",
+        "El Completo suma análisis operativo con balanza o auxiliares, inventario y ventas por cliente y producto"
+      ],
+      "limits": [
+        "Necesita CFDI de 24 meses; con menos, los indicadores de tendencia salen como no disponibles."
+      ],
+      "duration": "Una sola vez",
+      "cta": "Solicitar un diagnóstico",
+      "esencial": "Esencial",
+      "completo": "Completo"
+    },
+    "sesion": {
+      "name": "Sesión de consultoría",
+      "modality": "pago por sesión",
+      "for": "Empresas o asesores con una pregunta concreta sobre sus números.",
+      "problem": "Interpretar indicadores, resolver dudas financieras u orientar una decisión puntual.",
+      "includes": [
+        "Una sesión de 60 a 90 minutos",
+        "Objetivo y agenda acordados antes de la sesión",
+        "Recomendaciones concretas sobre los temas de la agenda"
+      ],
+      "limits": [
+        "No incluye trabajo posterior a la sesión ni entregables escritos, salvo que se acuerden aparte."
+      ],
+      "duration": "60 a 90 minutos",
+      "cta": "Contratar una sesión"
+    },
+    "acompanamiento": {
+      "name": "Acompañamiento mensual",
+      "modality": "mensualidad",
+      "for": "Equipos directivos que quieren orientación continua para sus decisiones.",
+      "problem": "Interpretar resultados, revisar indicadores y orientar decisiones financieras u operativas, mes a mes.",
+      "includes": [
+        "Orientación para interpretar resultados y revisar indicadores",
+        "Apoyo para decidir sobre temas financieros u operativos"
+      ],
+      "limits": [
+        "Forcelis orienta; el trabajo lo hace tu equipo. Si quieres que lo haga Forcelis, está el servicio gestionado.",
+        "El número de sesiones al mes, su duración, los canales de contacto y los entregables se fijan en la propuesta antes de empezar."
+      ],
+      "duration": "Mensual",
+      "cta": "Solicitar acompañamiento"
+    },
+    "proyecto": {
+      "name": "Consultoría por proyecto",
+      "modality": "por proyecto",
+      "for": "Empresas con una necesidad concreta que requiere un trabajo con entregables definidos.",
+      "problem": "Resolver un tema puntual, como planeación financiera, rentabilidad, costos, cadena de suministro, procesos financieros o automatización.",
+      "includes": [
+        "Una propuesta con alcance, entregables y calendario",
+        "El trabajo descrito en esa propuesta"
+      ],
+      "limits": [
+        "El precio final depende de los entregables, de la calidad de los datos disponibles y de la complejidad.",
+        "Es trabajo del equipo de Forcelis, no una función de la plataforma."
+      ],
+      "duration": "Según el alcance; el calendario se acuerda en la propuesta",
+      "cta": "Solicitar propuesta"
+    },
+    "monitoreo": {
+      "name": "Monitoreo Mensual",
+      "modality": "mensualidad",
+      "for": "Empresas que quieren seguir su desempeño cada mes, con una revisión periódica.",
+      "problem": "Ver cada mes cómo va el negocio y revisarlo con el equipo de Forcelis cada trimestre.",
+      "includes": [
+        "Tablero y reporte gerencial cada mes",
+        "Una revisión trimestral de 60 minutos"
+      ],
+      "limits": [
+        "Cupo limitado."
+      ],
+      "duration": "Mensual",
+      "cta": "Preguntar por el Monitoreo"
+    },
+    "gestionado": {
+      "name": "Servicio gestionado",
+      "modality": "mensualidad con contrato",
+      "for": "Empresas que quieren delegar el trabajo de análisis y seguimiento.",
+      "problem": "Que Forcelis haga el trabajo analítico y de seguimiento financiero u operativo, y produzca los entregables acordados.",
+      "includes": [
+        "Trabajo de análisis y seguimiento hecho por el equipo de Forcelis",
+        "Los entregables definidos en el contrato"
+      ],
+      "limits": [
+        "No es capacidad ilimitada: cada propuesta define entregables, frecuencia, capacidad de trabajo, responsabilidades del cliente, tiempos de respuesta y condiciones de renovación."
+      ],
+      "duration": "Recurrente, con contrato",
+      "cta": "Solicitar propuesta de servicio gestionado"
+    }
+  },
+  "monthly": {
+    "title": "Tres servicios mensuales, tres cosas distintas",
+    "caption": "Diferencias entre los servicios mensuales",
+    "rows": {
+      "what": "Qué recibes",
+      "who": "Quién hace el trabajo",
+      "price": "Precio, más IVA"
+    },
+    "values": {
+      "monitoreo": {
+        "what": "Un tablero y un reporte cada mes, y una revisión cada trimestre",
+        "who": "Forcelis prepara el reporte; tú decides qué hacer"
+      },
+      "acompanamiento": {
+        "what": "Orientación para interpretar resultados y decidir",
+        "who": "Tu equipo; Forcelis orienta"
+      },
+      "gestionado": {
+        "what": "El trabajo de análisis y los entregables acordados",
+        "who": "Forcelis, dentro de la capacidad del contrato"
+      }
+    }
+  },
+  "process": {
+    "title": "Cómo se contrata",
+    "intro": "La contratación no es en línea. Una persona revisa cada solicitud.",
+    "steps": [
+      {
+        "title": "Envías la solicitud",
+        "body": "Desde el servicio que te interesa. El formulario ya lo indica."
+      },
+      {
+        "title": "Te respondemos",
+        "body": "Para entender qué necesitas y confirmar que el servicio encaja."
+      },
+      {
+        "title": "Recibes una propuesta",
+        "body": "Con alcance y precio. El servicio empieza cuando la aceptas."
+      }
+    ]
+  },
+  "tax": "Precios en pesos mexicanos, más IVA.",
+  "closing": {
+    "title": "¿No sabes cuál necesitas?",
+    "body": "Cuéntanos qué quieres resolver. Te decimos qué servicio encaja, o si te basta con la plataforma.",
+    "primary": "Contactar",
+    "secondary": "Ver planes y precios"
+  }
+}

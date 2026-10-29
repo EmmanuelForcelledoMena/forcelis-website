@@ -18,7 +18,7 @@
       "brand": "Marca propia",
       "price": "Al mes"
     },
-    "quote": "Cotización",
+    "quote": "Cotización personalizada",
     "unlimited": "Por convenir",
     "yes": "Sí",
     "no": "No",
@@ -48,10 +48,10 @@
       "for": "Despacho grande o consultora",
       "summary": "Hasta 100 empresas para despachos grandes y consultoras, con tu marca."
     },
-    "volumen": {
-      "name": "Volumen",
-      "for": "Empresa o cuenta con muchísimos CFDI",
-      "summary": "Para carteras de más de 100 empresas o volúmenes de CFDI fuera de lo común."
+    "enterprise": {
+      "name": "Enterprise",
+      "for": "Carteras o empresas que superan los planes publicados",
+      "summary": "Para más de 100 empresas o volúmenes de CFDI fuera de lo común. Se cotiza a la medida."
     }
   },
   "diagnostics": {
@@ -112,7 +112,7 @@
       },
       {
         "title": "Para asesores",
-        "body": "Profesional, Despacho y Firma llevan tu marca en los entregables. Cambian en cuántas empresas incluye la mensualidad."
+        "body": "Profesional, Despacho y Firma llevan tu marca en los entregables y cambian en cuántas empresas incluyen. Enterprise se cotiza."
       },
       {
         "title": "Servicios, aparte",
@@ -131,9 +131,7 @@
     "eyebrow": "Para contadores, despachos y consultores",
     "title": "Elige según cuántas empresas atiendes.",
     "intro": "Los tres planes entregan tus reportes y tableros con tu marca. Lo que cambia es la capacidad: cuántas empresas entran en la mensualidad.",
-    "calculator": "Calcula tu margen con tu cartera",
-    "volumeTitle": "¿Más de 100 empresas o muchísimos CFDI?",
-    "volumeBody": "El plan Volumen se cotiza según la cartera y el volumen de comprobantes."
+    "calculator": "Calcula tu margen con tu cartera"
   },
   "compare": {
     "eyebrow": "Comparación",
@@ -173,14 +171,20 @@
     "customTerms": "Capacidad y condiciones a convenir",
     "recommended": "Recomendado",
     "request": "Solicitar este plan",
-    "contactSales": "Contactar con ventas"
+    "contactSales": "Contactar con ventas",
+    "requestQuote": "Solicitar cotización"
   },
   "services": {
     "eyebrow": "Servicios profesionales",
     "title": "Aparte de la suscripción, si quieres criterio humano.",
     "intro": "No forman parte de ningún plan ni son necesarios para usar la plataforma. Los presta el equipo de Forcelis y se contratan por separado.",
-    "diagnosticCta": "Ver el Diagnóstico",
-    "monitoringCta": "Preguntar por el Monitoreo"
+    "caption": "Servicios profesionales y su precio",
+    "cols": {
+      "service": "Servicio",
+      "modality": "Modalidad",
+      "price": "Precio, más IVA"
+    },
+    "cta": "Ver todos los servicios"
   },
   "faq": {
     "title": "Preguntas sobre planes y precios",
@@ -206,9 +210,26 @@
         "a": "No. Los precios están en pesos mexicanos, más IVA."
       },
       {
-        "q": "¿El Diagnóstico o el Monitoreo vienen en algún plan?",
-        "a": "No. Son servicios profesionales que se contratan aparte. La plataforma funciona sin ellos."
+        "q": "¿Cómo se cotiza Enterprise?",
+        "a": "Con el número de empresas, el volumen de comprobantes al mes, las necesidades de soporte y el alcance que requieras. No tiene un precio mínimo publicado."
+      },
+      {
+        "q": "¿Los servicios profesionales vienen en algún plan?",
+        "a": "No. El Diagnóstico, las sesiones de consultoría, el acompañamiento, los proyectos, el Monitoreo y el servicio gestionado se contratan aparte. La plataforma funciona sin ellos."
       }
     ]
+  },
+  "enterprise": {
+    "eyebrow": "Enterprise",
+    "title": "Para lo que no cabe en los planes publicados.",
+    "body": "Para despachos con más de 100 empresas o volúmenes de CFDI fuera de lo común. Es una forma de contratación: la plataforma es la misma que en los demás planes.",
+    "basisTitle": "La cotización se basa en",
+    "basis": [
+      "Número de empresas",
+      "Volumen de CFDI al mes",
+      "Necesidades de soporte",
+      "Alcance que requieres"
+    ],
+    "note": "No hay precio mínimo publicado. Te respondemos con una propuesta después de conocer esos datos."
   }
 }

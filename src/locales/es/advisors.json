@@ -67,7 +67,7 @@
       "cost": "Tu costo al mes",
       "revenue": "Tu ingreso al mes",
       "margin": "Tu margen al mes",
-      "volume": "Con más de 100 empresas, pide Volumen.",
+      "volume": "Con más de 100 empresas, pide una cotización Enterprise.",
       "tax": "Todas las cifras, más IVA."
     },
     "errors": {
@@ -82,8 +82,8 @@
     "intro": "Del plan Profesional en adelante, los entregables salen con tu marca.",
     "extra": "Cada empresa que pase de las incluidas se suma a tu mensualidad.",
     "fairUse": "Uso justo: hasta {n} CFDI por empresa al mes.",
-    "volume": "¿Más de 100 empresas o muchísimos CFDI? Pide Volumen.",
-    "volumeCta": "Pedir Volumen",
+    "volume": "¿Más de 100 empresas o muchísimos CFDI? Enterprise se cotiza a la medida.",
+    "volumeCta": "Solicitar cotización",
     "compare": "Comparar todos los planes"
   },
   "founders": {

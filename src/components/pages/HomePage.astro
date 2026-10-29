@@ -24,10 +24,10 @@ import ScorePanel from '../ScorePanel.astro';
 import DataFlow from '../DataFlow.astro';
 import InlineTermList from '../InlineTermList.astro';
 import Icon from '../Icon.astro';
-import { negocio, plan as planPorId, diagnostico, precio } from '../../config/negocio';
-import { contacto } from '../../config/enlaces';
+import { negocio, plan as planPorId, precio } from '../../config/negocio';
 import { path, type Lang } from '../../i18n/routes';
 import { t, common } from '../../i18n';
+import { preciosServicios, ORDEN_SERVICIOS } from '../../i18n/servicios';
 
 interface Props {
   lang: Lang;
@@ -36,6 +36,8 @@ interface Props {
 const { lang } = Astro.props;
 const h = t(lang, 'home');
 const c = common(lang);
+const sv = t(lang, 'services');
+const preciosSv = preciosServicios(lang);
 
 // Precios de entrada de cada camino, leídos de la configuración: el plan
 // Individual para una empresa, y el plan de asesor más pequeño con su rango
@@ -239,28 +241,27 @@ const caminos = [
         <SectionHeader eyebrow={h.start.eyebrow} title={h.start.title} />
         <p class="mt-6 max-w-2xl text-lg leading-relaxed text-muted">{h.start.body}</p>
         <div class="mt-10 flex flex-col gap-3 sm:flex-row">
-          <Button href={path('diagnostic', lang)} variant="secondary" size="lg">{h.start.primary}</Button>
-          <Button href={contacto('monitoreo', lang)} variant="secondary" size="lg">
-            {h.start.secondary}
-          </Button>
+          <Button href={path('services', lang)} variant="secondary" size="lg">{h.start.primary}</Button>
         </div>
       </div>
 
+      <!-- El catálogo completo, con el mismo precio que en Precios y Servicios:
+           nombre, importe y forma de cobro. El detalle está en Servicios. -->
       <ul class="reveal divide-y divide-line border-t border-b border-line" data-reveal-delay="100">
         {
-          h.start.items.map((item, i) => (
-            <li class="py-6">
-              <p class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-                <span class="text-lg font-semibold text-ink">{item.title}</span>
+          ORDEN_SERVICIOS.map((id) => (
+            <li>
+              <a
+                href={`${path('services', lang)}#${id}`}
+                class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 py-4 transition-colors hover:text-brand-text"
+              >
+                <span class="text-base font-semibold text-ink">{sv.items[id].name}</span>
                 {mostrar && (
-                  <span class="tnum text-[0.9375rem] font-semibold text-ink">
-                    {i === 0
-                      ? rellenar(h.start.fromPrice, { price: precio(diagnostico('esencial').precio, lang) })
-                      : rellenar(h.start.monthly, { price: precio(negocio.monitoreo.precio, lang) })}
+                  <span class="tnum text-[0.9375rem] text-muted">
+                    <span class="font-semibold text-ink">{preciosSv[id][0].importe}</span> {preciosSv[id][0].unidad}
                   </span>
                 )}
-              </p>
-              <p class="mt-2 text-[0.9375rem] leading-relaxed text-muted">{item.body}</p>
+              </a>
             </li>
           ))
         }

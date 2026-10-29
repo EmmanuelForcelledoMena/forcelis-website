@@ -11,7 +11,7 @@
  * El `?tipo=` preselecciona la opción correcta en el formulario y viaja hasta
  * la página de gracias, donde se dispara la conversión.
  */
-import { negocio, type Plan } from './negocio';
+import { negocio, type Plan, type Servicio } from './negocio';
 import { path, type Lang } from '../i18n/routes';
 
 /**
@@ -21,11 +21,23 @@ import { path, type Lang } from '../i18n/routes';
  * o tiene una. Antes esa persona caía en `asesor` desde cualquier página, y una
  * empresa que pedía una demostración llegaba etiquetada como despacho.
  */
-export const TIPOS = ['demo', 'asesor', 'fundador', 'individual', 'diagnostico', 'monitoreo'] as const;
+export const TIPOS = [
+  'demo',
+  'asesor',
+  'fundador',
+  'individual',
+  'enterprise',
+  'diagnostico',
+  'monitoreo',
+  'servicio',
+] as const;
 export type Tipo = (typeof TIPOS)[number];
 
 /** Planes que se pueden pedir desde una tarjeta. Viajan en `?plan=`. */
 export const PLANES_SOLICITABLES = negocio.planes.map((p) => p.id);
+
+/** Servicios que se pueden pedir desde su tarjeta. Viajan en `?servicio=`. */
+export const SERVICIOS_SOLICITABLES = negocio.servicios.map((s) => s.id);
 
 /**
  * Formulario de contacto con la intención ya marcada y, si viene de una
@@ -34,6 +46,11 @@ export const PLANES_SOLICITABLES = negocio.planes.map((p) => p.id);
  */
 export function contacto(tipo: Tipo, lang: Lang, plan?: Plan['id']): string {
   return `${path('contact', lang)}?tipo=${tipo}${plan ? `&plan=${plan}` : ''}`;
+}
+
+/** Solicitar un servicio profesional desde su tarjeta. */
+export function contratarServicio(id: Servicio['id'], lang: Lang): string {
+  return `${path('contact', lang)}?tipo=servicio&servicio=${id}`;
 }
 
 /**
@@ -48,6 +65,7 @@ export function agenda(lang: Lang, tipo: Tipo = 'demo'): string {
 /** Solicitar un plan desde su tarjeta. Cae al formulario si no hay registro abierto. */
 export function solicitarPlan(plan: Plan['id'], lang: Lang): string {
   if (plan === 'individual') return negocio.url_registro || contacto('individual', lang, plan);
+  if (plan === 'enterprise') return contacto('enterprise', lang, plan);
   return contacto('asesor', lang, plan);
 }
 

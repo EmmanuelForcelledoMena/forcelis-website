@@ -28,8 +28,8 @@
  */
 
 export interface Plan {
-  id: 'individual' | 'profesional' | 'despacho' | 'firma' | 'volumen';
-  /** Empresas incluidas en la mensualidad. `null` = sin tope definido (Volumen). */
+  id: 'individual' | 'profesional' | 'despacho' | 'firma' | 'enterprise';
+  /** Empresas incluidas en la mensualidad. `null` = se cotiza (Enterprise). */
   empresas: number | null;
   /** Mensualidad en `moneda`. `null` = se muestra «Cotización». */
   precio: number | null;
@@ -37,13 +37,27 @@ export interface Plan {
   marca_propia: boolean;
   /** Se le pueden sumar empresas sueltas a `empresa_adicional` cada una. */
   admite_adicionales: boolean;
-  /** Entra en la calculadora de margen. Individual y Volumen no. */
+  /** Entra en la calculadora de margen. Individual y Enterprise no. */
   en_calculadora: boolean;
 }
 
 export interface Diagnostico {
   id: 'esencial' | 'completo' | 'asesores';
   precio: number;
+}
+
+/**
+ * Servicio profesional que se contrata aparte de cualquier plan.
+ *
+ * `tipo_precio` decide cómo se lee el importe: `fijo` es el precio exacto,
+ * `desde` es el mínimo de un servicio que se cotiza por alcance. `cobro` dice
+ * qué paga el cliente con ese importe: una sesión, un mes o un proyecto.
+ */
+export interface Servicio {
+  id: 'sesion' | 'acompanamiento' | 'proyecto' | 'gestionado';
+  precio: number;
+  tipo_precio: 'fijo' | 'desde';
+  cobro: 'sesion' | 'mes' | 'proyecto';
 }
 
 export const negocio = {
@@ -79,7 +93,10 @@ export const negocio = {
     { id: 'profesional', empresas: 10,   precio: 799,  marca_propia: true,  admite_adicionales: true,  en_calculadora: true },
     { id: 'despacho',    empresas: 40,   precio: 1990, marca_propia: true,  admite_adicionales: true,  en_calculadora: true },
     { id: 'firma',       empresas: 100,  precio: 3990, marca_propia: true,  admite_adicionales: true,  en_calculadora: true },
-    { id: 'volumen',     empresas: null, precio: null, marca_propia: true,  admite_adicionales: false, en_calculadora: false },
+    // Enterprise sustituye a Volumen con los mismos valores: se cotiza, sin
+    // capacidad fija y con marca propia. Es una modalidad de contratación, no
+    // un plan con funciones distintas.
+    { id: 'enterprise',  empresas: null, precio: null, marca_propia: true,  admite_adicionales: false, en_calculadora: false },
   ] as const satisfies readonly Plan[],
 
   diagnosticos: [
@@ -89,6 +106,19 @@ export const negocio = {
   ] as const satisfies readonly Diagnostico[],
 
   monitoreo: { precio: 3900 },
+
+  /**
+   * Servicios profesionales nuevos, con los precios de referencia que fijó el
+   * negocio para el catálogo. El alcance de cada uno se acuerda por escrito
+   * antes de empezar; lo que todavía no está definido no se publica.
+   * El Diagnóstico y el Monitoreo siguen arriba, con sus propios precios.
+   */
+  servicios: [
+    { id: 'sesion',         precio: 3500,  tipo_precio: 'fijo',  cobro: 'sesion' },
+    { id: 'acompanamiento', precio: 7500,  tipo_precio: 'fijo',  cobro: 'mes' },
+    { id: 'proyecto',       precio: 18000, tipo_precio: 'desde', cobro: 'proyecto' },
+    { id: 'gestionado',     precio: 15000, tipo_precio: 'desde', cobro: 'mes' },
+  ] as const satisfies readonly Servicio[],
 
   fundadores: {
     cupo: 10,
@@ -106,6 +136,13 @@ export const negocio = {
 export function plan(id: Plan['id']): Plan {
   const found = negocio.planes.find((p) => p.id === id);
   if (!found) throw new Error(`Plan desconocido: ${id}`);
+  return found;
+}
+
+/** Un servicio por su id. */
+export function servicio(id: Servicio['id']): Servicio {
+  const found = negocio.servicios.find((x) => x.id === id);
+  if (!found) throw new Error(`Servicio desconocido: ${id}`);
   return found;
 }
 

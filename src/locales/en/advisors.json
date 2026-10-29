@@ -67,7 +67,7 @@
       "cost": "Your cost per month",
       "revenue": "Your revenue per month",
       "margin": "Your margin per month",
-      "volume": "Above 100 companies, ask for Volume.",
+      "volume": "Above 100 companies, ask for an Enterprise quote.",
       "tax": "All figures before VAT."
     },
     "errors": {
@@ -82,8 +82,8 @@
     "intro": "Every plan from Professional up puts your brand on the deliverables.",
     "extra": "Each company beyond the included ones is added to your monthly bill.",
     "fairUse": "Fair use: up to {n} CFDI per company per month.",
-    "volume": "More than 100 companies, or an enormous number of CFDI? Ask for Volume.",
-    "volumeCta": "Ask for Volume",
+    "volume": "More than 100 companies, or an enormous number of CFDI? Enterprise is quoted to fit.",
+    "volumeCta": "Request a quote",
     "compare": "Compare all plans"
   },
   "founders": {

@@ -1,0 +1,201 @@
+{
+  "meta": {
+    "title": "Services — Forcelis consulting and advisory",
+    "description": "Diagnostic, consulting sessions, monthly advisory, projects, Monitoring and a managed service. Contracted separately from any plan."
+  },
+  "hero": {
+    "eyebrow": "Professional services",
+    "title": "Human judgment, separate from the platform.",
+    "subtitle": "Every service is contracted separately from any plan, and you don't need one to use Forcelis. The Forcelis team delivers them."
+  },
+  "guide": {
+    "title": "What do you need?",
+    "intro": "Choose by what you want to solve, not by the name of the service.",
+    "items": [
+      {
+        "need": "A one-off answer about your company",
+        "id": "diagnostico"
+      },
+      {
+        "need": "Answers to specific questions about your indicators",
+        "id": "sesion"
+      },
+      {
+        "need": "Guidance for your decisions, month after month",
+        "id": "acompanamiento"
+      },
+      {
+        "need": "A piece of work with defined deliverables",
+        "id": "proyecto"
+      },
+      {
+        "need": "A dashboard and a report every month, with a quarterly review",
+        "id": "monitoreo"
+      },
+      {
+        "need": "Forcelis doing the analytical work for you, every month",
+        "id": "gestionado"
+      }
+    ]
+  },
+  "labels": {
+    "for": "Who it is for",
+    "problem": "What it solves",
+    "includes": "What it includes",
+    "limits": "Limits",
+    "duration": "Duration",
+    "from": "From {price}",
+    "perSession": "per session",
+    "perMonth": "per month",
+    "perProject": "per project",
+    "limited": "Limited places",
+    "packages": "What each package includes",
+    "advisors": "Advisor version, under your brand: {price}"
+  },
+  "items": {
+    "diagnostico": {
+      "name": "Business Diagnostic",
+      "modality": "one-off payment",
+      "for": "Businesses that want a one-off answer about where they stand.",
+      "problem": "Knowing where the business stands, which findings matter and what to address first.",
+      "includes": [
+        "Business Score and a six-section report",
+        "A 60-minute session on the findings",
+        "The Complete package adds operational analysis using trial balance or ledgers, inventory and sales by customer and product"
+      ],
+      "limits": [
+        "Requires 24 months of CFDI; with fewer, trend indicators are reported as unavailable."
+      ],
+      "duration": "One-off",
+      "cta": "Request a diagnostic",
+      "esencial": "Essential",
+      "completo": "Complete"
+    },
+    "sesion": {
+      "name": "Consulting session",
+      "modality": "pay per session",
+      "for": "Businesses or advisors with a specific question about their numbers.",
+      "problem": "Interpreting indicators, answering financial questions or guiding a specific decision.",
+      "includes": [
+        "One 60 to 90-minute session",
+        "Objective and agenda agreed before the session",
+        "Concrete recommendations on the agenda topics"
+      ],
+      "limits": [
+        "Does not include work after the session or written deliverables, unless agreed separately."
+      ],
+      "duration": "60 to 90 minutes",
+      "cta": "Request a session"
+    },
+    "acompanamiento": {
+      "name": "Monthly advisory",
+      "modality": "monthly fee",
+      "for": "Management teams that want ongoing guidance for their decisions.",
+      "problem": "Interpreting results, reviewing indicators and guiding financial or operational decisions, month after month.",
+      "includes": [
+        "Guidance to interpret results and review indicators",
+        "Support for financial or operational decisions"
+      ],
+      "limits": [
+        "Forcelis guides; your team does the work. If you want Forcelis to do it, there is the managed service.",
+        "Sessions per month, their length, contact channels and deliverables are set in the proposal before starting."
+      ],
+      "duration": "Monthly",
+      "cta": "Request advisory"
+    },
+    "proyecto": {
+      "name": "Project consulting",
+      "modality": "per project",
+      "for": "Businesses with a specific need that calls for work with defined deliverables.",
+      "problem": "Solving a specific topic, such as financial planning, profitability, costs, supply chain, finance processes or automation.",
+      "includes": [
+        "A proposal with scope, deliverables and timeline",
+        "The work described in that proposal"
+      ],
+      "limits": [
+        "The final price depends on the deliverables, the quality of the available data and the complexity.",
+        "It is work by the Forcelis team, not a platform feature."
+      ],
+      "duration": "Depends on scope; the timeline is agreed in the proposal",
+      "cta": "Request a proposal"
+    },
+    "monitoreo": {
+      "name": "Monthly Monitoring",
+      "modality": "monthly fee",
+      "for": "Businesses that want to follow their performance every month, with a periodic review.",
+      "problem": "Seeing how the business is doing every month and reviewing it with the Forcelis team every quarter.",
+      "includes": [
+        "A dashboard and a management report every month",
+        "A 60-minute quarterly review"
+      ],
+      "limits": [
+        "Limited places."
+      ],
+      "duration": "Monthly",
+      "cta": "Ask about Monitoring"
+    },
+    "gestionado": {
+      "name": "Managed service",
+      "modality": "monthly fee under contract",
+      "for": "Businesses that want to delegate analysis and follow-up work.",
+      "problem": "Having Forcelis do the analytical and financial or operational follow-up work, and produce the agreed deliverables.",
+      "includes": [
+        "Analysis and follow-up work done by the Forcelis team",
+        "The deliverables defined in the contract"
+      ],
+      "limits": [
+        "Capacity is not unlimited: every proposal sets deliverables, frequency, work capacity, client responsibilities, response times and renewal terms."
+      ],
+      "duration": "Recurring, under contract",
+      "cta": "Request a managed service proposal"
+    }
+  },
+  "monthly": {
+    "title": "Three monthly services, three different things",
+    "caption": "Differences between the monthly services",
+    "rows": {
+      "what": "What you get",
+      "who": "Who does the work",
+      "price": "Price, before VAT"
+    },
+    "values": {
+      "monitoreo": {
+        "what": "A dashboard and a report every month, and a review every quarter",
+        "who": "Forcelis prepares the report; you decide what to do"
+      },
+      "acompanamiento": {
+        "what": "Guidance to interpret results and decide",
+        "who": "Your team; Forcelis guides"
+      },
+      "gestionado": {
+        "what": "The analytical work and the agreed deliverables",
+        "who": "Forcelis, within the contracted capacity"
+      }
+    }
+  },
+  "process": {
+    "title": "How to contract a service",
+    "intro": "Sign-up is not online. A person reviews every request.",
+    "steps": [
+      {
+        "title": "You send the request",
+        "body": "From the service you are interested in. The form already says which one."
+      },
+      {
+        "title": "We get back to you",
+        "body": "To understand what you need and confirm the service fits."
+      },
+      {
+        "title": "You receive a proposal",
+        "body": "With scope and price. The service starts when you accept it."
+      }
+    ]
+  },
+  "tax": "Prices in Mexican pesos, before VAT.",
+  "closing": {
+    "title": "Not sure which one you need?",
+    "body": "Tell us what you want to solve. We will say which service fits, or whether the platform is enough.",
+    "primary": "Contact us",
+    "secondary": "View plans and pricing"
+  }
+}

@@ -18,7 +18,7 @@
       "brand": "Your own brand",
       "price": "Per month"
     },
-    "quote": "Quote",
+    "quote": "Custom quote",
     "unlimited": "By agreement",
     "yes": "Yes",
     "no": "No",
@@ -48,10 +48,10 @@
       "for": "A large practice or consultancy",
       "summary": "Up to 100 companies for large practices and consultancies, under your brand."
     },
-    "volumen": {
-      "name": "Volume",
-      "for": "A company or account with an enormous number of CFDI",
-      "summary": "For client lists above 100 companies or unusually high CFDI volumes."
+    "enterprise": {
+      "name": "Enterprise",
+      "for": "Client lists or companies beyond the published plans",
+      "summary": "For more than 100 companies or unusually high CFDI volumes. Quoted to fit."
     }
   },
   "diagnostics": {
@@ -112,7 +112,7 @@
       },
       {
         "title": "For advisors",
-        "body": "Professional, Practice and Firm put your brand on the deliverables. They differ in how many companies the monthly fee includes."
+        "body": "Professional, Practice and Firm put your brand on the deliverables and differ in how many companies they include. Enterprise is quoted."
       },
       {
         "title": "Services, separately",
@@ -131,9 +131,7 @@
     "eyebrow": "For accountants, practices and consultants",
     "title": "Choose by how many companies you serve.",
     "intro": "All three plans deliver your reports and dashboards under your brand. What changes is capacity: how many companies the monthly fee covers.",
-    "calculator": "Work out your margin with your client list",
-    "volumeTitle": "More than 100 companies, or a very high CFDI volume?",
-    "volumeBody": "The Volume plan is quoted based on your client list and document volume."
+    "calculator": "Work out your margin with your client list"
   },
   "compare": {
     "eyebrow": "Comparison",
@@ -173,14 +171,20 @@
     "customTerms": "Capacity and terms to be agreed",
     "recommended": "Recommended",
     "request": "Request this plan",
-    "contactSales": "Contact sales"
+    "contactSales": "Contact sales",
+    "requestQuote": "Request a quote"
   },
   "services": {
     "eyebrow": "Professional services",
     "title": "Separate from the subscription, if you want human judgment.",
     "intro": "They are not part of any plan and you don't need them to use the platform. The Forcelis team delivers them, and they are contracted separately.",
-    "diagnosticCta": "See the Diagnostic",
-    "monitoringCta": "Ask about Monitoring"
+    "caption": "Professional services and their price",
+    "cols": {
+      "service": "Service",
+      "modality": "How it is paid",
+      "price": "Price, before VAT"
+    },
+    "cta": "See all services"
   },
   "faq": {
     "title": "Questions about plans and pricing",
@@ -206,9 +210,26 @@
         "a": "No. Prices are in Mexican pesos, before VAT."
       },
       {
-        "q": "Are the Diagnostic or Monitoring included in a plan?",
-        "a": "No. They are professional services contracted separately. The platform works without them."
+        "q": "How is Enterprise quoted?",
+        "a": "Based on the number of companies, the monthly document volume, your support needs and the scope you require. There is no published minimum price."
+      },
+      {
+        "q": "Are professional services included in a plan?",
+        "a": "No. The Diagnostic, consulting sessions, advisory, projects, Monitoring and the managed service are contracted separately. The platform works without them."
       }
     ]
+  },
+  "enterprise": {
+    "eyebrow": "Enterprise",
+    "title": "For what doesn't fit the published plans.",
+    "body": "For practices with more than 100 companies or unusually high CFDI volumes. It is a way of contracting: the platform is the same as in the other plans.",
+    "basisTitle": "The quote is based on",
+    "basis": [
+      "Number of companies",
+      "Monthly CFDI volume",
+      "Support needs",
+      "The scope you require"
+    ],
+    "note": "There is no published minimum price. We reply with a proposal once we know those details."
   }
 }

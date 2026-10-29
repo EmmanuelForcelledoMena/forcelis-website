@@ -11,8 +11,10 @@
     "asesor": "Nos dijiste que asesoras empresas. Te respondemos con cómo se vería la plataforma para tu cartera de clientes.",
     "fundador": "Aplicaste al programa Fundadores. El cupo es limitado y respondemos por orden de llegada.",
     "individual": "Solicitaste acceso al plan Individual. Te respondemos con cómo sería tu acceso y qué XML necesitarías descargar.",
+    "enterprise": "Pediste una cotización Enterprise. Te respondemos con las preguntas que faltan para cotizar: empresas, volumen de comprobantes, soporte y alcance.",
     "diagnostico": "Pediste un diagnóstico. Te respondemos con el alcance y lo que necesitamos de tu lado.",
-    "monitoreo": "Preguntaste por el Monitoreo Mensual. Te respondemos con la disponibilidad y cómo arranca."
+    "monitoreo": "Preguntaste por el Monitoreo Mensual. Te respondemos con la disponibilidad y cómo arranca.",
+    "servicio": "Te interesa un servicio profesional. Te respondemos para entender qué necesitas y, si encaja, con una propuesta de alcance y precio."
   },
   "backHome": "Volver al inicio"
 }

@@ -16,6 +16,7 @@ import enHome from '../locales/en/home.json';
 import enAdvisors from '../locales/en/advisors.json';
 import enBusiness from '../locales/en/business.json';
 import enPricing from '../locales/en/pricing.json';
+import enServices from '../locales/en/services.json';
 import enThanks from '../locales/en/thanks.json';
 import enPlatform from '../locales/en/platform.json';
 import enDiagnostic from '../locales/en/diagnostic.json';
@@ -29,6 +30,7 @@ import esHome from '../locales/es/home.json';
 import esAdvisors from '../locales/es/advisors.json';
 import esBusiness from '../locales/es/business.json';
 import esPricing from '../locales/es/pricing.json';
+import esServices from '../locales/es/services.json';
 import esThanks from '../locales/es/thanks.json';
 import esPlatform from '../locales/es/platform.json';
 import esDiagnostic from '../locales/es/diagnostic.json';
@@ -44,6 +46,7 @@ const DICTIONARIES = {
     advisors: enAdvisors,
     business: enBusiness,
     pricing: enPricing,
+    services: enServices,
     thanks: enThanks,
     platform: enPlatform,
     diagnostic: enDiagnostic,
@@ -58,6 +61,7 @@ const DICTIONARIES = {
     advisors: esAdvisors,
     business: esBusiness,
     pricing: esPricing,
+    services: esServices,
     thanks: esThanks,
     platform: esPlatform,
     diagnostic: esDiagnostic,
