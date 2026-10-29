@@ -23,20 +23,21 @@
   },
   "sectorsTitle": "Donde el análisis es más fuerte hoy",
   "detailLabel": "Qué miramos",
+  "inventoryNote": "El inventario no sale de los CFDI. Lo que depende de él lo analiza el equipo de Forcelis con el reporte de inventario que compartas, en el Diagnóstico Completo o en una consultoría por proyecto.",
   "sectors": [
     {
       "key": "manufacturing",
       "title": "Manufactura",
       "tags": ["Margen", "Inventario", "Proveedores"],
       "lead": "Donde el margen se hace o se pierde entre la orden de compra y la unidad terminada.",
-      "points": ["Inflación de insumos por material", "Estructura de margen a nivel producto", "Inventario y producción en proceso", "Concentración y dependencia de proveedores"]
+      "points": ["Inflación de insumos por material", "Estructura de margen a nivel producto", "Inventario y producción en proceso, con tu reporte de inventario", "Concentración y dependencia de proveedores"]
     },
     {
       "key": "distribution",
       "title": "Distribución",
       "tags": ["Inventario", "Precios", "Efectivo"],
       "lead": "Volumen alto, margen delgado y un ciclo de capital de trabajo que castiga los errores pequeños.",
-      "points": ["Rotación de inventario por artículo", "Dispersión de precios entre clientes", "Precio de compra contra precio de lista", "Días de cartera por segmento"]
+      "points": ["Rotación de inventario por artículo, con tu reporte de inventario", "Dispersión de precios entre clientes", "Precio de compra contra precio de lista", "Días de cartera por segmento"]
     },
     {
       "key": "b2b",
@@ -50,7 +51,7 @@
       "title": "Importación y exportación",
       "tags": ["Costo en almacén", "Tipo de cambio", "Tiempo de entrega"],
       "lead": "El tipo de cambio, el costo puesto en almacén y el tiempo de entrega convierten una pregunta de margen en una pregunta de tiempo.",
-      "points": ["Costo puesto en almacén por embarque", "Exposición cambiaria en la base de costos", "Inventario sostenido contra el tiempo de entrega", "Condiciones de proveedores contra las de clientes"]
+      "points": ["Costo puesto en almacén por embarque", "Exposición cambiaria en la base de costos", "Inventario sostenido contra el tiempo de entrega, con tu reporte de inventario", "Condiciones de proveedores contra las de clientes"]
     },
     {
       "key": "services",

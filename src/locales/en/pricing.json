@@ -222,7 +222,7 @@
   "enterprise": {
     "eyebrow": "Enterprise",
     "title": "For what doesn't fit the published plans.",
-    "body": "For practices with more than 100 companies or unusually high CFDI volumes. It is a way of contracting: the platform is the same as in the other plans.",
+    "body": "For practices with more than 100 companies or unusually high CFDI volumes. It is a way of contracting, not a plan with separate features: what it includes is set in the quote.",
     "basisTitle": "The quote is based on",
     "basis": [
       "Number of companies",

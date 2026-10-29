@@ -29,7 +29,7 @@
         "id": "proyecto"
       },
       {
-        "need": "A dashboard and a report every month, with a quarterly review",
+        "need": "Tracking your indicators every month, with a quarterly review",
         "id": "monitoreo"
       },
       {
@@ -94,11 +94,12 @@
       "problem": "Interpreting results, reviewing indicators and guiding financial or operational decisions, month after month.",
       "includes": [
         "Guidance to interpret results and review indicators",
+        "Review sessions with the Forcelis team",
         "Support for financial or operational decisions"
       ],
       "limits": [
         "Forcelis guides; your team does the work. If you want Forcelis to do it, there is the managed service.",
-        "Sessions per month, their length, contact channels and deliverables are set in the proposal before starting."
+        "How many sessions a month, how long they last, which channels and which deliverables are set in writing in the proposal, before starting."
       ],
       "duration": "Monthly",
       "cta": "Request advisory"
@@ -122,14 +123,15 @@
     "monitoreo": {
       "name": "Monthly Monitoring",
       "modality": "monthly fee",
-      "for": "Businesses that want to follow their performance every month, with a periodic review.",
-      "problem": "Seeing how the business is doing every month and reviewing it with the Forcelis team every quarter.",
+      "for": "Businesses that want periodic tracking of their indicators, without ongoing guidance.",
+      "problem": "Knowing every month how your indicators are moving, and reviewing the findings with the Forcelis team every quarter.",
       "includes": [
         "A dashboard and a management report every month",
         "A 60-minute quarterly review"
       ],
       "limits": [
-        "Limited places."
+        "Limited places.",
+        "Only what is on this list is included. For month-to-month guidance there is advisory; for Forcelis to do the work, the managed service."
       ],
       "duration": "Monthly",
       "cta": "Ask about Monitoring"
@@ -137,11 +139,11 @@
     "gestionado": {
       "name": "Managed service",
       "modality": "monthly fee under contract",
-      "for": "Businesses that want to delegate analysis and follow-up work.",
-      "problem": "Having Forcelis do the analytical and financial or operational follow-up work, and produce the agreed deliverables.",
+      "for": "Businesses that want to delegate recurring analytical or operational work.",
+      "problem": "Having Forcelis do the agreed analytical or operational work every month and deliver what was agreed.",
       "includes": [
-        "Analysis and follow-up work done by the Forcelis team",
-        "The deliverables defined in the contract"
+        "Recurring analytical or operational work, done by the Forcelis team",
+        "Scope, deliverables and capacity agreed in the contract"
       ],
       "limits": [
         "Capacity is not unlimited: every proposal sets deliverables, frequency, work capacity, client responsibilities, response times and renewal terms."
@@ -156,20 +158,28 @@
     "rows": {
       "what": "What you get",
       "who": "Who does the work",
+      "sessions": "Sessions with Forcelis",
+      "scope": "Scope",
       "price": "Price, before VAT"
     },
     "values": {
       "monitoreo": {
-        "what": "A dashboard and a report every month, and a review every quarter",
-        "who": "Forcelis prepares the report; you decide what to do"
+        "what": "Tracking of your indicators: a dashboard and a management report every month",
+        "who": "The Forcelis team does the tracking; the decisions are yours",
+        "sessions": "One 60-minute quarterly review",
+        "scope": "Fixed: what the service lists. Limited places"
       },
       "acompanamiento": {
-        "what": "Guidance to interpret results and decide",
-        "who": "Your team; Forcelis guides"
+        "what": "Guidance, review sessions and support to interpret results",
+        "who": "Your team; Forcelis guides",
+        "sessions": "Number and length, per the proposal",
+        "scope": "Guidance, not execution. Limits and channels, per the proposal"
       },
       "gestionado": {
-        "what": "The analytical work and the agreed deliverables",
-        "who": "Forcelis, within the contracted capacity"
+        "what": "Recurring analytical or operational work and the agreed deliverables",
+        "who": "Forcelis, within the contracted capacity",
+        "sessions": "Per the contract",
+        "scope": "Scope, deliverables and capacity, by contract"
       }
     }
   },

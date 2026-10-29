@@ -54,6 +54,9 @@ const destino: Record<Id, string> = {
 const precios = preciosServicios(lang);
 
 const mensuales = ['monitoreo', 'acompanamiento', 'gestionado'] as const;
+// Lo que distingue a los tres: qué recibes, quién trabaja, cuántas sesiones y
+// qué tan fijo es el alcance. Lo que aún no está definido dice «según la propuesta».
+const filasMensuales = ['what', 'who', 'sessions', 'scope'] as const;
 const precioMensual = {
   monitoreo: precios.monitoreo[0],
   acompanamiento: precios.acompanamiento[0],
@@ -214,14 +217,14 @@ const celda = 'px-4 py-3.5 text-[0.9375rem] text-ink align-top';
           </tr>
         </thead>
         <tbody class="divide-y divide-line">
-          <tr>
-            <th scope="row" class={`${celda} text-left text-[0.8125rem] font-medium text-muted`}>{s.monthly.rows.what}</th>
-            {mensuales.map((id) => <td class={celda}>{s.monthly.values[id].what}</td>)}
-          </tr>
-          <tr>
-            <th scope="row" class={`${celda} text-left text-[0.8125rem] font-medium text-muted`}>{s.monthly.rows.who}</th>
-            {mensuales.map((id) => <td class={celda}>{s.monthly.values[id].who}</td>)}
-          </tr>
+          {
+            filasMensuales.map((fila) => (
+              <tr>
+                <th scope="row" class={`${celda} text-left text-[0.8125rem] font-medium text-muted`}>{s.monthly.rows[fila]}</th>
+                {mensuales.map((id) => <td class={celda}>{s.monthly.values[id][fila]}</td>)}
+              </tr>
+            ))
+          }
           {
             mostrar && (
               <tr>

@@ -100,8 +100,10 @@ const filas = [
   ...(mostrar ? [{ label: p.compare.rows.extra, valor: valorAdicional }] : []),
   {
     label: p.compare.rows.brand,
-    valor: (id: (typeof negocio.planes)[number]['id']) =>
-      planPorId(id).marca_propia ? p.platform.yes : p.platform.no,
+    valor: (id: (typeof negocio.planes)[number]['id']) => {
+      const marca = planPorId(id).marca_propia;
+      return marca === null ? p.compare.agreed : marca ? p.platform.yes : p.platform.no;
+    },
   },
   { label: p.compare.rows.fairUse, valor: valorUso },
 ];
@@ -178,7 +180,6 @@ const filas = [
               href={solicitarPlan(id, lang)}
               labels={etiquetas}
               lang={lang}
-              destacado={id === 'despacho'}
               class="flex-1"
             />
           </div>

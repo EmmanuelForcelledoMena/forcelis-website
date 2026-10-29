@@ -29,7 +29,7 @@
         "id": "proyecto"
       },
       {
-        "need": "Un tablero y un reporte cada mes, con revisión trimestral",
+        "need": "Seguimiento de tus indicadores cada mes, con revisión trimestral",
         "id": "monitoreo"
       },
       {
@@ -94,11 +94,12 @@
       "problem": "Interpretar resultados, revisar indicadores y orientar decisiones financieras u operativas, mes a mes.",
       "includes": [
         "Orientación para interpretar resultados y revisar indicadores",
+        "Sesiones de revisión con el equipo de Forcelis",
         "Apoyo para decidir sobre temas financieros u operativos"
       ],
       "limits": [
         "Forcelis orienta; el trabajo lo hace tu equipo. Si quieres que lo haga Forcelis, está el servicio gestionado.",
-        "El número de sesiones al mes, su duración, los canales de contacto y los entregables se fijan en la propuesta antes de empezar."
+        "Cuántas sesiones hay al mes, cuánto duran, por qué canales y con qué entregables se fija por escrito en la propuesta, antes de empezar."
       ],
       "duration": "Mensual",
       "cta": "Solicitar acompañamiento"
@@ -122,14 +123,15 @@
     "monitoreo": {
       "name": "Monitoreo Mensual",
       "modality": "mensualidad",
-      "for": "Empresas que quieren seguir su desempeño cada mes, con una revisión periódica.",
-      "problem": "Ver cada mes cómo va el negocio y revisarlo con el equipo de Forcelis cada trimestre.",
+      "for": "Empresas que quieren dar seguimiento periódico a sus indicadores, sin orientación continua.",
+      "problem": "Saber cada mes cómo se mueven tus indicadores y revisar los hallazgos con el equipo de Forcelis cada trimestre.",
       "includes": [
         "Tablero y reporte gerencial cada mes",
         "Una revisión trimestral de 60 minutos"
       ],
       "limits": [
-        "Cupo limitado."
+        "Cupo limitado.",
+        "Incluye solo lo de esta lista. Para orientación mes a mes está el acompañamiento; para que Forcelis haga el trabajo, el servicio gestionado."
       ],
       "duration": "Mensual",
       "cta": "Preguntar por el Monitoreo"
@@ -137,11 +139,11 @@
     "gestionado": {
       "name": "Servicio gestionado",
       "modality": "mensualidad con contrato",
-      "for": "Empresas que quieren delegar el trabajo de análisis y seguimiento.",
-      "problem": "Que Forcelis haga el trabajo analítico y de seguimiento financiero u operativo, y produzca los entregables acordados.",
+      "for": "Empresas que quieren delegar trabajo analítico u operativo recurrente.",
+      "problem": "Que Forcelis haga cada mes el trabajo analítico u operativo acordado y entregue lo pactado.",
       "includes": [
-        "Trabajo de análisis y seguimiento hecho por el equipo de Forcelis",
-        "Los entregables definidos en el contrato"
+        "Trabajo analítico u operativo recurrente, hecho por el equipo de Forcelis",
+        "Alcance, entregables y capacidad acordados en el contrato"
       ],
       "limits": [
         "No es capacidad ilimitada: cada propuesta define entregables, frecuencia, capacidad de trabajo, responsabilidades del cliente, tiempos de respuesta y condiciones de renovación."
@@ -156,20 +158,28 @@
     "rows": {
       "what": "Qué recibes",
       "who": "Quién hace el trabajo",
+      "sessions": "Sesiones con Forcelis",
+      "scope": "Alcance",
       "price": "Precio, más IVA"
     },
     "values": {
       "monitoreo": {
-        "what": "Un tablero y un reporte cada mes, y una revisión cada trimestre",
-        "who": "Forcelis prepara el reporte; tú decides qué hacer"
+        "what": "Seguimiento de tus indicadores: tablero y reporte gerencial cada mes",
+        "who": "El equipo de Forcelis da el seguimiento; las decisiones son tuyas",
+        "sessions": "Una revisión trimestral de 60 minutos",
+        "scope": "Fijo: lo que se lista en el servicio. Cupo limitado"
       },
       "acompanamiento": {
-        "what": "Orientación para interpretar resultados y decidir",
-        "who": "Tu equipo; Forcelis orienta"
+        "what": "Orientación, sesiones de revisión y apoyo para interpretar resultados",
+        "who": "Tu equipo; Forcelis orienta",
+        "sessions": "Cantidad y duración, según la propuesta",
+        "scope": "Orientación, no ejecución. Límites y canales, según la propuesta"
       },
       "gestionado": {
-        "what": "El trabajo de análisis y los entregables acordados",
-        "who": "Forcelis, dentro de la capacidad del contrato"
+        "what": "Trabajo analítico u operativo recurrente y los entregables acordados",
+        "who": "Forcelis, dentro de la capacidad del contrato",
+        "sessions": "Según el contrato",
+        "scope": "Alcance, entregables y capacidad, por contrato"
       }
     }
   },

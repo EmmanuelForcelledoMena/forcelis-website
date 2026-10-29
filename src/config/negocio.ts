@@ -33,8 +33,11 @@ export interface Plan {
   empresas: number | null;
   /** Mensualidad en `moneda`. `null` = se muestra «Cotización». */
   precio: number | null;
-  /** Los entregables salen con la marca del asesor. */
-  marca_propia: boolean;
+  /**
+   * Los entregables salen con la marca del asesor. `null` = no se publica:
+   * se define en la cotización (Enterprise, hasta que se confirme).
+   */
+  marca_propia: boolean | null;
   /** Se le pueden sumar empresas sueltas a `empresa_adicional` cada una. */
   admite_adicionales: boolean;
   /** Entra en la calculadora de margen. Individual y Enterprise no. */
@@ -93,10 +96,11 @@ export const negocio = {
     { id: 'profesional', empresas: 10,   precio: 799,  marca_propia: true,  admite_adicionales: true,  en_calculadora: true },
     { id: 'despacho',    empresas: 40,   precio: 1990, marca_propia: true,  admite_adicionales: true,  en_calculadora: true },
     { id: 'firma',       empresas: 100,  precio: 3990, marca_propia: true,  admite_adicionales: true,  en_calculadora: true },
-    // Enterprise sustituye a Volumen con los mismos valores: se cotiza, sin
-    // capacidad fija y con marca propia. Es una modalidad de contratación, no
-    // un plan con funciones distintas.
-    { id: 'enterprise',  empresas: null, precio: null, marca_propia: true,  admite_adicionales: false, en_calculadora: false },
+    // Enterprise sustituye a Volumen: se cotiza y no tiene capacidad fija. Es
+    // una modalidad de contratación, no un plan con funciones distintas. La
+    // marca propia queda en `null` (no se promete) hasta que el negocio
+    // confirme que se incluye.
+    { id: 'enterprise',  empresas: null, precio: null, marca_propia: null,  admite_adicionales: false, en_calculadora: false },
   ] as const satisfies readonly Plan[],
 
   diagnosticos: [
@@ -112,6 +116,11 @@ export const negocio = {
    * negocio para el catálogo. El alcance de cada uno se acuerda por escrito
    * antes de empezar; lo que todavía no está definido no se publica.
    * El Diagnóstico y el Monitoreo siguen arriba, con sus propios precios.
+   *
+   * PENDIENTE DE APROBACIÓN (la página dice «según la propuesta» mientras tanto):
+   * - acompanamiento: sesiones al mes, duración, canales, entregables, límites.
+   * - gestionado: entregables, frecuencia, capacidad, tiempos de respuesta,
+   *   renovación.
    */
   servicios: [
     { id: 'sesion',         precio: 3500,  tipo_precio: 'fijo',  cobro: 'sesion' },
