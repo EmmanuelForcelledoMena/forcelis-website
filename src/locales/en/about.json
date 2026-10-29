@@ -17,7 +17,7 @@
       },
       {
         "title": "Operations",
-        "body": "Process, inventory and supply chain read as part of the financial picture, not separately from it."
+        "body": "The team's judgment to read process, inventory and supply chain as part of the financial picture, not separately from it."
       },
       {
         "title": "Technology",
@@ -37,7 +37,7 @@
     "fullLabel": "Read the full story",
     "body": [
       "The gap is rarely a lack of data. It is that the data lives in systems built to record transactions, not to explain performance. An accounting system answers what was invoiced. It does not answer which customer is quietly becoming a risk, which product line stopped paying for itself, or how much cash is parked in inventory that is not moving.",
-      "Answering those questions has traditionally required a finance team most mid-sized companies cannot justify hiring: a CFO, a controller, a financial analyst, a data analyst, someone who understands supply chain. Forcelis exists to make that capability available without building it internally.",
+      "Answering those questions has traditionally required a finance team most mid-sized companies cannot justify hiring: a CFO, a controller, a financial analyst, a data analyst, someone who understands supply chain. Forcelis exists to make that capability available without building it internally: the platform does the repeatable work with CFDI, and the Forcelis team brings the judgment and the analysis that other data, such as inventory, requires.",
       "Forcelis is not an accounting firm that built software. It is a business performance company that uses financial data, operational data, technology and specialized expertise to help companies operate better. Accounting and fiscal information are an important part of the data foundation. The result is business performance."
     ]
   },

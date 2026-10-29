@@ -44,7 +44,7 @@
       {
         "title": "Operational performance",
         "items": [
-          "Inventory",
+          "Inventory, from your report",
           "Suppliers",
           "Purchasing",
           "Operating costs",
@@ -87,7 +87,7 @@
         "severity": "medium",
         "severityLabel": "Medium priority",
         "title": "Inventory turnover is below target.",
-        "body": "A share of working capital is held in items that do not move at the rate the rest of the catalogue does.",
+        "body": "According to the inventory report the business provided, a share of working capital is held in items that do not move at the rate the rest of the catalogue does.",
         "action": "Identify slow-moving items by value and decide, per item, whether to discount, return or stop reordering."
       },
       {
@@ -114,7 +114,7 @@
       },
       {
         "title": "Operational analysis",
-        "body": "Inventory, purchasing, suppliers and the working capital they consume."
+        "body": "Purchasing, suppliers and the working capital they consume; inventory, if you provide your report."
       },
       {
         "title": "Key risks",

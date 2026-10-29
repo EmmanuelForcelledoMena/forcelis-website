@@ -44,7 +44,7 @@
       {
         "title": "Desempeño operativo",
         "items": [
-          "Inventario",
+          "Inventario, con tu reporte",
           "Proveedores",
           "Compras",
           "Costos de operación",
@@ -87,7 +87,7 @@
         "severity": "medium",
         "severityLabel": "Prioridad media",
         "title": "La rotación de inventario está por debajo del objetivo.",
-        "body": "Una parte del capital de trabajo está detenida en artículos que no se mueven al ritmo del resto del catálogo.",
+        "body": "Según el reporte de inventario que entregó la empresa, una parte del capital de trabajo está detenida en artículos que no se mueven al ritmo del resto del catálogo.",
         "action": "Identificar los artículos de lento movimiento por valor y decidir, uno por uno, si se descuenta, se devuelve o se deja de reponer."
       },
       {
@@ -114,7 +114,7 @@
       },
       {
         "title": "Análisis operativo",
-        "body": "Inventario, compras, proveedores y el capital de trabajo que consumen."
+        "body": "Compras, proveedores y el capital de trabajo que consumen; el inventario, si entregas tu reporte."
       },
       {
         "title": "Riesgos principales",
