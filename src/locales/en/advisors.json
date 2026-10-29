@@ -1,12 +1,12 @@
 {
   "meta": {
     "title": "For accountants & advisors — Advisory from your clients' CFDI",
-    "description": "Reports and dashboards under your brand for every company you serve, built from the XML files you already download. No SAT or banking credentials."
+    "description": "Reports and dashboards for every company you serve, built from the XML files you already download. No SAT or banking credentials."
   },
   "hero": {
     "eyebrow": "For accountants, practices and consultants",
     "title": "Your clients already give you their CFDI. Turn them into advisory you can bill.",
-    "subtitle": "Forcelis turns the XML files you already download into management reports and dashboards under your own brand, for every company you serve, from one place.",
+    "subtitle": "Forcelis turns the XML files you already download into management reports and dashboards for every company you serve, from one place.",
     "primary": "Request a demo",
     "secondary": "See plans"
   },
@@ -21,14 +21,14 @@
     "steps": [
       { "title": "You upload the XML you already download", "body": "Issued, received and payment complements. Nothing is connected to the SAT or to a bank." },
       { "title": "The engine calculates", "body": "Margins, real collection, customer concentration, price dispersion, input cost inflation." },
-      { "title": "You deliver a report and a dashboard under your brand", "body": "Word, a self-contained HTML dashboard and Excel — the formats your client already circulates." }
+      { "title": "You deliver a report and a dashboard to your client", "body": "Word, a self-contained HTML dashboard and Excel — the formats your client already circulates." }
     ],
     "flow": [
       { "label": "Your clients' XML" },
       { "label": "Forcelis" },
-      { "label": "Your report, your brand" }
+      { "label": "Your report, for your client" }
     ],
-    "flowAlt": "Your clients' XML files go into Forcelis, which produces a report under your own brand."
+    "flowAlt": "Your clients' XML files go into Forcelis, which produces a report for your client."
   },
   "includes": {
     "eyebrow": "What is included",
@@ -46,7 +46,7 @@
       "Managerial income statement, comparable period over period",
       "Interactive dashboards with filters and drill-down",
       "Deliverables in Word, HTML and Excel",
-      "Multi-company under one account, with your brand on the deliverables",
+      "Multi-company under one account",
       "Accounts with two-factor authentication",
       "No SAT or banking credentials, ever"
     ]
@@ -79,7 +79,7 @@
   "plans": {
     "eyebrow": "Plans",
     "title": "Pick the one that fits how many companies you serve.",
-    "intro": "Every plan from Professional up puts your brand on the deliverables.",
+    "intro": "The three plans differ in how many companies they include. Delivery under your brand is yet to be confirmed.",
     "extra": "Each company beyond the included ones is added to your monthly bill.",
     "fairUse": "Fair use: up to {n} CFDI per company per month.",
     "volume": "More than 100 companies, or an enormous number of CFDI? Enterprise is quoted to fit.",
@@ -101,7 +101,7 @@
       },
       {
         "q": "Will my clients see the Forcelis brand?",
-        "a": "No. From the Professional plan up, the deliverables carry your brand."
+        "a": "We cannot confirm that yet: delivery under the advisor's brand is being verified. In the demo we show you how deliverables come out today."
       },
       {
         "q": "Is Forcelis going to sell accounting to my clients?",

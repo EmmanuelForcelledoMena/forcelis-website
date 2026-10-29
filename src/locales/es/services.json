@@ -48,6 +48,7 @@
     "perSession": "por sesión",
     "perMonth": "al mes",
     "perProject": "por proyecto",
+    "pending": "Pendiente de aprobación",
     "limited": "Cupo limitado",
     "packages": "Qué incluye cada paquete",
     "advisors": "Versión para asesores, con su marca: {price}"
@@ -108,7 +109,8 @@
       "name": "Consultoría por proyecto",
       "modality": "por proyecto",
       "for": "Empresas con una necesidad concreta que requiere un trabajo con entregables definidos.",
-      "problem": "Resolver un tema puntual, como planeación financiera, rentabilidad, costos, cadena de suministro, procesos financieros o automatización.",
+      "problem": "Resolver un tema puntual de rentabilidad o costos, con entregables definidos.",
+      "pending": "Otras especialidades —planeación financiera, cadena de suministro, procesos financieros y automatización— están pendientes de validación. Pregúntanos antes de contar con ellas.",
       "includes": [
         "Una propuesta con alcance, entregables y calendario",
         "El trabajo descrito en esa propuesta"
@@ -125,6 +127,7 @@
       "modality": "mensualidad",
       "for": "Empresas que quieren dar seguimiento periódico a sus indicadores, sin orientación continua.",
       "problem": "Saber cada mes cómo se mueven tus indicadores y revisar los hallazgos con el equipo de Forcelis cada trimestre.",
+      "pending": "La descripción y el alcance están en revisión para no duplicar lo que ya incluye la suscripción. Antes de contratar te confirmamos por escrito qué incluye.",
       "includes": [
         "Tablero y reporte gerencial cada mes",
         "Una revisión trimestral de 60 minutos"
@@ -164,10 +167,10 @@
     },
     "values": {
       "monitoreo": {
-        "what": "Seguimiento de tus indicadores: tablero y reporte gerencial cada mes",
+        "what": "Seguimiento periódico de tus indicadores; descripción pendiente de aprobación",
         "who": "El equipo de Forcelis da el seguimiento; las decisiones son tuyas",
         "sessions": "Una revisión trimestral de 60 minutos",
-        "scope": "Fijo: lo que se lista en el servicio. Cupo limitado"
+        "scope": "Pendiente de aprobación. Cupo limitado"
       },
       "acompanamiento": {
         "what": "Orientación, sesiones de revisión y apoyo para interpretar resultados",

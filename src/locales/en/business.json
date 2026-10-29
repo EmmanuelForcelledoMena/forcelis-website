@@ -32,6 +32,7 @@
       "title": "Monthly Monitoring",
       "lead": "A dashboard and a management report every month, with a 60-minute quarterly review.",
       "limited": "Limited places",
+      "pending": "Pending approval: description and scope under review so they do not duplicate what the subscription includes.",
       "cta": "Ask about Monitoring"
     }
   },

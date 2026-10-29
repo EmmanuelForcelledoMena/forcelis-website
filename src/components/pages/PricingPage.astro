@@ -102,7 +102,9 @@ const filas = [
     label: p.compare.rows.brand,
     valor: (id: (typeof negocio.planes)[number]['id']) => {
       const marca = planPorId(id).marca_propia;
-      return marca === null ? p.compare.agreed : marca ? p.platform.yes : p.platform.no;
+      // La marca del asesor no está verificada en el producto: donde la
+      // configuración la marca como incluida se publica «Por confirmar».
+      return marca === null ? p.compare.agreed : marca ? p.compare.toConfirm : p.platform.no;
     },
   },
   { label: p.compare.rows.fairUse, valor: valorUso },

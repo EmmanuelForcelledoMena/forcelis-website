@@ -77,7 +77,7 @@
     { "label": "Salud financiera", "value": 74, "note": "Estructura de margen, base de costos y calidad del resultado" },
     { "label": "Flujo de efectivo", "value": 58, "note": "Cobranza real, antigüedad y conversión a efectivo" },
     { "label": "Desempeño comercial", "value": 81, "note": "Mezcla de clientes, concentración, retención y precios" },
-    { "label": "Eficiencia operativa", "value": 63, "note": "Inventario, compras y estructura de proveedores" },
+    { "label": "Eficiencia operativa", "value": 63, "note": "Compras y estructura de proveedores; el inventario, solo con tu reporte" },
     { "label": "Calidad de datos contables", "value": 84, "note": "Completitud y consistencia de los registros de origen" }
   ]
 }

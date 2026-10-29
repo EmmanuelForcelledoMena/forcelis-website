@@ -12,7 +12,7 @@
     "prioritiesLabel": "Key priorities",
     "priorities": [
       "Receivables growing faster than revenue",
-      "Inventory below target turnover",
+      "Input costs rising faster than your prices",
       "Margin compression in a key category"
     ],
     "primary": "I advise businesses",
@@ -52,7 +52,7 @@
     "title": "Who is this for?",
     "advisors": {
       "title": "For accountants and consultants",
-      "body": "Reports and dashboards under your own brand, for every company you serve. Sell advisory without hiring analysts.",
+      "body": "Reports and dashboards for every company you serve. Sell advisory without hiring analysts.",
       "price": "From {price} MXN per month, before VAT · {min} to {max} companies",
       "cta": "See how it works"
     },
@@ -78,7 +78,7 @@
   "start": {
     "eyebrow": "Professional services",
     "title": "If you want human judgment, it is separate.",
-    "body": "The platform works on its own. The Diagnostic, consulting sessions, advisory, projects, Monitoring and the managed service are delivered by the Forcelis team and contracted separately from any plan.",
+    "body": "The platform works on its own. The Diagnostic, consulting sessions, advisory, projects, Monitoring and Managed Services are delivered by the Forcelis team and contracted separately from any plan.",
     "primary": "See all services"
   },
   "closing": {

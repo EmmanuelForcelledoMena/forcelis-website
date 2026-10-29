@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Services — Forcelis consulting and advisory",
-    "description": "Diagnostic, consulting sessions, monthly advisory, projects, Monitoring and a managed service. Contracted separately from any plan."
+    "description": "Diagnostic, consulting sessions, monthly advisory, projects, Monitoring and Managed Services. Contracted separately from any plan."
   },
   "hero": {
     "eyebrow": "Professional services",
@@ -48,6 +48,7 @@
     "perSession": "per session",
     "perMonth": "per month",
     "perProject": "per project",
+    "pending": "Pending approval",
     "limited": "Limited places",
     "packages": "What each package includes",
     "advisors": "Advisor version, under your brand: {price}"
@@ -98,7 +99,7 @@
         "Support for financial or operational decisions"
       ],
       "limits": [
-        "Forcelis guides; your team does the work. If you want Forcelis to do it, there is the managed service.",
+        "Forcelis guides; your team does the work. If you want Forcelis to do it, there is Managed Services.",
         "How many sessions a month, how long they last, which channels and which deliverables are set in writing in the proposal, before starting."
       ],
       "duration": "Monthly",
@@ -108,7 +109,8 @@
       "name": "Project consulting",
       "modality": "per project",
       "for": "Businesses with a specific need that calls for work with defined deliverables.",
-      "problem": "Solving a specific topic, such as financial planning, profitability, costs, supply chain, finance processes or automation.",
+      "problem": "Solving a specific profitability or cost question, with defined deliverables.",
+      "pending": "Other specialties — financial planning, supply chain, finance processes and automation — are pending validation. Ask us before counting on them.",
       "includes": [
         "A proposal with scope, deliverables and timeline",
         "The work described in that proposal"
@@ -125,19 +127,20 @@
       "modality": "monthly fee",
       "for": "Businesses that want periodic tracking of their indicators, without ongoing guidance.",
       "problem": "Knowing every month how your indicators are moving, and reviewing the findings with the Forcelis team every quarter.",
+      "pending": "The description and scope are under review so they do not duplicate what the subscription already includes. Before you sign up, we confirm in writing what it includes.",
       "includes": [
         "A dashboard and a management report every month",
         "A 60-minute quarterly review"
       ],
       "limits": [
         "Limited places.",
-        "Only what is on this list is included. For month-to-month guidance there is advisory; for Forcelis to do the work, the managed service."
+        "Only what is on this list is included. For month-to-month guidance there is advisory; for Forcelis to do the work, Managed Services."
       ],
       "duration": "Monthly",
       "cta": "Ask about Monitoring"
     },
     "gestionado": {
-      "name": "Managed service",
+      "name": "Managed Services",
       "modality": "monthly fee under contract",
       "for": "Businesses that want to delegate recurring analytical or operational work.",
       "problem": "Having Forcelis do the agreed analytical or operational work every month and deliver what was agreed.",
@@ -149,7 +152,7 @@
         "Capacity is not unlimited: every proposal sets deliverables, frequency, work capacity, client responsibilities, response times and renewal terms."
       ],
       "duration": "Recurring, under contract",
-      "cta": "Request a managed service proposal"
+      "cta": "Request a Managed Services proposal"
     }
   },
   "monthly": {
@@ -164,10 +167,10 @@
     },
     "values": {
       "monitoreo": {
-        "what": "Tracking of your indicators: a dashboard and a management report every month",
+        "what": "Periodic tracking of your indicators; description pending approval",
         "who": "The Forcelis team does the tracking; the decisions are yours",
         "sessions": "One 60-minute quarterly review",
-        "scope": "Fixed: what the service lists. Limited places"
+        "scope": "Pending approval. Limited places"
       },
       "acompanamiento": {
         "what": "Guidance, review sessions and support to interpret results",

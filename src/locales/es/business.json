@@ -32,6 +32,7 @@
       "title": "Monitoreo Mensual",
       "lead": "Tablero y reporte gerencial cada mes, con una revisión trimestral de 60 minutos.",
       "limited": "Cupo limitado",
+      "pending": "Pendiente de aprobación: descripción y alcance en revisión para no duplicar lo que incluye la suscripción.",
       "cta": "Preguntar por el Monitoreo"
     }
   },

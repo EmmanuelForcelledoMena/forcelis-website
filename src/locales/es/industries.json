@@ -23,7 +23,7 @@
   },
   "sectorsTitle": "Donde el análisis es más fuerte hoy",
   "detailLabel": "Qué miramos",
-  "inventoryNote": "El inventario no sale de los CFDI. Lo que depende de él lo analiza el equipo de Forcelis con el reporte de inventario que compartas, en el Diagnóstico Completo o en una consultoría por proyecto.",
+  "inventoryNote": "El inventario y el costo puesto en almacén no salen solo de los CFDI y la plataforma no los calcula sola. Requieren un reporte que tú proporcionas: el de inventario, o tus pedimentos y gastos de importación. Lo de inventario lo analiza el equipo de Forcelis en el Diagnóstico Completo.",
   "sectors": [
     {
       "key": "manufacturing",
@@ -51,7 +51,7 @@
       "title": "Importación y exportación",
       "tags": ["Costo en almacén", "Tipo de cambio", "Tiempo de entrega"],
       "lead": "El tipo de cambio, el costo puesto en almacén y el tiempo de entrega convierten una pregunta de margen en una pregunta de tiempo.",
-      "points": ["Costo puesto en almacén por embarque", "Exposición cambiaria en la base de costos", "Inventario sostenido contra el tiempo de entrega, con tu reporte de inventario", "Condiciones de proveedores contra las de clientes"]
+      "points": ["Costo puesto en almacén por embarque, con tus pedimentos y gastos de importación", "Exposición cambiaria en la base de costos", "Inventario sostenido contra el tiempo de entrega, con tu reporte de inventario", "Condiciones de proveedores contra las de clientes"]
     },
     {
       "key": "services",

@@ -12,7 +12,7 @@
     "prioritiesLabel": "Prioridades clave",
     "priorities": [
       "La cartera crece más rápido que las ventas",
-      "Rotación de inventario por debajo del objetivo",
+      "Insumos que suben más rápido que tus precios",
       "Compresión de margen en una categoría clave"
     ],
     "primary": "Asesoro empresas",
@@ -52,7 +52,7 @@
     "title": "¿Para quién es esto?",
     "advisors": {
       "title": "Para contadores y consultores",
-      "body": "Reportes y tableros con tu marca para todas las empresas que atiendes. Vende asesoría sin contratar analistas.",
+      "body": "Reportes y tableros para todas las empresas que atiendes. Vende asesoría sin contratar analistas.",
       "price": "Desde {price} MXN al mes, más IVA · de {min} a {max} empresas",
       "cta": "Ver cómo funciona"
     },

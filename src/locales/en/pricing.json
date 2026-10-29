@@ -36,17 +36,17 @@
     "profesional": {
       "name": "Professional",
       "for": "An independent consultant or accountant",
-      "summary": "Up to 10 companies, with reports and dashboards under your own brand."
+      "summary": "Up to 10 companies, with reports and dashboards for each one."
     },
     "despacho": {
       "name": "Practice",
       "for": "An accounting practice",
-      "summary": "Up to 40 companies for a practice's client list, under your brand."
+      "summary": "Up to 40 companies for a practice's client list."
     },
     "firma": {
       "name": "Firm",
       "for": "A large practice or consultancy",
-      "summary": "Up to 100 companies for large practices and consultancies, under your brand."
+      "summary": "Up to 100 companies for large practices and consultancies."
     },
     "enterprise": {
       "name": "Enterprise",
@@ -112,7 +112,7 @@
       },
       {
         "title": "For advisors",
-        "body": "Professional, Practice and Firm put your brand on the deliverables and differ in how many companies they include. Enterprise is quoted."
+        "body": "Professional, Practice and Firm differ in how many companies they include. Enterprise is quoted."
       },
       {
         "title": "Services, separately",
@@ -130,7 +130,7 @@
   "advisors": {
     "eyebrow": "For accountants, practices and consultants",
     "title": "Choose by how many companies you serve.",
-    "intro": "All three plans deliver your reports and dashboards under your brand. What changes is capacity: how many companies the monthly fee covers.",
+    "intro": "What changes between the three plans is capacity: how many companies the monthly fee covers.",
     "calculator": "Work out your margin with your client list"
   },
   "compare": {
@@ -148,7 +148,8 @@
     "fairUseValue": "{n} per company per month",
     "perCompany": "{price} per month",
     "notAllowed": "Not available",
-    "agreed": "By agreement"
+    "agreed": "By agreement",
+    "toConfirm": "To be confirmed"
   },
   "shared": {
     "title": "What stays the same across plans",
@@ -162,7 +163,7 @@
   "card": {
     "perMonth": "per month",
     "tax": "Before VAT",
-    "ownBrand": "Deliverables under your brand",
+    "ownBrand": "Deliverables under your brand (to be confirmed)",
     "noBrand": "For your own company, no advisor branding",
     "extra": "Additional companies: {price} per month each",
     "extraNoPrice": "Additional companies available",
@@ -215,14 +216,14 @@
       },
       {
         "q": "Are professional services included in a plan?",
-        "a": "No. The Diagnostic, consulting sessions, advisory, projects, Monitoring and the managed service are contracted separately. The platform works without them."
+        "a": "No. The Diagnostic, consulting sessions, advisory, projects, Monitoring and Managed Services are contracted separately. The platform works without them."
       }
     ]
   },
   "enterprise": {
     "eyebrow": "Enterprise",
     "title": "For what doesn't fit the published plans.",
-    "body": "For practices with more than 100 companies or unusually high CFDI volumes. It is a way of contracting, not a plan with separate features: what it includes is set in the quote.",
+    "body": "For practices with more than 100 companies or unusually high CFDI volumes. It is a way of contracting, not a plan with separate features: what it includes is set in the quote and limited to confirmed platform capabilities.",
     "basisTitle": "The quote is based on",
     "basis": [
       "Number of companies",

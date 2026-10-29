@@ -23,7 +23,7 @@
   },
   "sectorsTitle": "Where the analysis is strongest today",
   "detailLabel": "What we look at",
-  "inventoryNote": "Inventory does not come from CFDI. Anything that depends on it is analyzed by the Forcelis team from the inventory report you share, in the Complete Diagnostic or a project engagement.",
+  "inventoryNote": "Inventory and landed cost do not come from CFDI alone, and the platform does not calculate them on its own. They require a report you provide: your inventory report, or your customs entries and import costs. The Forcelis team analyzes inventory in the Complete Diagnostic.",
   "sectors": [
     {
       "key": "manufacturing",
@@ -51,7 +51,7 @@
       "title": "Import & Export",
       "tags": ["Landed cost", "Currency", "Lead time"],
       "lead": "Currency, landed cost and lead time turn a simple margin question into a timing question.",
-      "points": ["Landed cost by shipment", "Currency exposure in the cost base", "Inventory held against lead time, from your inventory report", "Supplier terms versus customer terms"]
+      "points": ["Landed cost by shipment, from your customs entries and import costs", "Currency exposure in the cost base", "Inventory held against lead time, from your inventory report", "Supplier terms versus customer terms"]
     },
     {
       "key": "services",

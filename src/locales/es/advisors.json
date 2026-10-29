@@ -1,12 +1,12 @@
 {
   "meta": {
     "title": "Para contadores y consultores — Asesoría con los CFDI de tus clientes",
-    "description": "Reportes y tableros con tu marca para todas las empresas que atiendes, a partir de los XML que ya descargas. Sin credenciales del SAT ni del banco."
+    "description": "Reportes y tableros para todas las empresas que atiendes, a partir de los XML que ya descargas. Sin credenciales del SAT ni del banco."
   },
   "hero": {
     "eyebrow": "Para contadores, despachos y consultores",
     "title": "Tus clientes ya te dan sus CFDI. Conviértelos en asesoría que puedes cobrar.",
-    "subtitle": "Forcelis convierte los XML que ya descargas en reportes gerenciales y tableros con tu marca, para todas las empresas que atiendes, desde un solo lugar.",
+    "subtitle": "Forcelis convierte los XML que ya descargas en reportes gerenciales y tableros para todas las empresas que atiendes, desde un solo lugar.",
     "primary": "Solicitar una demostración",
     "secondary": "Ver planes"
   },
@@ -21,14 +21,14 @@
     "steps": [
       { "title": "Subes los XML que ya descargas", "body": "Emitidos, recibidos y complementos de pago. No se conecta nada al SAT ni a un banco." },
       { "title": "El motor calcula", "body": "Márgenes, cobranza real, concentración de clientes, dispersión de precios, inflación de insumos." },
-      { "title": "Entregas un reporte y un tablero con tu marca", "body": "Word, tablero HTML autocontenido y Excel — los formatos que tu cliente ya hace circular." }
+      { "title": "Entregas un reporte y un tablero a tu cliente", "body": "Word, tablero HTML autocontenido y Excel — los formatos que tu cliente ya hace circular." }
     ],
     "flow": [
       { "label": "Los XML de tus clientes" },
       { "label": "Forcelis" },
-      { "label": "Tu reporte, tu marca" }
+      { "label": "Tu reporte, para tu cliente" }
     ],
-    "flowAlt": "Los XML de tus clientes entran a Forcelis, que produce un reporte con tu propia marca."
+    "flowAlt": "Los XML de tus clientes entran a Forcelis, que produce un reporte para tu cliente."
   },
   "includes": {
     "eyebrow": "Qué incluye",
@@ -46,7 +46,7 @@
       "Estado de resultados gerencial, comparable periodo contra periodo",
       "Tableros interactivos con filtros y detalle",
       "Entregables en Word, HTML y Excel",
-      "Multi-empresa en una sola cuenta, con tu marca en los entregables",
+      "Multi-empresa en una sola cuenta",
       "Cuentas con segundo factor de autenticación",
       "Nunca credenciales del SAT ni del banco"
     ]
@@ -79,7 +79,7 @@
   "plans": {
     "eyebrow": "Planes",
     "title": "Elige el que va con cuántas empresas atiendes.",
-    "intro": "Del plan Profesional en adelante, los entregables salen con tu marca.",
+    "intro": "Los tres planes cambian en cuántas empresas incluyen. La entrega con tu marca está por confirmar.",
     "extra": "Cada empresa que pase de las incluidas se suma a tu mensualidad.",
     "fairUse": "Uso justo: hasta {n} CFDI por empresa al mes.",
     "volume": "¿Más de 100 empresas o muchísimos CFDI? Enterprise se cotiza a la medida.",
@@ -101,7 +101,7 @@
       },
       {
         "q": "¿Mis clientes ven la marca Forcelis?",
-        "a": "No. Desde el plan Profesional, los entregables salen con tu marca."
+        "a": "Todavía no podemos confirmarlo: la entrega con la marca del asesor está en verificación. En la demostración te mostramos cómo salen hoy los entregables."
       },
       {
         "q": "¿Forcelis le va a vender contabilidad a mis clientes?",

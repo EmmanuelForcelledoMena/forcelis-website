@@ -77,7 +77,7 @@
     { "label": "Financial health", "value": 74, "note": "Margin structure, cost base and result quality" },
     { "label": "Cash flow", "value": 58, "note": "Real collection, aging and cash conversion" },
     { "label": "Commercial performance", "value": 81, "note": "Customer mix, concentration, retention and pricing" },
-    { "label": "Operational efficiency", "value": 63, "note": "Inventory, purchasing and supplier structure" },
+    { "label": "Operational efficiency", "value": 63, "note": "Purchasing and supplier structure; inventory only from your report" },
     { "label": "Accounting data quality", "value": 84, "note": "Completeness and consistency of the underlying records" }
   ]
 }
