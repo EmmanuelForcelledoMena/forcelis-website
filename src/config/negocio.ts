@@ -90,10 +90,12 @@ export const negocio = {
   // ------------------------------------------------------------------- ligas
   // Vacías, cada botón cae al formulario de contacto con su `?tipo=`. Nunca se
   // publica una liga rota ni un botón que no lleva a ningún lado.
-  url_agenda: '',
+  url_agenda: 'https://calendar.app.google/dnCoNyo4MGYBV6yw5',
   url_registro: '',
   /** Enlace «Entrar» a la plataforma. Vacío = no se muestra en la barra. */
   url_app: '',
+  /** Perfil de LinkedIn del fundador. Vacío = no se enlaza en Nosotros. */
+  url_linkedin: '',
 
   // --------------------------------------------------------------- analítica
   // Cada script se carga SOLO si su identificador tiene valor Y la persona

@@ -71,15 +71,29 @@ const padding = size === 'tall' ? 'py-12 sm:py-20 lg:py-28' : 'py-10 sm:py-16 lg
         class="absolute inset-0 h-full w-full object-cover"
       />
     ) : (
+      <!-- Sin fotografía, la banda no se queda lisa: lleva el motivo de barras
+           inclinadas de la marca, que es el mismo gesto del glifo de la F.
+           Viene del tablero de referencia, donde esas barras cruzan el hero en
+           rojo sobre la imagen.
+
+           Dos capas: las rojas, que son el acento, y unas de taupe detrás que
+           les dan profundidad. Van a opacidad baja y con el degradado encima,
+           así que nunca compiten con el titular — el rojo aquí es relleno, no
+           texto, y por eso puede ser el rojo de marca y no el levantado. -->
       <svg
-        viewBox="0 0 64 64"
+        viewBox="0 0 120 64"
+        preserveAspectRatio="xMaxYMid slice"
         aria-hidden="true"
-        class="absolute top-1/2 -right-[6%] h-[150%] w-auto -translate-y-1/2 opacity-[0.07]"
+        class="absolute inset-y-0 right-0 h-full w-[70%]"
       >
-        <g fill="#c7c3a9">
-          <path d="M26 8H62L58 20H22Z" />
-          <path d="M20 26H47L43 38H16Z" />
-          <path d="M14 44H32L28 56H10Z" />
+        <g fill="#c7c3a9" opacity="0.10">
+          <path d="M34 -4H78L62 68H18Z" />
+          <path d="M96 -4H124L108 68H80Z" />
+        </g>
+        <g fill="#c02626" opacity="0.5">
+          <path d="M52 -4H74L58 68H36Z" />
+          <path d="M84 18H102L92 68H74Z" />
+          <path d="M108 -4H120L104 40H92Z" />
         </g>
       </svg>
     )

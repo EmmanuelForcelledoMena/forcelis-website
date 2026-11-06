@@ -1,7 +1,6 @@
 ---
 import Wordmark from './Wordmark.astro';
 import { path, type Lang, type PageKey } from '../i18n/routes';
-import { negocio } from '../config/negocio';
 import { common } from '../i18n';
 
 interface Props {
@@ -9,7 +8,7 @@ interface Props {
   pageKey: PageKey;
 }
 
-const { lang, pageKey } = Astro.props;
+const { lang } = Astro.props;
 const c = common(lang);
 
 // El pie lista TODAS las páginas que existen, también las que salieron del
@@ -17,18 +16,12 @@ const c = common(lang);
 // un pie se completa para que se encuentre.
 const columns: { heading: string; links: PageKey[] }[] = [
   // Precios entra con la misma condición que en el menú y en el sitemap.
-  {
-    heading: c.footer.navHeading,
-    links: [
-      'advisors',
-      'business',
-      'platform',
-      ...(negocio.mostrar_precios ? (['pricing'] as PageKey[]) : []),
-      'services',
-      'diagnostic',
-    ],
-  },
-  { heading: c.footer.companyHeading, links: ['industries', 'about', 'contact'] },
+  // El pie lista lo que el sitio ofrece HOY. Las páginas de la etapa de
+  // software siguen publicadas, pero enlazarlas desde aquí las devolvería a la
+  // circulación: alguien llegaría a una tabla de suscripciones desde un sitio
+  // que dice que Forcelis no vende software. Se llega a ellas solo por su URL.
+  { heading: c.footer.navHeading, links: ['services', 'expansion'] },
+  { heading: c.footer.companyHeading, links: ['about', 'contact'] },
 ];
 
 const legalLinks: { key: PageKey; label: string }[] = [
@@ -37,13 +30,8 @@ const legalLinks: { key: PageKey; label: string }[] = [
 ];
 
 const navLabels: Record<string, string> = {
-  advisors: c.nav.advisors,
-  business: c.nav.business,
-  platform: c.nav.platform,
-  pricing: c.nav.pricing,
   services: c.nav.services,
-  diagnostic: c.nav.diagnostic,
-  industries: c.nav.industries,
+  expansion: c.nav.expansion,
   about: c.nav.about,
   contact: c.nav.contact,
 };

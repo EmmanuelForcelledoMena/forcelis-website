@@ -11,10 +11,17 @@
  *
  * Qué comprueba, según el estado del interruptor:
  *
- *   apagado → ninguna página contiene un importe; Precios no está en el
- *             sitemap, lleva `noindex` y no la enlaza ninguna otra página.
- *   encendido → Precios está en el sitemap, sin `noindex`, y contiene al menos
- *             un importe de cada bloque (planes, diagnósticos, monitoreo).
+ *   apagado → ninguna página contiene un importe de la suscripción.
+ *   encendido → la página de Precios muestra al menos uno.
+ *
+ * En los DOS casos, la página de Precios se sirve con `noindex` y fuera del
+ * sitemap, y nadie la enlaza. Eso ya no depende del interruptor: depende de
+ * que el sitio dejara de vender software en el giro del 2026-11-06, y lo
+ * decide `NOINDEX_PAGES` en `src/i18n/routes.ts`. El interruptor solo gobierna
+ * si se imprimen o no los importes dentro de esa página retirada.
+ *
+ * Los precios de CONSULTORÍA —los seis servicios— no pasan por aquí: están
+ * publicados siempre, porque son la oferta.
  *
  * El importe se busca por el formato que produce `Intl.NumberFormat` con MXN,
  * que es el único que el sitio puede generar: `$1,990.00`, `$1,990` o
@@ -67,7 +74,7 @@ const sitemap = existsSync(join(DIST, 'sitemap-0.xml'))
   ? readFileSync(join(DIST, 'sitemap-0.xml'), 'utf8')
   : '';
 
-const rutasPrecios = ['/en/pricing/', '/es/precios/'];
+const rutasPrecios = ['/es/precios/'];
 
 for (const archivo of htmls) {
   const html = readFileSync(archivo, 'utf8');
@@ -81,26 +88,27 @@ for (const archivo of htmls) {
 
   const esPrecios = rutasPrecios.some((r) => archivo.includes(join(...r.split('/').filter(Boolean))));
   if (esPrecios) {
-    const tieneNoindex = /name="robots"[^>]*noindex/.test(html);
-    if (!negocio.mostrar_precios && !tieneNoindex) anota(archivo, 'debería llevar noindex');
-    if (negocio.mostrar_precios && tieneNoindex) anota(archivo, 'no debería llevar noindex');
+    // Retirada: siempre `noindex`, con o sin importes dentro.
+    if (!/name="robots"[^>]*noindex/.test(html)) anota(archivo, 'debería llevar noindex');
     if (negocio.mostrar_precios && !encontrados.length)
       anota(archivo, 'no muestra ningún importe con mostrar_precios encendido');
   }
 
-  // Nadie debe enlazar a Precios mientras esté apagada.
-  if (!negocio.mostrar_precios && !esPrecios) {
+  // Ninguna página VIVA debe enlazar a Precios. Que una página retirada
+  // enlace a otra retirada da igual: a ninguna de las dos se llega si no es
+  // tecleando su URL, y reescribir sus enlaces solo serviría para tocar
+  // páginas congeladas. Se reconocen por su propio `noindex`.
+  const estaRetirada = /name="robots"[^>]*noindex/.test(html);
+  if (!esPrecios && !estaRetirada) {
     for (const ruta of rutasPrecios) {
       // Sin cerrar la comilla: también cuenta un enlace con ancla o parámetros.
-      if (html.includes(`href="${ruta}`)) anota(archivo, `enlaza a ${ruta} estando oculta`);
+      if (html.includes(`href="${ruta}`)) anota(archivo, `enlaza a ${ruta}, que está retirada`);
     }
   }
 }
 
 for (const ruta of rutasPrecios) {
-  const enSitemap = sitemap.includes(ruta);
-  if (!negocio.mostrar_precios && enSitemap) problemas.push(`sitemap: incluye ${ruta} estando oculta`);
-  if (negocio.mostrar_precios && !enSitemap) problemas.push(`sitemap: falta ${ruta}`);
+  if (sitemap.includes(ruta)) problemas.push(`sitemap: incluye ${ruta}, que está retirada`);
 }
 
 const estado = negocio.mostrar_precios ? 'ENCENDIDO' : 'apagado';

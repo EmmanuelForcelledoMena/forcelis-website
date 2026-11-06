@@ -1,86 +1,52 @@
 {
   "meta": {
-    "title": "Nosotros — Ni despacho contable ni otra herramienta",
-    "description": "Forcelis combina finanzas, operaciones, tecnología y ejecución. Empresa en etapa temprana, con plataforma propia, que trabaja con empresas en México."
+    "title": "Nosotros — Emmanuel Forcelledo, fundador de Forcelis",
+    "description": "Economista por la UNAM, con experiencia en finanzas, planeación financiera, cadena de suministro y datos en México, Canadá y Japón. Forcelis existe para dar a los negocios mexicanos el análisis que normalmente solo tienen las grandes empresas."
   },
   "hero": {
-    "eyebrow": "Sobre Forcelis",
-    "title": "Ni despacho contable. Ni otra herramienta de software.",
-    "subtitle": "Una empresa de desempeño empresarial que combina finanzas, operaciones, tecnología y ejecución."
+    "eyebrow": "Nosotros",
+    "title": "Hola, soy Emmanuel Forcelledo.",
+    "subtitle": "Fundé Forcelis para darle a los negocios mexicanos el análisis que normalmente solo tienen las grandes empresas."
   },
-  "equation": {
-    "title": "Qué combina Forcelis",
-    "items": [
-      {
-        "title": "Finanzas",
-        "body": "El criterio para saber qué número explica al negocio y cuál es ruido."
-      },
-      {
-        "title": "Operaciones",
-        "body": "El criterio del equipo para leer proceso, inventario y cadena de suministro como parte del cuadro financiero, no aparte de él."
-      },
-      {
-        "title": "Tecnología",
-        "body": "Una plataforma propia que hace el trabajo que ningún consultor debería estar haciendo a mano dos veces."
-      },
-      {
-        "title": "Ejecución",
-        "body": "La capacidad de correr el análisis cada mes, no solo de recomendarlo una vez."
-      }
-    ],
-    "result": "Desempeño del negocio",
-    "alt": "Finanzas más operaciones más tecnología más ejecución es igual a desempeño del negocio."
-  },
-  "origin": {
-    "title": "Por qué existe la compañía",
-    "summary": "El problema casi nunca es la falta de datos. Es que los datos viven en sistemas construidos para registrar transacciones, no para explicar el desempeño. Responder las preguntas que importan ha requerido tradicionalmente un equipo de finanzas que la mayoría de las empresas medianas no puede justificar. Forcelis existe para que esa capacidad esté disponible sin tener que construirla adentro.",
-    "fullLabel": "Leer la historia completa",
-    "body": [
-      "El problema casi nunca es la falta de datos. Es que los datos viven en sistemas construidos para registrar transacciones, no para explicar el desempeño. Un sistema contable responde qué se facturó. No responde qué cliente se está volviendo un riesgo en silencio, qué línea de producto dejó de pagar lo que cuesta, o cuánto efectivo está detenido en inventario que no se mueve.",
-      "Responder esas preguntas ha requerido tradicionalmente un equipo de finanzas que la mayoría de las empresas medianas no puede justificar: un CFO, un contralor, un analista financiero, un analista de datos, alguien que entienda cadena de suministro. Forcelis existe para que esa capacidad esté disponible sin tener que construirla adentro: la plataforma hace el trabajo repetible con los CFDI, y el equipo de Forcelis aporta el criterio y el análisis que requieren otros datos, como el inventario.",
-      "Forcelis no es un despacho contable que construyó software. Es una empresa de desempeño empresarial que usa información financiera, información operativa, tecnología y experiencia especializada para ayudar a las compañías a operar mejor. La contabilidad y la información fiscal son una parte importante del cimiento de datos. El resultado es desempeño del negocio."
+  "bio": {
+    "title": "De dónde viene esto",
+    "paragraphs": [
+      "Soy economista por la UNAM. Mi tesis estudió por qué unos municipios de Puebla crecen y otros no, y desde entonces me dedico a entender qué hace crecer a un negocio.",
+      "He trabajado en finanzas, planeación financiera, cadena de suministro y datos en México, Canadá y Japón, incluida una empresa global de comercio electrónico.",
+      "Esa mezcla —economía regional por un lado, números de operación por el otro— es exactamente lo que hace falta para responder si un negocio puede abrir otra sucursal y dónde conviene hacerlo."
     ]
   },
   "principles": {
-    "title": "Cómo trabajamos",
-    "intro": "Las reglas a las que se sujeta el trabajo — tanto disciplina de ingeniería como política comercial.",
-    "whyLabel": "Por qué",
+    "eyebrow": "Cómo trabajo",
+    "title": "Tres reglas, y las tres cuestan dinero algunas veces.",
     "items": [
       {
-        "label": "Nunca inventar",
-        "title": "Nunca inventar un número.",
-        "body": "Si falta un insumo, la métrica se reporta como no disponible con el motivo. Ni un cero, ni un estimado. Una cifra que parece razonable pero no está medida es peor que ninguna cifra, porque alguien va a actuar sobre ella."
+        "title": "Nunca invento un número",
+        "body": "Si algo no se puede medir con lo que hay, lo digo. Una cifra que parece razonable pero no está medida es peor que ninguna, porque vas a tomar una decisión con ella."
       },
       {
-        "label": "Verificar",
-        "title": "Verificar, no suponer.",
-        "body": "Una conclusión se comprueba ejecutándola, no leyendo el código que la produjo. Casi todos los defectos que vale la pena cazar son invisibles en la pantalla y obvios en cuanto dos números que deberían cuadrar no cuadran."
+        "title": "Todo hallazgo viene con una acción",
+        "body": "Una observación que no cambia una decisión no es un entregable. Si no puedo decirte qué hacer al respecto, también te lo digo."
       },
       {
-        "label": "Todo hallazgo trae una acción",
-        "title": "Una observación que no cambia una decisión no es un entregable.",
-        "body": "Si no podemos decir qué debería hacerse al respecto, también lo decimos."
-      },
-      {
-        "label": "Claridad sobre lo que está construido",
-        "title": "Decir en qué etapa está cada cosa.",
-        "body": "Las capacidades construidas y funcionando se describen como tales. Las que no, se describen como lo que son. Esa distinción está en la página de la plataforma, que es donde más fácil resulta difuminarla."
+        "title": "Si no estás listo, te lo digo",
+        "body": "El veredicto de un Estudio de Expansión puede ser «todavía no». Me conviene más venderte un Proyecto de Franquicia, y aun así el trabajo no sirve de nada si el negocio no aguanta."
       }
     ]
   },
-  "stage": {
-    "title": "Dónde está Forcelis hoy",
-    "body": "Forcelis es una empresa en etapa temprana que trabaja con empresas en México, y combina una plataforma propia en funcionamiento con experiencia financiera y operativa. La página de la plataforma dice con claridad qué capacidades están disponibles hoy y cuáles siguen en la hoja de ruta.",
-    "location": "Trabajando con empresas en México."
+  "notUs": {
+    "title": "Qué no es Forcelis",
+    "items": [
+      "No es un despacho contable: no llevamos tu contabilidad ni presentamos declaraciones.",
+      "No vendemos software ni suscripciones.",
+      "No hacemos el trabajo legal de la franquicia: eso lo hace un abogado aliado, que se contrata aparte."
+    ]
   },
+  "linkedin": "Ver perfil en LinkedIn",
   "closing": {
-    "title": "Mira los planes, o empieza con una conversación.",
-    "body": "Los planes y sus precios están publicados. Si prefieres hablar primero, escríbenos.",
-    "primary": "Ver planes y precios",
-    "secondary": "Contactar a Forcelis"
-  },
-  "what": {
-    "title": "Qué es Forcelis",
-    "body": "Forcelis es la capa de inteligencia sobre los CFDI: convierte lo que una empresa ya emite y recibe en reportes gerenciales, tableros y hallazgos, para quien la asesora y para la empresa misma."
+    "title": "Platiquemos de tu negocio.",
+    "body": "Veinte minutos, sin costo. Me cuentas qué quieres lograr y te digo con honestidad si puedo ayudarte.",
+    "primary": "Agenda una llamada",
+    "secondary": "Ver los servicios"
   }
 }

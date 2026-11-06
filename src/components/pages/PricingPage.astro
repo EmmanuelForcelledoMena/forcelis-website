@@ -34,7 +34,6 @@ import { negocio, plan as planPorId, precio } from '../../config/negocio';
 import { agenda, contacto, solicitarPlan } from '../../config/enlaces';
 import { path, type Lang } from '../../i18n/routes';
 import { t } from '../../i18n';
-import { preciosServicios, ORDEN_SERVICIOS } from '../../i18n/servicios';
 
 interface Props {
   lang: Lang;
@@ -42,8 +41,6 @@ interface Props {
 
 const { lang } = Astro.props;
 const p = t(lang, 'pricing');
-const sv = t(lang, 'services');
-const preciosSv = preciosServicios(lang);
 
 const mostrar = negocio.mostrar_precios;
 
@@ -326,69 +323,12 @@ const filas = [
     </div>
   </Section>
 
-  <!-- ============================================================= SERVICIOS -->
-  <!-- Otro fondo y otro encabezado a propósito: lo que sigue no es parte de
-       ningún plan. -->
-  <Section tone="panel" id="servicios">
-    <div class="reveal">
-      <SectionHeader eyebrow={p.services.eyebrow} title={p.services.title} intro={p.services.intro} />
-    </div>
-
-    <!-- Resumen del catálogo: nombre, cómo se paga y cuánto. El detalle de cada
-         servicio —para quién es, qué incluye, sus límites— vive en Servicios,
-         y no se repite aquí. -->
-    <div
-      class="reveal mt-10 overflow-x-auto border border-line"
-      data-reveal-delay="80"
-      role="region"
-      tabindex="0"
-      aria-label={p.services.caption}
-    >
-      <table class="w-full min-w-[40rem] border-collapse bg-panel">
-        <caption class="sr-only">{p.services.caption}</caption>
-        <thead>
-          <tr class="border-b-2 border-ink">
-            <th scope="col" class={encabezado}>{p.services.cols.service}</th>
-            <th scope="col" class={encabezado}>{p.services.cols.modality}</th>
-            {mostrar && <th scope="col" class={encabezado}>{p.services.cols.price}</th>}
-          </tr>
-        </thead>
-        <tbody class="divide-y divide-line">
-          {
-            ORDEN_SERVICIOS.map((id) => (
-              <tr>
-                <th scope="row" class={`${celda} text-left font-semibold`}>
-                  <a
-                    href={`${path('services', lang)}#${id}`}
-                    class="underline decoration-line-strong underline-offset-4 hover:decoration-ink"
-                  >
-                    {sv.items[id].name}
-                  </a>
-                </th>
-                <td class={`${celda} text-muted`}>{sv.items[id].modality}</td>
-                {mostrar && (
-                  <td class={`${celda} tnum`}>
-                    {preciosSv[id].map((pr) => (
-                      <span class="block whitespace-nowrap">
-                        <span class="font-semibold">{pr.importe}</span>{' '}
-                        <span class="text-muted">{pr.unidad}</span>
-                      </span>
-                    ))}
-                  </td>
-                )}
-              </tr>
-            ))
-          }
-        </tbody>
-      </table>
-    </div>
-    <p class="reveal mt-5 max-w-2xl border-l-2 border-brand pl-5 text-[0.9375rem] leading-relaxed text-ink">
-      {p.diagnostics.credit}
-    </p>
-    <div class="reveal mt-8">
-      <Button href={path('services', lang)} variant="secondary">{p.services.cta}</Button>
-    </div>
-  </Section>
+  <!-- La tabla de servicios profesionales vivía aquí. Salió con el giro a
+       consultoría del 2026-11-06: esos servicios dejaron de ser un añadido
+       de la suscripción y pasaron a ser la oferta completa, con su propia
+       página (/es/servicios/). Esta página queda como registro de los planes
+       de software, sin enlazar y sin indexar.
+  -->
 
   <!-- ============================================================= PREGUNTAS -->
   <Section tone="ground">

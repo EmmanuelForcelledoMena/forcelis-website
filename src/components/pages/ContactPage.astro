@@ -1,16 +1,21 @@
 ---
 /**
- * Contacto. Rediseño v3.
+ * Contacto.
  *
- * Responde «¿qué pasa si escribo?». El formulario bajó de once campos a
- * cinco (ver `ContactForm.astro`), y la columna de al lado dice, en tres
- * pasos numerados, exactamente qué ocurre después — y en tres líneas qué NO
- * se pide: credenciales fiscales, credenciales bancarias, compromiso.
+ * Responde «¿qué pasa si escribo?». Desde el giro a consultoría hay un camino
+ * más corto que el formulario —el calendario— y va ARRIBA, antes de pedirle
+ * nada a nadie: quien ya se decidió no debería tener que llenar seis campos
+ * para hablar veinte minutos.
+ *
+ * El formulario queda para quien prefiere escribir primero, y pregunta lo
+ * que decide la conversación: giro, sucursales y ciudad.
  */
 import Base from '../../layouts/Base.astro';
 import Section from '../Section.astro';
 import PageHero from '../PageHero.astro';
 import ContactForm from '../ContactForm.astro';
+import Button from '../Button.astro';
+import { agenda } from '../../config/enlaces';
 import type { Lang } from '../../i18n/routes';
 import { t } from '../../i18n';
 
@@ -24,6 +29,7 @@ const k = t(lang, 'contact');
 // Correo de contacto por variable de entorno. Sin ella no se imprime nada: es
 // preferible una página sin correo a un correo inventado que rebota.
 const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL ?? '';
+const agendaHref = agenda(lang);
 ---
 
 <Base lang={lang} pageKey="contact" title={k.meta.title} description={k.meta.description}>
@@ -34,10 +40,29 @@ const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL ?? '';
     intro={k.hero.subtitle}
   />
 
+  <!-- La agenda primero: es el camino corto y no cuesta nada tomarlo. -->
+  <Section tone="panel" size="compact">
+    <div class="reveal grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center lg:gap-16">
+      <div>
+        <h2 class="text-2xl font-semibold tracking-[-0.02em] text-ink lg:text-3xl">
+          {k.schedule.title}
+        </h2>
+        <p class="mt-4 max-w-2xl text-lg leading-relaxed text-muted">{k.schedule.body}</p>
+      </div>
+      <Button href={agendaHref} size="lg" data-cta="agenda">{k.schedule.cta}</Button>
+    </div>
+  </Section>
+
   <Section tone="ground">
     <div class="grid gap-14 lg:grid-cols-[1fr_minmax(0,22rem)] lg:gap-20">
       <div class="reveal">
-        <ContactForm lang={lang} />
+        <h2 class="text-2xl font-semibold tracking-[-0.02em] text-ink lg:text-3xl">
+          {k.formIntro.title}
+        </h2>
+        <p class="mt-4 max-w-2xl text-[0.9375rem] leading-relaxed text-muted">{k.formIntro.body}</p>
+        <div class="mt-10">
+          <ContactForm lang={lang} />
+        </div>
       </div>
 
       <!-- `section` y no `aside`: un `aside` dentro de `main` es una región

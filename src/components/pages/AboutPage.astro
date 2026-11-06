@@ -1,32 +1,30 @@
 ---
 /**
- * Nosotros. Rediseño v3.
+ * Nosotros.
  *
- * Responde «¿por qué existe Forcelis y por qué confiar en el método?»:
+ * En una consultoría de una persona, esta página vende tanto como la de
+ * servicios: se contrata a alguien, no a una marca. Por eso el titular es el
+ * nombre y la foto va arriba, junto a la biografía, y no de adorno al final.
  *
- *   1. HERO — el posicionamiento por negación («ni despacho contable, ni otra
- *      herramienta»), que es la frase que más rápido sitúa a la empresa.
- *   2. ECUACIÓN — finanzas + operaciones + tecnología + ejecución = desempeño.
- *      Los cuatro sumandos son los de «qué combina Forcelis», ahora dibujados
- *      como suma y no como cuatro columnas.
- *   3. ORIGEN — un párrafo, y la historia completa plegada. Antes eran tres
- *      párrafos largos a la entrada de la página.
- *   4. PRINCIPIOS — cuatro tarjetas: una etiqueta y una frase; el porqué
- *      plegado en cada una.
- *   5. QUÉ ES — una frase. Aquí estaban las tres líneas del grupo; los
- *      servicios administrados y la consultoría como línea aparte dejaron de
- *      ser la oferta con la reestructura, y la sección se quedó sin contenido.
- *   6. ETAPA — dos frases. La transparencia se conserva; la defensa larga no.
+ * Las tres reglas de trabajo están escritas desde lo que cuestan —«si no estás
+ * listo, te lo digo»— y no como valores. Un valor lo escribe cualquiera; una
+ * regla que te hace perder una venta es una afirmación comprobable.
+ *
+ * La foto se resuelve en la build desde `src/assets/equipo/emmanuel.*`. Sin
+ * archivo, la columna no se dibuja: la página se ve completa, nunca con un
+ * hueco ni con una silueta genérica.
  */
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
 import Base from '../../layouts/Base.astro';
 import Section from '../Section.astro';
 import SectionHeader from '../SectionHeader.astro';
+import Button from '../Button.astro';
 import PageHero from '../PageHero.astro';
-import Disclosure from '../Disclosure.astro';
-import Cta from '../Cta.astro';
-import type { Lang } from '../../i18n/routes';
-import { t, common } from '../../i18n';
 import { negocio } from '../../config/negocio';
+import { agenda } from '../../config/enlaces';
+import { path, type Lang } from '../../i18n/routes';
+import { t } from '../../i18n';
 
 interface Props {
   lang: Lang;
@@ -34,10 +32,15 @@ interface Props {
 
 const { lang } = Astro.props;
 const a = t(lang, 'about');
-const c = common(lang);
-// Precios solo existe para el visitante con el interruptor encendido: apagado,
-// el cierre lleva a la plataforma y no a una página oculta.
-const mostrar = negocio.mostrar_precios;
+const agendaHref = agenda(lang);
+
+const fotos = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/assets/equipo/*.{jpg,jpeg,png,webp}',
+  { eager: true },
+);
+const retrato = Object.entries(fotos).find(([file]) =>
+  /\/emmanuel\.(jpe?g|png|webp)$/.test(file),
+)?.[1].default;
 ---
 
 <Base lang={lang} pageKey="about" title={a.meta.title} description={a.meta.description}>
@@ -48,122 +51,113 @@ const mostrar = negocio.mostrar_precios;
     intro={a.hero.subtitle}
   />
 
-  <!-- ============================================================== ECUACIÓN -->
+  <!-- ================================================================== BIO -->
   <Section tone="ground">
-    <div class="reveal">
-      <SectionHeader title={a.equation.title} />
-    </div>
+    <div
+      class:list={[
+        'grid gap-12',
+        retrato ? 'lg:grid-cols-[minmax(0,22rem)_1fr] lg:gap-16' : '',
+      ]}
+    >
+      {
+        retrato && (
+          <div class="reveal">
+            <Image
+              src={retrato}
+              alt="Emmanuel Forcelledo, fundador de Forcelis"
+              width={700}
+              height={875}
+              format="webp"
+              loading="eager"
+              class="w-full max-w-sm border border-line object-cover"
+            />
+            {negocio.url_linkedin && (
+              <a
+                href={negocio.url_linkedin}
+                rel="noopener"
+                class="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-brand-text underline underline-offset-4"
+              >
+                {a.linkedin}
+              </a>
+            )}
+          </div>
+        )
+      }
 
-    <p class="sr-only">{a.equation.alt}</p>
-    <div aria-hidden="true" class="reveal mt-12" data-reveal-delay="80">
-      <ol class="grid gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
-        {
-          a.equation.items.map((item, i) => (
-            <li class="relative bg-panel p-7">
-              {i > 0 && (
-                <span class="absolute top-6 -left-3 hidden h-6 w-6 items-center justify-center bg-ground text-lg leading-none font-semibold text-brand-text lg:flex">
-                  +
-                </span>
-              )}
-              <p class="text-sm font-semibold tracking-[0.14em] text-ink uppercase">{item.title}</p>
-              <p class="mt-3 text-[0.9375rem] leading-relaxed text-muted">{item.body}</p>
-            </li>
-          ))
-        }
-      </ol>
-      <div class="flex items-center gap-5 py-5">
-        <span class="text-2xl leading-none font-semibold text-brand-text">=</span>
-        <span class="h-px flex-1 bg-line"></span>
-      </div>
-      <div class="border border-ink bg-ink px-7 py-6">
-        <p class="text-lg font-semibold tracking-[0.1em] text-on-ink uppercase lg:text-xl">
-          {a.equation.result}
-        </p>
-      </div>
-    </div>
-  </Section>
-
-  <!-- ================================================================ ORIGEN -->
-  <Section tone="panel" size="compact">
-    <div class="grid gap-10 lg:grid-cols-[minmax(0,20rem)_1fr] lg:gap-16">
-      <h2 class="reveal text-2xl font-semibold tracking-[-0.02em] text-ink lg:text-3xl">
-        {a.origin.title}
-      </h2>
       <div class="reveal" data-reveal-delay="80">
-        <p class="text-lg leading-relaxed text-muted">{a.origin.summary}</p>
-        <div class="mt-8 border-b border-line">
-          <Disclosure summary={a.origin.fullLabel}>
-            <div class="max-w-[68ch] space-y-5">
-              {a.origin.body.map((paragraph) => <p class="text-base leading-relaxed text-muted">{paragraph}</p>)}
-            </div>
-          </Disclosure>
+        <h2 class="text-2xl font-semibold tracking-[-0.02em] text-ink lg:text-3xl">
+          {a.bio.title}
+        </h2>
+        <div class="mt-6 max-w-[68ch] space-y-5">
+          {a.bio.paragraphs.map((p) => <p class="text-lg leading-relaxed text-muted">{p}</p>)}
         </div>
+        {
+          !retrato && negocio.url_linkedin && (
+            <a
+              href={negocio.url_linkedin}
+              rel="noopener"
+              class="mt-8 inline-flex items-center gap-1.5 text-sm font-medium text-brand-text underline underline-offset-4"
+            >
+              {a.linkedin}
+            </a>
+          )
+        }
       </div>
     </div>
   </Section>
 
-  <!-- ============================================================ PRINCIPIOS -->
-  <Section tone="ground">
+  <!-- ============================================================= PRINCIPIOS -->
+  <Section tone="ink">
     <div class="reveal">
-      <SectionHeader title={a.principles.title} intro={a.principles.intro} />
+      <SectionHeader eyebrow={a.principles.eyebrow} title={a.principles.title} tone="light" />
     </div>
-
-    <ol class="mt-14 grid gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
+    <ol class="mt-14 grid gap-10 border-t border-line-ink pt-10 sm:grid-cols-3 sm:gap-8">
       {
         a.principles.items.map((item, i) => (
-          <li class="reveal flex flex-col bg-panel" data-reveal-delay={i * 70}>
-            <div class="flex-1 p-7">
-              <span class="tnum text-xs font-semibold text-brand-text">{String(i + 1).padStart(2, '0')}</span>
-              <h3 class="mt-4 text-sm font-semibold tracking-[0.14em] text-ink uppercase">{item.label}</h3>
-              <p class="mt-4 text-base leading-snug font-semibold text-ink">{item.title}</p>
-            </div>
-            <div class="px-7">
-              <Disclosure summary={a.principles.whyLabel}>
-                <p class="text-[0.9375rem] leading-relaxed text-muted">{item.body}</p>
-              </Disclosure>
-            </div>
+          <li class="reveal" data-reveal-delay={i * 80}>
+            <span class="tnum text-xs font-semibold text-on-ink-muted">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <h3 class="mt-4 text-xl leading-snug font-semibold text-on-ink">{item.title}</h3>
+            <p class="mt-3 text-[0.9375rem] leading-relaxed text-on-ink-muted">{item.body}</p>
           </li>
         ))
       }
     </ol>
   </Section>
 
-  <!-- ================================================================== QUÉ ES -->
-  <!-- Aquí vivían las tres líneas del grupo —Advisory, Intelligence, Managed
-       Services— dibujadas como secuencia. Los servicios administrados y la
-       consultoría como línea aparte dejaron de ser la oferta, así que la
-       sección se quedó sin contenido y se sustituyó por lo único que había que
-       decir ahí: qué es la empresa, en una frase. -->
-  <Section tone="ink">
-    <div class="reveal grid gap-8 lg:grid-cols-[minmax(0,20rem)_1fr] lg:gap-16">
-      <h2 class="text-2xl font-semibold tracking-[-0.02em] text-on-ink lg:text-3xl">
-        {a.what.title}
-      </h2>
-      <p class="max-w-[68ch] text-xl leading-relaxed text-on-ink-muted lg:text-2xl lg:leading-relaxed">
-        {a.what.body}
-      </p>
-    </div>
-  </Section>
-
-  <!-- ================================================================= ETAPA -->
+  <!-- ================================================================ QUÉ NO -->
   <Section tone="panel" size="compact">
-    <div class="reveal grid gap-8 lg:grid-cols-[minmax(0,20rem)_1fr] lg:gap-16">
-      <div>
-        <h2 class="text-2xl font-semibold tracking-[-0.02em] text-ink lg:text-3xl">
-          {a.stage.title}
-        </h2>
-        <p class="mt-4 text-sm font-medium text-muted">{a.stage.location}</p>
-      </div>
-      <p class="max-w-3xl text-lg leading-relaxed text-muted">{a.stage.body}</p>
+    <div class="reveal grid gap-8 lg:grid-cols-[minmax(0,22rem)_1fr] lg:gap-16">
+      <h2 class="text-2xl font-semibold tracking-[-0.02em] text-ink lg:text-3xl">
+        {a.notUs.title}
+      </h2>
+      <ul class="divide-y divide-line border-t border-b border-line">
+        {
+          a.notUs.items.map((item) => (
+            <li class="flex items-start gap-5 py-5">
+              <span aria-hidden="true" class="mt-3 block h-[2px] w-4 shrink-0 bg-brand" />
+              <p class="text-base leading-relaxed text-ink lg:text-lg">{item}</p>
+            </li>
+          ))
+        }
+      </ul>
     </div>
   </Section>
 
-  <Cta
-    lang={lang}
-    title={a.closing.title}
-    body={a.closing.body}
-    primaryLabel={mostrar ? a.closing.primary : c.cta.seePlatform}
-    primaryTo={mostrar ? 'pricing' : 'platform'}
-    secondaryLabel={a.closing.secondary}
-  />
+  <!-- ================================================================ CIERRE -->
+  <Section tone="ground">
+    <div class="reveal max-w-3xl">
+      <h2 class="text-[2rem] leading-[1.1] font-semibold tracking-[-0.025em] text-ink sm:text-[2.75rem] lg:text-5xl">
+        {a.closing.title}
+      </h2>
+      <p class="mt-6 text-lg leading-relaxed text-muted">{a.closing.body}</p>
+      <div class="mt-10 flex flex-col gap-3 sm:flex-row">
+        <Button href={agendaHref} size="lg" data-cta="agenda">{a.closing.primary}</Button>
+        <Button href={path('services', lang)} variant="secondary" size="lg">
+          {a.closing.secondary}
+        </Button>
+      </div>
+    </div>
+  </Section>
 </Base>

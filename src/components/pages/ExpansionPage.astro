@@ -1,0 +1,179 @@
+---
+/**
+ * Estudio de Expansión. Es la página de producto del servicio que más cuesta
+ * de los que llevan precio publicado, y la puerta de entrada de quien ya
+ * piensa en crecer. Sustituye a la vieja página de Diagnóstico Empresarial,
+ * cuya URL redirige aquí.
+ *
+ * El orden responde a cómo decide un dueño de negocio:
+ *
+ *   1. Las cuatro preguntas que le quitan el sueño, tal cual las haría él.
+ *   2. Los tres veredictos posibles — incluido «todavía no». Ponerlo aquí
+ *      arriba, y no escondido, es la pieza que hace creíble todo lo demás:
+ *      un consultor que solo puede decir que sí no está evaluando nada.
+ *   3. Qué hay que entregar, con lo obligatorio separado de lo opcional.
+ *   4. Qué recibe, cuánto tarda y cuánto cuesta.
+ *
+ * El importe sale de `negocio.ts`; aquí no se escribe ninguna cifra.
+ */
+import Base from '../../layouts/Base.astro';
+import Section from '../Section.astro';
+import SectionHeader from '../SectionHeader.astro';
+import Button from '../Button.astro';
+import PageHero from '../PageHero.astro';
+import Checklist from '../Checklist.astro';
+import { serviciosResueltos } from '../../i18n/servicios';
+import { agenda } from '../../config/enlaces';
+import { path, type Lang } from '../../i18n/routes';
+import { t, common } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const e = t(lang, 'expansion');
+const s = t(lang, 'services');
+const c = common(lang);
+
+const servicio = serviciosResueltos(lang).find((x) => x.id === 'expansion')!;
+const agendaHref = agenda(lang);
+---
+
+<Base lang={lang} pageKey="expansion" title={e.meta.title} description={e.meta.description}>
+  <PageHero
+    photoKey="expansion"
+    eyebrow={e.hero.eyebrow}
+    title={e.hero.title}
+    intro={e.hero.subtitle}
+    cta={{ href: agendaHref, label: e.hero.cta }}
+  />
+
+  <!-- ============================================================= PREGUNTAS -->
+  <Section tone="ground">
+    <div class="reveal">
+      <SectionHeader eyebrow={e.questions.eyebrow} title={e.questions.title} />
+    </div>
+    <ol class="mt-12 grid gap-px border border-line bg-line sm:grid-cols-2">
+      {
+        e.questions.items.map((pregunta, i) => (
+          <li class="reveal flex items-start gap-5 bg-panel p-7" data-reveal-delay={(i % 2) * 70}>
+            <span class="tnum text-2xl leading-none font-semibold tracking-[-0.03em] text-brand-text">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <p class="text-lg leading-snug font-semibold text-ink">{pregunta}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </Section>
+
+  <!-- ============================================================= VEREDICTOS -->
+  <Section tone="ink">
+    <div class="reveal">
+      <SectionHeader
+        eyebrow={e.verdicts.eyebrow}
+        title={e.verdicts.title}
+        intro={e.verdicts.intro}
+        tone="light"
+      />
+    </div>
+    <ol class="mt-14 grid gap-10 border-t border-line-ink pt-10 sm:grid-cols-3 sm:gap-8">
+      {
+        e.verdicts.items.map((v, i) => (
+          <li class="reveal" data-reveal-delay={i * 80}>
+            <span class="tnum text-xs font-semibold text-on-ink-muted">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <h3 class="mt-4 text-xl leading-snug font-semibold text-on-ink">{v.name}</h3>
+            <p class="mt-3 text-[0.9375rem] leading-relaxed text-on-ink-muted">{v.body}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </Section>
+
+  <!-- ================================================================ INSUMOS -->
+  <Section tone="panel">
+    <div class="grid gap-10 lg:grid-cols-[minmax(0,22rem)_1fr] lg:gap-16">
+      <div class="reveal">
+        <h2 class="text-2xl font-semibold tracking-[-0.02em] text-ink lg:text-3xl">
+          {e.inputs.title}
+        </h2>
+        <p class="mt-4 text-[0.9375rem] leading-relaxed text-muted">{e.inputs.intro}</p>
+      </div>
+      <div class="reveal" data-reveal-delay="80">
+        <Checklist
+          items={e.inputs.items.map((item) => ({
+            text: item.text,
+            tag: item.required ? c.labels.required : c.labels.optional,
+            tagTone: item.required ? 'brand' : 'ink',
+          }))}
+        />
+        <p class="mt-5 text-sm text-muted italic">{e.inputs.note}</p>
+      </div>
+    </div>
+  </Section>
+
+  <!-- ============================================================= ENTREGABLE -->
+  <Section tone="ground">
+    <div class="grid gap-12 lg:grid-cols-[1fr_minmax(0,22rem)] lg:gap-20">
+      <div class="reveal">
+        <SectionHeader eyebrow={e.deliverable.eyebrow} title={e.deliverable.title} />
+        <ul class="mt-10 divide-y divide-line border-t border-b border-line">
+          {
+            e.deliverable.items.map((item) => (
+              <li class="flex items-start gap-4 py-4">
+                <span aria-hidden="true" class="mt-2.5 block h-[2px] w-4 shrink-0 bg-brand" />
+                <p class="text-base leading-relaxed text-ink">{item}</p>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <!-- Duración y precio juntos, en tarjeta: son los dos datos que decide
+           quien ya se convenció del resto. -->
+      <div class="reveal lg:self-start" data-reveal-delay="100">
+        <dl class="border border-line bg-panel">
+          <div class="border-b border-line px-6 py-5">
+            <dt class="text-[0.625rem] font-semibold tracking-[0.14em] text-muted uppercase">
+              {e.deliverable.duration}
+            </dt>
+            <dd class="mt-1.5 text-lg font-semibold text-ink">{servicio.duracion}</dd>
+          </div>
+          <div class="px-6 py-5">
+            <dt class="text-[0.625rem] font-semibold tracking-[0.14em] text-brand-text uppercase">
+              {e.deliverable.price}
+            </dt>
+            <dd class="tnum mt-1.5 text-xl font-semibold text-ink">{servicio.precio}</dd>
+          </div>
+        </dl>
+        <p class="mt-4 text-sm leading-relaxed text-muted">{s.tax}</p>
+        <div class="mt-6">
+          <Button href={agendaHref} size="lg" data-cta="agenda">{e.hero.cta}</Button>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <!-- ================================================================ CIERRE -->
+  <section class="on-ink bg-ink text-on-ink">
+    <div class="container-page py-20 lg:py-28">
+      <div class="reveal max-w-3xl">
+        <h2 class="text-[2rem] leading-[1.1] font-semibold tracking-[-0.025em] sm:text-[2.75rem] lg:text-5xl">
+          {e.closing.title}
+        </h2>
+        <p class="mt-6 text-lg text-on-ink-muted">{e.closing.body}</p>
+        <div class="mt-10 flex flex-col gap-3 sm:flex-row">
+          <Button href={agendaHref} variant="onInk" size="lg" data-cta="agenda">
+            {e.closing.primary}
+          </Button>
+          <Button href={path('services', lang)} variant="onInkGhost" size="lg">
+            {e.closing.secondary}
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

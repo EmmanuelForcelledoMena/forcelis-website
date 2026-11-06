@@ -114,7 +114,12 @@ for (const file of htmls) {
 // --- títulos duplicados entre páginas ---------------------------------------
 const seen = new Map();
 for (const file of htmls) {
-  const title = readFileSync(file, 'utf8').match(/<title>([^<]*)<\/title>/)?.[1];
+  const crudo = readFileSync(file, 'utf8');
+  // Las páginas de reenvío comparten el título que genera Astro («Redirecting
+  // to: …»). No compiten por posicionamiento —llevan `noindex`— y contarlas
+  // como duplicados es ruido que tapa un duplicado de verdad.
+  if (/<meta http-equiv="refresh"/i.test(crudo)) continue;
+  const title = crudo.match(/<title>([^<]*)<\/title>/)?.[1];
   if (!title) continue;
   if (seen.has(title)) note(file, 'title duplicado', `igual que ${relative(DIST, seen.get(title))}`);
   else seen.set(title, file);

@@ -1,0 +1,70 @@
+{
+  "meta": {
+    "title": "Estudio de Expansión — ¿Tu negocio está listo para crecer?",
+    "description": "Analizamos 12 a 24 meses de tus facturas y el mercado de las ciudades candidatas para decirte si tu negocio es franquiciable, si conviene una sucursal propia o si primero hay que ordenar la casa."
+  },
+  "hero": {
+    "eyebrow": "Estudio de Expansión",
+    "title": "Antes de crecer, conoce los números de tu negocio.",
+    "subtitle": "Analizamos tus facturas de 12 a 24 meses y el mercado de las ciudades donde quieres abrir. Te decimos con honestidad si estás listo.",
+    "cta": "Agenda una llamada"
+  },
+  "questions": {
+    "eyebrow": "Qué respondemos",
+    "title": "Cuatro preguntas, con números detrás.",
+    "items": [
+      "¿Cuánto deja realmente cada sucursal?",
+      "¿El negocio funciona sin ti presente?",
+      "¿Es franquiciable?",
+      "¿En qué ciudad conviene abrir?"
+    ]
+  },
+  "verdicts": {
+    "eyebrow": "El veredicto",
+    "title": "Tres respuestas posibles. Una de ellas es «todavía no».",
+    "intro": "El estudio termina en un veredicto, no en un documento que te deja igual que antes.",
+    "items": [
+      {
+        "name": "Listo para franquiciar",
+        "body": "El modelo es rentable, se puede replicar y funciona sin ti. El siguiente paso es el Proyecto de Franquicia."
+      },
+      {
+        "name": "Listo para una sucursal propia",
+        "body": "El negocio aguanta otra unidad, pero conviene operarla tú antes de vendérsela a un tercero."
+      },
+      {
+        "name": "Primero ordenar la casa",
+        "body": "Todavía no. Te decimos exactamente qué arreglar y en qué orden para llegar ahí."
+      }
+    ]
+  },
+  "inputs": {
+    "title": "Qué necesitamos de ti",
+    "intro": "Nada que no tengas ya. Nunca pedimos tu e.firma ni contraseñas de ningún portal.",
+    "items": [
+      { "text": "Tus facturas electrónicas (XML) de 12 a 24 meses, emitidas y recibidas", "required": true },
+      { "text": "Una entrevista de una hora contigo", "required": true },
+      { "text": "Inventario, si lo llevas", "required": false },
+      { "text": "Ventas por sucursal, si las tienes separadas", "required": false }
+    ],
+    "note": "Si algo falta, el indicador afectado se reporta como no disponible con el motivo. No se estima."
+  },
+  "deliverable": {
+    "eyebrow": "Qué recibes",
+    "title": "Un reporte con el veredicto y una sesión para revisarlo.",
+    "items": [
+      "El veredicto, con los números que lo sustentan",
+      "Las ciudades recomendadas, con datos del INEGI",
+      "Un plan de acción con responsables y fechas",
+      "Una sesión de presentación para resolver dudas"
+    ],
+    "duration": "Duración",
+    "price": "Precio"
+  },
+  "closing": {
+    "title": "Descubre si tu negocio está listo para crecer.",
+    "body": "Una llamada de 20 minutos, sin costo, para entender tu negocio y decirte si un Estudio de Expansión tiene sentido para ti.",
+    "primary": "Agenda una llamada",
+    "secondary": "Ver todos los servicios"
+  }
+}

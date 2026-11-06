@@ -1,90 +1,67 @@
 {
   "meta": {
-    "title": "Forcelis Group — Inteligencia financiera desde tus CFDI",
-    "description": "Forcelis convierte los CFDI que tu empresa ya emite y recibe en reportes gerenciales, tableros y hallazgos. Para empresas y para quienes las asesoran."
+    "title": "Forcelis — Crecimiento y franquicias para pequeños negocios mexicanos",
+    "description": "Analizamos la rentabilidad real de tu negocio con tus propias facturas, estudiamos dónde conviene abrir y te acompañamos a crecer: con sucursales propias o como franquicia."
   },
   "hero": {
-    "eyebrow": "Inteligencia financiera desde los CFDI",
-    "titleLead": "Tus CFDI ya cuentan cómo va el negocio.",
-    "titleAccent": "Forcelis lo convierte en decisiones.",
-    "subtitle": "Una plataforma para quienes asesoran empresas —contadores, despachos y consultores— y para empresas que quieren entender sus números.",
-    "panelTitle": "Desempeño del negocio",
-    "prioritiesLabel": "Prioridades clave",
-    "priorities": [
-      "La cartera crece más rápido que las ventas",
-      "Insumos que suben más rápido que tus precios",
-      "Compresión de margen en una categoría clave"
-    ],
-    "primary": "Asesoro empresas",
-    "secondary": "Tengo una empresa"
+    "eyebrow": "Crecimiento y franquicias para pequeños negocios mexicanos",
+    "titleLead": "¿Tu negocio está listo para crecer o franquiciarse?",
+    "titleAccent": "Te lo decimos con tus propios números.",
+    "subtitle": "Analizamos la rentabilidad real de tu negocio a partir de tus facturas, estudiamos dónde conviene abrir y te acompañamos a crecer: con sucursales propias o como franquicia.",
+    "primary": "Agenda una llamada de 20 minutos",
+    "secondary": "Conoce el Estudio de Expansión"
   },
   "audience": {
     "label": "Para quién es",
-    "body": "Contadores, despachos y consultores que asesoran empresas — y empresas con complejidad operativa real: inventario, proveedores, crédito a clientes.",
-    "items": [
-      "Manufactura",
-      "Distribución",
-      "Comercio B2B",
-      "Importación y exportación",
-      "Servicios profesionales",
-      "Empresas en crecimiento"
-    ]
+    "body": "Para dueños de pequeños negocios que quieren ganar más y saber exactamente cuánto les deja cada producto, cliente y sucursal. Y para quienes ya tienen un negocio que funciona y se preguntan si pueden abrir otra sucursal o venderlo como franquicia.",
+    "items": ["Comida", "Belleza", "Educación", "Comercio", "Servicios"]
+  },
+  "problem": {
+    "eyebrow": "El problema",
+    "title": "Crecer a ciegas es la forma más rápida de poner en riesgo lo que ya funciona.",
+    "body": "Abrir una segunda sucursal o vender franquicias sin números claros arriesga el negocio que ya tienes. Muchos crecen sin saber cuánto deja realmente cada unidad, si el modelo funciona sin el dueño presente, ni en qué ciudad tiene sentido abrir."
   },
   "how": {
-    "eyebrow": "Cómo funciona",
-    "title": "De la información a la acción.",
-    "intro": "Toda empresa ya emite y recibe CFDI. Ese registro dice qué se vendió, a quién, a qué precio, cuánto costó y cuándo se cobró de verdad. Lo que falta es un solo lugar donde esté reunido y lo lea alguien que sabe qué buscar.",
-    "flow": [
-      { "label": "Datos", "sub": "Los CFDI que ya tienes" },
-      { "label": "Inteligencia", "sub": "Reunidos, comparados, explicados" },
-      { "label": "Acción", "sub": "Decisiones con responsable y medida" }
-    ],
-    "flowAlt": "Los CFDI que ya tienes se convierten en inteligencia, y la inteligencia en acción.",
+    "eyebrow": "Cómo trabajamos",
+    "title": "Tres pasos, en orden.",
     "steps": [
-      { "name": "Ver", "body": "Importar la información que tu empresa ya produce." },
-      { "name": "Entender", "body": "Identificar los riesgos, las ineficiencias y las palancas que importan." },
-      { "name": "Actuar", "body": "Convertir los hallazgos en decisiones, mejoras y resultados medibles." }
+      {
+        "name": "Estudio de Expansión",
+        "body": "Analizamos tus facturas de 12 a 24 meses y el mercado de las ciudades donde quieres crecer. Te decimos si eres franquiciable, si conviene una sucursal propia o si primero hay que ordenar la casa."
+      },
+      {
+        "name": "Modelo de crecimiento",
+        "body": "Si el negocio está listo, armamos el modelo financiero por unidad, los manuales y, junto con un abogado aliado, todo lo necesario para vender franquicias."
+      },
+      {
+        "name": "Acompañamiento",
+        "body": "Seguimos tus números cada mes mientras abres unidades, para que cada nueva sucursal o franquicia sea tan rentable como la primera."
+      }
     ],
-    "platformNote": "La plataforma Forcelis importa y calcula. Las personas ponen el criterio."
+    "cta": "Ver todos los servicios"
   },
-  "paths": {
-    "eyebrow": "Dos caminos",
-    "title": "¿Para quién es esto?",
-    "advisors": {
-      "title": "Para contadores y consultores",
-      "body": "Reportes y tableros para todas las empresas que atiendes. Vende asesoría sin contratar analistas.",
-      "price": "Desde {price} MXN al mes, más IVA · de {min} a {max} empresas",
-      "cta": "Ver cómo funciona"
-    },
-    "business": {
-      "title": "Para empresas",
-      "body": "Un plan mensual para ver tu empresa con lo que ya facturas. Si quieres una revisión profesional, el Diagnóstico se contrata aparte.",
-      "price": "Plan Individual: {price} MXN al mes, más IVA",
-      "cta": "Ver las opciones"
-    },
-    "pricingNote": "Los precios están publicados. Puedes comparar los planes sin hablar con nadie."
-  },
-  "platform": {
-    "eyebrow": "Plataforma Forcelis",
-    "title": "Una sola vista de tu negocio.",
-    "body": "La plataforma Forcelis reúne tus CFDI y tu contabilidad electrónica en una vista unificada del desempeño del negocio. No es un ERP y no sustituye tu sistema contable: es la capa de inteligencia que va encima.",
-    "points": [
-      "Cada cifra la calcula un motor determinista. Ningún número lo genera un modelo de lenguaje.",
-      "La información de cada cliente está aislada en cuatro capas independientes, la última dentro de la propia base de datos.",
-      "Nunca se piden credenciales fiscales. La ingesta es por archivos que el propio cliente descarga."
-    ],
-    "cta": "Ver la plataforma"
-  },
-  "start": {
-    "eyebrow": "Servicios profesionales",
-    "title": "Si quieres criterio humano, está aparte.",
-    "body": "La plataforma funciona sola. El Diagnóstico, las sesiones de consultoría, el acompañamiento, los proyectos, el Monitoreo y el servicio gestionado los presta el equipo de Forcelis y se contratan por separado de cualquier plan.",
-    "primary": "Ver todos los servicios"
+  "why": {
+    "eyebrow": "Por qué Forcelis",
+    "title": "Tres cosas que no vas a encontrar en cualquier consultor.",
+    "items": [
+      {
+        "title": "Números reales, no estimaciones",
+        "body": "Trabajamos con tus facturas electrónicas (CFDI), no con lo que «más o menos» vende el negocio. Nunca pedimos tu e.firma ni contraseñas."
+      },
+      {
+        "title": "Dónde abrir, con datos",
+        "body": "Estudiamos cada ciudad candidata con información oficial del INEGI: competencia, población y actividad económica."
+      },
+      {
+        "title": "Honestidad",
+        "body": "Si tu negocio todavía no es franquiciable, te lo decimos y te explicamos qué arreglar primero."
+      }
+    ]
   },
   "closing": {
-    "title": "Empieza con los números que ya tienes.",
-    "body": "Sin un sistema nuevo, sin credenciales, sin proyecto de implementación.",
-    "primary": "Asesoro empresas",
-    "secondary": "Tengo una empresa"
+    "title": "Descubre si tu negocio está listo para crecer.",
+    "body": "Una llamada de 20 minutos, sin costo, para entender tu negocio y decirte si un Estudio de Expansión tiene sentido para ti.",
+    "primary": "Agenda una llamada",
+    "secondary": "Ver los servicios"
   }
 }

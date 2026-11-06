@@ -1,61 +1,86 @@
 /**
- * Precio de cada servicio profesional, ya con sus palabras.
+ * El catálogo de servicios, ya con sus palabras y sus importes.
  *
- * Lo usan Precios (la tabla resumen) y Servicios (las tarjetas), y tiene que
- * decir lo mismo en las dos: el importe sale de `negocio.ts`, la forma de
- * leerlo —precio fijo, «desde», pago único, al mes— del diccionario.
+ * Es la única pieza que junta las dos mitades: el dinero sale de
+ * `negocio.ts` y el texto de `services.json`, y nada de lo uno se escribe en
+ * lo otro. Lo usan la página de Servicios y la portada, y tiene que decir lo
+ * mismo en las dos.
+ *
+ * El orden es el del documento de oferta: del servicio más pequeño al más
+ * grande, que es también el orden en que un cliente los va contratando.
  */
-import { negocio, diagnostico, servicio, precio } from '../config/negocio';
+import { negocio, precioServicio, type Servicio } from '../config/negocio';
 import { t } from './index';
 import type { Lang } from './routes';
 
-export type IdServicio =
-  | 'diagnostico'
-  | 'sesion'
-  | 'acompanamiento'
-  | 'proyecto'
-  | 'monitoreo'
-  | 'gestionado';
+export type IdServicio = Servicio['id'];
 
-/** El orden del catálogo, por modalidad de contratación. */
+/** Del más pequeño al más grande. */
 export const ORDEN_SERVICIOS: IdServicio[] = [
-  'diagnostico',
   'sesion',
+  'diagnostico',
+  'mercado',
+  'expansion',
+  'franquicia',
   'acompanamiento',
-  'proyecto',
-  'monitoreo',
-  'gestionado',
 ];
 
-export interface PrecioServicio {
-  importe: string;
+/**
+ * Las dos puertas de entrada del recorrido comercial. Se marcan en la página
+ * para que un dueño sepa por dónde empezar sin leer los seis.
+ */
+export const PUERTAS_DE_ENTRADA: IdServicio[] = ['diagnostico', 'expansion'];
+
+export interface ServicioResuelto {
+  id: IdServicio;
+  nombre: string;
+  paraQuien: string;
+  incluye: string;
+  entregable: string;
+  duracion: string;
+  nota: string;
+  /** Importe ya formateado, o la palabra «Se cotiza» cuando no se publica. */
+  precio: string;
+  /** La unidad, cuando el importe la necesita: «al mes», «por sesión». */
   unidad: string;
+  /** Solo el Acompañamiento: un importe por perfil de cliente. */
+  tramos: { etiqueta: string; importe: string }[];
+  esPuertaDeEntrada: boolean;
 }
 
-export function preciosServicios(lang: Lang): Record<IdServicio, PrecioServicio[]> {
+export function serviciosResueltos(lang: Lang): ServicioResuelto[] {
   const s = t(lang, 'services');
-  const conMoneda = (valor: number) => `${precio(valor, lang)} ${negocio.moneda}`;
-  const cobro = { sesion: s.labels.perSession, mes: s.labels.perMonth, proyecto: s.labels.perProject };
-  const nuevo = (id: 'sesion' | 'acompanamiento' | 'proyecto' | 'gestionado'): PrecioServicio[] => {
-    const sv = servicio(id);
-    const importe = conMoneda(sv.precio);
-    return [
-      {
-        importe: sv.tipo_precio === 'desde' ? s.labels.from.replace('{price}', importe) : importe,
-        unidad: cobro[sv.cobro],
-      },
-    ];
-  };
-  return {
-    diagnostico: [
-      // «Pago único» ya lo dice la modalidad del servicio; aquí basta el paquete.
-      { importe: conMoneda(diagnostico('esencial').precio), unidad: s.items.diagnostico.esencial },
-      { importe: conMoneda(diagnostico('completo').precio), unidad: s.items.diagnostico.completo },
-    ],
-    sesion: nuevo('sesion'),
-    acompanamiento: nuevo('acompanamiento'),
-    proyecto: nuevo('proyecto'),
-    monitoreo: [{ importe: conMoneda(negocio.monitoreo.precio), unidad: s.labels.perMonth }],
-    gestionado: nuevo('gestionado'),
-  };
+
+  return ORDEN_SERVICIOS.map((id) => {
+    const config = negocio.servicios.find((x) => x.id === id)!;
+    const texto = s.items[id];
+    const importe = precioServicio(config, lang);
+
+    // La unidad solo se imprime cuando aclara algo. En un proyecto a precio
+    // cerrado, «por proyecto» es ruido: ya se entiende que es un pago único.
+    const unidad =
+      config.cobro === 'sesion'
+        ? s.labels.perSession
+        : config.cobro === 'mes'
+          ? s.labels.perMonth
+          : '';
+
+    return {
+      id,
+      nombre: texto.name,
+      paraQuien: texto.forWhom,
+      incluye: texto.includes,
+      entregable: texto.deliverable,
+      duracion: texto.duration,
+      nota: texto.note,
+      precio: importe ? importe.texto : s.labels.quote,
+      unidad: importe ? unidad : '',
+      tramos:
+        importe?.tramos?.map((tr) => ({
+          etiqueta: s.tiers[tr.id as keyof typeof s.tiers],
+          importe: tr.texto,
+        })) ?? [],
+      esPuertaDeEntrada: PUERTAS_DE_ENTRADA.includes(id),
+    };
+  });
 }

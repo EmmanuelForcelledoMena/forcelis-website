@@ -8,8 +8,25 @@
  * falte en español: TypeScript lo acepta como cast y el fallo aparece en
  * producción como `undefined` impreso. Este script lo detecta antes.
  */
-import { readFileSync, readdirSync } from 'node:fs';
+import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
+
+// La paridad solo tiene sentido mientras los dos idiomas se publiquen. Desde
+// el giro a consultoría del 2026-11-06 el inglés está en pausa: sus JSON
+// siguen en el repositorio como punto de partida para cuando se retome, pero
+// no hay páginas que los rendericen y el español avanza por su cuenta.
+//
+// La condición se lee del propio árbol —¿existen rutas bajo `src/pages/en/`?—
+// y no de un interruptor aparte, para que el día que vuelvan las páginas esta
+// comprobación se encienda sola en lugar de quedarse apagada y olvidada.
+if (!existsSync('src/pages/en')) {
+  console.log(
+    'Inglés en pausa: no hay rutas en src/pages/en/, así que no se compara paridad.\n' +
+      'Los diccionarios de src/locales/en/ se conservan. Al recrear las páginas,\n' +
+      'esta comprobación vuelve a correr sola.',
+  );
+  process.exit(0);
+}
 
 const root = 'src/locales';
 let problems = 0;

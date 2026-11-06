@@ -30,9 +30,37 @@ export default defineConfig({
   // `noindex` y un enlace visible por si el refresco no corre. Es lo máximo que
   // se puede hacer en un sitio estático, y conserva el enlace para quien lo
   // tenga guardado o lo haya publicado en algún lado.
+  // En GitHub Pages no hay redirecciones de servidor: Astro genera para cada
+  // ruta una página con `meta refresh`, canónica al destino, `noindex` y un
+  // enlace visible. Es lo máximo que puede hacer un sitio estático, y conserva
+  // el enlace para quien lo tenga guardado.
   redirects: {
+    // Páginas retiradas en su momento.
     '/es/soluciones/': '/es/para-empresas/',
-    '/en/solutions/': '/en/for-businesses/',
+
+    // El Diagnóstico Empresarial lo sustituye el Estudio de Expansión.
+    '/es/diagnostico-empresarial/': '/es/estudio-de-expansion/',
+
+    // La versión en inglés está en pausa desde el giro a consultoría. Sus
+    // páginas dejan de servirse y cada URL cae en su equivalente en español,
+    // para que ningún enlace publicado antes termine en un 404. Los
+    // diccionarios de `src/locales/en/` siguen en el repositorio; retomar el
+    // inglés es recrear estas rutas y borrar este bloque.
+    '/en/': '/es/',
+    '/en/accountants-and-advisors/': '/es/servicios/',
+    '/en/for-businesses/': '/es/servicios/',
+    '/en/services/': '/es/servicios/',
+    '/en/business-diagnostic/': '/es/estudio-de-expansion/',
+    '/en/expansion-study/': '/es/estudio-de-expansion/',
+    '/en/platform/': '/es/plataforma/',
+    '/en/pricing/': '/es/precios/',
+    '/en/industries/': '/es/industrias/',
+    '/en/about/': '/es/nosotros/',
+    '/en/contact/': '/es/contacto/',
+    '/en/thank-you/': '/es/gracias/',
+    '/en/privacy/': '/es/privacidad/',
+    '/en/terms/': '/es/terminos/',
+    '/en/solutions/': '/es/servicios/',
   },
   integrations: [
     sitemap({

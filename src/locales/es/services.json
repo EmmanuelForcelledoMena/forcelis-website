@@ -1,214 +1,95 @@
 {
   "meta": {
-    "title": "Servicios — Consultoría y acompañamiento de Forcelis",
-    "description": "Diagnóstico, sesiones de consultoría, acompañamiento mensual, proyectos, Monitoreo y servicio gestionado. Se contratan aparte de cualquier plan."
+    "title": "Servicios — Consultoría de crecimiento y franquicias | Forcelis",
+    "description": "Diagnóstico de Negocio, Estudio de Mercado, Estudio de Expansión, Proyecto de Franquicia y acompañamiento mensual para pequeños negocios mexicanos. Precios en pesos más IVA."
   },
   "hero": {
-    "eyebrow": "Servicios profesionales",
-    "title": "Criterio humano, aparte de la plataforma.",
-    "subtitle": "Cada servicio se contrata por separado de cualquier plan y no hace falta para usar Forcelis. Los presta el equipo de Forcelis."
-  },
-  "guide": {
-    "title": "¿Qué necesitas?",
-    "intro": "Elige por lo que quieres resolver, no por el nombre del servicio.",
-    "items": [
-      {
-        "need": "Una respuesta de una sola vez sobre tu empresa",
-        "id": "diagnostico"
-      },
-      {
-        "need": "Resolver dudas concretas sobre tus indicadores",
-        "id": "sesion"
-      },
-      {
-        "need": "Orientación para decidir, mes a mes",
-        "id": "acompanamiento"
-      },
-      {
-        "need": "Un trabajo con entregables definidos",
-        "id": "proyecto"
-      },
-      {
-        "need": "Seguimiento de tus indicadores cada mes, con revisión trimestral",
-        "id": "monitoreo"
-      },
-      {
-        "need": "Que Forcelis haga el trabajo de análisis por ti, cada mes",
-        "id": "gestionado"
-      }
-    ]
+    "eyebrow": "Servicios",
+    "title": "Del primer análisis a tu siguiente sucursal.",
+    "subtitle": "Todo empieza con un diagnóstico: el Diagnóstico de Negocio si quieres ordenar tus números y ganar más, o el Estudio de Expansión si ya piensas en crecer. A partir de ahí, decidimos juntos el siguiente paso."
   },
   "labels": {
-    "for": "Para quién",
-    "problem": "Qué resuelve",
+    "forWhom": "Para quién",
     "includes": "Qué incluye",
-    "limits": "Límites",
+    "deliverable": "Qué recibes",
     "duration": "Duración",
-    "from": "Desde {price}",
+    "price": "Precio",
+    "quote": "Se cotiza",
     "perSession": "por sesión",
     "perMonth": "al mes",
-    "perProject": "por proyecto",
-    "pending": "Pendiente de aprobación",
-    "limited": "Cupo limitado",
-    "packages": "Qué incluye cada paquete",
-    "advisors": "Versión para asesores, con su marca: {price}"
+    "entryPoint": "Puerta de entrada",
+    "cta": "Agenda una llamada"
   },
   "items": {
-    "diagnostico": {
-      "name": "Diagnóstico Empresarial",
-      "modality": "pago único",
-      "for": "Empresas que quieren una respuesta de una sola vez sobre su situación.",
-      "problem": "Saber dónde está el negocio, qué hallazgos importan y qué atender primero.",
-      "includes": [
-        "Business Score e informe de 6 secciones",
-        "Una sesión de 60 minutos sobre los hallazgos",
-        "El Completo suma análisis operativo con balanza o auxiliares, inventario y ventas por cliente y producto"
-      ],
-      "limits": [
-        "Necesita CFDI de 24 meses; con menos, los indicadores de tendencia salen como no disponibles."
-      ],
-      "duration": "Una sola vez",
-      "cta": "Solicitar un diagnóstico",
-      "esencial": "Esencial",
-      "completo": "Completo"
-    },
     "sesion": {
-      "name": "Sesión de consultoría",
-      "modality": "pago por sesión",
-      "for": "Empresas o asesores con una pregunta concreta sobre sus números.",
-      "problem": "Interpretar indicadores, resolver dudas financieras u orientar una decisión puntual.",
-      "includes": [
-        "Una sesión de 60 a 90 minutos",
-        "Objetivo y agenda acordados antes de la sesión",
-        "Recomendaciones concretas sobre los temas de la agenda"
-      ],
-      "limits": [
-        "No incluye trabajo posterior a la sesión ni entregables escritos, salvo que se acuerden aparte."
-      ],
-      "duration": "60 a 90 minutos",
-      "cta": "Contratar una sesión"
+      "name": "Sesión de Consultoría",
+      "forWhom": "Dueños con una duda puntual, o que quieren conocerme antes de contratar algo más grande.",
+      "includes": "90 minutos sobre una pregunta concreta de tu negocio.",
+      "deliverable": "Notas con recomendaciones.",
+      "duration": "1 día",
+      "note": "Acreditable a cualquier diagnóstico que contrates después."
+    },
+    "diagnostico": {
+      "name": "Diagnóstico de Negocio",
+      "forWhom": "Negocios de una sucursal o micronegocios que facturan.",
+      "includes": "Análisis de 12 meses de tus facturas: margen real por producto, precios, costos de insumos, cobranza y concentración de clientes.",
+      "deliverable": "Reporte en lenguaje simple, plan de 90 días con 3 a 5 acciones y una sesión para revisarlo.",
+      "duration": "1 a 2 semanas",
+      "note": ""
+    },
+    "mercado": {
+      "name": "Estudio de Mercado",
+      "forWhom": "Quien quiere abrir un negocio, comprar una franquicia o entrar a una ciudad nueva.",
+      "includes": "Tamaño de mercado, competencia en la zona, perfil del consumidor y ubicación recomendada, con datos del INEGI (DENUE y censos económicos).",
+      "deliverable": "Reporte y sesión de presentación.",
+      "duration": "1 a 2 semanas",
+      "note": "Es el único que se vende por sí solo, a quien todavía no tiene negocio."
+    },
+    "expansion": {
+      "name": "Estudio de Expansión",
+      "forWhom": "Negocios con 1 a 3 sucursales que quieren abrir otra o franquiciar.",
+      "includes": "Análisis de 12 a 24 meses de tus facturas, evaluación de si el negocio funciona sin ti presente, y estudio de 2 o 3 ciudades candidatas.",
+      "deliverable": "Veredicto —franquiciable, sucursal propia u ordenar primero—, ciudades recomendadas, plan de acción y sesión.",
+      "duration": "2 a 3 semanas",
+      "note": ""
+    },
+    "franquicia": {
+      "name": "Proyecto de Franquicia",
+      "forWhom": "Negocios que salieron franquiciables en el Estudio de Expansión.",
+      "includes": "Modelo financiero por unidad, cuotas y regalías, manuales de operación, y coordinación con un abogado aliado para el contrato y la circular de oferta.",
+      "deliverable": "Paquete de franquicia listo para vender.",
+      "duration": "3 a 6 meses",
+      "note": "Se cotiza después del Estudio de Expansión, que es cuando se conoce el alcance real. Los honorarios legales se contratan aparte con el abogado."
     },
     "acompanamiento": {
-      "name": "Acompañamiento mensual",
-      "modality": "mensualidad",
-      "for": "Equipos directivos que quieren orientación continua para sus decisiones.",
-      "problem": "Interpretar resultados, revisar indicadores y orientar decisiones financieras u operativas, mes a mes.",
-      "includes": [
-        "Orientación para interpretar resultados y revisar indicadores",
-        "Sesiones de revisión con el equipo de Forcelis",
-        "Apoyo para decidir sobre temas financieros u operativos"
-      ],
-      "limits": [
-        "Forcelis orienta; el trabajo lo hace tu equipo. Si quieres que lo haga Forcelis, está el servicio gestionado.",
-        "Cuántas sesiones hay al mes, cuánto duran, por qué canales y con qué entregables se fija por escrito en la propuesta, antes de empezar."
-      ],
-      "duration": "Mensual",
-      "cta": "Solicitar acompañamiento"
-    },
-    "proyecto": {
-      "name": "Consultoría por proyecto",
-      "modality": "por proyecto",
-      "for": "Empresas con una necesidad concreta que requiere un trabajo con entregables definidos.",
-      "problem": "Resolver un tema puntual de rentabilidad o costos, con entregables definidos.",
-      "pending": "Otras especialidades —planeación financiera, cadena de suministro, procesos financieros y automatización— están pendientes de validación. Pregúntanos antes de contar con ellas.",
-      "includes": [
-        "Una propuesta con alcance, entregables y calendario",
-        "El trabajo descrito en esa propuesta"
-      ],
-      "limits": [
-        "El precio final depende de los entregables, de la calidad de los datos disponibles y de la complejidad.",
-        "Es trabajo del equipo de Forcelis, no una función de la plataforma."
-      ],
-      "duration": "Según el alcance; el calendario se acuerda en la propuesta",
-      "cta": "Solicitar propuesta"
-    },
-    "monitoreo": {
-      "name": "Monitoreo Mensual",
-      "modality": "mensualidad",
-      "for": "Empresas que quieren dar seguimiento periódico a sus indicadores, sin orientación continua.",
-      "problem": "Saber cada mes cómo se mueven tus indicadores y revisar los hallazgos con el equipo de Forcelis cada trimestre.",
-      "pending": "La descripción y el alcance están en revisión para no duplicar lo que ya incluye la suscripción. Antes de contratar te confirmamos por escrito qué incluye.",
-      "includes": [
-        "Tablero y reporte gerencial cada mes",
-        "Una revisión trimestral de 60 minutos"
-      ],
-      "limits": [
-        "Cupo limitado.",
-        "Incluye solo lo de esta lista. Para orientación mes a mes está el acompañamiento; para que Forcelis haga el trabajo, el servicio gestionado."
-      ],
-      "duration": "Mensual",
-      "cta": "Preguntar por el Monitoreo"
-    },
-    "gestionado": {
-      "name": "Servicio gestionado",
-      "modality": "mensualidad con contrato",
-      "for": "Empresas que quieren delegar trabajo analítico u operativo recurrente.",
-      "problem": "Que Forcelis haga cada mes el trabajo analítico u operativo acordado y entregue lo pactado.",
-      "includes": [
-        "Trabajo analítico u operativo recurrente, hecho por el equipo de Forcelis",
-        "Alcance, entregables y capacidad acordados en el contrato"
-      ],
-      "limits": [
-        "No es capacidad ilimitada: cada propuesta define entregables, frecuencia, capacidad de trabajo, responsabilidades del cliente, tiempos de respuesta y condiciones de renovación."
-      ],
-      "duration": "Recurrente, con contrato",
-      "cta": "Solicitar propuesta de servicio gestionado"
+      "name": "Acompañamiento de Crecimiento",
+      "forWhom": "Cualquier cliente después de un diagnóstico: negocios que están ordenando sus números, abriendo unidades o en rescate.",
+      "includes": "Tablero mensual con tus facturas, sesión mensual y seguimiento del plan de acción.",
+      "deliverable": "Reporte y sesión cada mes.",
+      "duration": "Mínimo 6 meses",
+      "note": "En expansión o rescate se suma un bono por resultados, acordado por escrito antes de empezar."
     }
   },
-  "monthly": {
-    "title": "Tres servicios mensuales, tres cosas distintas",
-    "caption": "Diferencias entre los servicios mensuales",
-    "rows": {
-      "what": "Qué recibes",
-      "who": "Quién hace el trabajo",
-      "sessions": "Sesiones con Forcelis",
-      "scope": "Alcance",
-      "price": "Precio, más IVA"
-    },
-    "values": {
-      "monitoreo": {
-        "what": "Seguimiento periódico de tus indicadores; descripción pendiente de aprobación",
-        "who": "El equipo de Forcelis da el seguimiento; las decisiones son tuyas",
-        "sessions": "Una revisión trimestral de 60 minutos",
-        "scope": "Pendiente de aprobación. Cupo limitado"
-      },
-      "acompanamiento": {
-        "what": "Orientación, sesiones de revisión y apoyo para interpretar resultados",
-        "who": "Tu equipo; Forcelis orienta",
-        "sessions": "Cantidad y duración, según la propuesta",
-        "scope": "Orientación, no ejecución. Límites y canales, según la propuesta"
-      },
-      "gestionado": {
-        "what": "Trabajo analítico u operativo recurrente y los entregables acordados",
-        "who": "Forcelis, dentro de la capacidad del contrato",
-        "sessions": "Según el contrato",
-        "scope": "Alcance, entregables y capacidad, por contrato"
-      }
-    }
+  "tiers": {
+    "pequeno": "Pequeño negocio",
+    "expansion": "En expansión o rescate"
   },
-  "process": {
-    "title": "Cómo se contrata",
-    "intro": "La contratación no es en línea. Una persona revisa cada solicitud.",
-    "steps": [
-      {
-        "title": "Envías la solicitud",
-        "body": "Desde el servicio que te interesa. El formulario ya lo indica."
-      },
-      {
-        "title": "Te respondemos",
-        "body": "Para entender qué necesitas y confirmar que el servicio encaja."
-      },
-      {
-        "title": "Recibes una propuesta",
-        "body": "Con alcance y precio. El servicio empieza cuando la aceptas."
-      }
-    ]
+  "journey": {
+    "title": "Cómo encaja todo",
+    "intro": "Hay dos puertas de entrada y las dos terminan en el mismo lugar: el acompañamiento mensual.",
+    "flow": [
+      { "label": "Llamada", "sub": "20 minutos, sin costo" },
+      { "label": "Diagnóstico", "sub": "De Negocio o de Expansión" },
+      { "label": "Plan", "sub": "Acciones con responsable y fecha" },
+      { "label": "Acompañamiento", "sub": "Seguimiento mes a mes" }
+    ],
+    "flowAlt": "Una llamada lleva a un diagnóstico, el diagnóstico a un plan de acción y el plan al acompañamiento mensual."
   },
-  "tax": "Precios en pesos mexicanos, más IVA.",
+  "tax": "Precios en pesos mexicanos más IVA. Son precios de lanzamiento y se confirman por escrito antes de empezar.",
   "closing": {
-    "title": "¿No sabes cuál necesitas?",
-    "body": "Cuéntanos qué quieres resolver. Te decimos qué servicio encaja, o si te basta con la plataforma.",
-    "primary": "Contactar",
-    "secondary": "Ver planes y precios"
+    "title": "¿No sabes cuál te toca?",
+    "body": "Cuéntame en 20 minutos qué quieres lograr y te digo cuál de estos tiene sentido para tu negocio, o si ninguno lo tiene.",
+    "primary": "Agenda una llamada",
+    "secondary": "Conoce el Estudio de Expansión"
   }
 }

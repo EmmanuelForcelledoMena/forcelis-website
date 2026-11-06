@@ -33,6 +33,7 @@ import esAdvisors from '../locales/es/advisors.json';
 import esBusiness from '../locales/es/business.json';
 import esPricing from '../locales/es/pricing.json';
 import esServices from '../locales/es/services.json';
+import esExpansion from '../locales/es/expansion.json';
 import esThanks from '../locales/es/thanks.json';
 import esPlatform from '../locales/es/platform.json';
 import esDiagnostic from '../locales/es/diagnostic.json';
@@ -48,6 +49,7 @@ const DICTIONARIES = {
   business: esBusiness,
   pricing: esPricing,
   services: esServices,
+  expansion: esExpansion,
   thanks: esThanks,
   platform: esPlatform,
   diagnostic: esDiagnostic,

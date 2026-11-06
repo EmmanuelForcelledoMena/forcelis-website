@@ -1,15 +1,15 @@
 {
   "meta": {
-    "title": "Contacto — Entendamos el negocio",
-    "description": "Cuéntanos qué quieres entender de tu empresa. Una persona lo lee y te responde con claridad si Forcelis puede ayudar."
+    "title": "Contacto — Platiquemos de tu negocio | Forcelis",
+    "description": "Veinte minutos, sin costo. Cuéntame qué quieres lograr y te digo con honestidad si puedo ayudarte."
   },
   "hero": {
     "eyebrow": "Contacto",
-    "title": "Entendamos el negocio.",
-    "subtitle": "Cuéntanos qué estás tratando de entender. Te diremos si Forcelis puede ayudar."
+    "title": "Platiquemos de tu negocio.",
+    "subtitle": "Veinte minutos, sin costo. Cuéntame qué quieres lograr y te digo con honestidad si puedo ayudarte."
   },
   "form": {
-    "legend": "Tus datos",
+    "legend": "Tu negocio",
     "name": "Nombre",
     "email": "Correo de trabajo",
     "company": "Empresa",
@@ -25,13 +25,13 @@
       "asesor": "Asesoro empresas (contador, despacho o consultor)",
       "fundador": "Quiero el Programa Fundadores",
       "individual": "Tengo una empresa: plan Individual",
-        "enterprise": "Quiero una cotización Enterprise",
+      "enterprise": "Quiero una cotización Enterprise",
       "diagnostico": "Quiero un diagnóstico",
       "monitoreo": "Me interesa el Monitoreo Mensual",
-        "servicio": "Me interesa un servicio profesional"
+      "servicio": "Me interesa un servicio profesional"
     },
-    "message": "¿Qué estás tratando de entender?",
-    "messageHint": "Una pregunta concreta hace más útil la primera conversación. Con una o dos frases basta.",
+    "message": "¿Qué quieres lograr?",
+    "messageHint": "Con una o dos frases basta. Entre más concreto, más útil la llamada.",
     "consent": "He leído el Aviso de Privacidad y autorizo a Forcelis a tratar esta información para poder responder.",
     "consentLink": "Aviso de Privacidad",
     "submit": "Enviar",
@@ -54,23 +54,29 @@
       "consent": "Acepta el Aviso de Privacidad para continuar.",
       "summaryOne": "Hay un campo por revisar.",
       "summaryMany": "Hay {n} campos por revisar.",
-      "tooFast": "Un momento: vuelve a pulsar Enviar en un par de segundos."
-    }
+      "tooFast": "Un momento: vuelve a pulsar Enviar en un par de segundos.",
+      "branches": "Escribe un número de 0 o más."
+    },
+    "business": "Nombre del negocio",
+    "sector": "Giro",
+    "sectorPlaceholder": "Comida, belleza, educación, comercio, servicios…",
+    "branches": "Número de sucursales",
+    "city": "Ciudad"
   },
   "next": {
     "title": "Qué sigue",
     "steps": [
       {
-        "title": "Lo leemos",
-        "body": "Una persona revisa tu mensaje, no una regla de ruteo."
+        "title": "Lo leo yo",
+        "body": "No hay regla de ruteo ni asistente. Lo leo yo y te contesto yo."
       },
       {
-        "title": "Una conversación a tu medida",
-        "body": "Para entender el negocio y la pregunta. Su duración depende del tipo de cliente. No necesitas preparar nada."
+        "title": "20 minutos",
+        "body": "Una llamada corta para entender el negocio y lo que quieres lograr."
       },
       {
-        "title": "Un siguiente paso concreto",
-        "body": "Alcance y enfoque a partir de lo que hablamos, no de un paquete estándar."
+        "title": "Una respuesta honesta",
+        "body": "Te digo cuál servicio tiene sentido, o que ninguno lo tiene."
       }
     ]
   },
@@ -78,17 +84,26 @@
     "title": "Antes de escribir",
     "items": [
       {
-        "title": "Sin credenciales fiscales",
-        "body": "Forcelis nunca pide acceso al portal del SAT."
+        "title": "Sin credenciales",
+        "body": "Nunca pido tu e.firma ni contraseñas de ningún portal."
       },
       {
-        "title": "Sin credenciales bancarias",
-        "body": "El análisis trabaja con archivos que tú mismo exportas."
+        "title": "Sin costo",
+        "body": "La primera llamada no se cobra y no compromete a nada."
       },
       {
-        "title": "Sin compromiso",
-        "body": "Una primera conversación es confidencial, haya proyecto después o no."
+        "title": "Confidencial",
+        "body": "Lo que me cuentes se queda entre nosotros, haya proyecto o no."
       }
     ]
+  },
+  "schedule": {
+    "title": "Lo más rápido: agenda directo",
+    "body": "Elige un horario en mi calendario y hablamos. No necesitas preparar nada.",
+    "cta": "Agenda una llamada de 20 minutos"
+  },
+  "formIntro": {
+    "title": "O escríbeme",
+    "body": "Si prefieres contarme antes por escrito, llena esto y te respondo en menos de un día hábil."
   }
 }

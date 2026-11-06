@@ -1,33 +1,29 @@
 ---
 /**
- * Portada, compartida por `/en/` y `/es/`.
+ * Portada.
  *
- * Reestructura CFDI. La portada ya no vende una lista de capacidades: reparte
- * en dos. Quien asesora empresas y quien tiene una empresa quieren cosas
- * distintas, y la portada solo tiene que llevar a cada uno a su página en el
- * primer clic. De ahí los dos botones del hero y las dos tarjetas del centro.
+ * Giro del 2026-11-06: Forcelis deja de vender software a contadores y pasa a
+ * ser consultoría de crecimiento y franquicias para pequeños negocios
+ * mexicanos. La plataforma sigue existiendo, pero como herramienta interna —es
+ * la razón de que el análisis salga de facturas y no de lo que cuenta el
+ * dueño—, no como algo que se compre. Por eso la portada no la ofrece.
  *
- * Orden: hero con el tablero → para quién → cómo funciona → dos caminos →
- * plataforma → el diagnóstico como punto de partida → cierre.
+ * Orden: la promesa (hero) → para quién es → el problema → los tres pasos del
+ * trabajo → por qué nosotros → cierre.
  *
- * Lo que cambió respecto al v3: las cuatro áreas de resultado y las dos de
- * apoyo se fueron con la página de Soluciones —el catálogo de servicios dejó
- * de ser la oferta—, y volvió el bloque de plataforma, que ahora dice lo que
- * la plataforma ES y no lo que se está construyendo.
+ * Una sola acción en toda la página: agendar la llamada de 20 minutos. Todo
+ * botón primario lleva ahí.
  */
 import Base from '../../layouts/Base.astro';
 import Section from '../Section.astro';
 import SectionHeader from '../SectionHeader.astro';
 import Button from '../Button.astro';
 import PageHero from '../PageHero.astro';
-import ScorePanel from '../ScorePanel.astro';
-import DataFlow from '../DataFlow.astro';
+import ProcessSteps from '../ProcessSteps.astro';
 import InlineTermList from '../InlineTermList.astro';
-import Icon from '../Icon.astro';
-import { negocio, plan as planPorId, precio } from '../../config/negocio';
+import { agenda } from '../../config/enlaces';
 import { path, type Lang } from '../../i18n/routes';
-import { t, common } from '../../i18n';
-import { preciosServicios, ORDEN_SERVICIOS } from '../../i18n/servicios';
+import { t } from '../../i18n';
 
 interface Props {
   lang: Lang;
@@ -35,41 +31,7 @@ interface Props {
 
 const { lang } = Astro.props;
 const h = t(lang, 'home');
-const c = common(lang);
-const sv = t(lang, 'services');
-const preciosSv = preciosServicios(lang);
-
-// Precios de entrada de cada camino, leídos de la configuración: el plan
-// Individual para una empresa, y el plan de asesor más pequeño con su rango
-// de empresas. Con los precios apagados no se imprime ninguno.
-const mostrar = negocio.mostrar_precios;
-const numero = new Intl.NumberFormat(lang === 'es' ? 'es-MX' : 'en-US');
-const planesAsesor = negocio.planes.filter((p) => p.marca_propia && p.precio !== null);
-const rellenar = (plantilla: string, valores: Record<string, string>) =>
-  Object.entries(valores).reduce((s, [k, v]) => s.replace(`{${k}}`, v), plantilla);
-const desde = {
-  business: rellenar(h.paths.business.price, {
-    price: precio(planPorId('individual').precio as number, lang),
-  }),
-  advisors: rellenar(h.paths.advisors.price, {
-    price: precio(Math.min(...planesAsesor.map((p) => p.precio as number)), lang),
-    min: numero.format(Math.min(...planesAsesor.map((p) => p.empresas as number))),
-    max: numero.format(Math.max(...planesAsesor.map((p) => p.empresas as number))),
-  }),
-};
-
-const caminos = [
-  {
-    key: 'advisors' as const,
-    icon: 'advisory' as const,
-    ...h.paths.advisors,
-  },
-  {
-    key: 'business' as const,
-    icon: 'financial' as const,
-    ...h.paths.business,
-  },
-];
+const agendaHref = agenda(lang);
 ---
 
 <Base lang={lang} pageKey="home" title={h.meta.title} description={h.meta.description}>
@@ -83,207 +45,99 @@ const caminos = [
     intro={h.hero.subtitle}
   >
     <Fragment slot="actions">
-      <Button href={path('advisors', lang)} variant="onInk" size="lg">{h.hero.primary}</Button>
-      <Button href={path('business', lang)} variant="onInkGhost" size="lg">
+      <Button href={agendaHref} variant="onInk" size="lg" data-cta="agenda">
+        {h.hero.primary}
+      </Button>
+      <Button href={path('expansion', lang)} variant="onInkGhost" size="lg">
         {h.hero.secondary}
       </Button>
     </Fragment>
-
-    <!-- El tablero conserva su fondo de tarjeta sobre la banda de tinta a
-         propósito: se lee como un objeto del producto, que es lo que es. -->
-    <div class="reveal lg:self-center" data-reveal-delay="120">
-      <ScorePanel
-        title={h.hero.panelTitle}
-        items={c.scores}
-        illustrativeLabel={c.labels.illustrative}
-        outOfLabel={c.labels.scoreOutOf}
-        overallLabel={c.labels.overallScore}
-        overallNote={c.labels.overallNote}
-        priorities={{ label: h.hero.prioritiesLabel, items: h.hero.priorities }}
-        density="compact"
-      />
-    </div>
   </PageHero>
 
   <!-- ============================================================ PARA QUIÉN -->
   <section class="border-b border-line bg-ground">
-    <div class="container-page grid gap-6 py-10 lg:grid-cols-[minmax(0,18rem)_1fr] lg:gap-16 lg:py-12">
+    <div class="container-page grid gap-6 py-10 lg:grid-cols-[minmax(0,20rem)_1fr] lg:gap-16 lg:py-12">
       <div class="reveal">
         <p class="text-[0.6875rem] font-semibold tracking-[0.16em] text-brand-text uppercase">
           {h.audience.label}
         </p>
-        <p class="mt-3 text-[0.9375rem] leading-relaxed text-muted">{h.audience.body}</p>
+        <InlineTermList items={h.audience.items} class="mt-4" />
       </div>
-      <div class="reveal flex flex-col justify-center gap-5" data-reveal-delay="80">
-        <InlineTermList items={h.audience.items} />
-        <a
-          href={path('industries', lang)}
-          class="inline-flex items-center gap-1.5 text-sm font-medium text-ink underline decoration-line-strong underline-offset-4 hover:decoration-ink"
-        >
-          {c.cta.seeIndustries}
-        </a>
-      </div>
+      <p
+        class="reveal max-w-3xl self-center text-lg leading-relaxed text-muted"
+        data-reveal-delay="80"
+      >
+        {h.audience.body}
+      </p>
     </div>
   </section>
 
+  <!-- ============================================================== PROBLEMA -->
+  <Section tone="panel">
+    <div class="reveal grid gap-8 lg:grid-cols-[minmax(0,16rem)_1fr] lg:gap-16">
+      <p class="text-[0.6875rem] font-semibold tracking-[0.16em] text-brand-text uppercase">
+        {h.problem.eyebrow}
+      </p>
+      <div>
+        <h2 class="max-w-3xl text-[1.75rem] leading-tight font-semibold tracking-[-0.02em] text-ink lg:text-[2.25rem]">
+          {h.problem.title}
+        </h2>
+        <p class="mt-5 max-w-2xl text-lg leading-relaxed text-muted">{h.problem.body}</p>
+      </div>
+    </div>
+  </Section>
+
   <!-- ================================================================== CÓMO -->
-  <Section tone="panel" id="how-it-works">
+  <Section tone="ground">
     <div class="reveal">
-      <SectionHeader eyebrow={h.how.eyebrow} title={h.how.title} intro={h.how.intro} />
+      <SectionHeader eyebrow={h.how.eyebrow} title={h.how.title} />
     </div>
 
-    <div class="reveal mt-14" data-reveal-delay="80">
-      <DataFlow items={h.how.flow} emphasis={1} alt={h.how.flowAlt} />
+    <ProcessSteps
+      items={h.how.steps.map((paso) => ({ title: paso.name, body: paso.body }))}
+      columns={3}
+      class="mt-14"
+    />
+
+    <div class="reveal mt-12">
+      <Button href={path('services', lang)} variant="secondary">{h.how.cta}</Button>
+    </div>
+  </Section>
+
+  <!-- =============================================================== POR QUÉ -->
+  <Section tone="ink">
+    <div class="reveal">
+      <SectionHeader eyebrow={h.why.eyebrow} title={h.why.title} tone="light" />
     </div>
 
-    <ol class="mt-14 grid gap-10 border-t-2 border-ink pt-8 sm:grid-cols-3 sm:gap-8">
+    <ol class="mt-14 grid gap-10 border-t border-line-ink pt-10 sm:grid-cols-3 sm:gap-8">
       {
-        h.how.steps.map((step, i) => (
+        h.why.items.map((item, i) => (
           <li class="reveal" data-reveal-delay={i * 80}>
-            <p class="flex items-baseline gap-3 text-[0.6875rem] font-semibold tracking-[0.16em] text-brand-text uppercase">
-              <span class="tnum">{String(i + 1).padStart(2, '0')}</span>
-              {step.name}
-            </p>
-            <p class="mt-4 text-lg leading-snug font-semibold text-ink lg:text-xl">{step.body}</p>
+            <span class="tnum text-xs font-semibold text-on-ink-muted">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <h3 class="mt-4 text-xl leading-snug font-semibold text-on-ink">{item.title}</h3>
+            <p class="mt-3 text-[0.9375rem] leading-relaxed text-on-ink-muted">{item.body}</p>
           </li>
         ))
       }
     </ol>
   </Section>
 
-  <!-- ============================================================= DOS CAMINOS -->
+  <!-- ================================================================ CIERRE -->
   <Section tone="ground">
-    <div class="reveal">
-      <SectionHeader eyebrow={h.paths.eyebrow} title={h.paths.title} />
-    </div>
-
-    <div class="mt-12 grid gap-px border border-line bg-line lg:grid-cols-2">
-      {
-        caminos.map((camino, i) => (
-          <a
-            href={path(camino.key, lang)}
-            class="reveal group relative flex flex-col bg-panel p-8 transition-colors duration-200 hover:bg-panel-alt lg:p-10"
-            data-reveal-delay={i * 80}
-          >
-            <span
-              aria-hidden="true"
-              class="absolute inset-x-0 top-0 h-[2px] origin-left scale-x-0 bg-brand transition-transform duration-300 group-hover:scale-x-100"
-            />
-            <Icon name={camino.icon} class="h-7 w-7 text-brand-text" />
-            <h3 class="mt-7 text-2xl leading-snug font-semibold tracking-[-0.02em] text-ink lg:text-[1.75rem]">
-              {camino.title}
-            </h3>
-            <p class="mt-4 flex-1 text-base leading-relaxed text-muted lg:text-lg">{camino.body}</p>
-            {mostrar && (
-              <p class="tnum mt-6 border-t border-line pt-4 text-[0.9375rem] font-semibold text-ink">
-                {desde[camino.key]}
-              </p>
-            )}
-            <span class="mt-6 inline-flex items-center gap-2 text-sm font-medium text-ink">
-              {camino.cta}
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 14 14"
-                fill="none"
-                aria-hidden="true"
-                class="transition-transform duration-200 group-hover:translate-x-1"
-              >
-                <path d="M2.5 7h9M8 3.5 11.5 7 8 10.5" stroke="currentColor" stroke-width="1.4" />
-              </svg>
-            </span>
-          </a>
-        ))
-      }
-    </div>
-
-    {
-      mostrar && (
-        <div class="reveal mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <p class="max-w-2xl text-[0.9375rem] leading-relaxed text-muted">{h.paths.pricingNote}</p>
-          <Button href={path('pricing', lang)} variant="secondary">{c.cta.seePricing}</Button>
-        </div>
-      )
-    }
-  </Section>
-
-  <!-- ============================================================ PLATAFORMA -->
-  <Section tone="panel">
-    <div class="grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
-      <div class="reveal">
-        <SectionHeader eyebrow={h.platform.eyebrow} title={h.platform.title} />
-        <p class="mt-8 text-lg leading-relaxed text-muted">{h.platform.body}</p>
-        <div class="mt-10">
-          <Button href={path('platform', lang)} variant="secondary">{h.platform.cta}</Button>
-        </div>
-      </div>
-
-      <ul class="reveal divide-y divide-line border-t border-b border-line" data-reveal-delay="100">
-        {
-          h.platform.points.map((point) => (
-            <li class="flex items-start gap-4 py-5">
-              <span aria-hidden="true" class="mt-2.5 block h-[2px] w-4 shrink-0 bg-brand" />
-              <p class="text-[0.9375rem] leading-relaxed text-ink lg:text-base">{point}</p>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-  </Section>
-
-  <!-- ============================================================= SERVICIOS -->
-  <!-- Antes esta sección presentaba el Diagnóstico como «un solo punto de
-       partida». El punto de partida es la plataforma; el Diagnóstico y el
-       Monitoreo son servicios profesionales que se contratan aparte. -->
-  <Section tone="ground">
-    <div class="grid gap-12 lg:grid-cols-[1fr_minmax(0,30rem)] lg:gap-20">
-      <div class="reveal">
-        <SectionHeader eyebrow={h.start.eyebrow} title={h.start.title} />
-        <p class="mt-6 max-w-2xl text-lg leading-relaxed text-muted">{h.start.body}</p>
-        <div class="mt-10 flex flex-col gap-3 sm:flex-row">
-          <Button href={path('services', lang)} variant="secondary" size="lg">{h.start.primary}</Button>
-        </div>
-      </div>
-
-      <!-- El catálogo completo, con el mismo precio que en Precios y Servicios:
-           nombre, importe y forma de cobro. El detalle está en Servicios. -->
-      <ul class="reveal divide-y divide-line border-t border-b border-line" data-reveal-delay="100">
-        {
-          ORDEN_SERVICIOS.map((id) => (
-            <li>
-              <a
-                href={`${path('services', lang)}#${id}`}
-                class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 py-4 transition-colors hover:text-brand-text"
-              >
-                <span class="text-base font-semibold text-ink">{sv.items[id].name}</span>
-                {mostrar && (
-                  <span class="tnum text-[0.9375rem] text-muted">
-                    <span class="font-semibold text-ink">{preciosSv[id][0].importe}</span> {preciosSv[id][0].unidad}
-                  </span>
-                )}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-  </Section>
-
-  <!-- =============================================================== CIERRE -->
-  <section class="on-ink bg-ink text-on-ink">
-    <div class="container-page py-20 lg:py-28">
-      <div class="reveal max-w-3xl">
-        <h2 class="text-[2rem] leading-[1.1] font-semibold tracking-[-0.025em] sm:text-[2.75rem] lg:text-5xl">
-          {h.closing.title}
-        </h2>
-        <p class="mt-6 text-lg text-on-ink-muted">{h.closing.body}</p>
-        <div class="mt-10 flex flex-col gap-3 sm:flex-row">
-          <Button href={path('advisors', lang)} variant="onInk" size="lg">{h.closing.primary}</Button>
-          <Button href={path('business', lang)} variant="onInkGhost" size="lg">
-            {h.closing.secondary}
-          </Button>
-        </div>
+    <div class="reveal max-w-3xl">
+      <h2 class="text-[2rem] leading-[1.1] font-semibold tracking-[-0.025em] text-ink sm:text-[2.75rem] lg:text-5xl">
+        {h.closing.title}
+      </h2>
+      <p class="mt-6 text-lg leading-relaxed text-muted">{h.closing.body}</p>
+      <div class="mt-10 flex flex-col gap-3 sm:flex-row">
+        <Button href={agendaHref} size="lg" data-cta="agenda">{h.closing.primary}</Button>
+        <Button href={path('services', lang)} variant="secondary" size="lg">
+          {h.closing.secondary}
+        </Button>
       </div>
     </div>
-  </section>
+  </Section>
 </Base>

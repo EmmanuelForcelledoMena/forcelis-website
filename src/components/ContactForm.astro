@@ -59,14 +59,12 @@ const nombresPlan = Object.fromEntries(
   PLANES_SOLICITABLES.map((id) => [id, planes[id as keyof typeof planes].name]),
 );
 
-// Lo mismo para los servicios: nombre y forma de cobro («pago por sesión»,
-// «mensualidad», «por proyecto»), para que la solicitud diga qué se contrata.
+// Lo mismo para los servicios: basta el nombre. Desde el giro a consultoría
+// los seis son proyectos con alcance propio, no modalidades de contratación
+// de un mismo producto, y la aclaración entre paréntesis sobraba.
 const servicios = t(lang, 'services').items;
 const nombresServicio = Object.fromEntries(
-  SERVICIOS_SOLICITABLES.map((id) => [
-    id,
-    `${servicios[id as keyof typeof servicios].name} (${servicios[id as keyof typeof servicios].modality})`,
-  ]),
+  SERVICIOS_SOLICITABLES.map((id) => [id, servicios[id as keyof typeof servicios].name]),
 );
 
 const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? '';
@@ -142,7 +140,7 @@ const inputClass =
         />
       </FormField>
 
-      <FormField id="company" label={f.company}>
+      <FormField id="company" label={f.business}>
         <input
           class={inputClass}
           type="text"
@@ -154,17 +152,44 @@ const inputClass =
         />
       </FormField>
 
-      <FormField id="website" label={f.website} labelExtra={f.websiteOptional}>
+      <FormField id="sector" label={f.sector}>
         <input
           class={inputClass}
           type="text"
-          id="website"
-          name="website"
-          maxlength="200"
-          autocomplete="url"
-          inputmode="url"
-          spellcheck="false"
-          placeholder={lang === 'es' ? 'empresa.com' : 'company.com'}
+          id="sector"
+          name="sector"
+          required
+          maxlength="80"
+          placeholder={f.sectorPlaceholder}
+        />
+      </FormField>
+
+      <!-- Sucursales y ciudad son los dos datos que deciden si la
+           conversación va hacia el Diagnóstico o hacia el Estudio de
+           Expansión. Preguntarlos aquí ahorra la mitad de la llamada. -->
+      <FormField id="branches" label={f.branches}>
+        <input
+          class={inputClass}
+          type="number"
+          id="branches"
+          name="branches"
+          required
+          min="0"
+          max="999"
+          step="1"
+          inputmode="numeric"
+        />
+      </FormField>
+
+      <FormField id="city" label={f.city}>
+        <input
+          class={inputClass}
+          type="text"
+          id="city"
+          name="city"
+          required
+          maxlength="80"
+          autocomplete="address-level2"
         />
       </FormField>
     </div>
@@ -399,7 +424,9 @@ const inputClass =
       { id: 'name', required: true, min: 2 },
       { id: 'email', required: true, email: true },
       { id: 'company', required: true, min: 2 },
-      { id: 'website', url: true },
+      { id: 'sector', required: true, min: 3 },
+      { id: 'branches', required: true, entero: true, min0: 0, max: 999 },
+      { id: 'city', required: true, min: 2 },
       { id: 'message', required: true, min: 12 },
       { id: 'consent', required: true, checkbox: true },
     ];
@@ -434,6 +461,13 @@ const inputClass =
       if (rule.min && value.length < rule.min) return fill(messages.minLength, { min: rule.min });
       if (rule.email && !EMAIL.test(value)) return messages.email;
       if (rule.url && !URL_LIKE.test(value)) return messages.url;
+      if (rule.entero) {
+        // Cero es una respuesta válida: alguien que todavía no abre su primer
+        // local. Por eso el mínimo va en `min0` y no en `min`, que arriba se
+        // usa para longitud de texto y descartaría el «0».
+        const n = Number(value);
+        if (!Number.isInteger(n) || n < rule.min0 || n > rule.max) return messages.branches;
+      }
       return '';
     };
 

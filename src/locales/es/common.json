@@ -3,7 +3,7 @@
     "name": "Forcelis Group",
     "wordmark": "FORCELIS",
     "wordmarkSuffix": "GROUP",
-    "tagline": "Inteligencia financiera desde tus CFDI"
+    "tagline": "Crecimiento y franquicias para pequeños negocios"
   },
   "skipToContent": "Ir al contenido principal",
   "nav": {
@@ -18,9 +18,10 @@
     "contact": "Contacto",
     "openMenu": "Abrir el menú de navegación",
     "closeMenu": "Cerrar el menú de navegación",
-    "cta": "Solicitar una demostración",
+    "cta": "Agenda una llamada",
     "app": "Entrar",
-    "mainLabel": "Navegación principal"
+    "mainLabel": "Navegación principal",
+    "expansion": "Estudio de Expansión"
   },
   "lang": {
     "label": "Idioma",
@@ -29,7 +30,7 @@
     "switchTo": "View this page in English"
   },
   "cta": {
-    "schedule": "Solicitar una demostración",
+    "schedule": "Agenda una llamada",
     "diagnostic": "Solicitar un Diagnóstico Empresarial",
     "diagnosticShort": "Solicitar un diagnóstico",
     "contact": "Contactar a Forcelis",
@@ -41,15 +42,15 @@
     "seeIndustries": "Ver industrias"
   },
   "footer": {
-    "tagline": "Inteligencia financiera desde tus CFDI",
-    "blurb": "Forcelis convierte los CFDI que una empresa ya emite y recibe en reportes gerenciales, tableros y hallazgos.",
+    "tagline": "Crecimiento y franquicias para pequeños negocios",
+    "blurb": "Forcelis ayuda a pequeños negocios mexicanos a crecer con sus propios números: ordenar lo que ya tienen, ganar más y decidir si abrir otra sucursal o franquiciarse.",
     "navHeading": "Navegación",
     "companyHeading": "Empresa",
     "legalHeading": "Legal",
     "privacy": "Aviso de privacidad",
     "terms": "Términos de servicio",
     "copyright": "© 2026 Forcelis Group. Todos los derechos reservados.",
-    "disclaimer": "Forcelis presta servicios de análisis. No hace contabilidad, no presenta declaraciones, no emite opiniones fiscales y no sustituye el juicio de un contador público o auditor autorizado."
+    "disclaimer": "Forcelis presta servicios de análisis y consultoría. No hace contabilidad, no presenta declaraciones y no sustituye la asesoría legal de un abogado especializado en franquicias."
   },
   "labels": {
     "illustrative": "Datos ilustrativos",
@@ -74,10 +75,30 @@
     "more": "Aviso de privacidad"
   },
   "scores": [
-    { "label": "Salud financiera", "value": 74, "note": "Estructura de margen, base de costos y calidad del resultado" },
-    { "label": "Flujo de efectivo", "value": 58, "note": "Cobranza real, antigüedad y conversión a efectivo" },
-    { "label": "Desempeño comercial", "value": 81, "note": "Mezcla de clientes, concentración, retención y precios" },
-    { "label": "Eficiencia operativa", "value": 63, "note": "Compras y estructura de proveedores; el inventario, solo con tu reporte" },
-    { "label": "Calidad de datos contables", "value": 84, "note": "Completitud y consistencia de los registros de origen" }
+    {
+      "label": "Salud financiera",
+      "value": 74,
+      "note": "Estructura de margen, base de costos y calidad del resultado"
+    },
+    {
+      "label": "Flujo de efectivo",
+      "value": 58,
+      "note": "Cobranza real, antigüedad y conversión a efectivo"
+    },
+    {
+      "label": "Desempeño comercial",
+      "value": 81,
+      "note": "Mezcla de clientes, concentración, retención y precios"
+    },
+    {
+      "label": "Eficiencia operativa",
+      "value": 63,
+      "note": "Compras y estructura de proveedores; el inventario, solo con tu reporte"
+    },
+    {
+      "label": "Calidad de datos contables",
+      "value": 84,
+      "note": "Completitud y consistencia de los registros de origen"
+    }
   ]
 }
