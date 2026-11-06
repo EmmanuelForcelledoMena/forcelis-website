@@ -50,17 +50,35 @@ export interface Diagnostico {
 }
 
 /**
- * Servicio profesional que se contrata aparte de cualquier plan.
+ * Servicio de consultoría. Es LA oferta de Forcelis desde el giro del
+ * 2026-11-06: ya no se venden suscripciones de software.
  *
- * `tipo_precio` decide cómo se lee el importe: `fijo` es el precio exacto,
- * `desde` es el mínimo de un servicio que se cotiza por alcance. `cobro` dice
- * qué paga el cliente con ese importe: una sesión, un mes o un proyecto.
+ * `tipo_precio` decide cómo se lee el importe:
+ *
+ *   `fijo`       un precio exacto — «$3,500».
+ *   `rango`      un mínimo y un máximo, porque el alcance varía dentro de
+ *                unos límites conocidos — «$6,900 a $9,900».
+ *   `tramos`     dos precios según el perfil del cliente, no según el
+ *                alcance — el Acompañamiento cuesta distinto para un negocio
+ *                pequeño que para uno en expansión.
+ *   `cotizacion` no se publica importe. Se usa cuando el precio todavía no
+ *                está validado contra el mercado; publicar un «desde» sin
+ *                referencia ancla la conversación en una cifra inventada.
+ *
+ * `cobro` dice qué paga el cliente con ese importe: una sesión, un mes o un
+ * proyecto completo.
  */
 export interface Servicio {
-  id: 'sesion' | 'acompanamiento' | 'proyecto' | 'gestionado';
-  precio: number;
-  tipo_precio: 'fijo' | 'desde';
+  id: 'sesion' | 'diagnostico' | 'mercado' | 'expansion' | 'franquicia' | 'acompanamiento';
+  tipo_precio: 'fijo' | 'rango' | 'tramos' | 'cotizacion';
   cobro: 'sesion' | 'mes' | 'proyecto';
+  /** Solo con `tipo_precio: 'fijo'`. */
+  precio?: number;
+  /** Solo con `tipo_precio: 'rango'`. */
+  desde?: number;
+  hasta?: number;
+  /** Solo con `tipo_precio: 'tramos'`. El texto de cada tramo vive en el diccionario. */
+  tramos?: readonly { id: string; precio: number }[];
 }
 
 export const negocio = {
@@ -112,21 +130,36 @@ export const negocio = {
   monitoreo: { precio: 3900 },
 
   /**
-   * Servicios profesionales nuevos, con los precios de referencia que fijó el
-   * negocio para el catálogo. El alcance de cada uno se acuerda por escrito
-   * antes de empezar; lo que todavía no está definido no se publica.
-   * El Diagnóstico y el Monitoreo siguen arriba, con sus propios precios.
+   * Los seis servicios de consultoría, del más pequeño al más grande. Es la
+   * oferta completa desde el 2026-11-06.
    *
-   * PENDIENTE DE APROBACIÓN (la página dice «según la propuesta» mientras tanto):
-   * - acompanamiento: sesiones al mes, duración, canales, entregables, límites.
-   * - gestionado: entregables, frecuencia, capacidad, tiempos de respuesta,
-   *   renovación.
+   * TODOS LOS PRECIOS SON UNA HIPÓTESIS INICIAL, a validar con los primeros
+   * clientes. Se fijaron contra referencias públicas del mercado mexicano de
+   * consultoría (~$300 a $800 la hora); un Estudio de Expansión de unas 35
+   * horas a $500–$700 cae en el rango publicado.
+   *
+   * El Proyecto de Franquicia va SIN precio a propósito. Es el único de los
+   * seis cuyo importe no tiene referencia pública verificada, y publicar un
+   * «desde $120,000» sin esa referencia ancla toda negociación en una cifra
+   * que nadie comprobó. Se cotiza después del Estudio de Expansión, que es
+   * además cuando se conoce el alcance real. Para publicarlo: pedir cotización
+   * a dos o tres consultoras de franquicias y poner aquí el número.
    */
   servicios: [
-    { id: 'sesion',         precio: 3500,  tipo_precio: 'fijo',  cobro: 'sesion' },
-    { id: 'acompanamiento', precio: 7500,  tipo_precio: 'fijo',  cobro: 'mes' },
-    { id: 'proyecto',       precio: 18000, tipo_precio: 'desde', cobro: 'proyecto' },
-    { id: 'gestionado',     precio: 15000, tipo_precio: 'desde', cobro: 'mes' },
+    { id: 'sesion',        tipo_precio: 'fijo',  cobro: 'sesion',   precio: 3500 },
+    { id: 'diagnostico',   tipo_precio: 'rango', cobro: 'proyecto', desde: 6900,  hasta: 9900 },
+    { id: 'mercado',       tipo_precio: 'rango', cobro: 'proyecto', desde: 9900,  hasta: 19900 },
+    { id: 'expansion',     tipo_precio: 'rango', cobro: 'proyecto', desde: 18000, hasta: 25000 },
+    { id: 'franquicia',    tipo_precio: 'cotizacion', cobro: 'proyecto' },
+    {
+      id: 'acompanamiento',
+      tipo_precio: 'tramos',
+      cobro: 'mes',
+      tramos: [
+        { id: 'pequeno', precio: 3900 },
+        { id: 'expansion', precio: 7500 },
+      ],
+    },
   ] as const satisfies readonly Servicio[],
 
   fundadores: {
@@ -177,6 +210,38 @@ export function precio(valor: number, lang: 'en' | 'es'): string {
     currencyDisplay: 'narrowSymbol',
     maximumFractionDigits: 0,
   }).format(valor);
+}
+
+/**
+ * El importe de un servicio, ya formateado y listo para imprimir.
+ *
+ * Devuelve `null` cuando el servicio se cotiza: quien llama decide qué poner
+ * en su lugar —normalmente la palabra «Cotización» del diccionario—, porque
+ * esa palabra es texto y el texto no vive en este archivo.
+ *
+ * Las etiquetas de unidad («por sesión», «al mes») tampoco salen de aquí por
+ * la misma razón; el llamador las toma de su diccionario según `cobro`.
+ */
+export function precioServicio(
+  s: Servicio,
+  lang: 'en' | 'es',
+): { texto: string; tramos?: { id: string; texto: string }[] } | null {
+  switch (s.tipo_precio) {
+    case 'fijo':
+      return { texto: precio(s.precio!, lang) };
+    case 'rango':
+      // El separador va con «a» y no con guion: «$6,900–$9,900» se lee como
+      // una resta a primera vista, y aquí el número importa más que el ahorro
+      // de dos caracteres.
+      return { texto: `${precio(s.desde!, lang)} a ${precio(s.hasta!, lang)}` };
+    case 'tramos':
+      return {
+        texto: precio(Math.min(...s.tramos!.map((t) => t.precio)), lang),
+        tramos: s.tramos!.map((t) => ({ id: t.id, texto: precio(t.precio, lang) })),
+      };
+    case 'cotizacion':
+      return null;
+  }
 }
 
 /**

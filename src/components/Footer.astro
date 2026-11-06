@@ -1,6 +1,5 @@
 ---
 import Wordmark from './Wordmark.astro';
-import LanguageSwitcher from './LanguageSwitcher.astro';
 import { path, type Lang, type PageKey } from '../i18n/routes';
 import { negocio } from '../config/negocio';
 import { common } from '../i18n';
@@ -109,7 +108,6 @@ const navLabels: Record<string, string> = {
         class="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
       >
         <p class="text-xs text-on-ink-muted">{c.footer.copyright}</p>
-        <LanguageSwitcher lang={lang} pageKey={pageKey} tone="light" ubicacion="pie" />
       </div>
     </div>
   </div>

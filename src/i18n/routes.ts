@@ -10,7 +10,6 @@
  * `/es/for-businesses/`): el mercado inicial es México y la URL es contenido
  * indexable. El coste es este mapa, que es una tabla.
  */
-import { negocio } from '../config/negocio';
 
 export const LANGS = ['en', 'es'] as const;
 export type Lang = (typeof LANGS)[number];
@@ -32,6 +31,7 @@ export type PageKey =
   | 'platform'
   | 'pricing'
   | 'services'
+  | 'expansion'
   | 'diagnostic'
   | 'industries'
   | 'about'
@@ -47,6 +47,10 @@ export const SLUGS: Record<PageKey, Record<Lang, string>> = {
   platform: { en: 'platform', es: 'plataforma' },
   pricing: { en: 'pricing', es: 'precios' },
   services: { en: 'services', es: 'servicios' },
+  // Solo español: el Estudio de Expansión nace con el giro a consultoría y la
+  // versión en inglés está en pausa. El slug en inglés existe porque el mapa
+  // es un `Record` completo, pero no hay página que lo sirva.
+  expansion: { en: 'expansion-study', es: 'estudio-de-expansion' },
   diagnostic: { en: 'business-diagnostic', es: 'diagnostico-empresarial' },
   industries: { en: 'industries', es: 'industrias' },
   about: { en: 'about', es: 'nosotros' },
@@ -70,36 +74,44 @@ export function otherLangs(lang: Lang): Lang[] {
 /**
  * Enlaces de texto de la navegación principal, en orden.
  *
- * El Diagnóstico Empresarial NO está aquí: dejó de ser una entrada de menú y se
- * alcanza desde el hero de «Para empresas», que es donde tiene público. El
- * botón de la barra es «Agenda una llamada», que va al cliente principal —los
- * asesores—, y Contacto va como enlace secundario junto a ese botón.
+ * Desde el giro del 2026-11-06 el sitio le habla a dueños de pequeños
+ * negocios, no a contadores que compran software. El menú son tres entradas y
+ * un botón: Servicios, el Estudio de Expansión —que es la puerta de entrada
+ * de quien ya piensa en crecer— y Nosotros, porque a un consultor se le
+ * contrata por quién es.
  *
- * Precios aparece solo cuando hay precios que mostrar. Con los precios
- * apagados, la página existe pero no se enlaza, no se indexa y no entra al
- * sitemap: es la misma condición en los tres sitios, leída de la misma
- * variable.
+ * Lo que vendía la suscripción —Para contadores, Para empresas, Plataforma,
+ * Precios e Industrias— NO se borra: sigue publicado y servido, pero sale del
+ * menú y del índice (ver `NOINDEX_PAGES`). Si el giro no funciona, volver es
+ * editar estas dos listas.
  */
-export const NAV_PAGES: PageKey[] = [
-  'advisors',
-  'business',
-  'platform',
-  ...(negocio.mostrar_precios ? (['pricing'] as PageKey[]) : []),
-  'services',
-  'about',
-];
+export const NAV_PAGES: PageKey[] = ['services', 'expansion', 'about'];
 
 /**
- * Páginas que no deben indexarse. Gracias no es contenido —es el acuse de un
- * envío— y Precios solo se oculta mientras los precios estén apagados.
+ * Páginas que no deben indexarse.
+ *
+ * Tres grupos, y conviene no mezclarlos al editar:
+ *
+ *  1. `thanks` — es el acuse de un envío, nunca fue contenido.
+ *  2. Las páginas de la etapa de software. Siguen publicadas porque la
+ *     decisión fue no borrar nada, pero un prospecto que llegue a «Para
+ *     contadores» desde Google leería una oferta que ya no existe, y la
+ *     portada le dice que Forcelis no vende software. Dejarlas indexadas es
+ *     contradecirse en público.
+ *  3. Todo lo que quede en inglés, porque esa versión está en pausa y no se
+ *     está manteniendo. Eso lo resuelve `Base.astro` por idioma, no esta
+ *     lista.
  *
  * La MISMA lista alimenta la etiqueta `robots` del `<head>` y el filtro del
- * sitemap, para que no puedan contradecirse: un sitemap que anuncia una URL
- * marcada `noindex` es una señal contradictoria y los buscadores la reportan.
+ * sitemap, para que no puedan contradecirse.
  */
 export const NOINDEX_PAGES: PageKey[] = [
   'thanks',
-  ...(negocio.mostrar_precios ? [] : (['pricing'] as PageKey[])),
+  'advisors',
+  'business',
+  'platform',
+  'pricing',
+  'industries',
 ];
 
 export function isNoindex(key: PageKey): boolean {

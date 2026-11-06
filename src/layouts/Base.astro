@@ -20,19 +20,26 @@ const c = common(lang);
 // lista alimenta esta etiqueta y el filtro del sitemap, y así no pueden
 // contradecirse. `follow` y no `nofollow`: la página de gracias enlaza al
 // inicio y no hay motivo para quemar esos enlaces.
-const noindex = isNoindex(pageKey);
+// La versión en inglés está EN PAUSA desde el giro a consultoría del
+// 2026-11-06: las páginas siguen publicadas —no se borró nada— pero no se
+// mantienen y describen la oferta anterior. Indexarlas sería ofrecer en un
+// buscador una versión que ya no es cierta, así que todo `/en/` sale del
+// índice hasta que haya clientes fuera de México y se retome la traducción.
+const noindex = isNoindex(pageKey) || lang === 'en';
 
 const site = Astro.site ?? new URL('https://forcelis-group.com');
 const canonical = new URL(path(pageKey, lang), site).href;
 const ogImage = new URL('/og-image.png', site).href;
 
-// hreflang: una entrada por idioma más `x-default`. El x-default apunta al
-// inglés y no a `/`, porque `/` es una página de reenvío: mandar ahí al
-// rastreador añade un salto sin contenido.
-const alternates = LANGS.map((l) => ({
-  hreflang: LANG_META[l].hreflang,
-  href: new URL(path(pageKey, l), site).href,
-}));
+// hreflang: mientras el inglés esté en pausa, el sitio NO anuncia alternativas
+// de idioma. Un `hreflang` es una promesa de que existe la misma página en el
+// otro idioma y de que está mantenida; apuntar a `/en/` cuando describe una
+// oferta retirada manda al buscador a contenido equivocado, y además choca con
+// el `noindex` que esas páginas ahora llevan.
+//
+// Para retomarlo: devolver `LANGS.map(...)` aquí y quitar el `|| lang === 'en'`
+// del `noindex` de arriba. Son las dos únicas líneas que lo apagan.
+const alternates: { hreflang: string; href: string }[] = [];
 
 const organizationJsonLd = {
   '@context': 'https://schema.org',
@@ -63,7 +70,7 @@ const organizationJsonLd = {
         <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />
       ))
     }
-    <link rel="alternate" hreflang="x-default" href={new URL(path(pageKey, 'en'), site).href} />
+    <link rel="alternate" hreflang="x-default" href={new URL(path(pageKey, 'es'), site).href} />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Forcelis Group" />

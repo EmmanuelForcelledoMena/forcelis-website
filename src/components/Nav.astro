@@ -16,7 +16,6 @@
  * busca primero.
  */
 import Wordmark from './Wordmark.astro';
-import LanguageSwitcher from './LanguageSwitcher.astro';
 import { NAV_PAGES, path, type Lang, type PageKey } from '../i18n/routes';
 import { negocio } from '../config/negocio';
 import { agenda } from '../config/enlaces';
@@ -107,7 +106,6 @@ const appHref = negocio.url_app;
            de idioma dentro de la hamburguesa es esconderlo, y el mercado
            inicial es México leyendo un sitio cuyo idioma por defecto es el
            inglés. -->
-      <LanguageSwitcher lang={lang} pageKey={pageKey} />
 
       <a
         href={agendaHref}
