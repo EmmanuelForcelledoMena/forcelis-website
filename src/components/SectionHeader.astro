@@ -28,8 +28,8 @@ const {
 
 const titleSize =
   Tag === 'h1'
-    ? 'text-[2.5rem] leading-[1.05] tracking-[-0.03em] sm:text-6xl lg:text-display'
-    : 'text-[2rem] leading-[1.1] tracking-[-0.025em] sm:text-[2.75rem] lg:text-5xl';
+    ? 'text-[2.5rem] leading-[1.05] tracking-[-0.015em] sm:text-6xl lg:text-display'
+    : 'text-[2rem] leading-[1.1] tracking-[-0.015em] sm:text-[2.75rem] lg:text-5xl';
 
 const titleColor = tone === 'light' ? 'text-on-ink' : 'text-ink';
 const eyebrowColor = tone === 'light' ? 'text-on-ink-muted' : 'text-brand-text';
@@ -45,7 +45,7 @@ const alignment = align === 'center' ? 'mx-auto max-w-3xl text-center' : 'max-w-
       </p>
     )
   }
-  <Tag class={`mt-4 font-semibold ${titleSize} ${titleColor}`}>{title}</Tag>
+  <Tag class={`mt-4 font-medium ${titleSize} ${titleColor}`}>{title}</Tag>
   {intro && <p class={`mt-6 text-lg leading-relaxed ${introColor}`}>{intro}</p>}
   <slot />
 </div>

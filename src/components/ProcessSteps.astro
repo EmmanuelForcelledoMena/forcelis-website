@@ -41,7 +41,7 @@ const divider = light ? 'lg:border-line-ink' : 'lg:border-line';
         <span class:list={['tnum block text-3xl leading-none font-semibold tracking-[-0.03em]', numColor]}>
           {String(i + 1).padStart(2, '0')}
         </span>
-        <h3 class:list={['mt-4 text-lg leading-snug font-semibold', titleColor]}>{item.title}</h3>
+        <h3 class:list={['mt-4 text-lg leading-snug font-medium', titleColor]}>{item.title}</h3>
         <p class:list={['mt-2.5 text-[0.9375rem] leading-relaxed', bodyColor]}>{item.body}</p>
       </li>
     ))

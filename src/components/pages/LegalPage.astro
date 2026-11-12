@@ -29,7 +29,7 @@ const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL ?? '';
 >
   <Section tone="ground" size="compact" class="border-b border-line">
     <div class="max-w-3xl">
-      <h1 class="text-[2rem] leading-tight font-semibold tracking-[-0.025em] text-ink lg:text-5xl">
+      <h1 class="text-[2rem] leading-tight font-medium tracking-[-0.025em] text-ink lg:text-5xl">
         {content.title}
       </h1>
       <p class="mt-6 text-lg leading-relaxed text-muted">{content.intro}</p>
@@ -42,7 +42,7 @@ const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL ?? '';
       {
         content.sections.map((section, i) => (
           <section class="border-b border-line py-8 first:pt-0 last:border-b-0">
-            <h2 class="flex items-baseline gap-4 text-xl font-semibold text-ink">
+            <h2 class="flex items-baseline gap-4 text-xl font-medium text-ink">
               <span class="tnum text-xs font-semibold text-brand-text">
                 {String(i + 1).padStart(2, '0')}
               </span>
@@ -65,7 +65,7 @@ const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL ?? '';
            Antes, sin correo, esto imprimía «Correo de contacto aún no
            configurado» — un mensaje para el programador puesto delante de un
            visitante. -->
-      <div class="mt-10 border-l-2 border-ink bg-panel-alt px-6 py-5">
+      <div class="mt-10 rounded-control border-l-2 border-ink bg-panel-alt px-6 py-5">
         {
           contactEmail ? (
             <a

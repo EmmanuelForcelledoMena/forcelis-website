@@ -6,23 +6,24 @@
  * lo otro. Lo usan la página de Servicios y la portada, y tiene que decir lo
  * mismo en las dos.
  *
- * El orden es el del documento de oferta: del servicio más pequeño al más
- * grande, que es también el orden en que un cliente los va contratando.
+ * Solo existe en español: los servicios de la línea internacional son otros
+ * y viven en `en/services.json`.
+ *
+ * El orden es el de la página: primero las dos puertas de entrada —los dos
+ * diagnósticos—, después lo que se contrata a partir de ellos.
  */
 import { negocio, precioServicio, type Servicio } from '../config/negocio';
-import { t } from './index';
-import type { Lang } from './routes';
+import { es } from './index';
 
 export type IdServicio = Servicio['id'];
 
-/** Del más pequeño al más grande. */
 export const ORDEN_SERVICIOS: IdServicio[] = [
-  'sesion',
   'diagnostico',
-  'mercado',
   'expansion',
-  'franquicia',
+  'mercado',
+  'sesion',
   'acompanamiento',
+  'franquicia',
 ];
 
 /**
@@ -48,8 +49,9 @@ export interface ServicioResuelto {
   esPuertaDeEntrada: boolean;
 }
 
-export function serviciosResueltos(lang: Lang): ServicioResuelto[] {
-  const s = t(lang, 'services');
+export function serviciosResueltos(): ServicioResuelto[] {
+  const s = es('services');
+  const lang = 'es';
 
   return ORDEN_SERVICIOS.map((id) => {
     const config = negocio.servicios.find((x) => x.id === id)!;
@@ -78,7 +80,7 @@ export function serviciosResueltos(lang: Lang): ServicioResuelto[] {
       tramos:
         importe?.tramos?.map((tr) => ({
           etiqueta: s.tiers[tr.id as keyof typeof s.tiers],
-          importe: tr.texto,
+          importe: tr.texto ?? s.labels.quote,
         })) ?? [],
       esPuertaDeEntrada: PUERTAS_DE_ENTRADA.includes(id),
     };

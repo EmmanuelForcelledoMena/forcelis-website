@@ -1,56 +1,41 @@
 {
   "brand": {
     "name": "Forcelis Group",
-    "wordmark": "FORCELIS",
-    "wordmarkSuffix": "GROUP",
-    "tagline": "Crecimiento y franquicias para pequeños negocios"
+    "tagline": "Crecimiento y franquicias para pequeños negocios mexicanos"
   },
   "skipToContent": "Ir al contenido principal",
   "nav": {
-    "advisors": "Para contadores y consultores",
-    "business": "Para empresas",
-    "platform": "Plataforma",
-    "pricing": "Precios",
+    "home": "Inicio",
     "services": "Servicios",
-    "diagnostic": "Diagnóstico Empresarial",
-    "industries": "Industrias",
+    "expansion": "Estudio de Expansión",
+    "advisors": "Para asesores",
+    "pricing": "Precios",
+    "platform": "Plataforma",
     "about": "Nosotros",
     "contact": "Contacto",
     "openMenu": "Abrir el menú de navegación",
     "closeMenu": "Cerrar el menú de navegación",
     "cta": "Agenda una llamada",
     "app": "Entrar",
-    "mainLabel": "Navegación principal",
-    "expansion": "Estudio de Expansión"
+    "mainLabel": "Navegación principal"
   },
   "lang": {
     "label": "Idioma",
     "footerLabel": "Idioma, pie de página",
     "current": "Idioma actual: español",
-    "switchTo": "View this page in English"
-  },
-  "cta": {
-    "schedule": "Agenda una llamada",
-    "diagnostic": "Solicitar un Diagnóstico Empresarial",
-    "diagnosticShort": "Solicitar un diagnóstico",
-    "contact": "Contactar a Forcelis",
-    "advisors": "Asesoro empresas",
-    "business": "Tengo una empresa",
-    "learnMore": "Saber más",
-    "seePlatform": "Ver la plataforma",
-    "seePricing": "Ver planes y precios",
-    "seeIndustries": "Ver industrias"
+    "other": "English",
+    "note": "English: for companies entering Mexico"
   },
   "footer": {
-    "tagline": "Crecimiento y franquicias para pequeños negocios",
-    "blurb": "Forcelis ayuda a pequeños negocios mexicanos a crecer con sus propios números: ordenar lo que ya tienen, ganar más y decidir si abrir otra sucursal o franquiciarse.",
-    "navHeading": "Navegación",
-    "companyHeading": "Empresa",
+    "blurb": "Consultoría de crecimiento y franquicias para pequeños negocios mexicanos, con sus propias facturas. Y una plataforma de análisis para contadores y consultores.",
+    "navHeading": "Consultoría",
+    "advisorsHeading": "Para asesores",
+    "companyHeading": "Forcelis",
     "legalHeading": "Legal",
     "privacy": "Aviso de privacidad",
     "terms": "Términos de servicio",
     "copyright": "© 2026 Forcelis Group. Todos los derechos reservados.",
-    "disclaimer": "Forcelis presta servicios de análisis y consultoría. No hace contabilidad, no presenta declaraciones y no sustituye la asesoría legal de un abogado especializado en franquicias."
+    "disclaimer": "Forcelis presta servicios de análisis y consultoría, y ofrece una plataforma de análisis para asesores. No hace contabilidad, no presenta declaraciones, no emite opiniones fiscales y no sustituye el juicio de un contador público ni la asesoría legal de un abogado especializado en franquicias."
   },
   "labels": {
     "illustrative": "Datos ilustrativos",
@@ -58,14 +43,10 @@
     "inDevelopment": "En desarrollo",
     "roadmap": "Hoja de ruta",
     "scoreOutOf": "de 100",
-    "overallScore": "Desempeño global",
-    "overallNote": "Promedio de las cinco dimensiones",
+    "overallScore": "Calificación global",
+    "overallNote": "Promedio de las dimensiones",
     "required": "Requerido",
-    "optional": "Opcional",
-    "details": "Detalle",
-    "whyItMatters": "Por qué importa",
-    "recommendedAction": "Acción recomendada",
-    "priority": "Prioridad"
+    "optional": "Opcional"
   },
   "cookies": {
     "title": "Cookies",
@@ -73,32 +54,5 @@
     "accept": "Aceptar",
     "reject": "Rechazar",
     "more": "Aviso de privacidad"
-  },
-  "scores": [
-    {
-      "label": "Salud financiera",
-      "value": 74,
-      "note": "Estructura de margen, base de costos y calidad del resultado"
-    },
-    {
-      "label": "Flujo de efectivo",
-      "value": 58,
-      "note": "Cobranza real, antigüedad y conversión a efectivo"
-    },
-    {
-      "label": "Desempeño comercial",
-      "value": 81,
-      "note": "Mezcla de clientes, concentración, retención y precios"
-    },
-    {
-      "label": "Eficiencia operativa",
-      "value": 63,
-      "note": "Compras y estructura de proveedores; el inventario, solo con tu reporte"
-    },
-    {
-      "label": "Calidad de datos contables",
-      "value": 84,
-      "note": "Completitud y consistencia de los registros de origen"
-    }
-  ]
+  }
 }

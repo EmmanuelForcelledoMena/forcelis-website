@@ -1,11 +1,15 @@
 ---
 /**
- * Raiz del sitio.
+ * Raíz del sitio.
  *
- * Desde el giro a consultoria solo se sirve el espanol, asi que esto es un
- * reenvio sin decision: no hay preferencia de idioma que consultar ni segunda
- * version a la que mandar a nadie. Se conservan las tres capas —meta refresh,
- * script y enlace visible— porque cada una cubre el fallo de la anterior.
+ * Lleva a `/es/`, la portada de la audiencia principal. La única excepción es
+ * quien ya eligió el inglés con el selector (se guarda solo en ese clic,
+ * nunca por deducción): esa persona vuelve a `/en/`. No se adivina por el
+ * idioma del navegador: un dueño de negocio en México con Chrome en inglés
+ * sigue siendo cliente de la línea en español.
+ *
+ * Tres capas —meta refresh, script y enlace visible— porque cada una cubre el
+ * fallo de la anterior.
  */
 const destino = '/es/';
 ---
@@ -17,11 +21,19 @@ const destino = '/es/';
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Forcelis</title>
     <meta name="robots" content="noindex, follow" />
-    <meta http-equiv="refresh" content={`0;url=${destino}`} />
+    <script is:inline define:vars={{ destino }}>
+      let elegido = '';
+      try {
+        elegido = localStorage.getItem('forcelis-lang') || '';
+      } catch {
+        // Almacenamiento bloqueado: se va al destino por omisión.
+      }
+      window.location.replace(elegido === 'en' ? '/en/' : destino);
+    </script>
+    <meta http-equiv="refresh" content={`1;url=${destino}`} />
     <link rel="canonical" href="https://forcelis-group.com/es/" />
   </head>
   <body>
-    <p><a href={destino}>Ir a Forcelis</a></p>
-    <script is:inline define:vars={{ destino }}>window.location.replace(destino);</script>
+    <p><a href={destino}>Ir a Forcelis</a> · <a href="/en/" lang="en">Forcelis in English</a></p>
   </body>
 </html>

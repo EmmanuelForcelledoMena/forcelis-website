@@ -1,19 +1,11 @@
 ---
 /**
- * Servicios.
+ * Servicios (consultoría México).
  *
- * El catálogo completo de la consultoría, del servicio más pequeño al más
- * grande — que es también el orden en que un cliente los va contratando.
- *
- * Dos decisiones de composición:
- *
- *  1. Las dos PUERTAS DE ENTRADA (Diagnóstico de Negocio y Estudio de
- *     Expansión) llevan un distintivo. Son seis tarjetas con la misma forma y
- *     sin esa marca un dueño no sabe por cuál empezar: las leería como un menú
- *     de opciones equivalentes, que no lo son.
- *  2. El recorrido va ARRIBA, antes del catálogo. Entender que todo empieza
- *     con una llamada y termina en el acompañamiento mensual es lo que da
- *     sentido a los seis; al revés, son seis precios sueltos.
+ * Orden: el recorrido —para que se entienda cómo encajan los seis— y después
+ * las tarjetas: los dos diagnósticos destacados arriba, porque son la puerta de
+ * entrada, y los otros cuatro debajo. Cada tarjeta lleva `id` para enlazarla
+ * (`/es/servicios/#diagnostico`).
  *
  * Ningún importe se escribe aquí: salen de `negocio.ts` por `servicios.ts`.
  */
@@ -22,92 +14,136 @@ import Section from '../Section.astro';
 import SectionHeader from '../SectionHeader.astro';
 import Button from '../Button.astro';
 import PageHero from '../PageHero.astro';
-import DataFlow from '../DataFlow.astro';
+import Recorrido from '../Recorrido.astro';
+import Cta from '../Cta.astro';
 import Tag from '../Tag.astro';
-import { serviciosResueltos } from '../../i18n/servicios';
+import { serviciosResueltos, type ServicioResuelto } from '../../i18n/servicios';
 import { agenda, contratarServicio } from '../../config/enlaces';
-import { path, type Lang } from '../../i18n/routes';
-import { t } from '../../i18n';
+import { path } from '../../i18n/routes';
+import { es } from '../../i18n';
 
-interface Props {
-  lang: Lang;
-}
-
-const { lang } = Astro.props;
-const s = t(lang, 'services');
-const servicios = serviciosResueltos(lang);
+const s = es('services');
+const lang = 'es';
+const servicios = serviciosResueltos();
+const porId = (id: ServicioResuelto['id']) => servicios.find((x) => x.id === id)!;
+const destacados = servicios.filter((x) => x.esPuertaDeEntrada);
+const otros = servicios.filter((x) => !x.esPuertaDeEntrada);
 const agendaHref = agenda(lang);
+
+const nodo = (id: ServicioResuelto['id']) => ({ label: porId(id).nombre, href: `#${id}` });
 ---
 
 <Base lang={lang} pageKey="services" title={s.meta.title} description={s.meta.description}>
-  <PageHero
-    photoKey="services"
-    eyebrow={s.hero.eyebrow}
-    title={s.hero.title}
-    intro={s.hero.subtitle}
-  >
+  <PageHero eyebrow={s.hero.eyebrow} title={s.hero.title} intro={s.hero.subtitle}>
     <Fragment slot="actions">
-      <Button href={agendaHref} variant="onInk" size="lg" data-cta="agenda">
-        {s.labels.cta}
-      </Button>
+      <Button href={agendaHref} size="lg">{s.labels.cta}</Button>
     </Fragment>
   </PageHero>
 
   <!-- ============================================================= RECORRIDO -->
-  <Section tone="panel" size="compact">
+  <Section tone="ground" size="compact">
     <div class="reveal">
-      <SectionHeader title={s.journey.title} intro={s.journey.intro} />
+      <SectionHeader eyebrow={s.journey.eyebrow} title={s.journey.title} intro={s.journey.intro} />
     </div>
-    <div class="reveal mt-10" data-reveal-delay="80">
-      <DataFlow items={s.journey.flow} emphasis={3} alt={s.journey.flowAlt} />
-    </div>
+    <Recorrido
+      class="reveal mt-10"
+      inicio={{ ...s.journey.start, href: agendaHref }}
+      opciones={[nodo('diagnostico'), nodo('expansion'), nodo('mercado')]}
+      ramaDesde={1}
+      rama={{ ...nodo('franquicia'), condicion: s.journey.branch }}
+      fin={{ ...s.journey.end, href: '#acompanamiento' }}
+      alt={s.journey.alt}
+    />
   </Section>
 
-  <!-- ============================================================== CATÁLOGO -->
-  <Section tone="ground">
-    <div class="grid gap-px border border-line bg-line lg:grid-cols-2">
+  <!-- ============================================================ DESTACADOS -->
+  <Section tone="panel">
+    <div class="reveal">
+      <SectionHeader title={s.featured.title} intro={s.featured.intro} />
+    </div>
+    <div class="mt-12 grid gap-6 lg:grid-cols-2">
       {
-        servicios.map((sv, i) => (
+        destacados.map((sv, i) => (
           <article
-            class="reveal flex flex-col bg-panel p-7 lg:p-8"
-            data-reveal-delay={(i % 2) * 70}
+            id={sv.id}
+            class="reveal flex scroll-mt-28 flex-col rounded-card border-2 border-brand bg-panel p-7 lg:p-9"
+            data-reveal-delay={i * 70}
           >
-            <div class="flex flex-wrap items-start justify-between gap-3">
-              <h2 class="text-xl leading-snug font-semibold tracking-[-0.02em] text-ink lg:text-2xl">
-                {sv.nombre}
-              </h2>
-              {sv.esPuertaDeEntrada && <Tag tone="brand">{s.labels.entryPoint}</Tag>}
-            </div>
-
-            <p class="mt-4 text-[0.9375rem] leading-relaxed text-muted">{sv.paraQuien}</p>
+            <Tag tone="brand" class="self-start">{s.labels.entryPoint}</Tag>
+            <h3 class="mt-5 text-2xl leading-snug font-medium tracking-[-0.01em] text-ink lg:text-[1.75rem]">
+              {sv.nombre}
+            </h3>
+            <p class="mt-3 text-[0.9375rem] leading-relaxed text-muted">{sv.paraQuien}</p>
 
             <dl class="mt-6 flex-1 divide-y divide-line border-t border-line">
               <div class="py-3.5">
-                <dt class="text-[0.625rem] font-semibold tracking-[0.14em] text-muted uppercase">
-                  {s.labels.includes}
-                </dt>
+                <dt class="text-[0.6875rem] font-semibold tracking-[0.12em] text-muted uppercase">{s.labels.includes}</dt>
                 <dd class="mt-1.5 text-[0.9375rem] leading-relaxed text-ink">{sv.incluye}</dd>
               </div>
               <div class="py-3.5">
-                <dt class="text-[0.625rem] font-semibold tracking-[0.14em] text-muted uppercase">
-                  {s.labels.deliverable}
-                </dt>
+                <dt class="text-[0.6875rem] font-semibold tracking-[0.12em] text-muted uppercase">{s.labels.deliverable}</dt>
                 <dd class="mt-1.5 text-[0.9375rem] leading-relaxed text-ink">{sv.entregable}</dd>
               </div>
               <div class="flex items-baseline justify-between gap-4 py-3.5">
-                <dt class="text-[0.625rem] font-semibold tracking-[0.14em] text-muted uppercase">
-                  {s.labels.duration}
-                </dt>
+                <dt class="text-[0.6875rem] font-semibold tracking-[0.12em] text-muted uppercase">{s.labels.duration}</dt>
                 <dd class="text-[0.9375rem] font-medium text-ink">{sv.duracion}</dd>
               </div>
             </dl>
 
-            <!-- El precio en su propio bloque, con filo de marca: es el dato
-                 que la persona está buscando en toda la tarjeta. -->
-            <div class="mt-6 border-l-2 border-brand pl-4">
-              <p class="text-[0.625rem] font-semibold tracking-[0.14em] text-brand-text uppercase">
-                {s.labels.price}
-              </p>
+            <div class="mt-6 flex flex-wrap items-end justify-between gap-x-6 gap-y-4 rounded-control bg-panel-alt px-5 py-4">
+              <div>
+                <p class="text-[0.6875rem] font-semibold tracking-[0.12em] text-brand-text uppercase">{s.labels.price}</p>
+                <p class="tnum mt-1 text-2xl font-semibold text-ink">{sv.precio} <span class="text-sm font-medium text-muted">MXN</span></p>
+              </div>
+              <div class="flex flex-wrap items-center gap-x-5 gap-y-3">
+                <Button href={agendaHref}>{s.labels.cta}</Button>
+                <a
+                  href={contratarServicio(sv.id, lang)}
+                  class="text-sm font-medium text-ink underline decoration-line-strong underline-offset-4 hover:decoration-ink"
+                >
+                  {s.labels.write}
+                </a>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </Section>
+
+  <!-- ================================================================ OTROS -->
+  <Section tone="ground">
+    <div class="reveal">
+      <SectionHeader title={s.others.title} intro={s.others.intro} />
+    </div>
+    <div class="mt-12 grid gap-6 md:grid-cols-2">
+      {
+        otros.map((sv, i) => (
+          <article
+            id={sv.id}
+            class="reveal flex scroll-mt-28 flex-col rounded-card border border-line bg-panel p-7 lg:p-8"
+            data-reveal-delay={(i % 2) * 70}
+          >
+            <h3 class="text-xl leading-snug font-medium tracking-[-0.01em] text-ink lg:text-2xl">{sv.nombre}</h3>
+            <p class="mt-3 text-[0.9375rem] leading-relaxed text-muted">{sv.paraQuien}</p>
+
+            <dl class="mt-6 flex-1 divide-y divide-line border-t border-line">
+              <div class="py-3.5">
+                <dt class="text-[0.6875rem] font-semibold tracking-[0.12em] text-muted uppercase">{s.labels.includes}</dt>
+                <dd class="mt-1.5 text-[0.9375rem] leading-relaxed text-ink">{sv.incluye}</dd>
+              </div>
+              <div class="py-3.5">
+                <dt class="text-[0.6875rem] font-semibold tracking-[0.12em] text-muted uppercase">{s.labels.deliverable}</dt>
+                <dd class="mt-1.5 text-[0.9375rem] leading-relaxed text-ink">{sv.entregable}</dd>
+              </div>
+              <div class="flex items-baseline justify-between gap-4 py-3.5">
+                <dt class="text-[0.6875rem] font-semibold tracking-[0.12em] text-muted uppercase">{s.labels.duration}</dt>
+                <dd class="text-[0.9375rem] font-medium text-ink">{sv.duracion}</dd>
+              </div>
+            </dl>
+
+            <div class="mt-6 border-l-[3px] border-brand pl-4">
+              <p class="text-[0.6875rem] font-semibold tracking-[0.12em] text-brand-text uppercase">{s.labels.price}</p>
               {
                 sv.tramos.length > 0 ? (
                   <ul class="mt-2 space-y-1.5">
@@ -116,7 +152,9 @@ const agendaHref = agenda(lang);
                         <span class="text-[0.9375rem] text-muted">{tr.etiqueta}</span>
                         <span class="tnum text-lg font-semibold text-ink">
                           {tr.importe}
-                          <span class="ml-1 text-xs font-medium text-muted">{sv.unidad}</span>
+                          {tr.importe !== s.labels.quote && (
+                            <span class="ml-1 text-xs font-medium text-muted">{sv.unidad}</span>
+                          )}
                         </span>
                       </li>
                     ))}
@@ -132,39 +170,20 @@ const agendaHref = agenda(lang);
             </div>
 
             <div class="mt-7">
-              <Button
-                href={sv.esPuertaDeEntrada ? agendaHref : contratarServicio(sv.id, lang)}
-                variant={sv.esPuertaDeEntrada ? 'primary' : 'secondary'}
-                data-cta={sv.esPuertaDeEntrada ? 'agenda' : undefined}
-              >
-                {s.labels.cta}
-              </Button>
+              <Button href={contratarServicio(sv.id, lang)} variant="secondary">{s.labels.request}</Button>
             </div>
           </article>
         ))
       }
     </div>
 
-    <p class="reveal mt-8 max-w-3xl text-sm leading-relaxed text-muted">{s.tax}</p>
+    <p class="reveal mt-10 max-w-3xl text-sm leading-relaxed text-muted">{s.tax}</p>
   </Section>
 
-  <!-- ================================================================ CIERRE -->
-  <section class="on-ink bg-ink text-on-ink">
-    <div class="container-page py-20 lg:py-28">
-      <div class="reveal max-w-3xl">
-        <h2 class="text-[2rem] leading-[1.1] font-semibold tracking-[-0.025em] sm:text-[2.75rem] lg:text-5xl">
-          {s.closing.title}
-        </h2>
-        <p class="mt-6 text-lg text-on-ink-muted">{s.closing.body}</p>
-        <div class="mt-10 flex flex-col gap-3 sm:flex-row">
-          <Button href={agendaHref} variant="onInk" size="lg" data-cta="agenda">
-            {s.closing.primary}
-          </Button>
-          <Button href={path('expansion', lang)} variant="onInkGhost" size="lg">
-            {s.closing.secondary}
-          </Button>
-        </div>
-      </div>
-    </div>
-  </section>
+  <Cta
+    title={s.closing.title}
+    body={s.closing.body}
+    primary={{ href: agendaHref, label: s.closing.primary }}
+    secondary={{ href: path('expansion', lang), label: s.closing.secondary }}
+  />
 </Base>

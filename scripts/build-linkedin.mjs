@@ -1,31 +1,24 @@
 /**
- * Genera los recursos de la página de empresa en LinkedIn, en `brand/linkedin/`:
+ * Genera los recursos de la página de empresa en LinkedIn, en `brand/linkedin/`,
+ * con la marca del rebranding de noviembre de 2026:
  *
- *   logo-dark-400.png              logotipo: tinta con la F en taupe
- *   logo-light-400.png             logotipo: taupe con la F en tinta
+ *   logo-dark-400.png              símbolo sobre negro
+ *   logo-light-400.png             símbolo sobre blanco cálido
  *   cover-1512x256.png             portada de página, medida exacta de LinkedIn
- *   cover-3024x512.png             la misma a 2×, por si el cargador la acepta
+ *   cover-3024x512.png             la misma a 2×
  *   banner-personal-1584x396.png   portada de perfil personal
  *
- *     npm run build:linkedin
+ *     npm run build:brand && npm run build:linkedin
  *
- * Medidas de LinkedIn (help/linkedin/answer/a563309, septiembre 2026): logotipo
- * 400×400 (mínimo 268), portada de página 1512×256 —mínimo y recomendado son la
- * misma cifra—, portada de perfil 1584×396. PNG o JPEG, máximo 3 MB. La portada
- * cambió de 1128×191 a 1512×256 en algún momento de 2025; la proporción es la
- * misma (5.9:1), así que la composición no se toca, solo el lienzo.
+ * No dibuja nada propio: compone los SVG de `public/brand/`, que genera
+ * `scripts/build-brand.mjs` desde los vectores del PDF de marca. Sin texto
+ * además del logotipo —que ya va a trazos—, así que no depende de ninguna
+ * fuente instalada.
  *
- * Dos restricciones de composición que no son de marca sino de LinkedIn:
- *
- *  - En escritorio el logotipo se superpone a la esquina inferior izquierda
- *    de la portada; en móvil la portada se recorta por los lados y queda el
- *    tercio central. Por eso todo el texto va centrado y dentro del 60 % central
- *    del ancho, y la esquina inferior izquierda queda vacía.
- *  - El logotipo se muestra a 48 px en el feed: es el glifo solo, sin
- *    denominación, como el favicon. El nombre lo pone LinkedIn al lado.
- *
- * Misma técnica que `build-og.mjs`: SVG con las fuentes incrustadas, pasado
- * por sharp. El glifo de la F es el de `src/components/Wordmark.astro`.
+ * Dos restricciones de LinkedIn: en escritorio el logotipo de la página se
+ * superpone a la esquina inferior izquierda de la portada, y en móvil la
+ * portada se recorta por los lados. Por eso el logotipo va centrado y la
+ * esquina inferior izquierda queda libre.
  */
 import { readFileSync, mkdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -37,94 +30,64 @@ const root = join(here, '..');
 const outDir = join(root, 'brand/linkedin');
 mkdirSync(outDir, { recursive: true });
 
-const font = (file) =>
-  readFileSync(join(root, 'public/fonts', file)).toString('base64');
-const montserrat = font('montserrat-latin-wght-normal.woff2');
-const inter = font('inter-latin-wght-normal.woff2');
+const NEGRO = '#191919';
+const BLANCO = '#F6F4F3';
 
-const INK = '#1a1a1a';
-const GROUND = '#f7f6f4';
-const TAUPE = '#c7c3a9';
-const GRAY = '#8a8a8a'; // gris levantado: el del manual (#5a5a5a) da 2.4:1 sobre tinta
+const leer = (f) => readFileSync(join(root, 'public/brand', f), 'utf8');
+const logo = leer('logo-horizontal.svg');
+const patron = leer('patron.svg');
 
-const fonts = `
-  <style>
-    @font-face {
-      font-family: 'Montserrat Embedded';
-      font-weight: 100 900;
-      src: url(data:font/woff2;base64,${montserrat}) format('woff2');
-    }
-    @font-face {
-      font-family: 'Inter Embedded';
-      font-weight: 100 900;
-      src: url(data:font/woff2;base64,${inter}) format('woff2');
-    }
-    .display { font-family: 'Montserrat Embedded', sans-serif; font-weight: 600; }
-    .body    { font-family: 'Inter Embedded', sans-serif; font-weight: 500; }
-  </style>`;
-
-const glyph = (fill, x, y, s, opacity = 1) => `
-  <g transform="translate(${x} ${y}) scale(${s})" fill="${fill}" opacity="${opacity}">
-    <path d="M26 8H62L58 20H22Z"/>
-    <path d="M20 26H47L43 38H16Z"/>
-    <path d="M14 44H32L28 56H10Z"/>
-  </g>`;
+const viewBox = (svg) => /viewBox="([^"]+)"/.exec(svg)[1].split(' ').map(Number);
+const interior = (svg) => svg.replace(/^<svg[^>]*>/, '').replace(/<\/svg>\s*$/, '');
+const [, , LOGO_W, LOGO_H] = viewBox(logo);
+const [, , PAT_W, PAT_H] = viewBox(patron);
+const paths = [...logo.matchAll(/<path fill="([^"]+)" d="([^"]+)"\/>/g)].map((m) => ({ fill: m[1], d: m[2] }));
+const barras = paths.slice(0, 3).map((p) => `<path fill="${p.fill}" d="${p.d}"/>`).join('');
+const palabra = (color) => `<path fill="${color}" d="${paths[3].d}"/>`;
+const SIMBOLO_W = 71.28;
 
 const write = async (svg, file, resize) => {
-  let img = sharp(Buffer.from(svg));
+  let img = sharp(Buffer.from(svg), { density: 300 });
   if (resize) img = img.resize(resize.w, resize.h);
   await img.png({ compressionLevel: 9 }).toFile(join(outDir, file));
   console.log('escrito', join('brand/linkedin', file));
 };
 
 // ---------------------------------------------------------------- logotipos
-// Cuadrado a sangre, sin esquinas redondeadas: LinkedIn recorta el suyo.
-const tile = (bg, fg) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="400" height="400">
-  <rect width="64" height="64" fill="${bg}"/>
-  ${glyph(fg, 0, 0, 1)}
+// Cuadrado a sangre: LinkedIn recorta sus propias esquinas.
+const tile = (bg) => {
+  const s = 220 / LOGO_H;
+  const x = (400 - SIMBOLO_W * s) / 2;
+  const y = (400 - LOGO_H * s) / 2;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <rect width="400" height="400" fill="${bg}"/>
+  <g transform="translate(${x.toFixed(2)} ${y.toFixed(2)}) scale(${s.toFixed(4)})">${barras}</g>
 </svg>`;
-
-await write(tile(INK, TAUPE), 'logo-dark-400.png');
-await write(tile(TAUPE, INK), 'logo-light-400.png');
+};
+await write(tile(NEGRO), 'logo-dark-400.png', { w: 400, h: 400 });
+await write(tile(BLANCO), 'logo-light-400.png', { w: 400, h: 400 });
 
 // ------------------------------------------------------------------ portadas
-// Una sola composición parametrizada por el lienzo: antetítulo en taupe,
-// titular en dos líneas con el remate en taupe (el rojo no pasa el contraste
-// sobre tinta), dominio abajo, y el glifo como marca de agua a la derecha.
-const cover = ({ w, h, tag, head, domain, mark }) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}">
-  <defs>${fonts}</defs>
-  <rect width="${w}" height="${h}" fill="${INK}"/>
-  ${glyph(TAUPE, mark.x, mark.y, mark.s, 0.09)}
-  <g text-anchor="middle">
-    <text class="body" x="${w / 2}" y="${tag.y}" font-size="${tag.size}" letter-spacing="${tag.ls}" fill="${TAUPE}">FINANCIAL &amp; OPERATIONAL INTELLIGENCE</text>
-    <text class="display" x="${w / 2}" y="${head.y1}" font-size="${head.size}" letter-spacing="-0.5" fill="${GROUND}">Turn business data into</text>
-    <text class="display" x="${w / 2}" y="${head.y2}" font-size="${head.size}" letter-spacing="-0.5" fill="${TAUPE}">better decisions.</text>
-    <text class="body" x="${w / 2}" y="${domain.y}" font-size="${domain.size}" letter-spacing="1" fill="${GRAY}">forcelis-group.com</text>
-  </g>
+// Negro, logotipo centrado en blanco con el símbolo en sus rojos, y una franja
+// del patrón abajo.
+const cover = (w, h, alto, franja) => {
+  const s = alto / LOGO_H;
+  const x = (w - LOGO_W * s) / 2;
+  const y = (h - franja - LOGO_H * s) / 2;
+  const ps = (franja * 4) / PAT_H;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}">
+  <defs>
+    <pattern id="p" patternUnits="userSpaceOnUse" width="${(PAT_W * ps).toFixed(2)}" height="${(PAT_H * ps).toFixed(2)}">
+      <g transform="scale(${ps.toFixed(4)})">${interior(patron)}</g>
+    </pattern>
+  </defs>
+  <rect width="${w}" height="${h}" fill="${NEGRO}"/>
+  <g transform="translate(${x.toFixed(2)} ${y.toFixed(2)}) scale(${s.toFixed(4)})">${barras}${palabra(BLANCO)}</g>
+  <rect y="${h - franja}" width="${w}" height="${franja}" fill="url(#p)"/>
 </svg>`;
+};
 
-// Portada de página: se dibuja en el espacio 1128×191 de la especificación
-// anterior (misma proporción que la actual) y se rasteriza a la medida exacta
-// de hoy, 1512×256, más una copia a 2× para pantallas densas.
-const page = cover({
-  w: 1128,
-  h: 191,
-  tag: { y: 50, size: 10, ls: 3 },
-  head: { y1: 98, y2: 138, size: 33 },
-  domain: { y: 172, size: 11 },
-  mark: { x: 940, y: -4, s: 3.4 },
-});
+const page = cover(1512, 256, 104, 14);
 await write(page, 'cover-1512x256.png', { w: 1512, h: 256 });
 await write(page, 'cover-3024x512.png', { w: 3024, h: 512 });
-
-// Portada de perfil personal (1584×396). La foto de perfil ocupa la esquina
-// inferior izquierda; la composición centrada la esquiva igual.
-const personal = cover({
-  w: 1584,
-  h: 396,
-  tag: { y: 106, size: 15, ls: 5 },
-  head: { y1: 200, y2: 268, size: 58 },
-  domain: { y: 338, size: 17 },
-  mark: { x: 1300, y: -8, s: 6.3 },
-});
-await write(personal, 'banner-personal-1584x396.png');
+await write(cover(1584, 396, 150, 18), 'banner-personal-1584x396.png', { w: 1584, h: 396 });

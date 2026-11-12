@@ -2,27 +2,31 @@
 
 /* ===========================================================================
    TIPOGRAFÍA
-   Dos familias variables, subconjunto latino, servidas desde el propio dominio.
-   Montserrat para titulares y la marca denominativa; Inter para todo el texto
-   de lectura. Es el par que fija el manual de marca.
+   La marca usa Futura para títulos y Gotham para texto. Las dos son de pago y
+   exigen licencia web, así que se sirven sus sustitutos libres —Jost y
+   Montserrat— desde el propio dominio, en subconjunto latino y variables.
 
-   No hay ninguna petición a Google Fonts: un sitio corporativo que promete
-   control de la información no debería filtrar la IP de cada visitante a un
-   tercero, y además cada dominio externo es un RTT más en el primer pintado.
+   Las pilas de `:root` ponen primero la fuente de marca: si algún día se
+   compran las licencias, se declaran sus `@font-face` aquí y no cambia nada
+   más. Mientras tanto, quien tenga Futura instalada (macOS la trae) ya la ve.
+
+   Ninguna petición a Google Fonts: un sitio que promete cuidar la información
+   del negocio no filtra la IP de cada visitante a un tercero, y cada dominio
+   externo es un RTT más en el primer pintado.
    =========================================================================== */
 @font-face {
-  font-family: 'Inter Variable';
+  font-family: 'Jost';
   font-style: normal;
   font-display: swap;
   font-weight: 100 900;
-  src: url('/fonts/inter-latin-wght-normal.woff2') format('woff2-variations');
+  src: url('/fonts/jost-latin-wght-normal.woff2') format('woff2-variations');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
     U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
     U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 @font-face {
-  font-family: 'Montserrat Variable';
+  font-family: 'Montserrat';
   font-style: normal;
   font-display: swap;
   font-weight: 100 900;
@@ -33,96 +37,93 @@
 }
 
 /* ===========================================================================
-   TOKENS
-   ---------------------------------------------------------------------------
-   La paleta es la del manual de marca de Forcelis Group (seis colores: fondo,
-   taupe, tinta, gris, rojo y rojo oscuro). Los grises intermedios —tarjeta,
-   panel alterno, líneas— son derivados de esos seis para tener superficies y
-   hairlines que el manual no define.
-
-   Contraste medido al adoptar la paleta y anotado en cada par. Reglas que salen de esas medidas y NO son negociables:
-
-   1. `--color-brand` (#c02626) SÍ puede ser texto sobre fondo claro: da 5.5:1
-      (AA). Es el cambio grande respecto a la paleta anterior, cuyo rojo daba
-      3.85:1 y estaba prohibido como texto. Para texto pequeño que exige AAA
-      sigue existiendo `--color-brand-text` (8.45:1).
-
-   2. `--color-brand` NUNCA va sobre tinta: da 2.94:1, que falla incluso para
-      texto grande. El acento sobre superficies oscuras es el TAUPE
-      (`--color-on-ink-muted`, 9.79:1) — que es exactamente lo que hace el
-      logotipo en su versión oscura.
-
-   3. `--color-muted` (#5a5a5a) es el gris del manual y da 6.4:1 sobre fondo:
-      AA, no AAA. Es una decisión de marca, tomada a sabiendas; el sitio
-      anterior estaba en 7:1 con un gris más oscuro que no es el de la marca.
-
-   4. El taupe NO es texto sobre claro (1.65:1). Sobre claro solo es relleno:
-      el cuadrado del favicon, un filo, una superficie.
+   MARCA — los cinco colores y las dos familias de la hoja de marca.
+   Es la ÚNICA fuente de los valores: el tema de Tailwind de abajo los lee de
+   aquí, y `scripts/build-brand.mjs` repite los mismos hex para los SVG.
    =========================================================================== */
-@theme {
+:root {
+  --fc-vino: #772014;
+  --fc-rojo: #a92928;
+  --fc-negro: #191919;
+  --fc-blanco: #f6f4f3;
+  --fc-arena: #beb7a4;
+
+  --fc-font-titulos: "Futura", "Jost", sans-serif;
+  --fc-font-texto: "Gotham", "Montserrat", sans-serif;
+}
+
+/* ===========================================================================
+   TOKENS DEL SITIO
+   ---------------------------------------------------------------------------
+   Los nombres son de función (superficie, texto, línea), no de color, para
+   que las plantillas no cambien cuando cambia la marca. Los derivados —panel,
+   panel alterno, líneas— salen de la paleta y existen porque la hoja de marca
+   no define superficies intermedias.
+
+   Reglas de contraste (WCAG AA), medidas y NO negociables:
+
+   1. Blanco sobre rojo: 6.3:1. Es el botón principal.
+   2. Negro sobre blanco (16:1) o sobre arena (8.8:1): texto de lectura.
+   3. Rojo sobre negro da 2.5:1 y vino sobre negro 1.7:1: NINGUNO es texto
+      sobre superficies oscuras. Ahí el acento de texto es la ARENA (8.8:1); el
+      rojo solo va en el símbolo o en formas grandes que no son texto.
+   4. Rojo sobre blanco solo en títulos grandes. Para texto pequeño de acento
+      sobre claro (etiquetas, enlaces) se usa el VINO (9.5:1): `brand-text`.
+   5. La arena no es texto sobre claro (1.9:1): solo superficie o separador.
+   =========================================================================== */
+@theme inline {
   /* superficies */
-  --color-ground: #f7f6f4;   /* manual */
-  --color-panel: #ffffff;    /* tarjeta sobre fondo, como en los mockups */
-  --color-panel-alt: #edece7; /* derivado: fondo con una pizca de taupe */
-  --color-ink: #1a1a1a;      /* manual */
-  --color-ink-soft: #2e2e2e; /* hover de superficies de tinta */
+  --color-ground: var(--fc-blanco);
+  --color-panel: #ffffff;        /* tarjeta sobre el fondo cálido */
+  --color-panel-alt: #ece8e1;    /* derivado: blanco con una pizca de arena */
+  --color-ink: var(--fc-negro);
+  --color-ink-soft: #262423;     /* hover de superficies oscuras */
 
   /* texto */
-  --color-body: #1a1a1a;
-  --color-muted: #5a5a5a;         /* manual · 6.4:1 sobre fondo, AA */
-  --color-on-ink: #f7f6f4;        /* 16.1:1 sobre tinta */
-  --color-on-ink-muted: #c7c3a9;  /* TAUPE del manual · 9.8:1 sobre tinta */
+  --color-body: var(--fc-negro);
+  --color-muted: #57534d;        /* 7.0:1 sobre el fondo */
+  --color-on-ink: var(--fc-blanco);     /* 16:1 sobre negro */
+  --color-on-ink-muted: var(--fc-arena); /* 8.8:1 sobre negro */
 
   /* marca */
-  --color-brand: #c02626;      /* manual · 5.5:1 sobre fondo, AA */
-  --color-brand-text: #8b1e1e; /* manual · 8.45:1 sobre fondo, AAA */
-  --color-taupe: #c7c3a9;      /* manual · solo relleno sobre claro */
+  --color-brand: var(--fc-rojo);       /* botones, símbolo, títulos grandes */
+  --color-brand-text: var(--fc-vino);  /* acento de texto pequeño sobre claro */
+  --color-taupe: var(--fc-arena);      /* el nombre viejo, por compatibilidad */
+  --color-arena: var(--fc-arena);
+  --color-vino: var(--fc-vino);
+  --color-rojo: var(--fc-rojo);
 
-  /* El rojo del manual sobre tinta da 2.94:1: no llega ni al 3:1 de texto
-     grande. Los mockups de la marca ponen igualmente el remate del titular en
-     rojo sobre los heros oscuros, así que este es el mismo rojo levantado lo
-     justo para pasar: 3.77:1 sobre tinta y 3.11:1 sobre una foto oscurecida.
-     SOLO para texto grande (≥ 24 px negrita) sobre superficies oscuras. Para
-     texto pequeño sobre tinta sigue valiendo únicamente el taupe. */
-  --color-brand-on-ink: #d63b3b;
+  /* líneas */
+  --color-line: #e2ddd4;
+  --color-line-strong: #8f897c;  /* 3.2:1 sobre el fondo: bordes de control (1.4.11) */
+  --color-line-ink: #3a3735;
 
-  /* líneas — derivadas, con la temperatura del taupe */
-  --color-line: #e4e2dc;
-  --color-line-strong: #9c9990;  /* 3.1:1 sobre fondo: bordes de control (1.4.11) */
-  --color-line-ink: #3a3a3a;
-
-  /* colores de dato — los de las gráficas del producto; el manual no los
-     define y no hay motivo para inventar otros */
+  /* colores de dato — los de las gráficas del producto; la marca no los define */
   --color-data-blue: #1f6b86;
   --color-data-green: #17714a;
   --color-data-amber: #8a5a00;
   --color-data-violet: #5b3fa8;
-  --color-data-red: #8b1e1e;
-
-  /* Pares LEGIBLES de los colores de dato. Un color calibrado para pintar una
-     serie no llega al contraste que exige el mismo valor escrito como texto.
-     Una cifra en verde usa `-text`, no el de la barra. */
+  --color-data-red: var(--fc-rojo);
   --color-data-blue-text: #12495c;
   --color-data-green-text: #0e4d31;
   --color-data-amber-text: #5a3a00;
-  --color-grid: #ebe9e4;
+  --color-grid: #ebe7e0;
 
-  --font-sans: 'Inter Variable', 'Inter', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --font-display: 'Montserrat Variable', 'Montserrat', 'Inter Variable',
-    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+  --font-sans: var(--fc-font-texto);
+  --font-display: var(--fc-font-titulos);
 
-  /* Montserrat es más ancha que Inter. A 60 px el titular en inglés cabe en
-     dos líneas en la columna del hero (medido: a 64 se va a tres); el español
-     ocupa tres a cualquier tamaño, que es su forma natural. El interletrado se
-     aprieta menos que con Inter porque Montserrat ya es abierta de por sí. */
+  /* Títulos en peso medio y con poco interletrado, como pide la marca. Jost es
+     más estrecha que Montserrat, así que el titular admite un cuerpo mayor. */
   --text-display: 3.75rem;
   --text-display--line-height: 1.05;
-  --text-display--letter-spacing: -0.025em;
+  --text-display--letter-spacing: -0.015em;
+
+  /* Esquinas suaves, las mismas en todo el sitio: botón y tarjeta. */
+  --radius-control: 0.625rem;
+  --radius-card: 1rem;
 
   --spacing-section: 7.5rem;
 }
-
 /* ===========================================================================
    BASE
    =========================================================================== */
@@ -161,11 +162,13 @@
     text-wrap: balance;
   }
 
-  /* Titulares en Montserrat, cuerpo en Inter: el par del manual de marca. Va
-     por elemento y no por clase porque ninguna plantilla fija la familia —
-     todas heredan— y así un encabezado nuevo sale bien sin acordarse de nada. */
+  /* Títulos en la familia de títulos (Futura → Jost), cuerpo en la de texto
+     (Gotham → Montserrat). Va por elemento y no por clase: ninguna plantilla
+     fija la familia, todas heredan, y un encabezado nuevo sale bien sin
+     acordarse de nada. */
   h1, h2, h3 {
     font-family: var(--font-display);
+    font-weight: 500;
   }
   p {
     text-wrap: pretty;
@@ -235,6 +238,21 @@
   .select-control:has(option[value='']:checked) {
     color: var(--color-muted);
   }
+}
+
+/* ===========================================================================
+   PATRÓN DE MARCA
+   ---------------------------------------------------------------------------
+   Las barras diagonales de la hoja de marca, como FRANJA de detalle: arriba
+   del pie, en el borde de una sección oscura. Nunca detrás de texto — por eso
+   es una utilidad de alto fijo y no un fondo de sección.
+   =========================================================================== */
+@utility franja-marca {
+  height: 0.625rem;
+  background-image: url('/brand/patron.svg');
+  background-size: auto 9rem;
+  background-repeat: repeat-x;
+  background-position: left center;
 }
 
 /* ===========================================================================

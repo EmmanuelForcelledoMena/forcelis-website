@@ -2,15 +2,16 @@
 /**
  * Botón/enlace del sistema.
  *
- * El acento cambia con la superficie, y la razón es de contraste, no de gusto:
+ * Lo que pide la marca: principal en rojo con texto blanco (6.3:1); secundario
+ * con contorno negro sobre claro. Esquinas suaves (`rounded-control`), las
+ * mismas en todo el sitio.
  *
- * - Sobre CLARO el botón principal es rojo de marca con texto blanco (5.9:1,
- *   AA). Es lo que muestran los mockups del manual.
- * - Sobre TINTA el botón principal es el rojo LEVANTADO (`--color-brand-on-ink`,
- *   #d63b3b) con texto blanco: 3.8:1 de borde contra la tinta (WCAG 1.4.11
- *   pide 3:1) y 4.6:1 el texto (AA). El rojo del manual tal cual da 2.94:1 de
- *   borde y no pasa. Es lo que muestran los heros oscuros de los mockups.
+ * Sobre superficies oscuras el principal sigue siendo rojo con texto blanco —
+ * es el botón de la hoja de marca— y el secundario es un contorno arena.
  */
+import { negocio } from '../config/negocio';
+import { esExterno } from '../config/enlaces';
+
 interface Props {
   href: string;
   variant?: 'primary' | 'secondary' | 'onInk' | 'onInkGhost';
@@ -21,6 +22,12 @@ interface Props {
 }
 
 const { href, variant = 'primary', size = 'md', class: className = '', ...rest } = Astro.props;
+
+// La liga de agenda sale del sitio: se abre aparte, para no perder la página,
+// y lleva `data-cta="agenda"` para medir el clic (solo con consentimiento).
+// Se decide aquí para que ningún botón de agenda se quede sin ello.
+const externo = esExterno(href) ? { target: '_blank', rel: 'noopener' } : {};
+const medicion = negocio.url_agenda && href === negocio.url_agenda ? { 'data-cta': 'agenda' } : {};
 
 // `group` para que la flecha reaccione al pasar el ratón por el botón entero y
 // no solo por encima de ella. Es el mismo gesto que ya hacen las tarjetas de
@@ -33,7 +40,7 @@ const { href, variant = 'primary', size = 'md', class: className = '', ...rest }
 // vuelve a ser de una sola línea.
 const base =
   'group inline-flex max-w-full items-center justify-center gap-2 text-center font-medium ' +
-  'transition-colors duration-200 rounded-none sm:whitespace-nowrap';
+  'transition-colors duration-200 rounded-control sm:whitespace-nowrap';
 
 // `lg` es más compacto por debajo de `sm`: con 28 px de margen a cada lado,
 // «Solicitar un Diagnóstico Empresarial» ya no cabía en una línea a 360 px.
@@ -43,14 +50,14 @@ const sizes = {
 };
 
 const variants = {
-  primary: 'bg-brand text-white hover:bg-brand-text',
-  secondary: 'border border-line-strong text-ink hover:bg-panel-alt hover:border-ink',
-  onInk: 'bg-brand-on-ink text-white hover:bg-[#e04a4a]',
-  onInkGhost: 'border border-on-ink-muted/50 text-on-ink hover:border-on-ink-muted hover:bg-white/5',
+  primary: 'bg-brand text-white hover:bg-vino',
+  secondary: 'border border-ink text-ink hover:bg-ink hover:text-on-ink',
+  onInk: 'bg-brand text-white hover:bg-[#bd3130]',
+  onInkGhost: 'border border-on-ink-muted/70 text-on-ink hover:border-on-ink hover:bg-white/5',
 };
 ---
 
-<a href={href} class={`${base} ${sizes[size]} ${variants[variant]} ${className}`} {...rest}>
+<a href={href} class={`${base} ${sizes[size]} ${variants[variant]} ${className}`} {...externo} {...medicion} {...rest}>
   <slot />
   <svg
     width="14"

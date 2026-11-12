@@ -28,24 +28,19 @@ import PlatformArchitecture from '../PlatformArchitecture.astro';
 import DashboardPreview from '../DashboardPreview.astro';
 import Disclosure from '../Disclosure.astro';
 import Tag from '../Tag.astro';
-import Button from '../Button.astro';
 import RuledRows from '../RuledRows.astro';
-import { agenda } from '../../config/enlaces';
-import { path, type Lang } from '../../i18n/routes';
-import { t, common } from '../../i18n';
-import { negocio } from '../../config/negocio';
+import Cta from '../Cta.astro';
+import { path } from '../../i18n/routes';
+import { es, common } from '../../i18n';
 
-interface Props {
-  lang: Lang;
-}
-
-const { lang } = Astro.props;
-const p = t(lang, 'platform');
+const lang = 'es';
+const p = es('platform');
 const c = common(lang);
 ---
 
 <Base lang={lang} pageKey="platform" title={p.meta.title} description={p.meta.description}>
   <PageHero
+    tone="dark"
     photoKey="platform"
     eyebrow={p.hero.eyebrow}
     title={p.hero.title}
@@ -81,7 +76,7 @@ const c = common(lang);
         p.principles.items.map((item, i) => (
           <li class="reveal flex flex-col bg-panel p-7" data-reveal-delay={i * 70}>
             <span class="tnum text-xs font-semibold text-brand-text">{String(i + 1).padStart(2, '0')}</span>
-            <h3 class="mt-4 text-sm font-semibold tracking-[0.14em] text-ink uppercase">{item.label}</h3>
+            <h3 class="mt-4 text-sm font-medium tracking-[0.14em] text-ink uppercase">{item.label}</h3>
             <p class="mt-4 text-[0.9375rem] leading-relaxed text-muted">{item.title}</p>
           </li>
         ))
@@ -112,7 +107,7 @@ const c = common(lang);
             <span class="tnum block text-3xl leading-none font-semibold tracking-[-0.03em] text-brand-text">
               {String(i + 1).padStart(2, '0')}
             </span>
-            <h3 class="mt-4 text-sm font-semibold tracking-[0.12em] text-ink uppercase">{step.title}</h3>
+            <h3 class="mt-4 text-sm font-medium tracking-[0.12em] text-ink uppercase">{step.title}</h3>
             <p class="mt-2.5 text-[0.9375rem] leading-relaxed text-muted">{step.body}</p>
           </li>
         ))
@@ -161,7 +156,7 @@ const c = common(lang);
         <p class="text-[0.6875rem] font-semibold tracking-[0.16em] text-brand-text uppercase">
           {c.labels.roadmap}
         </p>
-        <h2 class="mt-4 text-2xl font-semibold tracking-[-0.02em] text-ink lg:text-3xl">
+        <h2 class="mt-4 text-2xl font-medium tracking-[-0.02em] text-ink lg:text-3xl">
           {c.labels.inDevelopment}
         </h2>
         <p class="mt-4 text-[0.9375rem] leading-relaxed text-muted">{p.status.roadmapIntro}</p>
@@ -172,7 +167,7 @@ const c = common(lang);
           p.status.future.map((item) => (
             <li class="py-6">
               <div class="flex flex-wrap items-baseline gap-x-4 gap-y-2">
-                <h3 class="text-lg font-semibold text-ink">{item.title}</h3>
+                <h3 class="text-lg font-medium text-ink">{item.title}</h3>
                 <Tag>{c.labels.inDevelopment}</Tag>
               </div>
               <p class="mt-2.5 max-w-[68ch] text-[0.9375rem] leading-relaxed text-muted">
@@ -188,7 +183,7 @@ const c = common(lang);
   <!-- ============================================================= FRONTERAS -->
   <Section tone="ground" size="compact">
     <div class="grid gap-10 lg:grid-cols-[minmax(0,22rem)_1fr] lg:gap-16">
-      <h2 class="reveal text-2xl font-semibold tracking-[-0.02em] text-ink lg:text-3xl">
+      <h2 class="reveal text-2xl font-medium tracking-[-0.02em] text-ink lg:text-3xl">
         {p.boundaries.title}
       </h2>
       <ul class="reveal divide-y divide-line border-t border-b border-line" data-reveal-delay="80">
@@ -204,36 +199,11 @@ const c = common(lang);
     </div>
   </Section>
 
-  <!-- Cierre propio y no el `Cta` compartido. Quien llega al final de esta
-       página ya sabe qué hace la plataforma: lo siguiente es ver cuánto cuesta,
-       o verla funcionar. El Diagnóstico es un servicio y no se ofrece aquí como
-       sustituto de una demostración. -->
-  <section class="on-ink bg-ink text-on-ink">
-    <div class="container-page py-20 lg:py-28">
-      <div class="reveal max-w-3xl">
-        <h2 class="text-[2rem] leading-[1.1] font-semibold tracking-[-0.025em] sm:text-[2.75rem] lg:text-5xl">
-          {p.closing.title}
-        </h2>
-        <p class="mt-6 text-lg text-on-ink-muted">{p.closing.body}</p>
-        <div class="mt-10 flex flex-col gap-3 sm:flex-row">
-          {
-            negocio.mostrar_precios ? (
-              <>
-                <Button href={path('pricing', lang)} variant="onInk" size="lg">
-                  {p.closing.primary}
-                </Button>
-                <Button href={agenda(lang)} variant="onInkGhost" size="lg" data-cta="agenda">
-                  {p.closing.schedule}
-                </Button>
-              </>
-            ) : (
-              <Button href={agenda(lang)} variant="onInk" size="lg" data-cta="agenda">
-                {p.closing.schedule}
-              </Button>
-            )
-          }
-        </div>
-      </div>
-    </div>
-  </section>
+  <Cta
+    tone="dark"
+    title={p.closing.title}
+    body={p.closing.body}
+    primary={{ href: path('pricing', lang), label: p.closing.primary }}
+    secondary={{ href: path('advisors', lang), label: p.closing.secondary }}
+  />
 </Base>

@@ -1,41 +1,46 @@
 {
   "meta": {
-    "title": "Precios — Planes de Forcelis para empresas y asesores",
-    "description": "Planes mensuales en pesos, más IVA: Individual para tu empresa y planes de 10 a 100 empresas para asesores. Servicios profesionales aparte."
+    "title": "Precios — Planes de la plataforma Forcelis para asesores",
+    "description": "Planes mensuales en pesos, más IVA, de 1 a 100 empresas, y Enterprise a la medida. Oferta de lanzamiento: {months} meses gratis del plan {plan} para los primeros {n} asesores."
   },
   "hero": {
-    "eyebrow": "Planes y precios",
+    "eyebrow": "Plataforma · Planes y precios",
     "title": "Planes claros, desde una sola empresa.",
-    "subtitle": "Precios mensuales en pesos mexicanos, más IVA. Pagas por las empresas que analizas, no por usuario. No necesitas una llamada para saber cuánto cuesta."
+    "subtitle": "Precios mensuales en pesos mexicanos, más IVA. Pagas por las empresas que analizas, no por usuario."
   },
-  "platform": {
-    "eyebrow": "Plataforma",
-    "title": "Planes mensuales",
-    "columns": {
-      "plan": "Plan",
-      "for": "Para quién",
-      "companies": "Empresas incluidas",
-      "brand": "Marca propia",
-      "price": "Al mes"
-    },
-    "quote": "Cotización personalizada",
+  "offer": {
+    "eyebrow": "Oferta de lanzamiento",
+    "title": "{months} meses gratis del plan {plan}.",
+    "body": "Para los primeros {n} asesores. Prueba Forcelis con tus clientes reales, sin costo. Si quieres, te acompañamos en una llamada de arranque.",
+    "exchangeTitle": "A cambio",
+    "exchange": [
+      "Retroalimentación mensual sobre cómo te funciona",
+      "Un testimonio",
+      "La autorización de tus clientes para el benchmark anónimo: ningún dato entra sin autorización firmada del cliente"
+    ],
+    "afterTitle": "Al terminar",
+    "after": "Precio regular del plan, o {discount} de descuento durante {discountMonths} meses más si nos das tu testimonio.",
+    "cta": "Quiero mis {months} meses gratis"
+  },
+  "labels": {
+    "plan": "Plan",
+    "for": "Para quién",
+    "companies": "Empresas incluidas",
+    "price": "Al mes",
+    "quote": "Cotización",
     "unlimited": "Por convenir",
     "yes": "Sí",
-    "no": "No",
-    "extra": "Cada empresa que pase de las incluidas: {price} al mes. El plan Individual no admite empresas adicionales.",
-    "fairUse": "Uso justo: hasta {n} CFDI por empresa al mes.",
-    "noFree": "No hay plan gratis.",
-    "trial": "Prueba de 14 días con una empresa."
+    "no": "No"
   },
   "plans": {
     "individual": {
       "name": "Individual",
-      "for": "Emprendedor con su propia empresa",
+      "for": "Dueño de su propia empresa",
       "summary": "Ve tu propia empresa cada mes con los CFDI que ya emites y recibes."
     },
     "profesional": {
       "name": "Profesional",
-      "for": "Consultor o contador independiente",
+      "for": "Contador o consultor independiente",
       "summary": "Hasta 10 empresas, con reportes y tableros para cada una."
     },
     "despacho": {
@@ -50,88 +55,20 @@
     },
     "enterprise": {
       "name": "Enterprise",
-      "for": "Carteras o empresas que superan los planes publicados",
-      "summary": "Para más de 100 empresas o volúmenes de CFDI fuera de lo común. Se cotiza a la medida."
+      "for": "Más de 100 empresas",
+      "summary": "Para carteras o volúmenes de CFDI que superan los planes publicados. Se cotiza a la medida."
     }
   },
-  "diagnostics": {
-    "eyebrow": "Diagnósticos",
-    "title": "Una sola vez, a precio fijo",
-    "columns": {
-      "name": "Diagnóstico",
-      "asks": "Qué pedimos",
-      "gives": "Qué recibes",
-      "price": "Precio (MXN)"
-    },
-    "items": {
-      "esencial": {
-        "name": "Diagnóstico Esencial",
-        "asks": "CFDI de 24 meses — emitidos, recibidos y complementos de pago",
-        "gives": "Business Score, informe de 6 secciones y sesión de 60 minutos"
-      },
-      "completo": {
-        "name": "Diagnóstico Completo",
-        "asks": "Lo del Esencial, más balanza o auxiliares, inventario y ventas por cliente y producto",
-        "gives": "Lo del Esencial, más análisis operativo y de inventario"
-      },
-      "asesores": {
-        "name": "Diagnóstico para asesores",
-        "asks": "Lo mismo que el Esencial",
-        "gives": "Informe con la marca del asesor, para revender"
-      }
-    },
-    "credit": "Si contratas Monitoreo en los 30 días siguientes, te acreditamos el 50% del diagnóstico.",
-    "monthsNote": "Veinticuatro meses, porque el Business Score compara los últimos 12 contra los 12 anteriores. Con menos de 24 meses, los indicadores de tendencia salen como no disponibles."
-  },
-  "monitoring": {
-    "eyebrow": "Mensual",
-    "name": "Monitoreo Mensual",
-    "includes": "Tablero y reporte gerencial cada mes, más una revisión trimestral de 60 minutos.",
-    "limited": "Cupo limitado."
-  },
-  "founders": {
-    "eyebrow": "Programa Fundadores",
-    "title": "Los primeros {n} asesores pagan la mitad durante {months} meses.",
-    "body": "Además reciben una sesión de arranque. A cambio, nos dan retroalimentación cada mes, un testimonio y la autorización de sus clientes para el benchmark anónimo.",
-    "cta": "Aplica al programa",
-    "note": "El descuento es temporal: al terminar los {months} meses se paga el precio regular del plan. Ningún dato de un cliente entra al benchmark sin la autorización firmada de ese cliente. El cupo es limitado y respondemos por orden de llegada."
-  },
-  "tax": "Precios en pesos mexicanos, más IVA.",
-  "closing": {
-    "title": "¿No sabes cuál es el tuyo?",
-    "body": "Cuéntanos cuántas empresas atiendes y qué quieres responder. Te decimos cuál encaja, o si ninguno encaja.",
-    "primary": "Solicitar una demostración",
-    "secondary": "Contactar con ventas"
-  },
-  "structure": {
-    "label": "Cómo está organizada la oferta",
-    "items": [
-      {
-        "title": "Para tu empresa",
-        "body": "El plan Individual: una empresa, la tuya, con los CFDI que ya emites y recibes."
-      },
-      {
-        "title": "Para asesores",
-        "body": "Profesional, Despacho y Firma cambian en cuántas empresas incluyen. Enterprise se cotiza."
-      },
-      {
-        "title": "Servicios, aparte",
-        "body": "El Diagnóstico y el Monitoreo los presta el equipo de Forcelis. No forman parte de ningún plan."
-      }
-    ]
-  },
-  "business": {
-    "eyebrow": "Para tu empresa",
-    "title": "Una empresa, cada mes.",
-    "intro": "Para dueños y equipos directivos que quieren ver su propia empresa con los CFDI que ya emiten y reciben.",
-    "accountant": "¿Ya tienes contador? Si él usa Forcelis, puedes recibir tus reportes a través de él.",
-    "more": "Qué ves cada mes"
-  },
   "advisors": {
-    "eyebrow": "Para contadores, despachos y consultores",
+    "eyebrow": "Para asesores",
     "title": "Elige según cuántas empresas atiendes.",
-    "intro": "Lo que cambia entre los tres planes es la capacidad: cuántas empresas entran en la mensualidad.",
+    "intro": "Lo que cambia entre los tres planes es cuántas empresas entran en la mensualidad.",
     "calculator": "Calcula tu margen con tu cartera"
+  },
+  "others": {
+    "title": "Para tu propia empresa, o para más de 100",
+    "individualCta": "Solicitar el plan Individual",
+    "enterpriseCta": "Solicitar cotización"
   },
   "compare": {
     "eyebrow": "Comparación",
@@ -151,14 +88,10 @@
     "agreed": "Por convenir",
     "toConfirm": "Por confirmar"
   },
-  "shared": {
-    "title": "Lo que no cambia entre planes",
-    "items": [
-      "Pagas por las empresas que analizas, no por usuarios.",
-      "Precios en pesos mexicanos, más IVA.",
-      "No hay plan gratis."
-    ],
-    "platform": "Qué hace la plataforma"
+  "notes": {
+    "extra": "Empresa adicional: {price} al mes en Profesional, Despacho y Firma.",
+    "fairUse": "Hasta {n} CFDI por empresa al mes.",
+    "tax": "Precios en pesos mexicanos, más IVA."
   },
   "card": {
     "perMonth": "al mes",
@@ -171,32 +104,24 @@
     "fairUse": "Hasta {n} CFDI por empresa al mes",
     "customTerms": "Capacidad y condiciones a convenir",
     "recommended": "Recomendado",
-    "request": "Solicitar este plan",
-    "contactSales": "Contactar con ventas",
-    "requestQuote": "Solicitar cotización"
+    "offerBadge": "{months} meses gratis",
+    "request": "Solicitar este plan"
   },
   "services": {
-    "eyebrow": "Servicios profesionales",
-    "title": "Aparte de la suscripción, si quieres criterio humano.",
-    "intro": "No forman parte de ningún plan ni son necesarios para usar la plataforma. Los presta el equipo de Forcelis y se contratan por separado.",
-    "caption": "Servicios profesionales y su precio",
-    "cols": {
-      "service": "Servicio",
-      "modality": "Modalidad",
-      "price": "Precio, más IVA"
-    },
-    "cta": "Ver todos los servicios"
+    "title": "¿Buscas los servicios de consultoría?",
+    "body": "Diagnósticos, estudios de expansión y acompañamiento los presta Forcelis directamente y no forman parte de ningún plan.",
+    "cta": "Ver los servicios"
   },
   "faq": {
     "title": "Preguntas sobre planes y precios",
     "items": [
       {
         "q": "¿Cómo contrato un plan?",
-        "a": "Hoy la contratación no es en línea. Eliges el plan en esta página, nos envías la solicitud y una persona te responde con los pasos para activar tu cuenta."
+        "a": "Hoy la contratación no es en línea. Eliges el plan en esta página, nos envías la solicitud y te respondemos con los pasos para activar tu cuenta."
       },
       {
-        "q": "¿Necesito una demostración para contratar?",
-        "a": "No. Los precios y lo que incluye cada plan están en esta página. Si quieres ver el producto antes, puedes pedir una demostración; su duración depende del tipo de cliente."
+        "q": "¿La oferta de lanzamiento tiene requisitos de uso?",
+        "a": "No. Son {months} meses del plan {plan} sin costo para los primeros {n} asesores. Lo único que pedimos a cambio es retroalimentación, un testimonio y la autorización de tus clientes para el benchmark anónimo."
       },
       {
         "q": "¿Qué pasa si atiendo más empresas de las incluidas?",
@@ -213,24 +138,13 @@
       {
         "q": "¿Cómo se cotiza Enterprise?",
         "a": "Con el número de empresas, el volumen de comprobantes al mes, las necesidades de soporte y el alcance que requieras. No tiene un precio mínimo publicado."
-      },
-      {
-        "q": "¿Los servicios profesionales vienen en algún plan?",
-        "a": "No. El Diagnóstico, las sesiones de consultoría, el acompañamiento, los proyectos, el Monitoreo y el servicio gestionado se contratan aparte. La plataforma funciona sin ellos."
       }
     ]
   },
-  "enterprise": {
-    "eyebrow": "Enterprise",
-    "title": "Para lo que no cabe en los planes publicados.",
-    "body": "Para despachos con más de 100 empresas o volúmenes de CFDI fuera de lo común. Es una forma de contratación, no un plan con funciones aparte: lo que incluye se define en la cotización y se limita a capacidades confirmadas de la plataforma.",
-    "basisTitle": "La cotización se basa en",
-    "basis": [
-      "Número de empresas",
-      "Volumen de CFDI al mes",
-      "Necesidades de soporte",
-      "Alcance que requieres"
-    ],
-    "note": "No hay precio mínimo publicado. Te respondemos con una propuesta después de conocer esos datos."
+  "closing": {
+    "title": "¿No sabes cuál es el tuyo?",
+    "body": "Cuéntanos cuántas empresas atiendes y qué quieres responder. Te decimos cuál encaja, o si ninguno encaja.",
+    "primary": "Agenda una llamada",
+    "secondary": "Ver la plataforma"
   }
 }

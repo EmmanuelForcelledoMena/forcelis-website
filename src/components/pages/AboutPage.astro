@@ -1,125 +1,122 @@
 ---
 /**
- * Nosotros.
+ * Nosotros (`/es/nosotros/`) y About (`/en/about/`).
  *
- * En una consultoría de una persona, esta página vende tanto como la de
- * servicios: se contrata a alguien, no a una marca. Por eso el titular es el
- * nombre y la foto va arriba, junto a la biografía, y no de adorno al final.
+ * Una plantilla, dos textos: el español le habla a un dueño de negocio en
+ * México y el inglés a una empresa extranjera, pero las dos páginas tienen la
+ * misma forma —quién soy, cómo trabajo, qué no hago—. Los diccionarios tienen
+ * la misma estructura y cada idioma lleva el estilo de su línea: claro en
+ * español, con secciones oscuras en inglés.
  *
- * Las tres reglas de trabajo están escritas desde lo que cuestan —«si no estás
- * listo, te lo digo»— y no como valores. Un valor lo escribe cualquiera; una
- * regla que te hace perder una venta es una afirmación comprobable.
+ * En una consultoría de una persona se contrata a alguien, no a una marca: por
+ * eso el titular es el nombre.
  *
  * La foto se resuelve en la build desde `src/assets/equipo/emmanuel.*`. Sin
- * archivo, la columna no se dibuja: la página se ve completa, nunca con un
- * hueco ni con una silueta genérica.
+ * archivo, la columna no se dibuja: la página se ve completa, sin hueco ni
+ * silueta genérica. El enlace a LinkedIn sale solo si `negocio.url_linkedin`
+ * tiene valor.
  */
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import Base from '../../layouts/Base.astro';
 import Section from '../Section.astro';
 import SectionHeader from '../SectionHeader.astro';
-import Button from '../Button.astro';
 import PageHero from '../PageHero.astro';
+import Cta from '../Cta.astro';
 import { negocio } from '../../config/negocio';
 import { agenda } from '../../config/enlaces';
 import { path, type Lang } from '../../i18n/routes';
-import { t } from '../../i18n';
+import { es, en } from '../../i18n';
 
 interface Props {
   lang: Lang;
 }
 
 const { lang } = Astro.props;
-const a = t(lang, 'about');
+const a = lang === 'es' ? es('about') : en('about');
+const dark = lang === 'en';
 const agendaHref = agenda(lang);
 
-const fotos = import.meta.glob<{ default: ImageMetadata }>(
-  '/src/assets/equipo/*.{jpg,jpeg,png,webp}',
-  { eager: true },
-);
-const retrato = Object.entries(fotos).find(([file]) =>
-  /\/emmanuel\.(jpe?g|png|webp)$/.test(file),
-)?.[1].default;
+const fotos = import.meta.glob<{ default: ImageMetadata }>('/src/assets/equipo/*.{jpg,jpeg,png,webp}', {
+  eager: true,
+});
+const retrato = Object.entries(fotos).find(([file]) => /\/emmanuel\.(jpe?g|png|webp)$/.test(file))?.[1]
+  .default;
+
+const linkedin = negocio.url_linkedin;
 ---
 
 <Base lang={lang} pageKey="about" title={a.meta.title} description={a.meta.description}>
-  <PageHero
-    photoKey="about"
-    eyebrow={a.hero.eyebrow}
-    title={a.hero.title}
-    intro={a.hero.subtitle}
-  />
+  <PageHero tone={dark ? 'dark' : 'light'} eyebrow={a.hero.eyebrow} title={a.hero.title} intro={a.hero.subtitle} />
 
   <!-- ================================================================== BIO -->
   <Section tone="ground">
-    <div
-      class:list={[
-        'grid gap-12',
-        retrato ? 'lg:grid-cols-[minmax(0,22rem)_1fr] lg:gap-16' : '',
-      ]}
-    >
+    <div class:list={['grid gap-12', retrato ? 'lg:grid-cols-[minmax(0,22rem)_1fr] lg:gap-16' : '']}>
       {
         retrato && (
           <div class="reveal">
             <Image
               src={retrato}
-              alt="Emmanuel Forcelledo, fundador de Forcelis"
+              alt={a.bio.photoAlt}
               width={700}
               height={875}
               format="webp"
               loading="eager"
-              class="w-full max-w-sm border border-line object-cover"
+              class="aspect-[4/5] w-full max-w-sm rounded-card border border-line object-cover"
             />
-            {negocio.url_linkedin && (
-              <a
-                href={negocio.url_linkedin}
-                rel="noopener"
-                class="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-brand-text underline underline-offset-4"
-              >
-                {a.linkedin}
-              </a>
-            )}
           </div>
         )
       }
 
-      <div class="reveal" data-reveal-delay="80">
-        <h2 class="text-2xl font-semibold tracking-[-0.02em] text-ink lg:text-3xl">
-          {a.bio.title}
-        </h2>
-        <div class="mt-6 max-w-[68ch] space-y-5">
-          {a.bio.paragraphs.map((p) => <p class="text-lg leading-relaxed text-muted">{p}</p>)}
+      <div class="reveal grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,16rem)] lg:gap-16" data-reveal-delay="80">
+        <div>
+          <h2 class="text-2xl font-medium tracking-[-0.01em] text-ink lg:text-3xl">{a.bio.title}</h2>
+          <div class="mt-6 max-w-[68ch] space-y-5">
+            {a.bio.paragraphs.map((p) => <p class="text-lg leading-relaxed text-muted">{p}</p>)}
+          </div>
         </div>
-        {
-          !retrato && negocio.url_linkedin && (
-            <a
-              href={negocio.url_linkedin}
-              rel="noopener"
-              class="mt-8 inline-flex items-center gap-1.5 text-sm font-medium text-brand-text underline underline-offset-4"
-            >
-              {a.linkedin}
-            </a>
-          )
-        }
+        <aside class="self-start rounded-card border border-line bg-panel p-6">
+          <p class="text-[0.6875rem] font-semibold tracking-[0.16em] text-brand-text uppercase">{a.bio.languagesLabel}</p>
+          <p class="mt-3 text-[0.9375rem] leading-relaxed text-ink">{a.bio.languages}</p>
+          {
+            linkedin && (
+              <a
+                href={linkedin}
+                rel="noopener"
+                target="_blank"
+                class="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-ink underline decoration-line-strong underline-offset-4 hover:decoration-ink"
+              >
+                {a.linkedin}
+              </a>
+            )
+          }
+        </aside>
       </div>
     </div>
   </Section>
 
   <!-- ============================================================= PRINCIPIOS -->
-  <Section tone="ink">
+  <Section tone={dark ? 'ink' : 'panel'}>
     <div class="reveal">
-      <SectionHeader eyebrow={a.principles.eyebrow} title={a.principles.title} tone="light" />
+      <SectionHeader eyebrow={a.principles.eyebrow} title={a.principles.title} tone={dark ? 'light' : 'ink'} />
     </div>
-    <ol class="mt-14 grid gap-10 border-t border-line-ink pt-10 sm:grid-cols-3 sm:gap-8">
+    <ol class="mt-12 grid gap-6 md:grid-cols-3">
       {
         a.principles.items.map((item, i) => (
-          <li class="reveal" data-reveal-delay={i * 80}>
-            <span class="tnum text-xs font-semibold text-on-ink-muted">
+          <li
+            class:list={[
+              'reveal rounded-card border p-7',
+              dark ? 'border-line-ink bg-ink-soft' : 'border-line bg-panel',
+            ]}
+            data-reveal-delay={i * 80}
+          >
+            <span class:list={['tnum text-sm font-semibold', dark ? 'text-on-ink-muted' : 'text-brand-text']}>
               {String(i + 1).padStart(2, '0')}
             </span>
-            <h3 class="mt-4 text-xl leading-snug font-semibold text-on-ink">{item.title}</h3>
-            <p class="mt-3 text-[0.9375rem] leading-relaxed text-on-ink-muted">{item.body}</p>
+            <h3 class:list={['mt-4 text-xl leading-snug font-medium', dark ? 'text-on-ink' : 'text-ink']}>{item.title}</h3>
+            <p class:list={['mt-3 text-[0.9375rem] leading-relaxed', dark ? 'text-on-ink-muted' : 'text-muted']}>
+              {item.body}
+            </p>
           </li>
         ))
       }
@@ -127,11 +124,9 @@ const retrato = Object.entries(fotos).find(([file]) =>
   </Section>
 
   <!-- ================================================================ QUÉ NO -->
-  <Section tone="panel" size="compact">
+  <Section tone="ground" size="compact">
     <div class="reveal grid gap-8 lg:grid-cols-[minmax(0,22rem)_1fr] lg:gap-16">
-      <h2 class="text-2xl font-semibold tracking-[-0.02em] text-ink lg:text-3xl">
-        {a.notUs.title}
-      </h2>
+      <h2 class="text-2xl font-medium tracking-[-0.01em] text-ink lg:text-3xl">{a.notUs.title}</h2>
       <ul class="divide-y divide-line border-t border-b border-line">
         {
           a.notUs.items.map((item) => (
@@ -145,19 +140,11 @@ const retrato = Object.entries(fotos).find(([file]) =>
     </div>
   </Section>
 
-  <!-- ================================================================ CIERRE -->
-  <Section tone="ground">
-    <div class="reveal max-w-3xl">
-      <h2 class="text-[2rem] leading-[1.1] font-semibold tracking-[-0.025em] text-ink sm:text-[2.75rem] lg:text-5xl">
-        {a.closing.title}
-      </h2>
-      <p class="mt-6 text-lg leading-relaxed text-muted">{a.closing.body}</p>
-      <div class="mt-10 flex flex-col gap-3 sm:flex-row">
-        <Button href={agendaHref} size="lg" data-cta="agenda">{a.closing.primary}</Button>
-        <Button href={path('services', lang)} variant="secondary" size="lg">
-          {a.closing.secondary}
-        </Button>
-      </div>
-    </div>
-  </Section>
+  <Cta
+    tone={dark ? 'dark' : 'light'}
+    title={a.closing.title}
+    body={a.closing.body}
+    primary={{ href: agendaHref, label: a.closing.primary }}
+    secondary={{ href: path('services', lang), label: a.closing.secondary }}
+  />
 </Base>

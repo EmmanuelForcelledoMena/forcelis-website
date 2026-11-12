@@ -63,20 +63,18 @@ const arcLength = (2 * Math.PI * R * SWEEP) / 360;
 const filled = (arcLength * overall) / 100;
 
 function band(value: number): { fill: string; text: string } {
-  // El relleno usa el color de dato; el número, su par legible. Son valores
-  // distintos a propósito: el primero está calibrado para verse como barra y el
-  // segundo para leerse como texto.
-  if (value >= 80) return { fill: 'var(--color-data-green)', text: 'var(--color-data-green-text)' };
-  if (value >= 60) return { fill: 'var(--color-data-blue)', text: 'var(--color-data-blue-text)' };
-  return { fill: 'var(--color-data-amber)', text: 'var(--color-data-amber-text)' };
+  // Colores de la marca: barra roja y, por debajo de 60, vino. El número va
+  // siempre escrito en negro al lado, así que el color solo refuerza.
+  if (value >= 60) return { fill: 'var(--color-brand)', text: 'var(--color-ink)' };
+  return { fill: 'var(--color-vino)', text: 'var(--color-ink)' };
 }
 ---
 
-<figure class={`border border-line bg-panel ${className}`} data-score-panel>
+<figure class={`overflow-hidden rounded-card border border-line bg-panel ${className}`} data-score-panel>
   <figcaption class:list={['flex items-center justify-between gap-4 border-b border-line px-6', compact ? 'py-4' : 'py-5']}>
     <p class="text-sm font-semibold tracking-[0.02em] text-ink">{title}</p>
     <span
-      class="shrink-0 border border-line-strong px-2 py-1 text-[0.625rem] font-medium tracking-[0.1em] text-muted uppercase"
+      class="shrink-0 rounded-md border border-line-strong px-2 py-1 text-[0.625rem] font-medium tracking-[0.1em] text-muted uppercase"
     >
       {illustrativeLabel}
     </span>
@@ -114,7 +112,7 @@ function band(value: number): { fill: string; text: string } {
       <text
         x="56" y="58" text-anchor="middle" dominant-baseline="middle"
         class="tnum font-display"
-        font-size="30" font-weight="700" fill="var(--color-ink)"
+        font-size="30" font-weight="500" fill="var(--color-ink)"
         data-score-value={overall}
       >{overall}</text>
       <text
@@ -142,7 +140,7 @@ function band(value: number): { fill: string; text: string } {
               </p>
             </div>
             <div
-              class:list={['w-full bg-panel-alt', compact ? 'mt-2 h-1' : 'mt-3 h-1.5']}
+              class:list={['w-full overflow-hidden rounded-full bg-panel-alt', compact ? 'mt-2 h-1' : 'mt-3 h-1.5']}
               role="img"
               aria-label={`${item.label}: ${item.value} ${outOfLabel}`}
             >

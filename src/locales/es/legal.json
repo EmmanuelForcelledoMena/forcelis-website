@@ -1,44 +1,51 @@
 {
-  "updated": "Última actualización: septiembre de 2026",
+  "updated": "Última actualización: noviembre de 2026",
   "privacy": {
     "meta": {
-      "title": "Aviso de Privacidad — Forcelis Group",
-      "description": "Cómo trata Forcelis Group los datos personales enviados a través de este sitio web."
+      "title": "Aviso de Privacidad — Forcelis",
+      "description": "Cómo trata Forcelis los datos personales que recibe por este sitio, por la consultoría y por la plataforma para asesores."
     },
     "title": "Aviso de Privacidad",
-    "intro": "Este aviso explica qué recopila este sitio web, para qué y qué puedes hacer al respecto. Cubre únicamente el sitio web. La información que se maneja dentro de un proyecto con un cliente se rige por el contrato firmado para ese proyecto.",
+    "intro": "Este aviso explica qué datos recibe Forcelis por este sitio web, para qué los usa y qué puedes hacer al respecto. La información de un proyecto de consultoría o de una cuenta de la plataforma se rige además por el contrato o los términos firmados para ese servicio.",
     "sections": [
       {
         "title": "Quién es el responsable",
         "body": [
-          "Forcelis Group es responsable de los datos personales recabados a través de este sitio web. Puedes contactarnos por la vía que aparece abajo para cualquier tema de este aviso."
+          "Forcelis Group es responsable de los datos personales recabados a través de este sitio web. Puedes contactarnos por la vía que aparece al final de este aviso para cualquier tema relacionado con él."
         ]
       },
       {
-        "title": "Qué se recaba",
+        "title": "Qué se recaba en este sitio",
         "body": [
-          "Solo lo que escribes en el formulario de contacto: empresa, nombre, correo, teléfono (opcional), industria, tamaño de la empresa, los temas que seleccionas y tu mensaje.",
-          "El sitio no pide —y nunca debe usarse para enviar— credenciales financieras, contraseñas del portal fiscal, números de tarjeta o cuenta bancaria, ni números de identificación oficial."
+          "Solo lo que escribes en el formulario de contacto: nombre, correo, nombre del negocio o de la empresa, giro o industria, número de sucursales, ciudad o país, el servicio que te interesa y tu mensaje. Si agendas una llamada, el calendario externo recibe los datos que tú captures ahí.",
+          "El sitio no pide —y nunca debe usarse para enviar— tu e.firma, contraseñas del SAT o del banco, números de tarjeta o de cuenta, ni números de identificación oficial."
         ]
       },
       {
-        "title": "Para qué se recaba",
+        "title": "Para qué se usa",
         "body": [
-          "Para responder tu solicitud, entender si Forcelis puede ayudarte y preparar una propuesta si la pides. No se usa para nada más y no se vende ni se renta."
+          "Para responder tu solicitud, entender si Forcelis puede ayudarte y, si la pides, prepararte una propuesta. No se usa para nada más y no se vende ni se renta."
+        ]
+      },
+      {
+        "title": "Datos de un proyecto o de la plataforma",
+        "body": [
+          "En un proyecto de consultoría trabajamos con las facturas electrónicas (CFDI) y la información que nos entregas, solo para el análisis contratado. En la plataforma para asesores, cada empresa está aislada de las demás.",
+          "Los datos de una empresa solo se usan en el benchmark anónimo si esa empresa lo autoriza por escrito. Esto aplica también a quienes usan la oferta de lanzamiento de la plataforma: la autorización para el benchmark se firma cliente por cliente, y sin ella ningún dato entra."
         ]
       },
       {
         "title": "Quién más lo ve",
         "body": [
-          "El envío del formulario lo entrega un proveedor externo de formularios, que lo procesa por cuenta nuestra con el único fin de hacer llegar el mensaje. Más allá de eso, la información solo la ven las personas de Forcelis que atienden tu solicitud."
+          "El envío del formulario lo entrega un proveedor externo de formularios, que lo procesa por cuenta nuestra con el único fin de hacer llegar el mensaje. La agenda de llamadas usa un calendario externo. Más allá de eso, la información solo la ve quien atiende tu solicitud en Forcelis."
         ]
       },
       {
         "title": "Cookies y analítica",
         "body": [
           "Este sitio no coloca cookies publicitarias ni de rastreo.",
-          "Si cambias de idioma con el selector, tu elección se guarda localmente en tu propio navegador para que el sitio abra en ese idioma la próxima vez. Nunca se envía a un servidor y puedes borrarla limpiando los datos de tu navegador.",
-          "Si se habilita analítica web, se enlistará aquí antes de encenderla. A la fecha de este aviso, ningún servicio de analítica está activo en este sitio."
+          "Si cambias de idioma con el selector, tu elección se guarda en tu propio navegador para que la raíz del sitio abra en ese idioma la próxima vez. Nunca se envía a un servidor y puedes borrarla limpiando los datos de tu navegador.",
+          "Si se habilita analítica web, se pedirá tu consentimiento antes de cargar cualquier script de terceros. A la fecha de este aviso, ningún servicio de analítica está activo."
         ]
       },
       {
@@ -64,28 +71,43 @@
   },
   "terms": {
     "meta": {
-      "title": "Términos de Servicio — Forcelis Group",
-      "description": "Términos que rigen el uso del sitio web de Forcelis Group."
+      "title": "Términos de Servicio — Forcelis",
+      "description": "Términos que rigen el uso del sitio web de Forcelis, sus servicios de consultoría y la oferta de lanzamiento de la plataforma."
     },
     "title": "Términos de Servicio",
-    "intro": "Estos términos rigen el uso de este sitio web. No rigen ningún servicio que Forcelis preste a un cliente; eso se establece en el contrato firmado para el proyecto.",
+    "intro": "Estos términos rigen el uso de este sitio web. Cada proyecto de consultoría y cada cuenta de la plataforma se rigen además por el contrato o los términos que se firman para ese servicio.",
     "sections": [
       {
         "title": "Propósito de este sitio",
         "body": [
-          "Este sitio describe lo que hace Forcelis Group. Es informativo. Nada de lo aquí publicado constituye una oferta, un compromiso de prestar servicios en condiciones determinadas, ni asesoría profesional sobre la cual debas actuar sin una conversación acerca de tu situación específica."
+          "Este sitio describe los servicios de consultoría de Forcelis y su plataforma de análisis para asesores. Es informativo. Nada de lo aquí publicado constituye asesoría profesional sobre la cual debas actuar sin una conversación acerca de tu situación específica."
+        ]
+      },
+      {
+        "title": "Precios",
+        "body": [
+          "Los precios publicados están en pesos mexicanos más IVA, salvo los de la línea internacional, que están en dólares estadounidenses. El alcance, el precio final y los plazos de cada servicio se confirman por escrito antes de empezar. Los servicios marcados como «Cotización» no tienen precio publicado."
+        ]
+      },
+      {
+        "title": "Oferta de lanzamiento de la plataforma",
+        "body": [
+          "Los primeros asesores que la soliciten, hasta el cupo publicado en la página de Precios, usan el plan indicado sin costo durante los meses indicados. No hay requisitos de uso ni plazos para subir datos.",
+          "A cambio, quien la usa se compromete a dar retroalimentación mensual, un testimonio y a pedir a sus clientes la autorización para el benchmark anónimo; ningún dato de un cliente entra al benchmark sin su autorización firmada.",
+          "Al terminar el periodo gratuito aplica el precio regular del plan, o el descuento publicado en la página de Precios durante el periodo indicado si el asesor dio su testimonio. Forcelis puede cerrar la oferta cuando se llene el cupo."
         ]
       },
       {
         "title": "Cifras ilustrativas",
         "body": [
-          "Todo tablero, calificación y métrica que aparece en este sitio es ilustrativo y está etiquetado como tal. Las cifras no describen a ninguna empresa real, no son referencias de mercado y no deben usarse como punto de comparación para ninguna decisión."
+          "Todo tablero, calificación y métrica que aparece en este sitio es ilustrativo y está etiquetado como tal. Las cifras no describen a ninguna empresa real y no deben usarse como referencia para ninguna decisión."
         ]
       },
       {
         "title": "Alcance de lo que hace Forcelis",
         "body": [
-          "Forcelis presta servicios de análisis y asesoría. No dictamina fiscalmente, no determina posiciones fiscales y no sustituye la opinión de un contador o auditor titulado. Cuando un asunto requiera una opinión profesional formal, lo diremos."
+          "Forcelis presta servicios de análisis y consultoría, y ofrece una plataforma de análisis para asesores. No hace contabilidad, no presenta declaraciones, no emite opiniones fiscales y no sustituye el juicio de un contador público.",
+          "En los proyectos de franquicia, el contrato y la circular de oferta de franquicia los elabora un abogado aliado, cuyos honorarios se contratan aparte. Forcelis no presta asesoría legal."
         ]
       },
       {

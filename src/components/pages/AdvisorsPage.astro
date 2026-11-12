@@ -1,16 +1,16 @@
 ---
 /**
- * Para contadores y consultores. Es la página principal del sitio y la de
- * aterrizaje de los anuncios, así que el orden está puesto para que el botón de
- * agenda se vea sin hacer scroll en un teléfono de 375 px:
+ * Para asesores (`/es/para-asesores/`): la línea de la plataforma.
  *
- *   hero (titular corto + dos botones) → el problema → cómo funciona →
- *   qué incluye → calculadora → planes → fundadores → preguntas → cierre.
+ * Es la herramienta con la que trabaja la consultoría de Forcelis, ofrecida a
+ * contadores y consultores. Lleva el estilo oscuro y tecnológico que la marca
+ * permite para esta audiencia.
  *
- * La calculadora y los planes con precio solo aparecen con
- * `negocio.mostrar_precios: true`. Con los precios apagados, la sección de
- * planes sigue ahí: dice qué incluye cada uno y el botón pide el precio. Lo
- * que no se hace nunca es enseñar un margen sin el costo que lo produce.
+ * Orden: titular → la oferta de lanzamiento (arriba, destacada) → para quién →
+ * cómo funciona → qué incluye (solo lo construido) → calculadora → planes →
+ * cómo se conecta con la consultoría → preguntas → cierre.
+ *
+ * Toda cifra —meses gratis, cupo, planes— sale de `negocio.ts`.
  */
 import Base from '../../layouts/Base.astro';
 import Section from '../Section.astro';
@@ -23,82 +23,93 @@ import Checklist from '../Checklist.astro';
 import PlanCard from '../PlanCard.astro';
 import MarginCalculator from '../MarginCalculator.astro';
 import FaqList from '../FaqList.astro';
+import Cta from '../Cta.astro';
 import { negocio, plan as planPorId } from '../../config/negocio';
-import { agenda, contacto, solicitarPlan } from '../../config/enlaces';
-import { path, type Lang } from '../../i18n/routes';
-import { t } from '../../i18n';
+import { pedirPrueba, solicitarPlan } from '../../config/enlaces';
+import { path } from '../../i18n/routes';
+import { es } from '../../i18n';
 
-interface Props {
-  lang: Lang;
-}
-
-const { lang } = Astro.props;
-const a = t(lang, 'advisors');
-const p = t(lang, 'pricing');
-
-const agendaHref = agenda(lang, 'asesor');
+const lang = 'es';
+const a = es('advisors');
+const p = es('pricing');
 const mostrar = negocio.mostrar_precios;
+const o = negocio.oferta_lanzamiento;
 
-// Los tres planes con marca propia. Individual no lleva marca y Enterprise se
-// cotiza, así que ninguno de los dos es para un asesor que empieza.
+/** Rellena las cifras de la oferta en un texto del diccionario. */
+const oferta = (texto: string) =>
+  texto
+    .replaceAll('{months}', String(o.meses_gratis))
+    .replaceAll('{plan}', p.plans[o.plan].name)
+    .replaceAll('{n}', String(o.cupo));
+
+const prueba = pedirPrueba();
 const planesAsesor = ['profesional', 'despacho', 'firma'] as const;
-
 const etiquetasPlan = {
-  companies: p.platform.columns.companies,
-  unlimited: p.platform.unlimited,
-  quote: p.platform.quote,
+  companies: p.labels.companies,
+  unlimited: p.labels.unlimited,
+  quote: p.labels.quote,
   ...p.card,
 };
-
-const nombresPlan = Object.fromEntries(
-  Object.entries(p.plans).map(([id, datos]) => [id, datos.name]),
-);
-
-const rellenar = (plantilla: string, valores: Record<string, string>) =>
-  Object.entries(valores).reduce((s, [k, v]) => s.replace(`{${k}}`, v), plantilla);
+const nombresPlan = Object.fromEntries(Object.entries(p.plans).map(([id, datos]) => [id, datos.name]));
+const preguntas = a.faq.items.map((item) => ({ q: item.q, a: oferta(item.a) }));
 ---
 
-<Base lang={lang} pageKey="advisors" title={a.meta.title} description={a.meta.description}>
-  <PageHero
-    photoKey="advisors"
-    eyebrow={a.hero.eyebrow}
-    title={a.hero.title}
-    intro={a.hero.subtitle}
-  >
+<Base lang={lang} pageKey="advisors" title={a.meta.title} description={oferta(a.meta.description)}>
+  <PageHero tone="dark" photoKey="advisors" eyebrow={a.hero.eyebrow} title={a.hero.title} intro={a.hero.subtitle}>
     <Fragment slot="actions">
-      <Button href={agendaHref} variant="onInk" size="lg" data-cta="agenda">
-        {a.hero.primary}
-      </Button>
-      <Button href="#planes" variant="onInkGhost" size="lg">{a.hero.secondary}</Button>
+      <Button href={prueba} variant="onInk" size="lg">{oferta(a.hero.primary)}</Button>
+      <Button href={path('pricing', lang)} variant="onInkGhost" size="lg">{a.hero.secondary}</Button>
     </Fragment>
   </PageHero>
 
-  <!-- ============================================================= PROBLEMA -->
-  <section class="border-b border-line bg-ground">
-    <div class="container-page grid gap-6 py-12 lg:grid-cols-[minmax(0,16rem)_1fr] lg:gap-16 lg:py-14">
-      <p class="reveal text-[0.6875rem] font-semibold tracking-[0.16em] text-brand-text uppercase">
-        {a.problem.eyebrow}
-      </p>
-      <div class="reveal" data-reveal-delay="80">
-        <h2 class="max-w-3xl text-[1.75rem] leading-tight font-semibold tracking-[-0.02em] text-ink lg:text-[2rem]">
-          {a.problem.title}
-        </h2>
-        <p class="mt-4 max-w-2xl text-lg leading-relaxed text-muted">{a.problem.body}</p>
+  <!-- ================================================================ OFERTA -->
+  <section class="border-b border-line bg-panel">
+    <div class="container-page py-10 lg:py-12">
+      <div class="reveal grid gap-6 rounded-card border-2 border-brand bg-panel p-7 lg:grid-cols-[1fr_auto] lg:items-center lg:gap-12 lg:p-9">
+        <div>
+          <p class="text-[0.6875rem] font-semibold tracking-[0.16em] text-brand-text uppercase">{a.offer.eyebrow}</p>
+          <h2 class="mt-3 text-[1.75rem] leading-tight font-medium tracking-[-0.01em] text-brand lg:text-[2.25rem]">
+            {oferta(a.offer.title)}
+          </h2>
+          <p class="mt-3 text-lg leading-relaxed text-muted">{oferta(a.offer.body)}</p>
+        </div>
+        <div class="flex flex-col gap-3 sm:flex-row lg:flex-col">
+          <Button href={prueba} size="lg">{oferta(a.hero.primary)}</Button>
+          <a
+            href={`${path('pricing', lang)}#oferta`}
+            class="text-center text-sm font-medium text-ink underline decoration-line-strong underline-offset-4 hover:decoration-ink"
+          >
+            {a.offer.more}
+          </a>
+        </div>
       </div>
     </div>
   </section>
 
+  <!-- ============================================================ PARA QUIÉN -->
+  <Section tone="ground" size="compact">
+    <p class="reveal text-[0.6875rem] font-semibold tracking-[0.16em] text-brand-text uppercase">{a.audience.eyebrow}</p>
+    <ul class="mt-6 grid gap-6 md:grid-cols-3">
+      {
+        a.audience.items.map((item, i) => (
+          <li class="reveal rounded-card border border-line bg-panel p-6" data-reveal-delay={i * 70}>
+            <h3 class="text-lg font-medium text-ink">{item.title}</h3>
+            <p class="mt-2 text-[0.9375rem] leading-relaxed text-muted">{item.body}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </Section>
+
   <!-- ================================================================= CÓMO -->
-  <Section tone="panel">
+  <Section tone="ink">
     <div class="reveal">
-      <SectionHeader eyebrow={a.how.eyebrow} title={a.how.title} />
+      <SectionHeader eyebrow={a.how.eyebrow} title={a.how.title} tone="light" />
     </div>
-
     <div class="reveal mt-12" data-reveal-delay="80">
-      <DataFlow items={a.how.flow} emphasis={1} alt={a.how.flowAlt} />
+      <DataFlow items={a.how.flow} emphasis={1} alt={a.how.flowAlt} tone="light" />
     </div>
-
-    <ProcessSteps items={a.how.steps} columns={3} class="mt-14" />
+    <ProcessSteps items={a.how.steps} columns={3} tone="light" class="mt-14" />
   </Section>
 
   <!-- ============================================================ QUÉ INCLUYE -->
@@ -106,6 +117,12 @@ const rellenar = (plantilla: string, valores: Record<string, string>) =>
     <div class="grid gap-10 lg:grid-cols-[minmax(0,24rem)_1fr] lg:gap-16">
       <div class="reveal">
         <SectionHeader eyebrow={a.includes.eyebrow} title={a.includes.title} intro={a.includes.intro} />
+        <a
+          href={path('platform', lang)}
+          class="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-ink underline decoration-line-strong underline-offset-4 hover:decoration-ink"
+        >
+          {a.includes.platform}
+        </a>
       </div>
       <div class="reveal lg:self-center" data-reveal-delay="80">
         <Checklist items={a.includes.items.map((text) => ({ text }))} layout="grid" />
@@ -123,7 +140,7 @@ const rellenar = (plantilla: string, valores: Record<string, string>) =>
         <div class="reveal mt-10" data-reveal-delay="80">
           <MarginCalculator
             lang={lang}
-            titulo={a.calculator.title}
+            titulo=""
             intro={a.calculator.intro}
             campos={a.calculator.fields}
             resultados={a.calculator.results}
@@ -136,12 +153,11 @@ const rellenar = (plantilla: string, valores: Record<string, string>) =>
   }
 
   <!-- =============================================================== PLANES -->
-  <Section tone={mostrar ? 'ground' : 'panel'} id="planes">
+  <Section tone="ground" id="planes">
     <div class="reveal">
       <SectionHeader eyebrow={a.plans.eyebrow} title={a.plans.title} intro={a.plans.intro} />
     </div>
-
-    <div class="mt-12 grid gap-px border border-line bg-line lg:grid-cols-3">
+    <div class="mt-12 grid gap-6 lg:grid-cols-3">
       {
         planesAsesor.map((id, i) => (
           <div class="reveal flex" data-reveal-delay={i * 70}>
@@ -150,55 +166,42 @@ const rellenar = (plantilla: string, valores: Record<string, string>) =>
               nombre={p.plans[id].name}
               paraQuien={p.plans[id].for}
               resumen={p.plans[id].summary}
-              cta={p.card.request}
-              href={solicitarPlan(id, lang)}
+              cta={id === o.plan ? oferta(a.hero.primary) : p.card.request}
+              href={id === o.plan ? prueba : solicitarPlan(id, lang)}
               labels={etiquetasPlan}
               lang={lang}
+              destacado={id === o.plan ? oferta(p.card.offerBadge) : undefined}
               class="flex-1"
             />
           </div>
         ))
       }
     </div>
-
     <div class="reveal mt-8 flex flex-col gap-4 border-t border-line pt-6 lg:flex-row lg:items-center lg:justify-between">
-      <!-- Empresa adicional y uso justo ya están en cada tarjeta. -->
       <div class="space-y-1.5 text-[0.9375rem] text-muted">
         <p>{a.plans.volume}</p>
-        {
-          mostrar && (
-            <a
-              href={`${path('pricing', lang)}#comparacion`}
-              class="inline-flex items-center gap-1.5 text-sm font-medium text-ink underline decoration-line-strong underline-offset-4 hover:decoration-ink"
-            >
-              {a.plans.compare}
-            </a>
-          )
-        }
+        <a
+          href={`${path('pricing', lang)}#comparacion`}
+          class="inline-flex items-center gap-1.5 text-sm font-medium text-ink underline decoration-line-strong underline-offset-4 hover:decoration-ink"
+        >
+          {a.plans.compare}
+        </a>
       </div>
       <Button href={solicitarPlan('enterprise', lang)} variant="secondary">{a.plans.volumeCta}</Button>
     </div>
   </Section>
 
-  <!-- =========================================================== FUNDADORES -->
-  <Section tone="ink" size="compact">
-    <div class="reveal grid gap-10 lg:grid-cols-[1fr_auto] lg:items-center lg:gap-16">
+  <!-- ============================================================ REFERIDOS -->
+  <Section tone="panel" size="compact">
+    <div class="reveal grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center lg:gap-16">
       <div>
-        <p class="text-[0.6875rem] font-semibold tracking-[0.16em] text-on-ink-muted uppercase">
-          {a.founders.eyebrow}
-        </p>
-        <h2 class="mt-4 max-w-3xl text-[1.75rem] leading-tight font-semibold tracking-[-0.02em] text-on-ink lg:text-[2rem]">
-          {rellenar(a.founders.title, {
-            n: String(negocio.fundadores.cupo),
-            months: String(negocio.fundadores.meses),
-          })}
+        <p class="text-[0.6875rem] font-semibold tracking-[0.16em] text-brand-text uppercase">{a.referral.eyebrow}</p>
+        <h2 class="mt-4 max-w-3xl text-[1.75rem] leading-tight font-medium tracking-[-0.01em] text-ink lg:text-[2rem]">
+          {a.referral.title}
         </h2>
-        <p class="mt-5 max-w-2xl text-lg leading-relaxed text-on-ink-muted">{a.founders.body}</p>
-        <p class="mt-4 max-w-2xl text-[0.9375rem] leading-relaxed text-on-ink-muted">
-          {rellenar(p.founders.note, { months: String(negocio.fundadores.meses) })}
-        </p>
+        <p class="mt-4 max-w-2xl text-lg leading-relaxed text-muted">{a.referral.body}</p>
       </div>
-      <Button href={contacto('fundador', lang)} variant="onInk" size="lg">{a.founders.cta}</Button>
+      <Button href={path('services', lang)} variant="secondary">{a.referral.cta}</Button>
     </div>
   </Section>
 
@@ -207,23 +210,14 @@ const rellenar = (plantilla: string, valores: Record<string, string>) =>
     <div class="reveal">
       <SectionHeader title={a.faq.title} />
     </div>
-    <FaqList items={a.faq.items} class="reveal mt-10" />
+    <FaqList items={preguntas} class="reveal mt-10" />
   </Section>
 
-  <!-- =============================================================== CIERRE -->
-  <section class="on-ink bg-ink text-on-ink">
-    <div class="container-page py-20 lg:py-28">
-      <div class="reveal max-w-3xl">
-        <h2 class="text-[2rem] leading-[1.1] font-semibold tracking-[-0.025em] sm:text-[2.75rem] lg:text-5xl">
-          {a.closing.title}
-        </h2>
-        <p class="mt-6 text-lg text-on-ink-muted">{a.closing.body}</p>
-        <div class="mt-10">
-          <Button href={agendaHref} variant="onInk" size="lg" data-cta="agenda">
-            {a.closing.cta}
-          </Button>
-        </div>
-      </div>
-    </div>
-  </section>
+  <Cta
+    tone="dark"
+    title={a.closing.title}
+    body={oferta(a.closing.body)}
+    primary={{ href: prueba, label: oferta(a.closing.primary) }}
+    secondary={{ href: path('platform', lang), label: a.closing.secondary }}
+  />
 </Base>

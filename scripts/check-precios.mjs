@@ -1,37 +1,76 @@
 /**
- * El interruptor de precios, comprobado contra el build.
+ * Precios: un solo archivo, y el build no publica ninguno que no salga de él.
  *
  *     npm run check:precios
  *
- * `mostrar_precios: false` tiene que significar que NO hay ni un precio en todo
- * el sitio, en ninguno de los dos idiomas. Es una de esas promesas que se
- * cumplen el día que se escriben y se rompen tres semanas después, cuando
- * alguien añade una tarjeta nueva y se olvida de envolver el importe en la
- * condición. Un ojo humano no puede revisar 26 páginas por un «$1,990».
+ * Tres comprobaciones:
  *
- * Qué comprueba, según el estado del interruptor:
+ *  1. La configuración (`src/config/negocio.ts`) coincide con la lista de
+ *     precios aprobada en el encargo del rebranding (noviembre de 2026). Si
+ *     alguien cambia un precio a propósito, cambia también la tabla de abajo:
+ *     así un cambio de precio siempre es una decisión explícita en dos sitios
+ *     y nunca un dedazo en uno.
  *
- *   apagado → ninguna página contiene un importe de la suscripción.
- *   encendido → la página de Precios muestra al menos uno.
+ *  2. Ninguna página publicada muestra un importe que NO esté en la
+ *     configuración. Si aparece «$4,500» en una plantilla, alguien escribió un
+ *     precio a mano fuera del archivo único.
  *
- * En los DOS casos, la página de Precios se sirve con `noindex` y fuera del
- * sitemap, y nadie la enlaza. Eso ya no depende del interruptor: depende de
- * que el sitio dejara de vender software en el giro del 2026-11-06, y lo
- * decide `NOINDEX_PAGES` en `src/i18n/routes.ts`. El interruptor solo gobierna
- * si se imprimen o no los importes dentro de esa página retirada.
- *
- * Los precios de CONSULTORÍA —los seis servicios— no pasan por aquí: están
- * publicados siempre, porque son la oferta.
- *
- * El importe se busca por el formato que produce `Intl.NumberFormat` con MXN,
- * que es el único que el sitio puede generar: `$1,990.00`, `$1,990` o
- * `MX$1,990`. Se buscan además las cifras desnudas de la configuración, por si
- * alguien imprimiera el número sin formato.
+ *  3. Con `mostrar_precios: false` no se imprime ningún importe de la
+ *     plataforma (planes y empresa adicional) en ninguna página.
  */
 import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { negocio } from '../src/config/negocio.ts';
 
+const problemas = [];
+
+// --- 1. Configuración contra la lista aprobada ---------------------------------
+const APROBADO = {
+  planes: { individual: 299, profesional: 799, despacho: 1990, firma: 3990, enterprise: null },
+  empresas: { individual: 1, profesional: 10, despacho: 40, firma: 100, enterprise: null },
+  empresa_adicional: 59,
+  uso_justo_cfdi_por_empresa_mes: 10000,
+  servicios: {
+    diagnostico: [6900, 9900],
+    expansion: [18000, 25000],
+    mercado: [9900, 19900],
+    sesion: 3500,
+    acompanamiento: { pequeno: 3900, expansion: null },
+    franquicia: null,
+  },
+  oferta_lanzamiento: { plan: 'profesional', meses_gratis: 3, cupo: 50, descuento_despues: 0.5, meses_descuento: 3 },
+  servicios_internacionales: { snapshot: 1500, entry: null, site: null, retainer: null },
+};
+
+const igual = (etiqueta, obtenido, esperado) => {
+  if (JSON.stringify(obtenido) !== JSON.stringify(esperado)) {
+    problemas.push(`configuración: ${etiqueta} es ${JSON.stringify(obtenido)}, lo aprobado es ${JSON.stringify(esperado)}`);
+  }
+};
+
+for (const p of negocio.planes) {
+  igual(`plan ${p.id}`, p.precio, APROBADO.planes[p.id]);
+  igual(`empresas del plan ${p.id}`, p.empresas, APROBADO.empresas[p.id]);
+}
+igual('empresa_adicional', negocio.empresa_adicional, APROBADO.empresa_adicional);
+igual('uso justo', negocio.uso_justo_cfdi_por_empresa_mes, APROBADO.uso_justo_cfdi_por_empresa_mes);
+for (const s of negocio.servicios) {
+  const valor =
+    s.tipo_precio === 'fijo'
+      ? s.precio
+      : s.tipo_precio === 'rango'
+        ? [s.desde, s.hasta]
+        : s.tipo_precio === 'tramos'
+          ? Object.fromEntries(s.tramos.map((t) => [t.id, t.precio]))
+          : null;
+  igual(`servicio ${s.id}`, valor, APROBADO.servicios[s.id]);
+}
+igual('oferta de lanzamiento', negocio.oferta_lanzamiento, APROBADO.oferta_lanzamiento);
+for (const s of negocio.servicios_internacionales) {
+  igual(`servicio internacional ${s.id}`, s.tipo_precio === 'desde' ? s.desde : null, APROBADO.servicios_internacionales[s.id]);
+}
+
+// --- 2 y 3. El build -------------------------------------------------------------
 const DIST = 'dist';
 if (!existsSync(DIST)) {
   console.error('No existe dist/. Corre `npm run build` antes.');
@@ -47,74 +86,46 @@ const htmls = [];
   }
 })(DIST);
 
-/** Todos los importes que la configuración puede llegar a imprimir. */
-const importes = [
-  ...negocio.planes.map((p) => p.precio),
-  ...negocio.diagnosticos.map((d) => d.precio),
-  negocio.monitoreo.precio,
-  ...negocio.servicios.map((s) => s.precio),
-  negocio.empresa_adicional,
-].filter((n) => n !== null);
+const plataforma = [...negocio.planes.map((p) => p.precio), negocio.empresa_adicional].filter((n) => n !== null);
+const consultoria = negocio.servicios.flatMap((s) => [
+  s.precio,
+  s.desde,
+  s.hasta,
+  ...(s.tramos ?? []).map((t) => t.precio),
+]);
+const internacional = negocio.servicios_internacionales.map((s) => s.desde);
+const permitidos = new Set([...plataforma, ...consultoria, ...internacional].filter((n) => typeof n === 'number'));
 
-// `10,000` es el uso justo de CFDI, no un precio: se publica siempre y no debe
-// confundirse con un importe. Por eso la búsqueda exige un signo de moneda
-// delante, y las cifras desnudas se buscan solo si llevan separador de miles.
-const patrones = importes.flatMap((n) => {
-  const conMiles = new Intl.NumberFormat('en-US').format(n);
-  return [
-    new RegExp(`(?:MX)?\\$\\s?${conMiles.replace(/,/g, '[,.]')}`),
-    new RegExp(`(?:MX)?\\$\\s?${n}\\b`),
-  ];
-});
-
-const problemas = [];
-const anota = (archivo, detalle) => problemas.push(`${relative(DIST, archivo)}: ${detalle}`);
-
-const sitemap = existsSync(join(DIST, 'sitemap-0.xml'))
-  ? readFileSync(join(DIST, 'sitemap-0.xml'), 'utf8')
-  : '';
-
-const rutasPrecios = ['/es/precios/'];
+const aNumero = (txt) => Number(txt.replace(/[,\s]/g, ''));
 
 for (const archivo of htmls) {
-  const html = readFileSync(archivo, 'utf8');
+  let html = readFileSync(archivo, 'utf8');
   if (/<meta http-equiv="refresh"/i.test(html)) continue;
+  // Los datos de la calculadora viajan en un JSON para el navegador; no son
+  // texto publicado.
+  html = html.replace(/<script[\s\S]*?<\/script>/g, '');
+  const ruta = relative(DIST, archivo).replace(/\\/g, '/');
 
-  const encontrados = patrones.filter((p) => p.test(html));
-
-  if (!negocio.mostrar_precios && encontrados.length) {
-    anota(archivo, `aparece un importe con mostrar_precios apagado (${encontrados[0]})`);
+  // Importes en pesos: «$6,900», «MX$6,900». Importes en dólares: «USD 1,500».
+  const encontrados = [
+    ...[...html.matchAll(/(?:MX)?\$\s?(\d{1,3}(?:,\d{3})+|\d+)(?![\d,])/g)].map((m) => aNumero(m[1])),
+    ...[...html.matchAll(/USD\s?(\d{1,3}(?:,\d{3})+|\d+)/g)].map((m) => aNumero(m[1])),
+  ];
+  for (const n of encontrados) {
+    if (!permitidos.has(n)) problemas.push(`${ruta}: muestra el importe ${n}, que no está en negocio.ts`);
   }
 
-  const esPrecios = rutasPrecios.some((r) => archivo.includes(join(...r.split('/').filter(Boolean))));
-  if (esPrecios) {
-    // Retirada: siempre `noindex`, con o sin importes dentro.
-    if (!/name="robots"[^>]*noindex/.test(html)) anota(archivo, 'debería llevar noindex');
-    if (negocio.mostrar_precios && !encontrados.length)
-      anota(archivo, 'no muestra ningún importe con mostrar_precios encendido');
-  }
-
-  // Ninguna página VIVA debe enlazar a Precios. Que una página retirada
-  // enlace a otra retirada da igual: a ninguna de las dos se llega si no es
-  // tecleando su URL, y reescribir sus enlaces solo serviría para tocar
-  // páginas congeladas. Se reconocen por su propio `noindex`.
-  const estaRetirada = /name="robots"[^>]*noindex/.test(html);
-  if (!esPrecios && !estaRetirada) {
-    for (const ruta of rutasPrecios) {
-      // Sin cerrar la comilla: también cuenta un enlace con ancla o parámetros.
-      if (html.includes(`href="${ruta}`)) anota(archivo, `enlaza a ${ruta}, que está retirada`);
+  if (!negocio.mostrar_precios) {
+    for (const n of encontrados) {
+      if (plataforma.includes(n)) problemas.push(`${ruta}: muestra ${n} con mostrar_precios apagado`);
     }
   }
 }
 
-for (const ruta of rutasPrecios) {
-  if (sitemap.includes(ruta)) problemas.push(`sitemap: incluye ${ruta}, que está retirada`);
-}
-
-const estado = negocio.mostrar_precios ? 'ENCENDIDO' : 'apagado';
+const estado = negocio.mostrar_precios ? 'encendido' : 'apagado';
 if (problemas.length) {
-  console.log(`Interruptor de precios ${estado} — ${problemas.length} problema(s):\n`);
+  console.log(`Precios (interruptor ${estado}) — ${problemas.length} problema(s):\n`);
   problemas.forEach((p) => console.log('  ' + p));
   process.exit(1);
 }
-console.log(`Interruptor de precios ${estado}: coherente en las ${htmls.length} páginas del build.`);
+console.log(`Precios: la configuración coincide con lo aprobado y las ${htmls.length} páginas solo muestran importes de negocio.ts (interruptor ${estado}).`);

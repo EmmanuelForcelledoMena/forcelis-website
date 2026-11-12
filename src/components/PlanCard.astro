@@ -51,8 +51,11 @@ interface Props {
   href: string;
   labels: EtiquetasPlan;
   lang: Lang;
-  /** Resalta la tarjeta. Para el plan que se recomienda por omisión. */
-  destacado?: boolean;
+  /**
+   * Resalta la tarjeta con una etiqueta: `true` pone «Recomendado»; un texto
+   * pone ese texto (por ejemplo, la oferta de lanzamiento).
+   */
+  destacado?: boolean | string;
   class?: string;
 }
 
@@ -92,19 +95,19 @@ if (cotizado) {
 
 <article
   class:list={[
-    'relative flex flex-col bg-panel p-7',
-    destacado && 'ring-2 ring-brand ring-inset',
+    'relative flex flex-col rounded-card border bg-panel p-7',
+    destacado ? 'border-2 border-brand' : 'border-line',
     className,
   ]}
 >
   <!-- La etiqueta va en la misma línea que el nombre: encima, empujaba el
        precio de esta tarjeta más abajo que el de sus vecinas. -->
   <div class="flex items-center justify-between gap-3">
-    <h3 class="text-sm font-semibold tracking-[0.14em] text-ink uppercase">{nombre}</h3>
+    <h3 class="text-sm font-medium tracking-[0.14em] text-ink uppercase">{nombre}</h3>
     {
       destacado && (
-        <p class="bg-brand px-2 py-0.5 text-[0.625rem] font-semibold tracking-[0.14em] whitespace-nowrap text-white uppercase">
-          {labels.recommended}
+        <p class="rounded-md bg-brand px-2 py-0.5 text-[0.625rem] font-semibold tracking-[0.1em] text-white uppercase">
+          {typeof destacado === 'string' ? destacado : labels.recommended}
         </p>
       )
     }
@@ -119,7 +122,7 @@ if (cotizado) {
         ) : (
           <>
             <p class="tnum flex flex-wrap items-baseline gap-x-1.5">
-              <span class="font-display text-[2.25rem] leading-none font-bold tracking-[-0.03em] text-ink">
+              <span class="font-display text-[2.25rem] leading-none font-medium tracking-[-0.01em] text-ink">
                 {formatoPrecio(plan.precio as number, lang)}
               </span>
               <span class="text-sm text-muted">

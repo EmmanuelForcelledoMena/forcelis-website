@@ -1,20 +1,19 @@
 {
   "meta": {
-    "title": "Thank you — Forcelis Group",
-    "description": "We received your message."
+    "title": "Thank you — Forcelis",
+    "description": "Your message was received."
   },
-  "title": "Thank you. We will write back within one business day.",
-  "body": "A person reads every message. If Forcelis is not the right fit, that is the answer you will get.",
+  "title": "Thank you. I'll write back within one business day.",
+  "body": "I read every message myself. If Forcelis isn't what you need, that's the answer you'll get.",
   "scheduleCta": "Book your call now",
   "types": {
-    "demo": "You asked for a demo. We will write to arrange it; how long it takes depends on what you need to see.",
-    "asesor": "You told us you advise businesses. We will come back with what the platform would look like for your client list.",
-    "fundador": "You applied to the Founders programme. There are a limited number of places, and we answer in order of arrival.",
-    "individual": "You requested access to the Individual plan. We will reply with how your access would work and which XML files you would need to download.",
-    "enterprise": "You asked for an Enterprise quote. We will reply with the questions we still need to quote: companies, document volume, support and scope.",
-    "diagnostico": "You asked for a diagnostic. We will come back with the scope and what we need from you.",
-    "monitoreo": "You asked about Monthly Monitoring. We will come back with availability and how it starts.",
-    "servicio": "You are interested in a professional service. We will reply to understand what you need and, if it fits, with a proposal covering scope and price."
+    "diagnostico": "I'll reply with the scope and what I need from your side.",
+    "expansion": "I'll reply with the scope and what I need from your side.",
+    "mercado": "I'll reply with the scope and what I need from your side.",
+    "asesor": "I'll reply with how the platform would work for your clients.",
+    "prueba": "I'll reply with the next steps.",
+    "otro": "I'll reply to understand what you need.",
+    "internacional": "I'll reply to understand what you're evaluating in Mexico and which study fits."
   },
-  "backHome": "Back to the home page"
+  "backHome": "Back to home"
 }

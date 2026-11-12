@@ -1,27 +1,15 @@
 ---
 /**
- * Precios.
+ * Precios de la plataforma (`/es/precios/`), dentro de la línea de asesores.
  *
- * La página responde, en este orden: cómo está organizada la oferta, cuánto
- * cuesta el plan para una empresa, cuánto cuestan los planes para asesores,
- * en qué se diferencian, qué no cambia, y —aparte, con otro fondo— qué
- * servicios profesionales existen. El visitante tiene que poder elegir un plan
- * sin hablar con nadie; la demostración es una opción, no la puerta.
+ * Orden: la oferta de lanzamiento (arriba, destacada) → los tres planes para
+ * asesores → Individual y Enterprise → la comparación lado a lado → notas →
+ * preguntas → un enlace a los servicios de consultoría, que NO se repiten
+ * aquí: tienen su propia página.
  *
- * Todo importe, límite y condición sale de `negocio.ts`. Lo que la
- * configuración define de cada plan es su capacidad (empresas incluidas, si
- * admite adicionales, uso justo) y si los entregables llevan la marca del
- * asesor; eso es lo que se compara. No hay funciones por plan porque la
- * configuración no las define, y la página no las inventa.
- *
- * Mientras `negocio.mostrar_precios` sea `false` esta página existe pero no se
- * enlaza, no entra al sitemap y se sirve con `noindex` (lo decide `routes.ts`),
- * y no imprime ni un importe.
- *
- * La comparación es una tabla de verdad —`<table>` con `<caption>` y `<th
- * scope>`—: en un lector de pantalla la diferencia es poder preguntar «¿qué dice
- * la columna Despacho en la fila Empresas incluidas?». En móvil se desplaza de
- * lado dentro de una región enfocable, con la primera columna fija.
+ * Todo importe, límite y condición sale de `negocio.ts`. La comparación es una
+ * tabla de verdad —`<table>` con `<caption>` y `<th scope>`—, desplazable de
+ * lado en móvil dentro de una región enfocable, con la primera columna fija.
  */
 import Base from '../../layouts/Base.astro';
 import Section from '../Section.astro';
@@ -30,132 +18,118 @@ import Button from '../Button.astro';
 import PageHero from '../PageHero.astro';
 import PlanCard from '../PlanCard.astro';
 import FaqList from '../FaqList.astro';
-import { negocio, plan as planPorId, precio } from '../../config/negocio';
-import { agenda, contacto, solicitarPlan } from '../../config/enlaces';
-import { path, type Lang } from '../../i18n/routes';
-import { t } from '../../i18n';
+import Cta from '../Cta.astro';
+import { negocio, plan as planPorId, precio, porcentaje, type Plan } from '../../config/negocio';
+import { agenda, pedirPrueba, solicitarPlan } from '../../config/enlaces';
+import { path } from '../../i18n/routes';
+import { es } from '../../i18n';
 
-interface Props {
-  lang: Lang;
-}
-
-const { lang } = Astro.props;
-const p = t(lang, 'pricing');
-
+const lang = 'es';
+const p = es('pricing');
 const mostrar = negocio.mostrar_precios;
+const o = negocio.oferta_lanzamiento;
+const numero = new Intl.NumberFormat('es-MX');
+const adicional = precio(negocio.empresa_adicional, lang);
+const usoJusto = numero.format(negocio.uso_justo_cfdi_por_empresa_mes);
 
-const rellenar = (plantilla: string, valores: Record<string, string>) =>
-  Object.entries(valores).reduce((s, [k, v]) => s.replace(`{${k}}`, v), plantilla);
+const rellenar = (texto: string) =>
+  texto
+    .replaceAll('{months}', String(o.meses_gratis))
+    .replaceAll('{plan}', p.plans[o.plan].name)
+    .replaceAll('{n}', String(o.cupo))
+    .replaceAll('{discount}', porcentaje(o.descuento_despues))
+    .replaceAll('{discountMonths}', String(o.meses_descuento))
+    .replaceAll('{price}', adicional);
 
-const numero = new Intl.NumberFormat(lang === 'es' ? 'es-MX' : 'en-US');
-const adicional = mostrar ? precio(negocio.empresa_adicional, lang) : '';
-
+const prueba = pedirPrueba();
 const etiquetas = {
-  companies: p.platform.columns.companies,
-  unlimited: p.platform.unlimited,
-  quote: p.platform.quote,
+  companies: p.labels.companies,
+  unlimited: p.labels.unlimited,
+  quote: p.labels.quote,
   ...p.card,
 };
-
 const planesAsesor = ['profesional', 'despacho', 'firma'] as const;
-
-// Las preguntas que mencionan el importe de la empresa adicional lo reciben
-// formateado; con los precios apagados esa respuesta no se publica.
 const preguntas = p.faq.items
   .filter((item) => mostrar || !item.a.includes('{price}'))
-  .map((item) => ({ q: item.q, a: rellenar(item.a, { price: adicional }) }));
+  .map((item) => ({ q: item.q, a: rellenar(item.a) }));
 
-const celda = 'px-4 py-3.5 text-[0.9375rem] text-ink align-top';
-const encabezado =
-  'px-4 py-3 text-left text-[0.625rem] font-semibold tracking-[0.14em] text-muted uppercase';
-const primeraColumna =
-  'sticky left-0 z-10 w-44 min-w-[9rem] bg-panel px-4 py-3.5 text-left text-[0.8125rem] font-medium text-muted align-top';
-
-const valorPrecio = (id: (typeof negocio.planes)[number]['id']) => {
+type Id = Plan['id'];
+const valorPrecio = (id: Id) => {
   const pl = planPorId(id);
-  return pl.precio === null ? p.platform.quote : precio(pl.precio, lang);
+  return pl.precio === null ? p.labels.quote : precio(pl.precio, lang);
 };
-const valorEmpresas = (id: (typeof negocio.planes)[number]['id']) => {
+const valorEmpresas = (id: Id) => {
   const pl = planPorId(id);
-  return pl.empresas === null ? p.platform.unlimited : numero.format(pl.empresas);
+  return pl.empresas === null ? p.labels.unlimited : numero.format(pl.empresas);
 };
-const valorAdicional = (id: (typeof negocio.planes)[number]['id']) => {
+const valorAdicional = (id: Id) => {
   const pl = planPorId(id);
   if (pl.precio === null) return p.compare.agreed;
   if (!pl.admite_adicionales) return p.compare.notAllowed;
-  return rellenar(p.compare.perCompany, { price: adicional });
+  return p.compare.perCompany.replace('{price}', adicional);
 };
-const valorUso = (id: (typeof negocio.planes)[number]['id']) =>
-  planPorId(id).precio === null
-    ? p.compare.agreed
-    : rellenar(p.compare.fairUseValue, { n: numero.format(negocio.uso_justo_cfdi_por_empresa_mes) });
+const valorUso = (id: Id) =>
+  planPorId(id).precio === null ? p.compare.agreed : p.compare.fairUseValue.replace('{n}', usoJusto);
 
-const filas = [
-  { label: p.compare.rows.for, valor: (id: (typeof negocio.planes)[number]['id']) => p.plans[id].for, muted: true },
+const filas: { label: string; valor: (id: Id) => string; muted?: boolean; fuerte?: boolean }[] = [
+  { label: p.compare.rows.for, valor: (id) => p.plans[id].for, muted: true },
   ...(mostrar ? [{ label: p.compare.rows.price, valor: valorPrecio, fuerte: true }] : []),
   { label: p.compare.rows.companies, valor: valorEmpresas, fuerte: true },
   ...(mostrar ? [{ label: p.compare.rows.extra, valor: valorAdicional }] : []),
   {
     label: p.compare.rows.brand,
-    valor: (id: (typeof negocio.planes)[number]['id']) => {
+    valor: (id) => {
       const marca = planPorId(id).marca_propia;
       // La marca del asesor no está verificada en el producto: donde la
       // configuración la marca como incluida se publica «Por confirmar».
-      return marca === null ? p.compare.agreed : marca ? p.compare.toConfirm : p.platform.no;
+      return marca === null ? p.compare.agreed : marca ? p.compare.toConfirm : p.labels.no;
     },
   },
   { label: p.compare.rows.fairUse, valor: valorUso },
 ];
+
+const celda = 'px-4 py-3.5 text-[0.9375rem] text-ink align-top';
+const encabezado = 'px-4 py-3 text-left text-[0.6875rem] font-semibold tracking-[0.12em] text-muted uppercase';
+const primeraColumna =
+  'sticky left-0 z-10 w-44 min-w-[9rem] bg-panel px-4 py-3.5 text-left text-[0.8125rem] font-medium text-muted align-top';
 ---
 
-<Base lang={lang} pageKey="pricing" title={p.meta.title} description={p.meta.description}>
-  <PageHero photoKey="pricing" eyebrow={p.hero.eyebrow} title={p.hero.title} intro={p.hero.subtitle} />
+<Base lang={lang} pageKey="pricing" title={p.meta.title} description={rellenar(p.meta.description)}>
+  <PageHero tone="dark" photoKey="pricing" eyebrow={p.hero.eyebrow} title={p.hero.title} intro={p.hero.subtitle} />
 
-  <!-- ============================================================ ESTRUCTURA -->
-  <section class="border-b border-line bg-ground" aria-labelledby="estructura">
-    <div class="container-page py-10 lg:py-12">
-      <h2 id="estructura" class="text-[0.6875rem] font-semibold tracking-[0.16em] text-brand-text uppercase">
-        {p.structure.label}
-      </h2>
-      <ol class="mt-6 grid gap-6 sm:grid-cols-3 sm:gap-8">
-        {
-          p.structure.items.map((item, i) => (
-            <li class="border-t-2 border-ink pt-4">
-              <p class="tnum text-[0.6875rem] font-semibold text-brand-text">{String(i + 1).padStart(2, '0')}</p>
-              <p class="mt-2 text-base font-semibold text-ink">{item.title}</p>
-              <p class="mt-1.5 text-[0.9375rem] leading-relaxed text-muted">{item.body}</p>
-            </li>
-          ))
-        }
-      </ol>
-    </div>
-  </section>
-
-  <!-- ============================================================== EMPRESAS -->
-  <Section tone="ground" id="empresas">
-    <div class="grid gap-10 lg:grid-cols-[1fr_minmax(0,24rem)] lg:items-start lg:gap-16">
-      <div class="reveal">
-        <SectionHeader eyebrow={p.business.eyebrow} title={p.business.title} intro={p.business.intro} />
-        <p class="mt-6 max-w-xl text-[0.9375rem] leading-relaxed text-muted">{p.business.accountant}</p>
-        <a
-          href={path('business', lang)}
-          class="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-ink underline decoration-line-strong underline-offset-4 hover:decoration-ink"
-        >
-          {p.business.more}
-        </a>
-      </div>
-      <div class="reveal flex border border-line" data-reveal-delay="80">
-        <PlanCard
-          plan={planPorId('individual')}
-          nombre={p.plans.individual.name}
-          paraQuien={p.plans.individual.for}
-          resumen={p.plans.individual.summary}
-          cta={p.card.request}
-          href={solicitarPlan('individual', lang)}
-          labels={etiquetas}
-          lang={lang}
-          class="flex-1"
-        />
+  <!-- ================================================================ OFERTA -->
+  <Section tone="ground" id="oferta" size="compact">
+    <div class="reveal overflow-hidden rounded-card border-2 border-brand bg-panel">
+      <div class="grid gap-10 p-7 lg:grid-cols-[1.2fr_1fr] lg:gap-14 lg:p-10">
+        <div>
+          <p class="text-[0.6875rem] font-semibold tracking-[0.16em] text-brand-text uppercase">{p.offer.eyebrow}</p>
+          <h2 class="mt-3 text-[2rem] leading-tight font-medium tracking-[-0.01em] text-brand lg:text-[2.75rem]">
+            {rellenar(p.offer.title)}
+          </h2>
+          <p class="mt-4 max-w-xl text-lg leading-relaxed text-muted">{rellenar(p.offer.body)}</p>
+          <div class="mt-8">
+            <Button href={prueba} size="lg">{rellenar(p.offer.cta)}</Button>
+          </div>
+        </div>
+        <div class="space-y-6 lg:border-l lg:border-line lg:pl-14">
+          <div>
+            <h3 class="text-sm font-semibold text-ink">{p.offer.exchangeTitle}</h3>
+            <ul class="mt-3 space-y-2.5">
+              {
+                p.offer.exchange.map((linea) => (
+                  <li class="flex gap-3 text-[0.9375rem] leading-relaxed text-ink">
+                    <span aria-hidden="true" class="mt-2.5 block h-[2px] w-3 shrink-0 bg-brand" />
+                    {linea}
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+          <div class="rounded-control bg-panel-alt px-5 py-4">
+            <h3 class="text-sm font-semibold text-ink">{p.offer.afterTitle}</h3>
+            <p class="mt-1.5 text-[0.9375rem] leading-relaxed text-ink">{rellenar(p.offer.after)}</p>
+          </div>
+        </div>
       </div>
     </div>
   </Section>
@@ -165,8 +139,7 @@ const filas = [
     <div class="reveal">
       <SectionHeader eyebrow={p.advisors.eyebrow} title={p.advisors.title} intro={p.advisors.intro} />
     </div>
-
-    <div class="mt-12 grid gap-px border border-line bg-line lg:grid-cols-3">
+    <div class="mt-12 grid gap-6 lg:grid-cols-3">
       {
         planesAsesor.map((id, i) => (
           <div class="reveal flex" data-reveal-delay={i * 70}>
@@ -175,51 +148,22 @@ const filas = [
               nombre={p.plans[id].name}
               paraQuien={p.plans[id].for}
               resumen={p.plans[id].summary}
-              cta={p.card.request}
-              href={solicitarPlan(id, lang)}
+              cta={id === o.plan ? rellenar(p.offer.cta) : p.card.request}
+              href={id === o.plan ? prueba : solicitarPlan(id, lang)}
               labels={etiquetas}
               lang={lang}
+              destacado={id === o.plan ? rellenar(p.card.offerBadge) : undefined}
               class="flex-1"
             />
           </div>
         ))
       }
     </div>
-
-    <!-- Enterprise: se cotiza. No tiene precio ni mínimo publicados, ni
-         funciones propias: es una forma de contratar la misma plataforma para
-         lo que no cabe en los planes publicados. -->
-    <div id="enterprise" class="reveal mt-8 grid scroll-mt-24 gap-8 border border-line bg-panel p-7 lg:grid-cols-[1fr_minmax(0,16rem)_minmax(0,17rem)] lg:gap-10 lg:p-9">
-      <div>
-        <p class="text-[0.6875rem] font-semibold tracking-[0.16em] text-brand-text uppercase">{p.enterprise.eyebrow}</p>
-        <h3 class="mt-2 text-xl leading-snug font-semibold tracking-[-0.02em] text-ink">{p.enterprise.title}</h3>
-        <p class="mt-3 text-[0.9375rem] leading-relaxed text-muted">{p.enterprise.body}</p>
-      </div>
-      <div>
-        <p class="text-[0.8125rem] font-medium text-muted">{p.enterprise.basisTitle}</p>
-        <ul class="mt-3 space-y-2 text-[0.9375rem] text-ink">
-          {p.enterprise.basis.map((linea) => (
-            <li class="flex gap-2.5">
-              <span aria-hidden="true" class="mt-2.5 block h-[2px] w-3 shrink-0 bg-brand"></span>
-              {linea}
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div class="flex flex-col gap-4 lg:border-l lg:border-line lg:pl-10">
-        {mostrar && <p class="text-xl font-semibold tracking-[-0.01em] text-ink">{p.platform.quote}</p>}
-        <p class="text-sm leading-relaxed text-muted">{p.enterprise.note}</p>
-        <div>
-          <Button href={solicitarPlan('enterprise', lang)} variant="primary">{p.card.requestQuote}</Button>
-        </div>
-      </div>
-    </div>
-
     {
       mostrar && (
         <a
           href={`${path('advisors', lang)}#margen`}
-          class="reveal mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-ink underline decoration-line-strong underline-offset-4 hover:decoration-ink"
+          class="reveal mt-8 inline-flex items-center gap-1.5 text-sm font-medium text-ink underline decoration-line-strong underline-offset-4 hover:decoration-ink"
         >
           {p.advisors.calculator}
         </a>
@@ -227,16 +171,48 @@ const filas = [
     }
   </Section>
 
+  <!-- ===================================================== INDIVIDUAL Y MÁS -->
+  <Section tone="ground" size="compact">
+    <div class="reveal">
+      <h2 class="text-2xl font-medium tracking-[-0.01em] text-ink lg:text-3xl">{p.others.title}</h2>
+    </div>
+    <div class="mt-8 grid gap-6 lg:grid-cols-2">
+      <div class="reveal flex">
+        <PlanCard
+          plan={planPorId('individual')}
+          nombre={p.plans.individual.name}
+          paraQuien={p.plans.individual.for}
+          resumen={p.plans.individual.summary}
+          cta={p.others.individualCta}
+          href={solicitarPlan('individual', lang)}
+          labels={etiquetas}
+          lang={lang}
+          class="flex-1"
+        />
+      </div>
+      <div class="reveal flex" data-reveal-delay="70">
+        <PlanCard
+          plan={planPorId('enterprise')}
+          nombre={p.plans.enterprise.name}
+          paraQuien={p.plans.enterprise.for}
+          resumen={p.plans.enterprise.summary}
+          cta={p.others.enterpriseCta}
+          href={solicitarPlan('enterprise', lang)}
+          labels={etiquetas}
+          lang={lang}
+          class="flex-1"
+        />
+      </div>
+    </div>
+  </Section>
+
   <!-- ============================================================ COMPARACIÓN -->
-  <Section tone="ground" id="comparacion">
+  <Section tone="panel" id="comparacion">
     <div class="reveal">
       <SectionHeader eyebrow={p.compare.eyebrow} title={p.compare.title} />
     </div>
-
-    <!-- `tabindex` y `role="region"`: en móvil la tabla se desplaza de lado, y
-         quien navega con teclado tiene que poder enfocar la zona para moverla. -->
     <div
-      class="reveal mt-10 overflow-x-auto border border-line"
+      class="reveal mt-10 overflow-x-auto rounded-card border border-line"
       data-reveal-delay="80"
       role="region"
       tabindex="0"
@@ -249,7 +225,7 @@ const filas = [
             <td class={`${encabezado} sticky left-0 z-10 bg-panel`}></td>
             {
               negocio.planes.map((pl) => (
-                <th scope="col" class:list={[encabezado, pl.id === 'despacho' && 'text-brand-text']}>
+                <th scope="col" class:list={[encabezado, pl.id === o.plan && 'text-brand-text']}>
                   {p.plans[pl.id].name}
                 </th>
               ))
@@ -264,14 +240,7 @@ const filas = [
                   {fila.label}
                 </th>
                 {negocio.planes.map((pl) => (
-                  <td
-                    class:list={[
-                      celda,
-                      'tnum',
-                      fila.muted && 'text-muted',
-                      fila.fuerte && 'font-semibold',
-                    ]}
-                  >
+                  <td class:list={[celda, 'tnum', fila.muted && 'text-muted', fila.fuerte && 'font-semibold']}>
                     {fila.valor(pl.id)}
                   </td>
                 ))}
@@ -281,54 +250,12 @@ const filas = [
         </tbody>
       </table>
     </div>
-
-    <div class="reveal mt-10 grid gap-6 border-t border-line pt-8 lg:grid-cols-[minmax(0,20rem)_1fr] lg:gap-16">
-      <h2 class="text-lg font-semibold tracking-[-0.01em] text-ink">{p.shared.title}</h2>
-      <div>
-        <ul class="space-y-2 text-[0.9375rem] text-ink">
-          {p.shared.items.map((item) => <li>{item}</li>)}
-          {negocio.prueba_disponible && <li>{p.platform.trial}</li>}
-        </ul>
-        <a
-          href={path('platform', lang)}
-          class="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-ink underline decoration-line-strong underline-offset-4 hover:decoration-ink"
-        >
-          {p.shared.platform}
-        </a>
-      </div>
-    </div>
+    <ul class="reveal mt-6 space-y-1.5 text-sm text-muted">
+      {mostrar && <li>{p.notes.extra.replace('{price}', adicional)}</li>}
+      <li>{p.notes.fairUse.replace('{n}', usoJusto)}</li>
+      <li>{p.notes.tax}</li>
+    </ul>
   </Section>
-
-  <!-- ============================================================ FUNDADORES -->
-  <Section tone="ink" size="compact">
-    <div class="reveal grid gap-10 lg:grid-cols-[1fr_auto] lg:items-center lg:gap-16">
-      <div>
-        <p class="text-[0.6875rem] font-semibold tracking-[0.16em] text-on-ink-muted uppercase">
-          {p.founders.eyebrow}
-        </p>
-        <h2 class="mt-4 max-w-3xl text-[1.75rem] leading-tight font-semibold tracking-[-0.02em] text-on-ink lg:text-[2rem]">
-          {
-            rellenar(p.founders.title, {
-              n: String(negocio.fundadores.cupo),
-              months: String(negocio.fundadores.meses),
-            })
-          }
-        </h2>
-        <p class="mt-5 max-w-2xl text-lg leading-relaxed text-on-ink-muted">{p.founders.body}</p>
-        <p class="mt-4 max-w-2xl text-[0.9375rem] leading-relaxed text-on-ink-muted">
-          {rellenar(p.founders.note, { months: String(negocio.fundadores.meses) })}
-        </p>
-      </div>
-      <Button href={contacto('fundador', lang)} variant="onInk" size="lg">{p.founders.cta}</Button>
-    </div>
-  </Section>
-
-  <!-- La tabla de servicios profesionales vivía aquí. Salió con el giro a
-       consultoría del 2026-11-06: esos servicios dejaron de ser un añadido
-       de la suscripción y pasaron a ser la oferta completa, con su propia
-       página (/es/servicios/). Esta página queda como registro de los planes
-       de software, sin enlazar y sin indexar.
-  -->
 
   <!-- ============================================================= PREGUNTAS -->
   <Section tone="ground">
@@ -336,22 +263,21 @@ const filas = [
       <SectionHeader title={p.faq.title} />
     </div>
     <FaqList items={preguntas} class="reveal mt-10" />
-  </Section>
 
-  <!-- ================================================================= CIERRE -->
-  <Section tone="ground" size="compact">
-    {mostrar && <p class="reveal text-sm font-medium text-muted">{p.tax}</p>}
-    <div class="reveal mt-8 max-w-3xl border-t border-line pt-10">
-      <h2 class="text-2xl font-semibold tracking-[-0.02em] text-ink lg:text-3xl">
-        {p.closing.title}
-      </h2>
-      <p class="mt-5 text-lg leading-relaxed text-muted">{p.closing.body}</p>
-      <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-        <Button href={agenda(lang)} size="lg" data-cta="agenda">{p.closing.primary}</Button>
-        <Button href={path('contact', lang)} variant="secondary" size="lg">
-          {p.closing.secondary}
-        </Button>
+    <div class="reveal mt-14 grid gap-6 rounded-card border border-line bg-panel p-7 lg:grid-cols-[1fr_auto] lg:items-center lg:gap-12">
+      <div>
+        <h2 class="text-xl font-medium text-ink">{p.services.title}</h2>
+        <p class="mt-2 text-[0.9375rem] leading-relaxed text-muted">{p.services.body}</p>
       </div>
+      <Button href={path('services', lang)} variant="secondary">{p.services.cta}</Button>
     </div>
   </Section>
+
+  <Cta
+    tone="dark"
+    title={p.closing.title}
+    body={p.closing.body}
+    primary={{ href: agenda(lang, 'asesor'), label: p.closing.primary }}
+    secondary={{ href: path('platform', lang), label: p.closing.secondary }}
+  />
 </Base>

@@ -1,18 +1,15 @@
 ---
 /**
- * Estudio de Expansión. Es la página de producto del servicio que más cuesta
- * de los que llevan precio publicado, y la puerta de entrada de quien ya
- * piensa en crecer. Sustituye a la vieja página de Diagnóstico Empresarial,
- * cuya URL redirige aquí.
+ * Estudio de Expansión: la puerta de entrada de quien ya piensa en crecer.
  *
  * El orden responde a cómo decide un dueño de negocio:
  *
- *   1. Las cuatro preguntas que le quitan el sueño, tal cual las haría él.
- *   2. Los tres veredictos posibles — incluido «todavía no». Ponerlo aquí
- *      arriba, y no escondido, es la pieza que hace creíble todo lo demás:
- *      un consultor que solo puede decir que sí no está evaluando nada.
- *   3. Qué hay que entregar, con lo obligatorio separado de lo opcional.
- *   4. Qué recibe, cuánto tarda y cuánto cuesta.
+ *   1. Las cuatro preguntas que se hace, tal cual las haría él.
+ *   2. Qué hay que entregar (y qué nunca se pide) y qué recibe, con duración
+ *      y precio — el dato que busca —.
+ *   3. Los tres veredictos posibles, incluido «todavía no», cada uno con su
+ *      siguiente paso.
+ *   4. Una vista previa del reporte, marcada «Datos ilustrativos».
  *
  * El importe sale de `negocio.ts`; aquí no se escribe ninguna cifra.
  */
@@ -22,158 +19,143 @@ import SectionHeader from '../SectionHeader.astro';
 import Button from '../Button.astro';
 import PageHero from '../PageHero.astro';
 import Checklist from '../Checklist.astro';
+import ScorePanel from '../ScorePanel.astro';
+import Cta from '../Cta.astro';
 import { serviciosResueltos } from '../../i18n/servicios';
-import { agenda } from '../../config/enlaces';
-import { path, type Lang } from '../../i18n/routes';
-import { t, common } from '../../i18n';
+import { agenda, contratarServicio } from '../../config/enlaces';
+import { path } from '../../i18n/routes';
+import { es, common } from '../../i18n';
 
-interface Props {
-  lang: Lang;
-}
-
-const { lang } = Astro.props;
-const e = t(lang, 'expansion');
-const s = t(lang, 'services');
+const lang = 'es';
+const e = es('expansion');
+const s = es('services');
 const c = common(lang);
 
-const servicio = serviciosResueltos(lang).find((x) => x.id === 'expansion')!;
+const servicio = serviciosResueltos().find((x) => x.id === 'expansion')!;
 const agendaHref = agenda(lang);
+const servicios = path('services', lang);
 ---
 
 <Base lang={lang} pageKey="expansion" title={e.meta.title} description={e.meta.description}>
-  <PageHero
-    photoKey="expansion"
-    eyebrow={e.hero.eyebrow}
-    title={e.hero.title}
-    intro={e.hero.subtitle}
-    cta={{ href: agendaHref, label: e.hero.cta }}
-  />
+  <PageHero eyebrow={e.hero.eyebrow} title={e.hero.title} intro={e.hero.subtitle}>
+    <Fragment slot="actions">
+      <Button href={agendaHref} size="lg">{e.hero.cta}</Button>
+      <Button href={contratarServicio('expansion', lang)} variant="secondary" size="lg">{s.labels.write}</Button>
+    </Fragment>
+  </PageHero>
 
   <!-- ============================================================= PREGUNTAS -->
   <Section tone="ground">
     <div class="reveal">
       <SectionHeader eyebrow={e.questions.eyebrow} title={e.questions.title} />
     </div>
-    <ol class="mt-12 grid gap-px border border-line bg-line sm:grid-cols-2">
+    <ol class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
       {
         e.questions.items.map((pregunta, i) => (
-          <li class="reveal flex items-start gap-5 bg-panel p-7" data-reveal-delay={(i % 2) * 70}>
-            <span class="tnum text-2xl leading-none font-semibold tracking-[-0.03em] text-brand-text">
-              {String(i + 1).padStart(2, '0')}
-            </span>
-            <p class="text-lg leading-snug font-semibold text-ink">{pregunta}</p>
+          <li class="reveal flex flex-col rounded-card border border-line bg-panel p-6" data-reveal-delay={i * 60}>
+            <span class="tnum text-sm font-semibold text-brand-text">{String(i + 1).padStart(2, '0')}</span>
+            <p class="mt-4 text-xl leading-snug font-medium text-ink">{pregunta}</p>
           </li>
         ))
       }
     </ol>
   </Section>
 
-  <!-- ============================================================= VEREDICTOS -->
-  <Section tone="ink">
-    <div class="reveal">
-      <SectionHeader
-        eyebrow={e.verdicts.eyebrow}
-        title={e.verdicts.title}
-        intro={e.verdicts.intro}
-        tone="light"
-      />
-    </div>
-    <ol class="mt-14 grid gap-10 border-t border-line-ink pt-10 sm:grid-cols-3 sm:gap-8">
-      {
-        e.verdicts.items.map((v, i) => (
-          <li class="reveal" data-reveal-delay={i * 80}>
-            <span class="tnum text-xs font-semibold text-on-ink-muted">
-              {String(i + 1).padStart(2, '0')}
-            </span>
-            <h3 class="mt-4 text-xl leading-snug font-semibold text-on-ink">{v.name}</h3>
-            <p class="mt-3 text-[0.9375rem] leading-relaxed text-on-ink-muted">{v.body}</p>
-          </li>
-        ))
-      }
-    </ol>
-  </Section>
-
-  <!-- ================================================================ INSUMOS -->
+  <!-- ===================================================== ENTRADA Y SALIDA -->
   <Section tone="panel">
-    <div class="grid gap-10 lg:grid-cols-[minmax(0,22rem)_1fr] lg:gap-16">
+    <div class="grid gap-12 lg:grid-cols-2 lg:gap-16">
       <div class="reveal">
-        <h2 class="text-2xl font-semibold tracking-[-0.02em] text-ink lg:text-3xl">
-          {e.inputs.title}
-        </h2>
-        <p class="mt-4 text-[0.9375rem] leading-relaxed text-muted">{e.inputs.intro}</p>
-      </div>
-      <div class="reveal" data-reveal-delay="80">
+        <SectionHeader eyebrow={e.inputs.eyebrow} title={e.inputs.title} />
         <Checklist
+          class="mt-8"
           items={e.inputs.items.map((item) => ({
             text: item.text,
             tag: item.required ? c.labels.required : c.labels.optional,
-            tagTone: item.required ? 'brand' : 'ink',
+            tagTone: (item.required ? 'brand' : 'ink') as 'brand' | 'ink',
           }))}
         />
-        <p class="mt-5 text-sm text-muted italic">{e.inputs.note}</p>
+        <p class="mt-6 flex items-start gap-3 rounded-control border border-line bg-panel px-4 py-3 text-[0.9375rem] font-medium text-ink">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true" class="mt-0.5 shrink-0 text-brand">
+            <path d="M9 1.5 3 4v4.5c0 3.6 2.6 6.9 6 8 3.4-1.1 6-4.4 6-8V4L9 1.5Z" stroke="currentColor" stroke-width="1.5" />
+            <path d="m6.5 9 1.8 1.8L11.8 7" stroke="currentColor" stroke-width="1.5" />
+          </svg>
+          {e.inputs.never}
+        </p>
+        <p class="mt-4 text-sm leading-relaxed text-muted">{e.inputs.note}</p>
       </div>
-    </div>
-  </Section>
 
-  <!-- ============================================================= ENTREGABLE -->
-  <Section tone="ground">
-    <div class="grid gap-12 lg:grid-cols-[1fr_minmax(0,22rem)] lg:gap-20">
-      <div class="reveal">
+      <div class="reveal" data-reveal-delay="80">
         <SectionHeader eyebrow={e.deliverable.eyebrow} title={e.deliverable.title} />
-        <ul class="mt-10 divide-y divide-line border-t border-b border-line">
-          {
-            e.deliverable.items.map((item) => (
-              <li class="flex items-start gap-4 py-4">
-                <span aria-hidden="true" class="mt-2.5 block h-[2px] w-4 shrink-0 bg-brand" />
-                <p class="text-base leading-relaxed text-ink">{item}</p>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-
-      <!-- Duración y precio juntos, en tarjeta: son los dos datos que decide
-           quien ya se convenció del resto. -->
-      <div class="reveal lg:self-start" data-reveal-delay="100">
-        <dl class="border border-line bg-panel">
-          <div class="border-b border-line px-6 py-5">
-            <dt class="text-[0.625rem] font-semibold tracking-[0.14em] text-muted uppercase">
-              {e.deliverable.duration}
-            </dt>
-            <dd class="mt-1.5 text-lg font-semibold text-ink">{servicio.duracion}</dd>
+        <Checklist class="mt-8" items={e.deliverable.items.map((text) => ({ text }))} />
+        <dl class="mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-card border border-line bg-line">
+          <div class="bg-panel p-5">
+            <dt class="text-[0.6875rem] font-semibold tracking-[0.12em] text-muted uppercase">{e.deliverable.duration}</dt>
+            <dd class="mt-2 text-lg font-semibold text-ink">{servicio.duracion}</dd>
           </div>
-          <div class="px-6 py-5">
-            <dt class="text-[0.625rem] font-semibold tracking-[0.14em] text-brand-text uppercase">
-              {e.deliverable.price}
-            </dt>
-            <dd class="tnum mt-1.5 text-xl font-semibold text-ink">{servicio.precio}</dd>
+          <div class="bg-panel p-5">
+            <dt class="text-[0.6875rem] font-semibold tracking-[0.12em] text-muted uppercase">{e.deliverable.price}</dt>
+            <dd class="tnum mt-2 text-lg font-semibold text-ink">{servicio.precio}</dd>
+            <dd class="mt-0.5 text-xs text-muted">{e.deliverable.tax}</dd>
           </div>
         </dl>
-        <p class="mt-4 text-sm leading-relaxed text-muted">{s.tax}</p>
-        <div class="mt-6">
-          <Button href={agendaHref} size="lg" data-cta="agenda">{e.hero.cta}</Button>
-        </div>
       </div>
     </div>
   </Section>
 
-  <!-- ================================================================ CIERRE -->
-  <section class="on-ink bg-ink text-on-ink">
-    <div class="container-page py-20 lg:py-28">
-      <div class="reveal max-w-3xl">
-        <h2 class="text-[2rem] leading-[1.1] font-semibold tracking-[-0.025em] sm:text-[2.75rem] lg:text-5xl">
-          {e.closing.title}
-        </h2>
-        <p class="mt-6 text-lg text-on-ink-muted">{e.closing.body}</p>
-        <div class="mt-10 flex flex-col gap-3 sm:flex-row">
-          <Button href={agendaHref} variant="onInk" size="lg" data-cta="agenda">
-            {e.closing.primary}
-          </Button>
-          <Button href={path('services', lang)} variant="onInkGhost" size="lg">
-            {e.closing.secondary}
-          </Button>
-        </div>
-      </div>
+  <!-- ============================================================ VEREDICTOS -->
+  <Section tone="ground">
+    <div class="reveal">
+      <SectionHeader eyebrow={e.verdicts.eyebrow} title={e.verdicts.title} intro={e.verdicts.intro} />
     </div>
-  </section>
+    <ol class="mt-12 grid gap-6 lg:grid-cols-3">
+      {
+        e.verdicts.items.map((v, i) => (
+          <li class="reveal flex flex-col rounded-card border border-line bg-panel p-7" data-reveal-delay={i * 80}>
+            <span aria-hidden="true" class:list={['block h-1 w-10 rounded-full', i === 2 ? 'bg-arena' : 'bg-brand']} />
+            <h3 class="mt-5 text-xl leading-snug font-medium text-ink">{v.name}</h3>
+            <p class="mt-3 flex-1 text-[0.9375rem] leading-relaxed text-muted">{v.body}</p>
+            <div class="mt-6 border-t border-line pt-4">
+              <p class="text-[0.6875rem] font-semibold tracking-[0.12em] text-brand-text uppercase">{e.verdicts.next}</p>
+              {v.href ? (
+                <a
+                  href={`${servicios}#${v.href}`}
+                  class="mt-1.5 inline-block text-[0.9375rem] font-medium text-ink underline decoration-line-strong underline-offset-4 hover:decoration-ink"
+                >
+                  {v.next}
+                </a>
+              ) : (
+                <p class="mt-1.5 text-[0.9375rem] font-medium text-ink">{v.next}</p>
+              )}
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </Section>
+
+  <!-- ========================================================== VISTA PREVIA -->
+  <Section tone="panel">
+    <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,28rem)] lg:items-center lg:gap-16">
+      <div class="reveal">
+        <SectionHeader eyebrow={e.preview.eyebrow} title={e.preview.title} intro={e.preview.intro} />
+      </div>
+      <ScorePanel
+        class="reveal"
+        title={e.preview.panelTitle}
+        items={e.preview.items}
+        illustrativeLabel={c.labels.illustrative}
+        outOfLabel={c.labels.scoreOutOf}
+        overallLabel={c.labels.overallScore}
+        overallNote={c.labels.overallNote}
+        footnote={e.preview.footnote}
+      />
+    </div>
+  </Section>
+
+  <Cta
+    title={e.closing.title}
+    body={e.closing.body}
+    primary={{ href: agendaHref, label: e.closing.primary }}
+    secondary={{ href: servicios, label: e.closing.secondary }}
+  />
 </Base>

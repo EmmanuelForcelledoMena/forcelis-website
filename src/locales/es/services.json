@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Servicios — Consultoría de crecimiento y franquicias | Forcelis",
-    "description": "Diagnóstico de Negocio, Estudio de Mercado, Estudio de Expansión, Proyecto de Franquicia y acompañamiento mensual para pequeños negocios mexicanos. Precios en pesos más IVA."
+    "title": "Servicios — Diagnóstico, expansión y franquicias | Forcelis",
+    "description": "Diagnóstico de Negocio, Estudio de Expansión, Estudio de Mercado, sesiones, acompañamiento mensual y Proyecto de Franquicia para pequeños negocios mexicanos. Precios en pesos más IVA."
   },
   "hero": {
     "eyebrow": "Servicios",
@@ -13,79 +13,87 @@
     "includes": "Qué incluye",
     "deliverable": "Qué recibes",
     "duration": "Duración",
-    "price": "Precio",
-    "quote": "Se cotiza",
-    "perSession": "por sesión",
+    "price": "Precio, más IVA",
+    "quote": "Cotización",
+    "perSession": "",
     "perMonth": "al mes",
-    "entryPoint": "Puerta de entrada",
-    "cta": "Agenda una llamada"
+    "entryPoint": "Por aquí se empieza",
+    "cta": "Agenda una llamada",
+    "request": "Solicitar",
+    "write": "Prefiero escribir"
+  },
+  "featured": {
+    "title": "Dos formas de empezar",
+    "intro": "Los dos diagnósticos son la puerta de entrada. Elige según lo que quieres resolver hoy."
+  },
+  "others": {
+    "title": "Lo que viene después, o por separado",
+    "intro": "El Estudio de Mercado también se contrata solo, aunque todavía no tengas negocio."
   },
   "items": {
-    "sesion": {
-      "name": "Sesión de Consultoría",
-      "forWhom": "Dueños con una duda puntual, o que quieren conocerme antes de contratar algo más grande.",
-      "includes": "90 minutos sobre una pregunta concreta de tu negocio.",
-      "deliverable": "Notas con recomendaciones.",
-      "duration": "1 día",
-      "note": "Acreditable a cualquier diagnóstico que contrates después."
-    },
     "diagnostico": {
       "name": "Diagnóstico de Negocio",
       "forWhom": "Negocios de una sucursal o micronegocios que facturan.",
-      "includes": "Análisis de 12 meses de tus facturas: margen real por producto, precios, costos de insumos, cobranza y concentración de clientes.",
+      "includes": "Análisis de 12 meses de tus facturas electrónicas (CFDI): margen real por producto, precios, costos de insumos, cobranza y concentración de clientes.",
       "deliverable": "Reporte en lenguaje simple, plan de 90 días con 3 a 5 acciones y una sesión para revisarlo.",
       "duration": "1 a 2 semanas",
+      "note": ""
+    },
+    "expansion": {
+      "name": "Estudio de Expansión",
+      "forWhom": "Negocios con 1 a 3 sucursales que quieren abrir otra o franquiciar.",
+      "includes": "Análisis de 12 a 24 meses de tus facturas, evaluación de si el negocio funciona sin ti presente y estudio de 2 o 3 ciudades candidatas.",
+      "deliverable": "Veredicto, ciudades recomendadas, plan de acción y una sesión para revisarlo.",
+      "duration": "2 a 3 semanas",
       "note": ""
     },
     "mercado": {
       "name": "Estudio de Mercado",
       "forWhom": "Quien quiere abrir un negocio, comprar una franquicia o entrar a una ciudad nueva.",
-      "includes": "Tamaño de mercado, competencia en la zona, perfil del consumidor y ubicación recomendada, con datos del INEGI (DENUE y censos económicos).",
+      "includes": "Tamaño de mercado, competencia en la zona, perfil del consumidor y ubicación recomendada, con datos oficiales del INEGI.",
       "deliverable": "Reporte y sesión de presentación.",
       "duration": "1 a 2 semanas",
-      "note": "Es el único que se vende por sí solo, a quien todavía no tiene negocio."
+      "note": ""
     },
-    "expansion": {
-      "name": "Estudio de Expansión",
-      "forWhom": "Negocios con 1 a 3 sucursales que quieren abrir otra o franquiciar.",
-      "includes": "Análisis de 12 a 24 meses de tus facturas, evaluación de si el negocio funciona sin ti presente, y estudio de 2 o 3 ciudades candidatas.",
-      "deliverable": "Veredicto —franquiciable, sucursal propia u ordenar primero—, ciudades recomendadas, plan de acción y sesión.",
-      "duration": "2 a 3 semanas",
+    "sesion": {
+      "name": "Sesión de Consultoría",
+      "forWhom": "Dueños con una duda puntual.",
+      "includes": "90 minutos sobre una pregunta concreta de tu negocio.",
+      "deliverable": "Notas con recomendaciones.",
+      "duration": "1 día",
+      "note": "Acreditable a cualquier diagnóstico que contrates después."
+    },
+    "acompanamiento": {
+      "name": "Acompañamiento de Crecimiento",
+      "forWhom": "Clientes después de un diagnóstico: negocios que ordenan sus números, que abren unidades o que están en rescate.",
+      "includes": "Tablero mensual con tus facturas, sesión mensual y seguimiento del plan de acción.",
+      "deliverable": "Reporte y sesión cada mes.",
+      "duration": "Mínimo 6 meses",
       "note": ""
     },
     "franquicia": {
       "name": "Proyecto de Franquicia",
       "forWhom": "Negocios que salieron franquiciables en el Estudio de Expansión.",
-      "includes": "Modelo financiero por unidad, cuotas y regalías, manuales de operación, y coordinación con un abogado aliado para el contrato y la circular de oferta.",
+      "includes": "Modelo financiero por unidad, cuotas y regalías, manuales de operación y coordinación con un abogado aliado para el contrato y la circular de oferta de franquicia.",
       "deliverable": "Paquete de franquicia listo para vender.",
       "duration": "3 a 6 meses",
-      "note": "Se cotiza después del Estudio de Expansión, que es cuando se conoce el alcance real. Los honorarios legales se contratan aparte con el abogado."
-    },
-    "acompanamiento": {
-      "name": "Acompañamiento de Crecimiento",
-      "forWhom": "Cualquier cliente después de un diagnóstico: negocios que están ordenando sus números, abriendo unidades o en rescate.",
-      "includes": "Tablero mensual con tus facturas, sesión mensual y seguimiento del plan de acción.",
-      "deliverable": "Reporte y sesión cada mes.",
-      "duration": "Mínimo 6 meses",
-      "note": "En expansión o rescate se suma un bono por resultados, acordado por escrito antes de empezar."
+      "note": "Se cotiza según cada negocio, después del Estudio de Expansión."
     }
   },
   "tiers": {
     "pequeno": "Pequeño negocio",
-    "expansion": "En expansión o rescate"
+    "expansion": "Expansión, franquicia o rescate"
   },
   "journey": {
+    "eyebrow": "El recorrido",
     "title": "Cómo encaja todo",
-    "intro": "Hay dos puertas de entrada y las dos terminan en el mismo lugar: el acompañamiento mensual.",
-    "flow": [
-      { "label": "Llamada", "sub": "20 minutos, sin costo" },
-      { "label": "Diagnóstico", "sub": "De Negocio o de Expansión" },
-      { "label": "Plan", "sub": "Acciones con responsable y fecha" },
-      { "label": "Acompañamiento", "sub": "Seguimiento mes a mes" }
-    ],
-    "flowAlt": "Una llamada lleva a un diagnóstico, el diagnóstico a un plan de acción y el plan al acompañamiento mensual."
+    "intro": "Una llamada corta, un diagnóstico y, si tiene sentido, el acompañamiento mes a mes.",
+    "start": { "label": "Llamada de 20 minutos", "sub": "Sin costo" },
+    "end": { "label": "Acompañamiento de Crecimiento", "sub": "Seguimiento mes a mes" },
+    "branch": "Si es franquiciable",
+    "alt": "Todo empieza con una llamada de 20 minutos. De ahí sigue uno de tres estudios: el Diagnóstico de Negocio, el Estudio de Expansión o el Estudio de Mercado. Después viene el Acompañamiento de Crecimiento. Si el Estudio de Expansión dice que el negocio es franquiciable, el siguiente paso es el Proyecto de Franquicia."
   },
-  "tax": "Precios en pesos mexicanos más IVA. Son precios de lanzamiento y se confirman por escrito antes de empezar.",
+  "tax": "Precios en pesos mexicanos más IVA. El Proyecto de Franquicia, los rescates y el acompañamiento ampliado se cotizan según cada negocio; los honorarios legales se contratan aparte con el abogado aliado. Forcelis no hace contabilidad ni declaraciones.",
   "closing": {
     "title": "¿No sabes cuál te toca?",
     "body": "Cuéntame en 20 minutos qué quieres lograr y te digo cuál de estos tiene sentido para tu negocio, o si ninguno lo tiene.",

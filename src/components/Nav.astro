@@ -2,23 +2,23 @@
 /**
  * Barra de navegación.
  *
- * El botón apunta al cliente principal, que son los asesores. Contacto queda
- * como enlace de texto a su lado: el sitio pide UNA cosa, y dos botones del
- * mismo peso no piden ninguna.
+ * Un menú por idioma (`NAV_PAGES` en `routes.ts`) y UN botón: «Agenda una
+ * llamada» / «Book a call». El sitio pide una sola cosa; dos botones del mismo
+ * peso no piden ninguna.
  *
- * Los enlaces de texto se muestran desde `xl` (1280 px), no desde `lg`. Con
- * los textos en español —logotipo, cinco enlaces, Contacto, ES/EN y el botón—
- * la barra necesita unos 1,100 px, y a 1024 el botón quedaba fuera de la
- * pantalla. Entre `md` y `xl` se ve el botón y el resto vive en el menú.
+ * Los enlaces de texto se muestran desde `xl` (1280 px). Por debajo, el botón
+ * sigue visible y el resto vive en el menú desplegable.
  *
- * «Entrar» solo aparece si `negocio.url_app` tiene valor. Un enlace de acceso
- * que no lleva a ningún lado es peor que no tenerlo: quien ya es cliente lo
- * busca primero.
+ * El selector de idioma va siempre visible, también en móvil: esconderlo en la
+ * hamburguesa es esconderlo.
+ *
+ * «Entrar» solo aparece si `negocio.url_app` tiene valor.
  */
 import Wordmark from './Wordmark.astro';
+import LanguageSwitcher from './LanguageSwitcher.astro';
 import { NAV_PAGES, path, type Lang, type PageKey } from '../i18n/routes';
 import { negocio } from '../config/negocio';
-import { agenda } from '../config/enlaces';
+import { agenda, esExterno } from '../config/enlaces';
 import { common } from '../i18n';
 
 interface Props {
@@ -29,66 +29,48 @@ interface Props {
 const { lang, pageKey } = Astro.props;
 const c = common(lang);
 
-const items = NAV_PAGES.map((key) => ({
+const items = NAV_PAGES[lang].map((key) => ({
   key,
   href: path(key, lang),
   label: c.nav[key as keyof typeof c.nav] as string,
-  current: key === pageKey,
+  // Precios y Plataforma son parte de la línea de asesores: en esas páginas
+  // se marca «Para asesores» como sección actual.
+  current: key === pageKey || (key === 'advisors' && (pageKey === 'pricing' || pageKey === 'platform')),
 }));
 
 const agendaHref = agenda(lang);
+const externo = esExterno(agendaHref);
 const appHref = negocio.url_app;
 ---
 
-<header class="sticky top-0 z-50 border-b border-line bg-ground">
+<header class="sticky top-0 z-50 border-b border-line bg-ground/95 backdrop-blur supports-[backdrop-filter]:bg-ground/85">
   <div class="container-page flex h-16 items-center justify-between gap-5 lg:h-[4.5rem]">
-    <a
-      href={path('home', lang)}
-      class="shrink-0"
-      aria-label={`${c.brand.name} — ${c.brand.tagline}`}
-    >
-      <Wordmark size="nav" />
+    <a href={path('home', lang)} class="shrink-0 py-2" aria-label={`${c.brand.name} — ${c.nav.home}`}>
+      <Wordmark height={36} />
     </a>
 
-    <!-- `whitespace-nowrap` en cada enlace: «Para contadores y consultores» se
-         partía en dos líneas dentro de la barra, y eso descuadraba el subrayado
-         de la página activa, que se posiciona contra el borde inferior. -->
-    <!-- 16 px entre enlaces hasta 1400 px: con seis enlaces en español, a 1280
-         px el botón se comía el margen lateral de la página. -->
-    <nav aria-label={c.nav.mainLabel} class="hidden items-center gap-4 xl:flex min-[1400px]:gap-6">
+    <nav aria-label={c.nav.mainLabel} class="hidden items-center gap-7 xl:flex">
       {
         items.map((item) => (
           <a
             href={item.href}
             aria-current={item.current ? 'page' : undefined}
             class:list={[
-              'relative text-sm whitespace-nowrap transition-colors',
+              'relative py-2 text-sm whitespace-nowrap transition-colors',
               item.current ? 'font-medium text-ink' : 'text-muted hover:text-ink',
             ]}
           >
             {item.label}
             {item.current && (
-              <span
-                aria-hidden="true"
-                class="absolute -bottom-[1.35rem] left-0 h-[2px] w-full bg-brand"
-              />
+              <span aria-hidden="true" class="absolute -bottom-[0.95rem] left-0 h-[2px] w-full rounded-full bg-brand" />
             )}
           </a>
         ))
       }
     </nav>
 
-    <div class="flex items-center gap-3 lg:gap-4">
-      <a
-        href={path('contact', lang)}
-        aria-current={pageKey === 'contact' ? 'page' : undefined}
-        class:list={[
-          'hidden text-sm whitespace-nowrap transition-colors xl:inline',
-          pageKey === 'contact' ? 'font-medium text-ink' : 'text-muted hover:text-ink',
-        ]}
-      >
-        {c.nav.contact}
-      </a>
+    <div class="flex items-center gap-4 lg:gap-5">
+      <LanguageSwitcher lang={lang} noteClass="hidden max-w-[11rem] lg:block" />
 
       {
         appHref && (
@@ -102,15 +84,11 @@ const appHref = negocio.url_app;
         )
       }
 
-      <!-- El selector va SIEMPRE visible, también en móvil: esconder el cambio
-           de idioma dentro de la hamburguesa es esconderlo, y el mercado
-           inicial es México leyendo un sitio cuyo idioma por defecto es el
-           inglés. -->
-
       <a
         href={agendaHref}
         data-cta="agenda"
-        class="hidden bg-brand px-4 py-2.5 text-sm font-medium whitespace-nowrap text-white transition-colors hover:bg-brand-text md:inline-flex"
+        {...(externo ? { target: '_blank', rel: 'noopener' } : {})}
+        class="hidden rounded-control bg-brand px-4 py-2.5 text-sm font-medium whitespace-nowrap text-white transition-colors hover:bg-vino md:inline-flex"
       >
         {c.nav.cta}
       </a>
@@ -122,7 +100,7 @@ const appHref = negocio.url_app;
         aria-controls="mobile-menu"
         aria-label={c.nav.openMenu}
         data-close-label={c.nav.closeMenu}
-        class="-mr-2 flex h-10 w-10 items-center justify-center text-ink xl:hidden"
+        class="-mr-2 flex h-11 w-11 items-center justify-center rounded-control text-ink xl:hidden"
       >
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
           <path d="M2 5h16M2 10h16M2 15h16" stroke="currentColor" stroke-width="1.5"></path>
@@ -135,7 +113,7 @@ const appHref = negocio.url_app;
        atributo `hidden`, no con una clase: así el contenido no queda alcanzable
        por teclado mientras está cerrado. -->
   <div id="mobile-menu" hidden class="border-t border-line bg-ground xl:hidden">
-    <nav aria-label={c.nav.mainLabel} class="container-page flex flex-col py-2">
+    <nav aria-label={`${c.nav.mainLabel} (menú)`} class="container-page flex flex-col py-2">
       {
         items.map((item) => (
           <a
@@ -167,13 +145,13 @@ const appHref = negocio.url_app;
           </a>
         )
       }
-      <!-- Desde `md` el botón ya está en la barra: repetirlo aquí ponía dos
-           botones rojos idénticos en pantalla con el menú abierto. -->
+      <p lang={lang === 'es' ? 'en' : 'es-MX'} class="pt-4 text-xs text-muted lg:hidden">{c.lang.note}</p>
       <div class="py-5 md:hidden">
         <a
           href={agendaHref}
           data-cta="agenda"
-          class="block bg-brand px-4 py-3.5 text-center text-sm font-medium text-white"
+          {...(externo ? { target: '_blank', rel: 'noopener' } : {})}
+          class="block rounded-control bg-brand px-4 py-3.5 text-center text-sm font-medium text-white"
         >
           {c.nav.cta}
         </a>
@@ -199,8 +177,7 @@ const appHref = negocio.url_app;
       toggle.setAttribute('aria-label', willOpen ? labels.close : labels.open);
     });
 
-    // Escape cierra y devuelve el foco al botón: sin esto, quien navega con
-    // teclado se queda dentro de un menú abierto sin salida obvia.
+    // Escape cierra y devuelve el foco al botón.
     document.addEventListener('keydown', (event) => {
       if (event.key === 'Escape' && !menu.hasAttribute('hidden')) {
         menu.setAttribute('hidden', '');

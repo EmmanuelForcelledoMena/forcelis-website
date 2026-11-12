@@ -1,86 +1,54 @@
 {
   "meta": {
-    "title": "About — Not an accounting firm. Not another software tool.",
-    "description": "Forcelis combines finance, operations, technology and execution. An early-stage company with its own platform, working with businesses in Mexico."
+    "title": "About — Emmanuel Forcelledo, founder of Forcelis",
+    "description": "A Mexican economist (UNAM) who has worked in finance, planning, supply chain and data in Mexico, Canada and Japan, helping foreign companies decide where and how to enter Mexico."
   },
   "hero": {
-    "eyebrow": "About Forcelis",
-    "title": "Not an accounting firm. Not another software tool.",
-    "subtitle": "A business performance company combining finance, operations, technology and execution."
+    "eyebrow": "About",
+    "title": "Hi, I'm Emmanuel Forcelledo.",
+    "subtitle": "I help foreign companies make the call on Mexico before they invest: which market, which region, and how to enter."
   },
-  "equation": {
-    "title": "What Forcelis combines",
-    "items": [
-      {
-        "title": "Finance",
-        "body": "The judgment to know which number explains the business and which one is noise."
-      },
-      {
-        "title": "Operations",
-        "body": "The team's judgment to read process, inventory and supply chain as part of the financial picture, not separately from it."
-      },
-      {
-        "title": "Technology",
-        "body": "A proprietary platform that does the work no consultant should be doing by hand twice."
-      },
-      {
-        "title": "Execution",
-        "body": "The capacity to run the analysis every month, not only to recommend it once."
-      }
+  "bio": {
+    "title": "Where this comes from",
+    "paragraphs": [
+      "I'm a Mexican economist (UNAM) who has worked in finance, planning, supply chain and data in Mexico, Canada and Japan.",
+      "My research focused on why some Mexican regions grow and others don't. Forcelis helps foreign companies make that same call before they invest in Mexico."
     ],
-    "result": "Business performance",
-    "alt": "Finance plus operations plus technology plus execution equals business performance."
-  },
-  "origin": {
-    "title": "Why the company exists",
-    "summary": "The gap is rarely a lack of data. It is that the data lives in systems built to record transactions, not to explain performance. Answering the questions that matter has traditionally required a finance team most mid-sized companies cannot justify hiring. Forcelis exists to make that capability available without building it internally.",
-    "fullLabel": "Read the full story",
-    "body": [
-      "The gap is rarely a lack of data. It is that the data lives in systems built to record transactions, not to explain performance. An accounting system answers what was invoiced. It does not answer which customer is quietly becoming a risk, which product line stopped paying for itself, or how much cash is parked in inventory that is not moving.",
-      "Answering those questions has traditionally required a finance team most mid-sized companies cannot justify hiring: a CFO, a controller, a financial analyst, a data analyst, someone who understands supply chain. Forcelis exists to make that capability available without building it internally: the platform does the repeatable work with CFDI, and the Forcelis team brings the judgment and the analysis that other data, such as inventory, requires.",
-      "Forcelis is not an accounting firm that built software. It is a business performance company that uses financial data, operational data, technology and specialized expertise to help companies operate better. Accounting and fiscal information are an important part of the data foundation. The result is business performance."
-    ]
+    "languagesLabel": "Languages",
+    "languages": "English, Spanish, Portuguese, Italian and Japanese.",
+    "photoAlt": "Emmanuel Forcelledo, founder of Forcelis"
   },
   "principles": {
-    "title": "How we work",
-    "intro": "The rules the work is actually held to — as much engineering discipline as commercial policy.",
-    "whyLabel": "Why",
+    "eyebrow": "How I work",
+    "title": "Three rules that don't bend.",
     "items": [
       {
-        "label": "Never invent",
-        "title": "Never invent a number.",
-        "body": "If an input is missing, the metric is reported as unavailable with the reason. Not a zero, not an estimate. A figure that looks plausible but is not measured is worse than no figure, because someone will act on it."
+        "title": "I never invent a number",
+        "body": "If something can't be measured with the data available, I say so. A figure that looks reasonable but isn't measured is worse than none, because you'll make a decision with it."
       },
       {
-        "label": "Verify",
-        "title": "Verify, do not assume.",
-        "body": "A conclusion is checked by running it, not by reading the code that produced it. Most of the defects worth catching are invisible on the page and obvious the moment two numbers that should agree do not."
+        "title": "Every finding comes with an action",
+        "body": "An observation that doesn't change a decision isn't a deliverable. Each finding comes with what to do about it."
       },
       {
-        "label": "Every finding has an action",
-        "title": "An observation that does not change a decision is not a deliverable.",
-        "body": "If we cannot say what should be done about something, we say that too."
-      },
-      {
-        "label": "Be clear about what is built",
-        "title": "Say what stage things are at.",
-        "body": "Capabilities that are built and running are described as such. Capabilities that are not are described as not. That distinction appears on the platform page, where it is easiest to blur."
+        "title": "If Mexico isn't the right move, I tell you",
+        "body": "A study can conclude that the timing, the region or the channel is wrong. That answer is worth more than an optimistic one."
       }
     ]
   },
-  "stage": {
-    "title": "Where Forcelis is today",
-    "body": "Forcelis is an early-stage company working with businesses in Mexico, combining a running proprietary platform with financial and operational expertise. The platform page states plainly which capabilities are available today and which are still on the roadmap.",
-    "location": "Working with businesses in Mexico."
+  "notUs": {
+    "title": "What Forcelis doesn't do",
+    "items": [
+      "No legal, tax or immigration advice. When a project needs it, we work with local partners.",
+      "No national averages dressed up as a recommendation: every conclusion is regional.",
+      "No invented market sizes: every figure is sourced and dated."
+    ]
   },
+  "linkedin": "View my LinkedIn profile",
   "closing": {
-    "title": "See the plans, or start with a conversation.",
-    "body": "Plans and prices are published. If you would rather talk first, write to us.",
-    "primary": "View plans and pricing",
-    "secondary": "Contact Forcelis"
-  },
-  "what": {
-    "title": "What Forcelis is",
-    "body": "Forcelis is the intelligence layer on top of the CFDI: it turns what a company already issues and receives into management reports, dashboards and findings, for whoever advises it and for the company itself."
+    "title": "Thinking about Mexico?",
+    "body": "Let's talk for 20 minutes about what you're evaluating, and I'll tell you honestly whether a study makes sense.",
+    "primary": "Book a call",
+    "secondary": "See the services"
   }
 }

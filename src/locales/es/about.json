@@ -1,24 +1,27 @@
 {
   "meta": {
     "title": "Nosotros — Emmanuel Forcelledo, fundador de Forcelis",
-    "description": "Economista por la UNAM, con experiencia en finanzas, planeación financiera, cadena de suministro y datos en México, Canadá y Japón. Forcelis existe para dar a los negocios mexicanos el análisis que normalmente solo tienen las grandes empresas."
+    "description": "Economista por la UNAM, con experiencia en finanzas, planeación financiera, cadena de suministro y datos en México, Canadá y Japón. Forcelis lleva a los negocios mexicanos el análisis que normalmente solo tienen las grandes empresas."
   },
   "hero": {
     "eyebrow": "Nosotros",
     "title": "Hola, soy Emmanuel Forcelledo.",
-    "subtitle": "Fundé Forcelis para darle a los negocios mexicanos el análisis que normalmente solo tienen las grandes empresas."
+    "subtitle": "Economista. Me dedico a entender qué hace crecer a un negocio, y a decirte con tus números si el tuyo está listo para el siguiente paso."
   },
   "bio": {
     "title": "De dónde viene esto",
     "paragraphs": [
       "Soy economista por la UNAM. Mi tesis estudió por qué unos municipios de Puebla crecen y otros no, y desde entonces me dedico a entender qué hace crecer a un negocio.",
-      "He trabajado en finanzas, planeación financiera, cadena de suministro y datos en México, Canadá y Japón, incluida una empresa global de comercio electrónico.",
-      "Esa mezcla —economía regional por un lado, números de operación por el otro— es exactamente lo que hace falta para responder si un negocio puede abrir otra sucursal y dónde conviene hacerlo."
-    ]
+      "He trabajado en finanzas, planeación financiera, cadena de suministro y datos en México, Canadá y Japón.",
+      "Fundé Forcelis para darle a los negocios mexicanos el análisis que normalmente solo tienen las grandes empresas."
+    ],
+    "languagesLabel": "Idiomas",
+    "languages": "Español, inglés, portugués, italiano y japonés.",
+    "photoAlt": "Emmanuel Forcelledo, fundador de Forcelis"
   },
   "principles": {
     "eyebrow": "Cómo trabajo",
-    "title": "Tres reglas, y las tres cuestan dinero algunas veces.",
+    "title": "Tres reglas, y las tres me cuestan dinero algunas veces.",
     "items": [
       {
         "title": "Nunca invento un número",
@@ -26,23 +29,23 @@
       },
       {
         "title": "Todo hallazgo viene con una acción",
-        "body": "Una observación que no cambia una decisión no es un entregable. Si no puedo decirte qué hacer al respecto, también te lo digo."
+        "body": "Una observación que no cambia una decisión no es un entregable. Cada hallazgo trae qué hacer al respecto, y si no puedo decirlo, también te lo digo."
       },
       {
-        "title": "Si no estás listo, te lo digo",
-        "body": "El veredicto de un Estudio de Expansión puede ser «todavía no». Me conviene más venderte un Proyecto de Franquicia, y aun así el trabajo no sirve de nada si el negocio no aguanta."
+        "title": "Si tu negocio no está listo para crecer, te lo digo",
+        "body": "El veredicto de un Estudio de Expansión puede ser «todavía no». Me convendría venderte un Proyecto de Franquicia, pero ese trabajo no sirve de nada si el negocio no aguanta."
       }
     ]
   },
   "notUs": {
-    "title": "Qué no es Forcelis",
+    "title": "Lo que Forcelis no hace",
     "items": [
-      "No es un despacho contable: no llevamos tu contabilidad ni presentamos declaraciones.",
-      "No vendemos software ni suscripciones.",
-      "No hacemos el trabajo legal de la franquicia: eso lo hace un abogado aliado, que se contrata aparte."
+      "No es un despacho contable: no llevo tu contabilidad ni presento declaraciones.",
+      "No emito opiniones fiscales ni sustituyo el juicio de tu contador.",
+      "No hago el trabajo legal de la franquicia: eso lo hace un abogado aliado, que se contrata aparte."
     ]
   },
-  "linkedin": "Ver perfil en LinkedIn",
+  "linkedin": "Ver mi perfil en LinkedIn",
   "closing": {
     "title": "Platiquemos de tu negocio.",
     "body": "Veinte minutos, sin costo. Me cuentas qué quieres lograr y te digo con honestidad si puedo ayudarte.",

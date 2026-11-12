@@ -4,7 +4,7 @@
     "description": "Importa CFDI, complementos de pago, contabilidad electrónica del SAT y estados de cuenta (beta) y conviértelos en reportes y hallazgos."
   },
   "hero": {
-    "eyebrow": "Plataforma Forcelis",
+    "eyebrow": "Plataforma Forcelis · Para asesores",
     "title": "La capa de inteligencia detrás de tu negocio.",
     "subtitle": "Tus comprobantes y tu contabilidad ya registran lo que pasó. Forcelis los importa, estructura la información y la convierte en inteligencia accionable."
   },
@@ -187,9 +187,8 @@
   },
   "closing": {
     "title": "Pruébala contra tus propios números.",
-    "body": "Mira los planes y sus precios, o pide una demostración del producto. Su duración depende del tipo de cliente.",
+    "body": "Mira los planes y la oferta de lanzamiento, o conoce cómo la usan contadores y consultores con sus clientes.",
     "primary": "Ver planes y precios",
-    "secondary": "Contactar a Forcelis",
-    "schedule": "Solicitar una demostración"
+    "secondary": "Forcelis para asesores"
   }
 }

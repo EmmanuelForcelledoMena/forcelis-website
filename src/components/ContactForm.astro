@@ -24,25 +24,24 @@
  *    dominios mal escritos más comunes y se ofrece la corrección — como
  *    sugerencia, no como bloqueo: `gmial.com` podría existir algún día.
  *
- * Reestructura CFDI: el formulario es también el embudo. Lleva un campo
- * obligatorio «¿Qué buscas?» con las cinco intenciones del negocio, que llega
- * preseleccionado desde el `?tipo=` del botón que trajo a la persona, viaja en
- * el envío y acaba en la URL de la página de gracias, donde se dispara la
- * conversión. Los `utm_*` van en campos ocultos leídos de la URL de llegada:
- * no se guarda nada en el navegador, así que funcionan igual si alguien
- * rechazó las cookies.
+ * Rebranding: hay un formulario por línea de negocio, en el mismo componente.
  *
- * Rediseño v3: cinco campos, no once. Teléfono, industria, tamaño y la lista de
- * intereses se fueron: ninguno lo exige el proveedor del formulario, y un
- * primer contacto que parece un formulario de compras no se llena. Lo que
- * hace falta para responder es quién eres, de qué empresa y qué quieres
- * entender; el sitio web es opcional y ahorra la primera pregunta de la
- * llamada.
+ *  - Español (dueños de negocio y asesores): nombre, correo, negocio, giro,
+ *    sucursales, ciudad y qué quieres lograr, más «¿Qué te interesa?» con las
+ *    intenciones de `TIPOS_ES`. Llega preseleccionada desde el `?tipo=` del
+ *    botón que trajo a la persona (diagnostico, expansion, mercado, asesor,
+ *    prueba), viaja en el envío y acaba en la URL de la página de gracias.
+ *  - Inglés (empresas extranjeras): nombre, correo, empresa, país, industria y
+ *    qué estás evaluando en México. El `tipo` va fijo, oculto:
+ *    `internacional`.
+ *
+ * Los `utm_*` van en campos ocultos leídos de la URL de llegada: no se guarda
+ * nada en el navegador, así que funcionan igual si alguien rechazó las cookies.
  */
 import type { Lang } from '../i18n/routes';
 import { path } from '../i18n/routes';
-import { TIPOS, PLANES_SOLICITABLES, SERVICIOS_SOLICITABLES } from '../config/enlaces';
-import { t } from '../i18n';
+import { TIPOS_ES, TIPOS_EN, PLANES_SOLICITABLES, SERVICIOS_SOLICITABLES } from '../config/enlaces';
+import { t, es } from '../i18n';
 import FormField from './FormField.astro';
 
 interface Props {
@@ -51,21 +50,41 @@ interface Props {
 
 const { lang } = Astro.props;
 const f = t(lang, 'contact').form;
+const espanol = lang === 'es';
+const tipos: readonly string[] = espanol ? TIPOS_ES : TIPOS_EN;
 
-// Nombre de cada plan en el idioma de la página, para el aviso «Plan que te
-// interesa». Sale del mismo diccionario que las tarjetas de Precios.
-const planes = t(lang, 'pricing').plans;
-const nombresPlan = Object.fromEntries(
-  PLANES_SOLICITABLES.map((id) => [id, planes[id as keyof typeof planes].name]),
-);
+// Nombre de cada plan y de cada servicio, para el aviso «Plan que te interesa».
+// Solo existen en español: la línea internacional no vende planes.
+const planes = es('pricing').plans;
+const nombresPlan: Record<string, string> = espanol
+  ? Object.fromEntries(PLANES_SOLICITABLES.map((id) => [id, planes[id as keyof typeof planes].name]))
+  : {};
+const servicios = es('services').items;
+const nombresServicio: Record<string, string> = espanol
+  ? Object.fromEntries(
+      SERVICIOS_SOLICITABLES.map((id) => [id, servicios[id as keyof typeof servicios].name]),
+    )
+  : {};
 
-// Lo mismo para los servicios: basta el nombre. Desde el giro a consultoría
-// los seis son proyectos con alcance propio, no modalidades de contratación
-// de un mismo producto, y la aclaración entre paréntesis sobraba.
-const servicios = t(lang, 'services').items;
-const nombresServicio = Object.fromEntries(
-  SERVICIOS_SOLICITABLES.map((id) => [id, servicios[id as keyof typeof servicios].name]),
-);
+// Reglas de validación del navegador, por idioma. El script las recibe tal cual.
+const reglas = [
+  ...(espanol ? [{ id: 'tipo', required: true, radio: true }] : []),
+  { id: 'name', required: true, min: 2 },
+  { id: 'email', required: true, email: true },
+  { id: 'company', required: true, min: 2 },
+  ...(espanol
+    ? [
+        { id: 'sector', required: true, min: 3 },
+        { id: 'branches', required: true, entero: true, min0: 0, max: 999 },
+        { id: 'city', required: true, min: 2 },
+      ]
+    : [
+        { id: 'country', required: true, min: 2 },
+        { id: 'sector', required: true, min: 3 },
+      ]),
+  { id: 'message', required: true, min: 12 },
+  { id: 'consent', required: true, checkbox: true },
+];
 
 const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? '';
 const configured = endpoint.length > 0;
@@ -88,7 +107,7 @@ const subject =
 const gracias = path('thanks', lang);
 
 const inputClass =
-  'mt-2 w-full border border-line-strong bg-panel px-4 py-3 text-[0.9375rem] text-ink ' +
+  'mt-2 w-full rounded-control border border-line-strong bg-panel px-4 py-3 text-[0.9375rem] text-ink ' +
   'placeholder:text-muted focus:border-ink focus:outline-none transition-colors ' +
   'aria-[invalid=true]:border-brand aria-[invalid=true]:bg-[#fdf6f4]';
 ---
@@ -136,11 +155,11 @@ const inputClass =
           autocomplete="email"
           inputmode="email"
           spellcheck="false"
-          placeholder={lang === 'es' ? 'nombre@empresa.com' : 'name@company.com'}
+          placeholder={f.emailPlaceholder}
         />
       </FormField>
 
-      <FormField id="company" label={f.business}>
+      <FormField id="company" label={f.company}>
         <input
           class={inputClass}
           type="text"
@@ -151,6 +170,22 @@ const inputClass =
           autocomplete="organization"
         />
       </FormField>
+
+      {
+        !espanol && (
+          <FormField id="country" label={f.country}>
+            <input
+              class={inputClass}
+              type="text"
+              id="country"
+              name="country"
+              required
+              maxlength="80"
+              autocomplete="country-name"
+            />
+          </FormField>
+        )
+      }
 
       <FormField id="sector" label={f.sector}>
         <input
@@ -164,72 +199,74 @@ const inputClass =
         />
       </FormField>
 
-      <!-- Sucursales y ciudad son los dos datos que deciden si la
-           conversación va hacia el Diagnóstico o hacia el Estudio de
-           Expansión. Preguntarlos aquí ahorra la mitad de la llamada. -->
-      <FormField id="branches" label={f.branches}>
-        <input
-          class={inputClass}
-          type="number"
-          id="branches"
-          name="branches"
-          required
-          min="0"
-          max="999"
-          step="1"
-          inputmode="numeric"
-        />
-      </FormField>
-
-      <FormField id="city" label={f.city}>
-        <input
-          class={inputClass}
-          type="text"
-          id="city"
-          name="city"
-          required
-          maxlength="80"
-          autocomplete="address-level2"
-        />
-      </FormField>
-    </div>
-  </fieldset>
-
-  <fieldset>
-    <legend class="block text-sm font-medium text-ink">{f.intent}</legend>
-    <p class="mt-1.5 text-xs text-muted">{f.intentHint}</p>
-    <!-- El plan que la persona eligió en una tarjeta. Se rellena desde `?plan=`
-         y solo si es un plan que existe; si no, el aviso no aparece. -->
-    <p id="plan-note" hidden class="mt-4 border-l-2 border-brand bg-panel-alt px-4 py-3 text-sm text-ink"></p>
-    <!-- Botones de radio y no una lista desplegable: son seis opciones
-         cortas y excluyentes, se leen todas de un golpe, y en un teléfono no
-         obligan a abrir una rueda del sistema para descubrir qué hay dentro.
-         El `?tipo=` de la URL marca una al cargar. -->
-    <div class="mt-4 grid gap-3 sm:grid-cols-2">
       {
-        TIPOS.map((tipo) => (
-          <label class="flex cursor-pointer items-start gap-3 border border-line bg-panel px-4 py-3.5 text-[0.9375rem] text-ink transition-colors hover:border-line-strong has-[:checked]:border-brand has-[:checked]:bg-[#fdf6f4]">
-            <input
-              type="radio"
-              name="tipo"
-              value={tipo}
-              id={`tipo-${tipo}`}
-              required
-              class="mt-0.5 h-4 w-4 shrink-0 accent-[var(--color-brand)]"
-            />
-            {f.intentOptions[tipo]}
-          </label>
-        ))
+        espanol && (
+          <>
+            <!-- Sucursales y ciudad deciden si la conversación va hacia el
+                 Diagnóstico o hacia el Estudio de Expansión. -->
+            <FormField id="branches" label={f.branches}>
+              <input
+                class={inputClass}
+                type="number"
+                id="branches"
+                name="branches"
+                required
+                min="0"
+                max="999"
+                step="1"
+                inputmode="numeric"
+              />
+            </FormField>
+
+            <FormField id="city" label={f.city}>
+              <input
+                class={inputClass}
+                type="text"
+                id="city"
+                name="city"
+                required
+                maxlength="80"
+                autocomplete="address-level2"
+              />
+            </FormField>
+          </>
+        )
       }
     </div>
-    <p
-      id="tipo-error"
-      data-field-error
-      hidden
-      class="mt-2 flex items-start gap-1.5 text-xs font-medium text-brand-text"
-    >
-    </p>
   </fieldset>
+
+  {
+    espanol ? (
+      <fieldset>
+        <legend class="block text-sm font-medium text-ink">{f.intent}</legend>
+        <p class="mt-1.5 text-xs text-muted">{f.intentHint}</p>
+        <!-- El plan o servicio que la persona eligió en una tarjeta. Se rellena
+             desde `?plan=` o `?servicio=`, solo si existe. -->
+        <p id="plan-note" hidden class="mt-4 rounded-control border-l-2 border-brand bg-panel-alt px-4 py-3 text-sm text-ink" />
+        <!-- Botones de radio y no una lista desplegable: son pocas opciones
+             cortas y excluyentes, se leen de un golpe, y en un teléfono no
+             obligan a abrir una rueda del sistema. -->
+        <div class="mt-4 grid gap-3 sm:grid-cols-2">
+          {tipos.map((tipo) => (
+            <label class="flex cursor-pointer items-start gap-3 rounded-control border border-line bg-panel px-4 py-3.5 text-[0.9375rem] text-ink transition-colors hover:border-line-strong has-[:checked]:border-brand has-[:checked]:bg-[#fbf3f2]">
+              <input
+                type="radio"
+                name="tipo"
+                value={tipo}
+                id={`tipo-${tipo}`}
+                required
+                class="mt-0.5 h-4 w-4 shrink-0 accent-[var(--color-brand)]"
+              />
+              {f.intentOptions[tipo as keyof typeof f.intentOptions]}
+            </label>
+          ))}
+        </div>
+        <p id="tipo-error" data-field-error hidden class="mt-2 flex items-start gap-1.5 text-xs font-medium text-brand-text" />
+      </fieldset>
+    ) : (
+      <input type="hidden" name="tipo" value="internacional" />
+    )
+  }
 
   <FormField id="message" label={f.message} hint={f.messageHint}>
     <textarea
@@ -278,7 +315,7 @@ const inputClass =
         disabled={!configured}
         data-label={f.submit}
         data-sending={f.submitting}
-        class="inline-flex items-center gap-2 bg-brand px-7 py-4 text-[0.9375rem] font-medium text-white transition-colors hover:bg-brand-text disabled:cursor-not-allowed disabled:opacity-40"
+        class="inline-flex items-center gap-2 rounded-control bg-brand px-7 py-4 text-[0.9375rem] font-medium text-white transition-colors hover:bg-vino disabled:cursor-not-allowed disabled:opacity-40"
       >
         {f.submit}
       </button>
@@ -328,12 +365,12 @@ const inputClass =
     errorTitle: f.errorTitle,
     errorBody: f.errorBody,
     gracias,
-    tiposPermitidos: TIPOS,
+    tiposPermitidos: tipos,
     nombresPlan,
     planLabel: f.planSelected,
     nombresServicio,
     servicioLabel: f.serviceSelected,
-    enterpriseNote: f.enterpriseNote,
+    RULES: reglas,
   }}
 >
   (() => {
@@ -373,12 +410,7 @@ const inputClass =
     if (planEntrada && Object.prototype.hasOwnProperty.call(nombresPlan, planEntrada)) {
       const campoPlan = form.querySelector('[name="plan"]');
       if (campoPlan) campoPlan.value = nombresPlan[planEntrada];
-      // Enterprise se cotiza: el aviso dice qué datos hacen falta para cotizar,
-      // y así llegan en el primer mensaje y no en el tercero.
-      mostrarAviso(
-        planLabel.replace('{plan}', nombresPlan[planEntrada]) +
-          (planEntrada === 'enterprise' ? ' ' + enterpriseNote : ''),
-      );
+      mostrarAviso(planLabel.replace('{plan}', nombresPlan[planEntrada]));
     }
     const servicioEntrada = entrada.get('servicio');
     if (servicioEntrada && Object.prototype.hasOwnProperty.call(nombresServicio, servicioEntrada)) {
@@ -414,22 +446,7 @@ const inputClass =
       'live.co': 'live.com', 'prodigy.net.mx.com': 'prodigy.net.mx',
     };
 
-    // Un sitio web es un dominio con o sin protocolo y con o sin ruta. No se
-    // exige `https://`: la gente escribe `empresa.com` y eso es lo que hay
-    // que aceptar.
-    const URL_LIKE = /^(https?:\/\/)?(www\.)?[a-z0-9](?:[a-z0-9-]*[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)*\.[a-z]{2,}(?:[\/?#]\S*)?$/i;
-
-    const RULES = [
-      { id: 'tipo', required: true, radio: true },
-      { id: 'name', required: true, min: 2 },
-      { id: 'email', required: true, email: true },
-      { id: 'company', required: true, min: 2 },
-      { id: 'sector', required: true, min: 3 },
-      { id: 'branches', required: true, entero: true, min0: 0, max: 999 },
-      { id: 'city', required: true, min: 2 },
-      { id: 'message', required: true, min: 12 },
-      { id: 'consent', required: true, checkbox: true },
-    ];
+    // Las reglas llegan del servidor, por idioma (ver el frontmatter).
 
     const fill = (template, values) =>
       Object.entries(values).reduce((s, [k, v]) => s.replace('{' + k + '}', v), template);
@@ -460,7 +477,6 @@ const inputClass =
       if (!value) return rule.required ? messages.required : '';
       if (rule.min && value.length < rule.min) return fill(messages.minLength, { min: rule.min });
       if (rule.email && !EMAIL.test(value)) return messages.email;
-      if (rule.url && !URL_LIKE.test(value)) return messages.url;
       if (rule.entero) {
         // Cero es una respuesta válida: alguien que todavía no abre su primer
         // local. Por eso el mínimo va en `min0` y no en `min`, que arriba se
@@ -657,7 +673,9 @@ const inputClass =
         });
         if (!response.ok) throw new Error(String(response.status));
 
-        const elegido = form.querySelector('input[name="tipo"]:checked');
+        const elegido =
+          form.querySelector('input[name="tipo"]:checked') ||
+          form.querySelector('input[name="tipo"][type="hidden"]');
         const tipo = elegido ? elegido.value : '';
 
         // La conversión se dispara en la página de gracias, no aquí: así cuenta

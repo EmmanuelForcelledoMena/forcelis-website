@@ -1,136 +1,155 @@
 ---
 /**
- * Cabecera oscura de página, con fotografía de fondo.
+ * Cabecera de página. Dos estilos, uno por audiencia, como pide la marca:
  *
- * Es el patrón que atraviesa todos los mockups del manual: una banda de tinta
- * con una foto velada, el antetítulo en taupe, el titular en claro y, cuando
- * toca, el remate del titular en rojo. Es lo que separa visualmente el sitio de
- * un documento: cada página abre con una imagen y cierra en claro.
+ *   `light` (dueños de negocio en México): fondo blanco cálido, texto negro,
+ *           el remate del titular en rojo —texto grande, permitido— y la
+ *           franja del patrón como borde inferior. Cercano, no corporativo.
  *
- * La foto se resuelve en la build desde `src/assets/heroes/<photoKey>.*`. Si
- * el archivo no existe, la banda sigue siendo una banda: fondo de tinta con el
- * glifo de la marca como marca de agua. Nunca un hueco, nunca una imagen de
- * banco puesta por defecto — las fotos se eligen y se licencian aparte.
+ *   `dark`  (asesores y la línea internacional): negro con el símbolo en rojo
+ *           a la derecha, a escala grande y recortado. El remate del titular
+ *           va en ARENA, nunca en rojo: rojo sobre negro da 2.5:1.
  *
- * Contraste sobre la foto: el velo va de tinta casi opaca en la columna del
- * texto a tinta al 40 % en el otro extremo, y el texto se limita a esa columna.
- * Así el titular se lee sobre CUALQUIER fotografía, clara u oscura, sin
- * depender de cómo salga la imagen que se ponga.
+ * Si hay una foto en `src/assets/heroes/<photoKey>.*`, el estilo oscuro la usa
+ * de fondo con un velo. No hay ninguna foto de banco por defecto: las fotos se
+ * eligen y se licencian aparte.
  */
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import Button from './Button.astro';
 
 interface Props {
+  tone?: 'light' | 'dark';
   /** Nombre del archivo de foto en `src/assets/heroes/`, sin extensión. */
-  photoKey: string;
+  photoKey?: string;
   eyebrow?: string;
   title: string;
-  /**
-   * Segunda frase del titular, en rojo y en su propia línea (solo texto
-   * grande, ver `--color-brand-on-ink`). Va en bloque para que el cambio de
-   * color coincida con el cambio de frase y no caiga a mitad de renglón.
-   */
+  /** Segunda frase del titular, en su propia línea y en color de acento. */
   titleAccent?: string;
   intro?: string;
   cta?: { href: string; label: string };
-  /** Alto de la banda. `tall` para la portada. */
+  /** Alto de la banda. `tall` para las portadas. */
   size?: 'default' | 'tall';
 }
 
-const { photoKey, eyebrow, title, titleAccent, intro, cta, size = 'default' } = Astro.props;
+const {
+  tone = 'light',
+  photoKey,
+  eyebrow,
+  title,
+  titleAccent,
+  intro,
+  cta,
+  size = 'default',
+} = Astro.props;
+
+const dark = tone === 'dark';
 
 const photos = import.meta.glob<{ default: ImageMetadata }>(
   '/src/assets/heroes/*.{jpg,jpeg,png,webp}',
   { eager: true },
 );
-const photo = Object.entries(photos).find(([file]) =>
-  new RegExp(`/${photoKey}\\.(jpe?g|png|webp)$`).test(file),
-)?.[1].default;
+const photo =
+  dark && photoKey
+    ? Object.entries(photos).find(([file]) =>
+        new RegExp(`/${photoKey}\\.(jpe?g|png|webp)$`).test(file),
+      )?.[1].default
+    : undefined;
 
 const hasAside = Astro.slots.has('default');
 const hasActions = Astro.slots.has('actions');
-// El alto del hero en movil esta medido, no elegido: la pagina de asesores es
-// la de aterrizaje de los anuncios y su boton tiene que verse sin scroll en un
-// telefono de 375x667, que es el mas pequeno que sigue siendo comun. Con el
-// relleno de escritorio, el boton caia 12 px por debajo del pliegue.
-const padding = size === 'tall' ? 'py-12 sm:py-20 lg:py-28' : 'py-10 sm:py-16 lg:py-24';
+// Medido, no elegido: el botón principal tiene que verse sin scroll en un
+// teléfono de 375 × 667.
+const padding = size === 'tall' ? 'py-12 sm:py-20 lg:py-24' : 'py-10 sm:py-16 lg:py-20';
 ---
 
-<section class="on-ink relative overflow-hidden bg-ink text-on-ink">
+<section
+  class:list={[
+    'relative overflow-hidden',
+    dark ? 'on-ink bg-ink text-on-ink' : 'bg-ground text-ink',
+  ]}
+>
   {
-    photo ? (
-      <Image
-        src={photo}
-        alt=""
-        width={1920}
-        height={1080}
-        format="webp"
-        loading="eager"
-        fetchpriority="high"
-        class="absolute inset-0 h-full w-full object-cover"
-      />
-    ) : (
-      <!-- Sin fotografía, la banda no se queda lisa: lleva el motivo de barras
-           inclinadas de la marca, que es el mismo gesto del glifo de la F.
-           Viene del tablero de referencia, donde esas barras cruzan el hero en
-           rojo sobre la imagen.
-
-           Dos capas: las rojas, que son el acento, y unas de taupe detrás que
-           les dan profundidad. Van a opacidad baja y con el degradado encima,
-           así que nunca compiten con el titular — el rojo aquí es relleno, no
-           texto, y por eso puede ser el rojo de marca y no el levantado. -->
-      <svg
-        viewBox="0 0 120 64"
-        preserveAspectRatio="xMaxYMid slice"
-        aria-hidden="true"
-        class="absolute inset-y-0 right-0 h-full w-[70%]"
-      >
-        <g fill="#c7c3a9" opacity="0.10">
-          <path d="M34 -4H78L62 68H18Z" />
-          <path d="M96 -4H124L108 68H80Z" />
-        </g>
-        <g fill="#c02626" opacity="0.5">
-          <path d="M52 -4H74L58 68H36Z" />
-          <path d="M84 18H102L92 68H74Z" />
-          <path d="M108 -4H120L104 40H92Z" />
-        </g>
-      </svg>
-    )
+    dark &&
+      (photo ? (
+        <>
+          <Image
+            src={photo}
+            alt=""
+            width={1920}
+            height={1080}
+            format="webp"
+            loading="eager"
+            fetchpriority="high"
+            class="absolute inset-0 h-full w-full object-cover"
+          />
+          <div aria-hidden="true" class="absolute inset-0 bg-gradient-to-r from-ink via-ink/85 to-ink/40" />
+        </>
+      ) : (
+        <>
+          <!-- El símbolo de la marca a gran escala, recortado por la derecha:
+               es la versión digital del letrero de los mockups. Es forma, no
+               texto, y por eso puede ir en rojo sobre negro. El degradado lo
+               apaga hacia la columna del texto. -->
+          <svg
+            viewBox="0 0 71.28 86.35"
+            aria-hidden="true"
+            class="absolute top-1/2 right-[-8%] hidden h-[135%] -translate-y-1/2 md:block lg:right-[-2%]"
+          >
+            <path fill="#C63030" d="M0 86.35L17.9 74.96V12.3L0 23.69Z" />
+            <path fill="#A92928" d="M26.69 69.36L44.59 57.97V4.68L37.24 0L26.69 6.71Z" />
+            <path fill="#772014" d="M53.38 52.38L71.28 41.3V21.67L53.38 10.27Z" />
+          </svg>
+          <div
+            aria-hidden="true"
+            class="absolute inset-0 bg-gradient-to-r from-ink from-35% via-ink/90 via-55% to-ink/30"
+          />
+        </>
+      ))
   }
-  <div
-    aria-hidden="true"
-    class="absolute inset-0 bg-gradient-to-r from-ink via-ink/85 to-ink/40"
-  ></div>
-  <div aria-hidden="true" class="absolute inset-x-0 bottom-0 h-px bg-line-ink"></div>
 
   <div class={`container-page relative ${padding}`}>
     <div
       class:list={[
-        'grid gap-12 lg:gap-16',
-        hasAside ? 'items-stretch lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]' : '',
+        'grid gap-10 lg:gap-16',
+        hasAside ? 'items-center lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)]' : '',
       ]}
     >
       <div class="flex max-w-3xl flex-col justify-center">
         {
           eyebrow && (
-            <p class="reveal flex items-center gap-3 text-[0.6875rem] font-semibold tracking-[0.16em] text-on-ink-muted uppercase">
-              <span aria-hidden="true" class="block h-[2px] w-8 bg-taupe" />
+            <p
+              class:list={[
+                'reveal flex items-center gap-3 text-[0.6875rem] font-semibold tracking-[0.16em] uppercase',
+                dark ? 'text-on-ink-muted' : 'text-brand-text',
+              ]}
+            >
+              <span aria-hidden="true" class:list={['block h-[3px] w-8 rounded-full', dark ? 'bg-arena' : 'bg-brand']} />
               {eyebrow}
             </p>
           )
         }
         <h1
-          class="reveal mt-5 text-[2.125rem] leading-[1.05] font-bold tracking-[-0.025em] text-on-ink sm:mt-6 sm:text-5xl lg:text-display"
+          class:list={[
+            'reveal mt-5 text-[2.25rem] leading-[1.05] font-medium tracking-[-0.015em] sm:mt-6 sm:text-5xl lg:text-display',
+            dark ? 'text-on-ink' : 'text-ink',
+          ]}
           data-reveal-delay="60"
         >
           {title}
-          {titleAccent && <span class="block text-brand-on-ink">{titleAccent}</span>}
+          {
+            titleAccent && (
+              <span class:list={['mt-1 block', dark ? 'text-on-ink-muted' : 'text-brand']}>{titleAccent}</span>
+            )
+          }
         </h1>
         {
           intro && (
             <p
-              class="reveal mt-5 max-w-2xl text-lg leading-relaxed text-on-ink-muted sm:mt-7 lg:text-xl"
+              class:list={[
+                'reveal mt-5 max-w-2xl text-lg leading-relaxed sm:mt-7',
+                dark ? 'text-on-ink-muted' : 'text-muted',
+              ]}
               data-reveal-delay="120"
             >
               {intro}
@@ -139,11 +158,11 @@ const padding = size === 'tall' ? 'py-12 sm:py-20 lg:py-28' : 'py-10 sm:py-16 lg
         }
         {
           (cta || hasActions) && (
-            <div class="reveal mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row" data-reveal-delay="180">
+            <div class="reveal mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:flex-wrap" data-reveal-delay="180">
               {hasActions ? (
                 <slot name="actions" />
               ) : (
-                <Button href={cta!.href} variant="onInk" size="lg">
+                <Button href={cta!.href} variant={dark ? 'onInk' : 'primary'} size="lg">
                   {cta!.label}
                 </Button>
               )}
@@ -155,4 +174,12 @@ const padding = size === 'tall' ? 'py-12 sm:py-20 lg:py-28' : 'py-10 sm:py-16 lg
       {hasAside && <slot />}
     </div>
   </div>
+
+  {
+    dark ? (
+      <div aria-hidden="true" class="absolute inset-x-0 bottom-0 h-px bg-line-ink" />
+    ) : (
+      <div aria-hidden="true" class="franja-marca relative" />
+    )
+  }
 </section>

@@ -1,56 +1,63 @@
 {
-  "updated": "Last updated: September 2026",
+  "updated": "Last updated: November 2026",
   "privacy": {
     "meta": {
-      "title": "Privacy Policy — Forcelis Group",
-      "description": "How Forcelis Group handles the personal data submitted through this website."
+      "title": "Privacy Notice — Forcelis",
+      "description": "How Forcelis handles the personal data it receives through this website, its consulting services and its platform for advisors."
     },
-    "title": "Privacy Policy",
-    "intro": "This notice explains what this website collects, why, and what you can do about it. It covers the website only. Information handled inside a client engagement is governed by the agreement signed for that engagement.",
+    "title": "Privacy Notice",
+    "intro": "This notice explains what data Forcelis receives through this website, what it is used for and what you can do about it. Information in a consulting project or a platform account is also governed by the contract or terms signed for that service.",
     "sections": [
       {
         "title": "Who is responsible",
         "body": [
-          "Forcelis Group is responsible for the personal data collected through this website. You can reach us through the channel below for anything in this notice."
+          "Forcelis Group is responsible for the personal data collected through this website. You can reach us through the channel at the end of this notice for anything related to it."
         ]
       },
       {
-        "title": "What is collected",
+        "title": "What this site collects",
         "body": [
-          "Only what you type into the contact form: company, name, email, phone (optional), industry, company size, the topics you select, and your message.",
-          "The website does not ask for and should never be used to send financial credentials, tax portal passwords, card or bank account numbers, or official identification numbers."
+          "Only what you type into the contact form: name, email, business or company name, line of business or industry, number of locations, city or country, the service you're interested in and your message. If you book a call, the external calendar receives the details you enter there.",
+          "The site does not ask for — and should never be used to send — tax portal credentials, bank passwords, card or account numbers, or official identification numbers."
         ]
       },
       {
-        "title": "Why it is collected",
+        "title": "What it is used for",
         "body": [
-          "To respond to your enquiry, to understand whether Forcelis can help, and to prepare a proposal if you ask for one. It is not used for anything else and it is not sold or rented."
+          "To reply to your request, understand whether Forcelis can help and, if you ask for one, prepare a proposal. It is not used for anything else and is never sold or rented."
+        ]
+      },
+      {
+        "title": "Data in a project or on the platform",
+        "body": [
+          "In a consulting project we work with the electronic invoices (CFDI) and the information you provide, only for the contracted analysis. On the platform for advisors, each company is isolated from the others.",
+          "A company's data is only used in the anonymous benchmark if that company authorizes it in writing. This also applies to advisors using the platform's launch offer: the benchmark authorization is signed client by client, and without it no data is included."
         ]
       },
       {
         "title": "Who else sees it",
         "body": [
-          "The form submission is delivered by a third-party form provider, which processes it on our behalf solely to deliver the message. Beyond that, the information is seen only by the people at Forcelis handling your enquiry."
+          "Form submissions are delivered by an external form provider that processes them on our behalf, solely to deliver the message. Call scheduling uses an external calendar. Beyond that, the information is only seen by whoever handles your request at Forcelis."
         ]
       },
       {
         "title": "Cookies and analytics",
         "body": [
-          "This website sets no advertising or tracking cookies.",
-          "If you change language using the switcher, your choice is stored locally in your own browser so the site can open in that language next time. It is never sent to a server and you can clear it by clearing your browser data.",
-          "If web analytics is enabled, it is listed here before it is turned on. As of the date of this notice, no analytics service is active on this site."
+          "This site does not set advertising or tracking cookies.",
+          "If you switch languages with the selector, your choice is stored in your own browser so the site's root opens in that language next time. It is never sent to a server and you can delete it by clearing your browser data.",
+          "If web analytics is ever enabled, your consent will be requested before any third-party script loads. As of the date of this notice, no analytics service is active."
         ]
       },
       {
         "title": "How long it is kept",
         "body": [
-          "Enquiries are kept for as long as needed to respond and, if a relationship follows, for as long as that relationship requires. If you ask us to delete your data and there is no legal reason to keep it, we delete it."
+          "Requests are kept as long as needed to reply and, if a business relationship follows, for as long as that relationship requires. If you ask us to delete your data and there is no legal reason to keep it, we delete it."
         ]
       },
       {
         "title": "Your rights",
         "body": [
-          "You can ask to access, correct, delete or object to the processing of your personal data, and to withdraw the consent you gave. Get in touch through the channel below and we will respond.",
+          "You can request access to, correction or deletion of your personal data, object to its processing, and withdraw the consent you gave. Contact us through the channel below and we will reply.",
           "Under Mexican data protection law these are known as ARCO rights."
         ]
       },
@@ -64,44 +71,59 @@
   },
   "terms": {
     "meta": {
-      "title": "Terms of Service — Forcelis Group",
-      "description": "Terms governing the use of the Forcelis Group website."
+      "title": "Terms of Service — Forcelis",
+      "description": "Terms governing the use of the Forcelis website, its consulting services and the platform's launch offer."
     },
     "title": "Terms of Service",
-    "intro": "These terms govern the use of this website. They do not govern any service Forcelis provides to a client; that is set out in the agreement signed for the engagement.",
+    "intro": "These terms govern the use of this website. Each consulting project and each platform account is also governed by the contract or terms signed for that service.",
     "sections": [
       {
-        "title": "Purpose of this website",
+        "title": "Purpose of this site",
         "body": [
-          "This website describes what Forcelis Group does. It is informational. Nothing here is an offer, a commitment to provide services on particular terms, or professional advice you should act on without a conversation about your specific situation."
+          "This site describes Forcelis's consulting services and its analytics platform for advisors. It is informational. Nothing published here is professional advice you should act on without a conversation about your specific situation."
+        ]
+      },
+      {
+        "title": "Prices",
+        "body": [
+          "Published prices are in Mexican pesos plus VAT, except those of the international line, which are in US dollars. The scope, final price and timing of each service are confirmed in writing before work starts. Services marked \"Quote\" have no published price."
+        ]
+      },
+      {
+        "title": "Platform launch offer",
+        "body": [
+          "The first advisors who request it, up to the limit published on the Pricing page, use the stated plan at no cost for the stated number of months. There are no usage requirements or data upload deadlines.",
+          "In exchange, participants agree to give monthly feedback, a testimonial and to ask their clients for authorization for the anonymous benchmark; no client data enters the benchmark without that client's signed authorization.",
+          "When the free period ends, the plan's regular price applies, or the discount published on the Pricing page for the stated period if the advisor gave a testimonial. Forcelis may close the offer once the limit is reached."
         ]
       },
       {
         "title": "Illustrative figures",
         "body": [
-          "Every dashboard, score and metric shown on this site is illustrative and labelled as such. The figures do not describe any real company, are not benchmarks, and should not be used as a reference point for any decision."
+          "Every dashboard, score and metric shown on this site is illustrative and labeled as such. The figures do not describe any real company and should not be used as a reference for any decision."
         ]
       },
       {
         "title": "Scope of what Forcelis does",
         "body": [
-          "Forcelis provides analysis and advisory services. It does not issue tax opinions, does not determine tax positions, and does not replace the judgment of a licensed accountant or auditor. Where a matter requires a formal professional opinion, we will say so."
+          "Forcelis provides analysis and consulting services and offers an analytics platform for advisors. It does not do bookkeeping, file tax returns or issue tax opinions, and it does not replace the judgment of a certified public accountant.",
+          "Forcelis does not provide legal, tax or immigration advice. When a project needs it — for example, a franchise agreement — the work is done by a partner lawyer whose fees are contracted separately."
         ]
       },
       {
         "title": "Intellectual property",
         "body": [
-          "The content, design, wordmark and name of this site belong to Forcelis Group. You may read, quote with attribution, and share links. You may not reproduce the site or present its content as your own."
+          "The content, design, logo and name of this site belong to Forcelis Group. You may read it, quote it with attribution and share links. You may not reproduce the site or present its content as your own."
         ]
       },
       {
         "title": "Availability",
         "body": [
-          "The site is provided as it is. We aim to keep it accurate and available, but we do not guarantee that it will be free of errors or uninterrupted."
+          "The site is provided as is. We aim to keep it accurate and available, but we do not guarantee it is error-free or uninterrupted."
         ]
       },
       {
-        "title": "Applicable law",
+        "title": "Governing law",
         "body": [
           "These terms are governed by the laws of the United Mexican States."
         ]

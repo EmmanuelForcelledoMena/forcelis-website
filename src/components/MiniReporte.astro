@@ -1,0 +1,78 @@
+---
+/**
+ * Vista previa de un reporte, para la portada. Es una ILUSTRACIÓN: los números
+ * son de ejemplo y la tarjeta lo dice arriba, con la etiqueta «Datos
+ * ilustrativos», como cualquier otro tablero del sitio.
+ *
+ * Toma la idea de la tarjeta de ingresos de los mockups de la marca —línea roja
+ * sobre blanco— pero sin nombres de persona ni cifras que parezcan de un
+ * cliente real. Y termina en una acción, porque así termina todo hallazgo de
+ * Forcelis.
+ */
+import Tag from './Tag.astro';
+
+interface Props {
+  titulo: string;
+  ilustrativo: string;
+  grafica: string;
+  graficaAlt: string;
+  margenTitulo: string;
+  filas: readonly { label: string; value: number }[];
+  accion: string;
+  class?: string;
+}
+
+const { titulo, ilustrativo, grafica, graficaAlt, margenTitulo, filas, accion, class: className = '' } = Astro.props;
+
+// Doce meses de una serie de ejemplo, en una escala 0–100.
+const serie = [34, 38, 36, 41, 40, 44, 47, 46, 52, 55, 58, 63];
+const W = 300;
+const H = 96;
+const x = (i: number) => (i * W) / (serie.length - 1);
+const y = (v: number) => H - 8 - ((v - 25) / 45) * (H - 16);
+const linea = serie.map((v, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join('');
+const area = `${linea}L${W} ${H}L0 ${H}Z`;
+const max = Math.max(...filas.map((f) => f.value));
+---
+
+<figure class={`rounded-card border border-line bg-panel shadow-[0_24px_60px_-32px_rgba(25,25,25,0.35)] ${className}`}>
+  <figcaption class="flex items-center justify-between gap-4 border-b border-line px-6 py-4">
+    <span class="text-sm font-semibold text-ink">{titulo}</span>
+    <Tag>{ilustrativo}</Tag>
+  </figcaption>
+
+  <div class="px-6 pt-5">
+    <p class="text-xs font-medium text-muted">{grafica}</p>
+    <svg viewBox={`0 0 ${W} ${H}`} class="mt-3 h-24 w-full" role="img" aria-label={graficaAlt} preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="mini-area" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0" stop-color="#A92928" stop-opacity="0.22" />
+          <stop offset="1" stop-color="#A92928" stop-opacity="0" />
+        </linearGradient>
+      </defs>
+      <path d={area} fill="url(#mini-area)" />
+      <path d={linea} fill="none" stroke="#A92928" stroke-width="2.5" vector-effect="non-scaling-stroke" stroke-linejoin="round" />
+    </svg>
+  </div>
+
+  <div class="px-6 pt-5 pb-6">
+    <p class="text-xs font-medium text-muted">{margenTitulo}</p>
+    <ul class="mt-3 space-y-2.5">
+      {
+        filas.map((f) => (
+          <li class="grid grid-cols-[6.5rem_1fr_2.75rem] items-center gap-3 text-sm">
+            <span class="text-ink">{f.label}</span>
+            <span class="h-2 rounded-full bg-panel-alt">
+              <span
+                class:list={['block h-2 rounded-full', f.value < 15 ? 'bg-vino' : 'bg-brand']}
+                style={`width:${Math.round((f.value / max) * 100)}%`}
+              />
+            </span>
+            <span class="tnum text-right font-semibold text-ink">{f.value}%</span>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="mt-5 rounded-control bg-panel-alt px-4 py-3 text-[0.8125rem] leading-snug text-ink">{accion}</p>
+  </div>
+</figure>

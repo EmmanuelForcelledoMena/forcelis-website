@@ -1,54 +1,56 @@
 ---
 /**
- * Cierre en tinta con dos botones.
+ * Cierre de página: título, una frase y hasta dos botones.
  *
- * Los destinos se dan como clave de página (`primaryTo`), que es lo normal, o
- * como URL ya resuelta (`primaryHref`), que hace falta cuando el botón lleva
- * un `?tipo=` o sale a una agenda externa. La URL gana si están las dos.
+ *   `light` para las páginas de dueños de negocio: fondo cálido, la franja del
+ *           patrón arriba como detalle.
+ *   `dark`  para asesores y la línea internacional: negro, con el símbolo en
+ *           rojo a la derecha (forma, no texto).
  */
 import Button from './Button.astro';
-import { path, type Lang, type PageKey } from '../i18n/routes';
+import Wordmark from './Wordmark.astro';
 
-interface Props {
-  lang: Lang;
-  title: string;
-  body: string;
-  primaryLabel: string;
-  primaryTo?: PageKey;
-  primaryHref?: string;
-  secondaryLabel: string;
-  secondaryTo?: PageKey;
-  secondaryHref?: string;
+interface Enlace {
+  href: string;
+  label: string;
 }
 
-const {
-  lang,
-  title,
-  body,
-  primaryLabel,
-  primaryTo = 'diagnostic',
-  primaryHref,
-  secondaryLabel,
-  secondaryTo = 'contact',
-  secondaryHref,
-} = Astro.props;
+interface Props {
+  tone?: 'light' | 'dark';
+  title: string;
+  body?: string;
+  primary: Enlace;
+  secondary?: Enlace;
+}
 
-const primary = primaryHref ?? path(primaryTo, lang);
-const secondary = secondaryHref ?? path(secondaryTo, lang);
+const { tone = 'light', title, body, primary, secondary } = Astro.props;
+const dark = tone === 'dark';
 ---
 
-<section class="on-ink bg-ink text-on-ink">
-  <div class="container-page py-20 lg:py-28">
+<section class:list={['relative overflow-hidden', dark ? 'on-ink bg-ink text-on-ink' : 'bg-panel-alt text-ink']}>
+  {!dark && <div aria-hidden="true" class="franja-marca" />}
+  {
+    dark && (
+      <div aria-hidden="true" class="pointer-events-none absolute top-1/2 right-[-4rem] hidden -translate-y-1/2 opacity-90 lg:block">
+        <Wordmark symbolOnly height={360} />
+      </div>
+    )
+  }
+  <div class="container-page relative py-20 lg:py-28">
     <div class="reveal max-w-3xl">
-      <h2
-        class="text-[2rem] leading-[1.1] font-semibold tracking-[-0.025em] sm:text-[2.75rem] lg:text-5xl"
-      >
+      <h2 class="text-[2rem] leading-[1.1] font-medium tracking-[-0.015em] sm:text-[2.75rem] lg:text-5xl">
         {title}
       </h2>
-      <p class="mt-6 text-lg text-on-ink-muted">{body}</p>
-      <div class="mt-10 flex flex-col gap-3 sm:flex-row">
-        <Button href={primary} variant="onInk" size="lg">{primaryLabel}</Button>
-        <Button href={secondary} variant="onInkGhost" size="lg">{secondaryLabel}</Button>
+      {body && <p class:list={['mt-6 text-lg leading-relaxed', dark ? 'text-on-ink-muted' : 'text-muted']}>{body}</p>}
+      <div class="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+        <Button href={primary.href} variant={dark ? 'onInk' : 'primary'} size="lg">{primary.label}</Button>
+        {
+          secondary && (
+            <Button href={secondary.href} variant={dark ? 'onInkGhost' : 'secondary'} size="lg">
+              {secondary.label}
+            </Button>
+          )
+        }
       </div>
     </div>
   </div>

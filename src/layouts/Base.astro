@@ -3,7 +3,7 @@ import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import CookieNotice from '../components/CookieNotice.astro';
-import { LANG_META, LANGS, isNoindex, path, type Lang, type PageKey } from '../i18n/routes';
+import { EQUIVALENT_PAGES, LANG_META, LANGS, isNoindex, path, type Lang, type PageKey } from '../i18n/routes';
 import { common } from '../i18n';
 
 interface Props {
@@ -20,26 +20,20 @@ const c = common(lang);
 // lista alimenta esta etiqueta y el filtro del sitemap, y así no pueden
 // contradecirse. `follow` y no `nofollow`: la página de gracias enlaza al
 // inicio y no hay motivo para quemar esos enlaces.
-// La versión en inglés está EN PAUSA desde el giro a consultoría del
-// 2026-11-06: las páginas siguen publicadas —no se borró nada— pero no se
-// mantienen y describen la oferta anterior. Indexarlas sería ofrecer en un
-// buscador una versión que ya no es cierta, así que todo `/en/` sale del
-// índice hasta que haya clientes fuera de México y se retome la traducción.
-const noindex = isNoindex(pageKey) || lang === 'en';
+const noindex = isNoindex(pageKey);
 
 const site = Astro.site ?? new URL('https://forcelis-group.com');
 const canonical = new URL(path(pageKey, lang), site).href;
 const ogImage = new URL('/og-image.png', site).href;
 
-// hreflang: mientras el inglés esté en pausa, el sitio NO anuncia alternativas
-// de idioma. Un `hreflang` es una promesa de que existe la misma página en el
-// otro idioma y de que está mantenida; apuntar a `/en/` cuando describe una
-// oferta retirada manda al buscador a contenido equivocado, y además choca con
-// el `noindex` que esas páginas ahora llevan.
-//
-// Para retomarlo: devolver `LANGS.map(...)` aquí y quitar el `|| lang === 'en'`
-// del `noindex` de arriba. Son las dos únicas líneas que lo apagan.
-const alternates: { hreflang: string; href: string }[] = [];
+// hreflang SOLO entre páginas que de verdad son la misma en los dos idiomas
+// (`EQUIVALENT_PAGES`: privacidad y términos). La portada en español y la
+// portada en inglés le hablan a clientes distintos; anunciarlas como
+// traducción una de otra le diría al buscador algo falso.
+const equivalente = EQUIVALENT_PAGES.includes(pageKey);
+const alternates: { hreflang: string; href: string }[] = equivalente
+  ? LANGS.map((l) => ({ hreflang: LANG_META[l].hreflang, href: new URL(path(pageKey, l), site).href }))
+  : [];
 
 const organizationJsonLd = {
   '@context': 'https://schema.org',
@@ -50,7 +44,7 @@ const organizationJsonLd = {
   slogan: c.brand.tagline,
   logo: ogImage,
   areaServed: { '@type': 'Country', name: 'Mexico' },
-  knowsLanguage: ['en', 'es-MX'],
+  knowsLanguage: ['es-MX', 'en', 'pt', 'it', 'ja'],
 };
 ---
 
@@ -70,13 +64,17 @@ const organizationJsonLd = {
         <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />
       ))
     }
-    <link rel="alternate" hreflang="x-default" href={new URL(path(pageKey, 'es'), site).href} />
+    {
+      equivalente && (
+        <link rel="alternate" hreflang="x-default" href={new URL(path(pageKey, 'es'), site).href} />
+      )
+    }
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Forcelis Group" />
     <meta property="og:locale" content={LANG_META[lang].ogLocale} />
     {
-      LANGS.filter((l) => l !== lang).map((l) => (
+      alternates.length > 0 && LANGS.filter((l) => l !== lang).map((l) => (
         <meta property="og:locale:alternate" content={LANG_META[l].ogLocale} />
       ))
     }
@@ -86,46 +84,34 @@ const organizationJsonLd = {
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Forcelis Group — Financial & Operational Intelligence" />
+    <meta property="og:image:alt" content="Forcelis" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
-    <meta name="theme-color" content="#f7f6f4" />
+    <meta name="theme-color" content="#f6f4f3" />
     <meta name="color-scheme" content="light" />
 
-    <!-- Icono de pestaña. El SVG es adaptativo (claro/oscuro con su propia
-         media query) y lo prefieren Chrome, Edge y Firefox; los PNG y el .ico
-         son para Safari y navegadores antiguos. El `?v=` cambia cuando cambia
+    <!-- Icono de pestaña: el símbolo de la marca. El SVG lo prefieren Chrome,
+         Edge y Firefox; los PNG y el .ico son para Safari y navegadores
+         antiguos. El `?v=` cambia cuando cambia
          el logotipo: los navegadores cachean el favicon con más terquedad que
          cualquier otro recurso, y sin el parámetro seguían enseñando el
          anterior días después del despliegue. -->
-    <link rel="icon" href="/favicon.svg?v=3" type="image/svg+xml" />
-    <link rel="icon" href="/favicon-32.png?v=3" type="image/png" sizes="32x32" />
-    <link rel="icon" href="/favicon-16.png?v=3" type="image/png" sizes="16x16" />
-    <link rel="shortcut icon" href="/favicon.ico?v=3" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3" />
+    <link rel="icon" href="/favicon.svg?v=4" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png?v=4" type="image/png" sizes="32x32" />
+    <link rel="icon" href="/favicon-16.png?v=4" type="image/png" sizes="16x16" />
+    <link rel="shortcut icon" href="/favicon.ico?v=4" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=4" />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
-    <!-- Las dos familias se precargan. Montserrat es la del titular —el
-         elemento más grande del primer pintado— y sin precarga se descubre
-         hasta que el navegador ha descargado y leído la hoja de estilos. -->
-    <link
-      rel="preload"
-      href="/fonts/montserrat-latin-wght-normal.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-    <link
-      rel="preload"
-      href="/fonts/inter-latin-wght-normal.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
+    <!-- Las dos familias se precargan. Jost es la del titular —el elemento
+         más grande del primer pintado— y sin precarga se descubre hasta que el
+         navegador ha descargado y leído la hoja de estilos. -->
+    <link rel="preload" href="/fonts/jost-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/montserrat-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
 
     <script type="application/ld+json" set:html={JSON.stringify(organizationJsonLd)} is:inline />
 

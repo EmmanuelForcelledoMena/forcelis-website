@@ -1,90 +1,61 @@
 {
   "meta": {
-    "title": "Forcelis Group — Financial intelligence from your CFDI",
-    "description": "Forcelis turns the CFDI your company already issues and receives into management reports, dashboards and findings. For businesses and their advisors."
+    "title": "Forcelis — Market entry, site selection and nearshoring in Mexico",
+    "description": "Entering Mexico? Market entry, site selection and nearshoring studies for foreign companies, built on official Mexican data and regional analysis."
   },
   "hero": {
-    "eyebrow": "Financial intelligence from your CFDI",
-    "titleLead": "Your CFDI already say how the business is doing.",
-    "titleAccent": "Forcelis turns that into decisions.",
-    "subtitle": "A platform for the people who advise businesses — accountants, practices and consultants — and for businesses that want to understand their own numbers.",
-    "panelTitle": "Business performance",
-    "prioritiesLabel": "Key priorities",
-    "priorities": [
-      "Receivables growing faster than revenue",
-      "Input costs rising faster than your prices",
-      "Margin compression in a key category"
-    ],
-    "primary": "I advise businesses",
-    "secondary": "I have a business"
+    "eyebrow": "Market entry for Mexico",
+    "titleLead": "Entering Mexico?",
+    "titleAccent": "Make the decision with real data.",
+    "subtitle": "Market entry, site selection and nearshoring studies for foreign companies, by an economist who knows Mexico's regions from the inside and has worked in Japan and Canada.",
+    "primary": "Book a 20-minute call",
+    "secondary": "See the services"
   },
-  "audience": {
-    "label": "Who it is for",
-    "body": "Accountants, practices and consultants who advise companies — and companies with real operating complexity: inventory, suppliers, credit terms.",
+  "proof": {
+    "eyebrow": "Why Forcelis",
+    "title": "Three things a desk study from abroad can't give you.",
     "items": [
-      "Manufacturing",
-      "Distribution",
-      "B2B Commerce",
-      "Import & Export",
-      "Professional Services",
-      "Growing Businesses"
+      {
+        "title": "Official Mexican data, read by a local",
+        "body": "INEGI, trade and regional data that most foreign teams can't navigate."
+      },
+      {
+        "title": "Regional analysis, not national averages",
+        "body": "Mexico is many markets; we tell you which city or state fits."
+      },
+      {
+        "title": "Your language",
+        "body": "English, Spanish and Portuguese, plus Italian and Japanese."
+      }
     ]
   },
-  "how": {
-    "eyebrow": "How it works",
-    "title": "From information to action.",
-    "intro": "Every company already issues and receives CFDI. That record says what was sold, to whom, at what price, what it cost and when it was actually collected. What is missing is one place where it is brought together and read by someone who knows what to look for.",
-    "flow": [
-      { "label": "Data", "sub": "The CFDI you already have" },
-      { "label": "Intelligence", "sub": "Brought together, compared, explained" },
-      { "label": "Action", "sub": "Decisions with an owner and a measure" }
-    ],
-    "flowAlt": "The CFDI you already have become intelligence, and intelligence becomes action.",
-    "steps": [
-      { "name": "See", "body": "Import the information your business already produces." },
-      { "name": "Understand", "body": "Identify the risks, inefficiencies and drivers that matter." },
-      { "name": "Act", "body": "Turn findings into decisions, improvements and measurable results." }
-    ],
-    "platformNote": "The Forcelis platform does the importing and the calculating. People do the judgment."
+  "who": {
+    "eyebrow": "Who we help",
+    "title": "Companies weighing a real decision about Mexico.",
+    "items": [
+      {
+        "title": "Japanese companies and suppliers",
+        "body": "Especially in the Bajío region, where automotive and manufacturing supply chains concentrate."
+      },
+      {
+        "title": "Brands and franchises",
+        "body": "From the US, Canada, Brazil, Portugal and Italy, evaluating whether and where Mexico fits."
+      },
+      {
+        "title": "Manufacturers studying nearshoring",
+        "body": "Comparing Mexican cities on labor, suppliers, costs and infrastructure."
+      }
+    ]
   },
-  "paths": {
-    "eyebrow": "Two ways in",
-    "title": "Who is this for?",
-    "advisors": {
-      "title": "For accountants and consultants",
-      "body": "Reports and dashboards for every company you serve. Sell advisory without hiring analysts.",
-      "price": "From {price} MXN per month, before VAT · {min} to {max} companies",
-      "cta": "See how it works"
-    },
-    "business": {
-      "title": "For businesses",
-      "body": "A monthly plan to see your company through what you already invoice. If you want a professional review, the Diagnostic is contracted separately.",
-      "price": "Individual plan: {price} MXN per month, before VAT",
-      "cta": "See the options"
-    },
-    "pricingNote": "Prices are published. You can compare the plans without talking to anyone."
-  },
-  "platform": {
-    "eyebrow": "Forcelis Platform",
-    "title": "One view of your business.",
-    "body": "The Forcelis platform brings your CFDI and electronic accounting together into a unified view of business performance. It is not an ERP and it does not replace your accounting system: it is the intelligence layer above them.",
-    "points": [
-      "Every number is computed by a deterministic engine. No figure is generated by a language model.",
-      "Each client's information is isolated at four independent layers, the last of them enforced by the database itself.",
-      "Tax credentials are never requested. Ingestion is by files the client downloads themselves."
-    ],
-    "cta": "See the platform"
-  },
-  "start": {
-    "eyebrow": "Professional services",
-    "title": "If you want human judgment, it is separate.",
-    "body": "The platform works on its own. The Diagnostic, consulting sessions, advisory, projects, Monitoring and Managed Services are delivered by the Forcelis team and contracted separately from any plan.",
-    "primary": "See all services"
+  "services": {
+    "eyebrow": "Services",
+    "title": "From a quick snapshot to an entry plan.",
+    "intro": "Start with a Mexico Market Snapshot, or go straight to a full study when the decision is already on the table.",
+    "cta": "See all services"
   },
   "closing": {
-    "title": "Start with the numbers you already have.",
-    "body": "No new system, no credentials, no implementation project.",
-    "primary": "I advise businesses",
-    "secondary": "I have a business"
+    "title": "Thinking about Mexico?",
+    "body": "Let's talk for 20 minutes.",
+    "primary": "Book a call"
   }
 }

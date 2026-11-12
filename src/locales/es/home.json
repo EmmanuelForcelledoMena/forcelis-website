@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Forcelis — Crecimiento y franquicias para pequeños negocios mexicanos",
-    "description": "Analizamos la rentabilidad real de tu negocio con tus propias facturas, estudiamos dónde conviene abrir y te acompañamos a crecer: con sucursales propias o como franquicia."
+    "description": "¿Tu negocio está listo para crecer o franquiciarse? Analizamos su rentabilidad real con tus facturas, estudiamos dónde conviene abrir y te acompañamos a crecer."
   },
   "hero": {
     "eyebrow": "Crecimiento y franquicias para pequeños negocios mexicanos",
@@ -9,7 +9,19 @@
     "titleAccent": "Te lo decimos con tus propios números.",
     "subtitle": "Analizamos la rentabilidad real de tu negocio a partir de tus facturas, estudiamos dónde conviene abrir y te acompañamos a crecer: con sucursales propias o como franquicia.",
     "primary": "Agenda una llamada de 20 minutos",
-    "secondary": "Conoce el Estudio de Expansión"
+    "secondary": "Conoce nuestros servicios"
+  },
+  "preview": {
+    "title": "Así se ve un reporte",
+    "chart": "Ventas facturadas por mes",
+    "chartAlt": "Gráfica de línea con las ventas facturadas de doce meses, con tendencia al alza en el segundo semestre. Datos ilustrativos.",
+    "marginTitle": "Margen real por producto",
+    "rows": [
+      { "label": "Producto A", "value": 41 },
+      { "label": "Producto B", "value": 27 },
+      { "label": "Producto C", "value": 9 }
+    ],
+    "action": "Acción: revisar el precio del producto C, que vende mucho y deja poco."
   },
   "audience": {
     "label": "Para quién es",
@@ -19,30 +31,51 @@
   "problem": {
     "eyebrow": "El problema",
     "title": "Crecer a ciegas es la forma más rápida de poner en riesgo lo que ya funciona.",
-    "body": "Abrir una segunda sucursal o vender franquicias sin números claros arriesga el negocio que ya tienes. Muchos crecen sin saber cuánto deja realmente cada unidad, si el modelo funciona sin el dueño presente, ni en qué ciudad tiene sentido abrir."
+    "body": "Abrir una segunda sucursal o vender franquicias sin números claros arriesga el negocio que ya tienes. Muchos negocios crecen a ciegas: no saben cuánto deja realmente cada unidad, si el modelo funciona sin el dueño presente, ni en qué ciudad tiene sentido abrir."
+  },
+  "start": {
+    "eyebrow": "Dos formas de empezar",
+    "title": "Elige según lo que quieres resolver hoy.",
+    "from": "Desde",
+    "currency": "MXN",
+    "tax": "más IVA",
+    "items": [
+      {
+        "id": "diagnostico",
+        "name": "Diagnóstico de Negocio",
+        "body": "Para ordenar tus números y ganar más.",
+        "cta": "Ver el Diagnóstico"
+      },
+      {
+        "id": "expansion",
+        "name": "Estudio de Expansión",
+        "body": "Para saber si puedes abrir otra sucursal o franquiciar, y dónde.",
+        "cta": "Ver el Estudio de Expansión"
+      }
+    ]
   },
   "how": {
     "eyebrow": "Cómo trabajamos",
     "title": "Tres pasos, en orden.",
     "steps": [
       {
-        "name": "Estudio de Expansión",
-        "body": "Analizamos tus facturas de 12 a 24 meses y el mercado de las ciudades donde quieres crecer. Te decimos si eres franquiciable, si conviene una sucursal propia o si primero hay que ordenar la casa."
+        "title": "Diagnóstico",
+        "body": "Analizamos tus facturas de 12 a 24 meses y, si quieres crecer, el mercado de las ciudades donde te interesa abrir."
       },
       {
-        "name": "Modelo de crecimiento",
-        "body": "Si el negocio está listo, armamos el modelo financiero por unidad, los manuales y, junto con un abogado aliado, todo lo necesario para vender franquicias."
+        "title": "Plan",
+        "body": "Te decimos qué arreglar, si eres franquiciable y cómo crecer: sucursal propia o franquicia. Si el negocio está listo, armamos el modelo de franquicia junto con un abogado aliado."
       },
       {
-        "name": "Acompañamiento",
-        "body": "Seguimos tus números cada mes mientras abres unidades, para que cada nueva sucursal o franquicia sea tan rentable como la primera."
+        "title": "Acompañamiento",
+        "body": "Seguimos tus números cada mes para que cada nueva sucursal o franquicia sea tan rentable como la primera."
       }
     ],
     "cta": "Ver todos los servicios"
   },
   "why": {
     "eyebrow": "Por qué Forcelis",
-    "title": "Tres cosas que no vas a encontrar en cualquier consultor.",
+    "title": "Tres cosas que no cambian.",
     "items": [
       {
         "title": "Números reales, no estimaciones",
@@ -54,14 +87,19 @@
       },
       {
         "title": "Honestidad",
-        "body": "Si tu negocio todavía no es franquiciable, te lo decimos y te explicamos qué arreglar primero."
+        "body": "Si tu negocio todavía no está listo para crecer, te lo decimos y te explicamos qué arreglar primero."
       }
     ]
   },
+  "advisors": {
+    "eyebrow": "Para contadores y consultores",
+    "title": "¿Eres contador o consultor? Usa la misma herramienta con la que trabajamos.",
+    "offer": "{months} meses gratis del plan {plan}.",
+    "cta": "Conoce Forcelis para asesores"
+  },
   "closing": {
     "title": "Descubre si tu negocio está listo para crecer.",
-    "body": "Una llamada de 20 minutos, sin costo, para entender tu negocio y decirte si un Estudio de Expansión tiene sentido para ti.",
-    "primary": "Agenda una llamada",
-    "secondary": "Ver los servicios"
+    "body": "Una llamada de 20 minutos, sin costo, para entender tu negocio y decirte si un diagnóstico tiene sentido para ti.",
+    "primary": "Agenda una llamada"
   }
 }

@@ -1,0 +1,98 @@
+---
+/**
+ * Recorrido de los servicios:
+ *
+ *   Llamada de 20 minutos → (Diagnóstico | Expansión | Mercado) → Acompañamiento
+ *                                         └─ si es franquiciable → Proyecto de Franquicia
+ *
+ * Es una lista ordenada de texto y no una imagen: se lee con lector de
+ * pantalla y se acomoda sola. En escritorio son tres columnas con flechas; en
+ * móvil, tres bloques uno debajo de otro. Cada nodo enlaza a su tarjeta.
+ */
+interface Nodo {
+  label: string;
+  sub?: string;
+  href?: string;
+}
+
+interface Props {
+  inicio: Nodo;
+  opciones: Nodo[];
+  /** Índice de la opción de la que sale la rama (el Estudio de Expansión). */
+  ramaDesde: number;
+  rama: Nodo & { condicion: string };
+  fin: Nodo;
+  /** Descripción completa para lectores de pantalla. */
+  alt: string;
+  class?: string;
+}
+
+const { inicio, opciones, ramaDesde, rama, fin, alt, class: className = '' } = Astro.props;
+
+const caja =
+  'block rounded-card border border-line bg-panel px-5 py-4 transition-colors hover:border-ink';
+const titulo = 'block text-[0.9375rem] font-medium leading-snug text-ink';
+const sub = 'mt-1 block text-[0.8125rem] leading-snug text-muted';
+---
+
+<div class={className}>
+  <p class="sr-only">{alt}</p>
+  <ol
+    aria-hidden="true"
+    class="grid items-center gap-3 lg:grid-cols-[minmax(0,0.85fr)_auto_minmax(0,1.3fr)_auto_minmax(0,0.85fr)] lg:gap-4"
+  >
+    <li>
+      <a href={inicio.href} tabindex="-1" class="block rounded-card bg-ink px-5 py-5 text-on-ink">
+        <span class="block text-[0.9375rem] font-medium">{inicio.label}</span>
+        {inicio.sub && <span class="mt-1 block text-[0.8125rem] text-on-ink-muted">{inicio.sub}</span>}
+      </a>
+    </li>
+
+    <li class="flex justify-center text-line-strong">
+      <svg width="20" height="20" viewBox="0 0 18 18" fill="none" class="rotate-90 lg:rotate-0">
+        <path d="M2 9h13M10 4l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" />
+      </svg>
+    </li>
+
+    <li class="space-y-3">
+      {
+        opciones.map((op, i) => (
+          <div>
+            <a href={op.href} tabindex="-1" class={caja}>
+              <span class={titulo}>{op.label}</span>
+              {op.sub && <span class={sub}>{op.sub}</span>}
+            </a>
+            {i === ramaDesde && (
+              <a
+                href={rama.href}
+                tabindex="-1"
+                class="mt-2 ml-6 flex items-start gap-3 rounded-card border border-dashed border-brand/60 bg-ground px-4 py-3 transition-colors hover:border-brand"
+              >
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="mt-0.5 shrink-0 text-brand">
+                  <path d="M2 1v7a3 3 0 0 0 3 3h8M10 8l3 3-3 3" stroke="currentColor" stroke-width="1.5" />
+                </svg>
+                <span>
+                  <span class="block text-[0.75rem] font-semibold tracking-[0.04em] text-brand-text">{rama.condicion}</span>
+                  <span class="block text-[0.9375rem] font-medium text-ink">{rama.label}</span>
+                </span>
+              </a>
+            )}
+          </div>
+        ))
+      }
+    </li>
+
+    <li class="flex justify-center text-line-strong">
+      <svg width="20" height="20" viewBox="0 0 18 18" fill="none" class="rotate-90 lg:rotate-0">
+        <path d="M2 9h13M10 4l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" />
+      </svg>
+    </li>
+
+    <li>
+      <a href={fin.href} tabindex="-1" class="block rounded-card border-2 border-brand bg-panel px-5 py-5">
+        <span class="block text-[0.9375rem] font-medium text-ink">{fin.label}</span>
+        {fin.sub && <span class="mt-1 block text-[0.8125rem] text-muted">{fin.sub}</span>}
+      </a>
+    </li>
+  </ol>
+</div>

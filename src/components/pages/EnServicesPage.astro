@@ -1,0 +1,83 @@
+---
+/**
+ * Services (`/en/services/`): los cuatro servicios de la línea internacional.
+ *
+ * Importes en dólares desde `negocio.servicios_internacionales`; todo lo que
+ * no tiene «From» se cotiza. Cada tarjeta lleva `id` para enlazarla.
+ */
+import Base from '../../layouts/Base.astro';
+import Section from '../Section.astro';
+import Button from '../Button.astro';
+import PageHero from '../PageHero.astro';
+import Cta from '../Cta.astro';
+import { negocio, precioInternacional } from '../../config/negocio';
+import { agenda } from '../../config/enlaces';
+import { path } from '../../i18n/routes';
+import { en } from '../../i18n';
+
+const lang = 'en';
+const s = en('services');
+const agendaHref = agenda(lang);
+const contacto = path('contact', lang);
+---
+
+<Base lang={lang} pageKey="services" title={s.meta.title} description={s.meta.description}>
+  <PageHero tone="dark" photoKey="en-services" eyebrow={s.hero.eyebrow} title={s.hero.title} intro={s.hero.subtitle}>
+    <Fragment slot="actions">
+      <Button href={agendaHref} variant="onInk" size="lg">{s.labels.cta}</Button>
+    </Fragment>
+  </PageHero>
+
+  <Section tone="ground">
+    <div class="grid gap-6 md:grid-cols-2">
+      {
+        negocio.servicios_internacionales.map((sv, i) => {
+          const item = s.items[sv.id];
+          const importe = precioInternacional(sv);
+          return (
+            <article
+              id={sv.id}
+              class:list={[
+                'reveal flex scroll-mt-28 flex-col rounded-card bg-panel p-7 lg:p-9',
+                i === 0 ? 'border-2 border-brand' : 'border border-line',
+              ]}
+              data-reveal-delay={(i % 2) * 70}
+            >
+              <h2 class="text-2xl leading-snug font-medium tracking-[-0.01em] text-ink">{item.name}</h2>
+              <dl class="mt-6 flex-1 divide-y divide-line border-t border-line">
+                <div class="py-4">
+                  <dt class="text-[0.6875rem] font-semibold tracking-[0.12em] text-muted uppercase">{s.labels.includes}</dt>
+                  <dd class="mt-1.5 text-[0.9375rem] leading-relaxed text-ink">{item.includes}</dd>
+                </div>
+                <div class="flex items-baseline justify-between gap-4 py-4">
+                  <dt class="text-[0.6875rem] font-semibold tracking-[0.12em] text-muted uppercase">{s.labels.timing}</dt>
+                  <dd class="text-[0.9375rem] font-medium text-ink">{item.timing}</dd>
+                </div>
+              </dl>
+              <div class="mt-6 flex flex-wrap items-end justify-between gap-x-6 gap-y-4 rounded-control bg-panel-alt px-5 py-4">
+                <div>
+                  <p class="text-[0.6875rem] font-semibold tracking-[0.12em] text-brand-text uppercase">{s.labels.price}</p>
+                  <p class="tnum mt-1 text-xl font-semibold text-ink">
+                    {importe ? `${s.labels.from} ${importe}` : s.labels.quote}
+                  </p>
+                </div>
+                <Button href={i === 0 ? agendaHref : contacto} variant={i === 0 ? 'primary' : 'secondary'}>
+                  {i === 0 ? s.labels.cta : s.labels.write}
+                </Button>
+              </div>
+            </article>
+          );
+        })
+      }
+    </div>
+    <p class="reveal mt-10 max-w-3xl text-sm leading-relaxed text-muted">{s.note}</p>
+  </Section>
+
+  <Cta
+    tone="dark"
+    title={s.closing.title}
+    body={s.closing.body}
+    primary={{ href: agendaHref, label: s.closing.primary }}
+    secondary={{ href: contacto, label: s.closing.secondary }}
+  />
+</Base>

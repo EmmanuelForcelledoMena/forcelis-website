@@ -6,11 +6,16 @@
  * registro puede escribirse en una plantilla ni en un diccionario: si la
  * encuentras ahí, está mal y hay que traerla a este archivo.
  *
- * Lo que NO vive aquí es el texto. Los nombres de los planes, para quién es
- * cada uno y qué incluye cada diagnóstico están en `src/locales/*&#47;pricing.json`,
- * indexados por el mismo `id` que usas abajo. Es la regla 2 del repositorio
- * —ningún texto fuera de los diccionarios— y además es lo que permite que
- * «Despacho» sea «Practice» en inglés sin duplicar el precio.
+ * Lo que NO vive aquí es el texto. Los nombres de los planes y de los
+ * servicios, para quién es cada uno y qué incluye están en los diccionarios
+ * (`src/locales/es/pricing.json`, `services.json`, `en/services.json`),
+ * indexados por el mismo `id` que usas abajo.
+ *
+ * Tres listas de precios, una por línea de negocio:
+ *
+ *   `servicios`                consultoría México, en pesos más IVA
+ *   `planes` + `oferta_lanzamiento`  plataforma para asesores, en pesos más IVA
+ *   `servicios_internacionales`  consultoría para empresas extranjeras, en dólares
  *
  * Los nombres de las claves están en español y con guion bajo a propósito,
  * iguales a como se especificaron: quien venga a cambiar `mostrar_precios` lo
@@ -21,9 +26,9 @@
  *
  *   `mostrar_precios: true`, `npm run build`, listo. No hay que tocar nada más.
  *
- * Con `false` (el valor de hoy): no aparece ningún precio en ninguna página de
- * ninguno de los dos idiomas, la página de Precios sale del menú y del sitemap
- * y se sirve con `noindex`, y la calculadora de margen no se muestra.
+ * Con `false`: no aparece ningún importe de la plataforma (planes,
+ * calculadora) en ninguna página. Los servicios de consultoría se siguen
+ * mostrando: su precio es parte de la oferta.
  * ---------------------------------------------------------------------------
  */
 
@@ -42,11 +47,6 @@ export interface Plan {
   admite_adicionales: boolean;
   /** Entra en la calculadora de margen. Individual y Enterprise no. */
   en_calculadora: boolean;
-}
-
-export interface Diagnostico {
-  id: 'esencial' | 'completo' | 'asesores';
-  precio: number;
 }
 
 /**
@@ -77,15 +77,28 @@ export interface Servicio {
   /** Solo con `tipo_precio: 'rango'`. */
   desde?: number;
   hasta?: number;
-  /** Solo con `tipo_precio: 'tramos'`. El texto de cada tramo vive en el diccionario. */
-  tramos?: readonly { id: string; precio: number }[];
+  /**
+   * Solo con `tipo_precio: 'tramos'`. El texto de cada tramo vive en el
+   * diccionario. `precio: null` = ese tramo se cotiza.
+   */
+  tramos?: readonly { id: string; precio: number | null }[];
+}
+
+/**
+ * Servicio de la línea internacional (`/en/`). Se cobra en dólares y casi
+ * todo se cotiza: el alcance de un estudio de entrada a México depende del
+ * sector y de cuántas regiones se comparan.
+ */
+export interface ServicioInternacional {
+  id: 'snapshot' | 'entry' | 'site' | 'retainer';
+  tipo_precio: 'desde' | 'cotizacion';
+  /** Solo con `tipo_precio: 'desde'`. */
+  desde?: number;
 }
 
 export const negocio = {
   // ----------------------------------------------------------- interruptores
   mostrar_precios: true,
-  /** Prueba de 14 días con una empresa. Encender solo cuando la plataforma la permita. */
-  prueba_disponible: false,
 
   // ------------------------------------------------------------------- ligas
   // Vacías, cada botón cae al formulario de contacto con su `?tipo=`. Nunca se
@@ -123,13 +136,23 @@ export const negocio = {
     { id: 'enterprise',  empresas: null, precio: null, marca_propia: null,  admite_adicionales: false, en_calculadora: false },
   ] as const satisfies readonly Plan[],
 
-  diagnosticos: [
-    { id: 'esencial', precio: 9900 },
-    { id: 'completo', precio: 19900 },
-    { id: 'asesores', precio: 3900 },
-  ] as const satisfies readonly Diagnostico[],
-
-  monitoreo: { precio: 3900 },
+  /**
+   * Oferta de lanzamiento de la plataforma. Sustituye al Programa Fundadores
+   * (50% durante 6 meses), que ya no existe.
+   *
+   * Los primeros `cupo` asesores usan el plan `plan` gratis durante
+   * `meses_gratis` meses. Al terminar pagan el precio regular, o
+   * `descuento_despues` de descuento durante `meses_descuento` meses más si
+   * dan su testimonio. Sin requisitos de uso ni plazos para subir datos.
+   */
+  oferta_lanzamiento: {
+    plan: 'profesional',
+    meses_gratis: 3,
+    cupo: 50,
+    /** 0.5 = la mitad. */
+    descuento_despues: 0.5,
+    meses_descuento: 3,
+  },
 
   /**
    * Los seis servicios de consultoría, del más pequeño al más grande. Es la
@@ -139,6 +162,9 @@ export const negocio = {
    * clientes. Se fijaron contra referencias públicas del mercado mexicano de
    * consultoría (~$300 a $800 la hora); un Estudio de Expansión de unas 35
    * horas a $500–$700 cae en el rango publicado.
+   *
+   * El Acompañamiento tiene dos tramos: el de pequeño negocio con precio
+   * publicado y el de expansión, franquicia o rescate, que se cotiza.
    *
    * El Proyecto de Franquicia va SIN precio a propósito. Es el único de los
    * seis cuyo importe no tiene referencia pública verificada, y publicar un
@@ -159,17 +185,21 @@ export const negocio = {
       cobro: 'mes',
       tramos: [
         { id: 'pequeno', precio: 3900 },
-        { id: 'expansion', precio: 7500 },
+        { id: 'expansion', precio: null },
       ],
     },
   ] as const satisfies readonly Servicio[],
 
-  fundadores: {
-    cupo: 10,
-    /** 0.5 = la mitad. */
-    descuento: 0.5,
-    meses: 6,
-  },
+  // ------------------------------------------------- línea internacional
+  moneda_internacional: 'USD',
+
+  /** Los cuatro servicios de `/en/services/`, en el orden de la página. */
+  servicios_internacionales: [
+    { id: 'snapshot', tipo_precio: 'desde', desde: 1500 },
+    { id: 'entry',    tipo_precio: 'cotizacion' },
+    { id: 'site',     tipo_precio: 'cotizacion' },
+    { id: 'retainer', tipo_precio: 'cotizacion' },
+  ] as const satisfies readonly ServicioInternacional[],
 } as const;
 
 // ---------------------------------------------------------------------------
@@ -187,13 +217,6 @@ export function plan(id: Plan['id']): Plan {
 export function servicio(id: Servicio['id']): Servicio {
   const found = negocio.servicios.find((x) => x.id === id);
   if (!found) throw new Error(`Servicio desconocido: ${id}`);
-  return found;
-}
-
-/** Un diagnóstico por su id. */
-export function diagnostico(id: Diagnostico['id']): Diagnostico {
-  const found = negocio.diagnosticos.find((d) => d.id === id);
-  if (!found) throw new Error(`Diagnóstico desconocido: ${id}`);
   return found;
 }
 
@@ -227,7 +250,7 @@ export function precio(valor: number, lang: 'en' | 'es'): string {
 export function precioServicio(
   s: Servicio,
   lang: 'en' | 'es',
-): { texto: string; tramos?: { id: string; texto: string }[] } | null {
+): { texto: string; tramos?: { id: string; texto: string | null }[] } | null {
   switch (s.tipo_precio) {
     case 'fijo':
       return { texto: precio(s.precio!, lang) };
@@ -236,14 +259,37 @@ export function precioServicio(
       // una resta a primera vista, y aquí el número importa más que el ahorro
       // de dos caracteres.
       return { texto: `${precio(s.desde!, lang)} a ${precio(s.hasta!, lang)}` };
-    case 'tramos':
+    case 'tramos': {
+      // `texto` es el importe más bajo publicado: el «desde» de la tarjeta.
+      // Un tramo sin precio se devuelve con `texto: null`, y quien llama pone
+      // «Cotización» con su diccionario.
+      const publicados = s.tramos!.flatMap((t) => (t.precio === null ? [] : [t.precio]));
       return {
-        texto: precio(Math.min(...s.tramos!.map((t) => t.precio)), lang),
-        tramos: s.tramos!.map((t) => ({ id: t.id, texto: precio(t.precio, lang) })),
+        texto: precio(Math.min(...publicados), lang),
+        tramos: s.tramos!.map((t) => ({
+          id: t.id,
+          texto: t.precio === null ? null : precio(t.precio, lang),
+        })),
       };
+    }
     case 'cotizacion':
       return null;
   }
+}
+
+/**
+ * Importe de un servicio internacional, en dólares: «From USD 1,500». Devuelve
+ * solo la cifra con su moneda; la palabra «From» y «Quote» son texto y vienen
+ * del diccionario. `null` = se cotiza.
+ */
+export function precioInternacional(s: ServicioInternacional): string | null {
+  if (s.tipo_precio !== 'desde') return null;
+  return `${negocio.moneda_internacional} ${new Intl.NumberFormat('en-US').format(s.desde!)}`;
+}
+
+/** Un descuento como porcentaje: 0.5 → «50%». */
+export function porcentaje(valor: number): string {
+  return `${Math.round(valor * 100)}%`;
 }
 
 /**

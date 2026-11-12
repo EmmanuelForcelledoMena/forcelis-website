@@ -1,79 +1,71 @@
 ---
 /**
- * Logotipo de Forcelis Group: lockup horizontal del manual de marca.
+ * Logotipo horizontal de Forcelis: símbolo + FORCELIS.
  *
- * Glifo a la izquierda, FORCELIS en Montserrat con interletrado ancho, GROUP
- * debajo más pequeño y aún más abierto. Es la variante «Primary (Horizontal)»
- * del manual; la apilada y la de solo icono no se usan en el sitio.
+ * NO se redibuja aquí: se leen los trazos de `public/brand/logo-horizontal.svg`,
+ * que genera `scripts/build-brand.mjs` a partir de los vectores del PDF de
+ * marca. Si cambia la marca, se vuelve a correr ese script y este componente
+ * sale bien solo.
  *
- * El glifo es una F de tres barras: paralelogramos con la misma inclinación
- * cuyos bordes izquierdos caen sobre una sola diagonal, y con anchos
- * decrecientes —brazo superior, brazo medio, pie del asta—. Está redibujado en
- * vectores a partir del manual; los ajustes respecto a él son de espaciado: el
- * brazo medio ligeramente más corto para que la silueta de F sea inequívoca a
- * 16 px, y el hueco entre barras fijado a la mitad de su alto.
- *
- * Color del glifo por superficie, y no es cosmético: sobre claro va en tinta;
- * sobre tinta va en TAUPE, como en el manual. Nunca en rojo sobre tinta — da
- * 2.94:1 y falla incluso como forma grande.
- *
- * Este archivo, `public/favicon.svg` y `scripts/build-og.mjs` son los tres
- * únicos sitios donde vive el glifo. Cambiarlo es cambiarlos a la vez.
+ * Color por superficie:
+ *   `ink`   fondos claros: símbolo en sus tres rojos, texto negro.
+ *   `light` fondos oscuros: símbolo en sus rojos, texto blanco — como el botón
+ *           negro de la hoja de marca. El rojo sobre negro está permitido en
+ *           el símbolo (es forma, no texto).
+ *   `mono`  todo en blanco, para fondos rojos o fotografía.
  */
+import logoSvg from '../../public/brand/logo-horizontal.svg?raw';
+
 interface Props {
-  /** `ink` para fondos claros, `light` para las bandas oscuras. */
-  tone?: 'ink' | 'light';
-  /** Oculta la palabra GROUP: solo cuando el espacio no da para dos líneas. */
-  showSuffix?: boolean;
-  /** `nav` es más compacto; `default` es el del pie y las portadas. */
-  size?: 'nav' | 'default';
+  tone?: 'ink' | 'light' | 'mono';
+  /** Alto en píxeles del logotipo completo (el símbolo ocupa ese alto). */
+  height?: number;
+  /** Solo el símbolo, sin la palabra. */
+  symbolOnly?: boolean;
+  /**
+   * `true` cuando el logotipo va dentro de un enlace que ya lleva su propia
+   * etiqueta (la barra, el pie): así no se anuncia dos veces.
+   */
+  decorative?: boolean;
   class?: string;
 }
 
 const {
   tone = 'ink',
-  showSuffix = true,
-  size = 'default',
+  height = 38,
+  symbolOnly = false,
+  decorative = true,
   class: className = '',
-}: Props = Astro.props;
+} = Astro.props;
 
-const light = tone === 'light';
-const glyphFill = light ? '#c7c3a9' : '#1a1a1a';
-const nameColor = light ? 'text-on-ink' : 'text-ink';
-const suffixColor = light ? 'text-on-ink-muted' : 'text-muted';
+const viewBox = /viewBox="([^"]+)"/.exec(logoSvg)![1];
+const [, , vbW, vbH] = viewBox.split(' ').map(Number);
+const paths = [...logoSvg.matchAll(/<path fill="([^"]+)" d="([^"]+)"\/>/g)].map((m) => ({
+  fill: m[1],
+  d: m[2],
+}));
+// Las tres primeras son las barras del símbolo; la cuarta, la palabra.
+const barras = paths.slice(0, 3);
+const palabra = paths[3];
 
-const glyphSize = size === 'nav' ? 30 : 36;
-const nameSize = size === 'nav' ? 'text-[0.9375rem]' : 'text-[1.0625rem]';
-const suffixSize = size === 'nav' ? 'text-[0.5625rem]' : 'text-[0.625rem]';
+const SIMBOLO_W = 71.28;
+const ancho = symbolOnly ? SIMBOLO_W : vbW;
+const width = Math.round((height * ancho) / vbH);
+
+const colorBarra = (fill: string) => (tone === 'mono' ? 'var(--fc-blanco)' : fill);
+const colorPalabra = tone === 'ink' ? 'var(--fc-negro)' : 'var(--fc-blanco)';
 ---
 
-<span class={`inline-flex items-center gap-2.5 ${className}`}>
-  <svg
-    width={glyphSize}
-    height={glyphSize}
-    viewBox="0 0 64 64"
-    aria-hidden="true"
-    class="shrink-0"
-  >
-    <path fill={glyphFill} d="M26 8H62L58 20H22Z"></path>
-    <path fill={glyphFill} d="M20 26H47L43 38H16Z"></path>
-    <path fill={glyphFill} d="M14 44H32L28 56H10Z"></path>
-  </svg>
-
-  <span class="flex flex-col justify-center leading-none">
-    <span
-      class={`font-display font-bold tracking-[0.22em] ${nameSize} ${nameColor}`}
-    >
-      FORCELIS
-    </span>
-    {
-      showSuffix && (
-        <span
-          class={`mt-[0.3em] font-display font-medium tracking-[0.3em] ${suffixSize} ${suffixColor}`}
-        >
-          GROUP
-        </span>
-      )
-    }
-  </span>
-</span>
+<svg
+  viewBox={`0 0 ${ancho} ${vbH}`}
+  width={width}
+  height={height}
+  class={`block shrink-0 ${className}`}
+  aria-hidden={decorative ? 'true' : undefined}
+  role={decorative ? undefined : 'img'}
+  aria-label={decorative ? undefined : 'Forcelis'}
+  focusable="false"
+>
+  {barras.map((b) => <path fill={colorBarra(b.fill)} d={b.d} />)}
+  {!symbolOnly && palabra && <path fill={colorPalabra} d={palabra.d} />}
+</svg>

@@ -6,104 +6,81 @@
   "hero": {
     "eyebrow": "Contacto",
     "title": "Platiquemos de tu negocio.",
-    "subtitle": "Veinte minutos, sin costo. Cuéntame qué quieres lograr y te digo con honestidad si puedo ayudarte."
+    "subtitle": "20 minutos, sin costo. Cuéntame qué quieres lograr y te digo con honestidad si puedo ayudarte."
+  },
+  "schedule": {
+    "title": "Lo más rápido: elige un horario",
+    "body": "Abre mi calendario, elige un horario de 20 minutos y hablamos. No necesitas preparar nada.",
+    "cta": "Agenda una llamada"
+  },
+  "formIntro": {
+    "title": "O escríbeme",
+    "body": "Si prefieres contarme antes por escrito, llena esto y te respondo en menos de un día hábil."
   },
   "form": {
     "legend": "Tu negocio",
     "name": "Nombre",
-    "email": "Correo de trabajo",
-    "company": "Empresa",
-    "website": "Sitio web",
-    "websiteOptional": "Opcional",
-    "intent": "¿Qué buscas?",
-    "intentHint": "Elige la más cercana a tu caso. Cambia quién te responde.",
-    "planSelected": "Plan que te interesa: {plan}. Puedes cambiarlo en tu mensaje.",
-    "serviceSelected": "Servicio que te interesa: {service}. Puedes cambiarlo en tu mensaje.",
-    "enterpriseNote": "Para cotizar, cuéntanos en tu mensaje cuántas empresas, qué volumen aproximado de CFDI al mes, qué soporte necesitas y qué alcance buscas.",
+    "email": "Correo",
+    "emailPlaceholder": "nombre@negocio.com",
+    "company": "Negocio",
+    "sector": "Giro",
+    "sectorPlaceholder": "Comida, belleza, educación, comercio, servicios…",
+    "branches": "Número de sucursales",
+    "city": "Ciudad",
+    "country": "País",
+    "intent": "¿Qué te interesa?",
+    "intentHint": "Elige la más cercana. Si llegaste desde un botón, ya viene marcada.",
+    "planSelected": "Plan que te interesa: {plan}.",
+    "serviceSelected": "Servicio que te interesa: {service}.",
     "intentOptions": {
-      "demo": "Quiero ver una demostración del producto",
-      "asesor": "Asesoro empresas (contador, despacho o consultor)",
-      "fundador": "Quiero el Programa Fundadores",
-      "individual": "Tengo una empresa: plan Individual",
-      "enterprise": "Quiero una cotización Enterprise",
-      "diagnostico": "Quiero un diagnóstico",
-      "monitoreo": "Me interesa el Monitoreo Mensual",
-      "servicio": "Me interesa un servicio profesional"
+      "diagnostico": "Diagnóstico de Negocio",
+      "expansion": "Estudio de Expansión o franquicia",
+      "mercado": "Estudio de Mercado",
+      "asesor": "Soy contador o consultor: la plataforma",
+      "prueba": "Los 3 meses gratis del plan Profesional",
+      "otro": "Otra cosa: una sesión, acompañamiento…",
+      "internacional": "Entrar a México (empresa extranjera)"
     },
     "message": "¿Qué quieres lograr?",
-    "messageHint": "Con una o dos frases basta. Entre más concreto, más útil la llamada.",
-    "consent": "He leído el Aviso de Privacidad y autorizo a Forcelis a tratar esta información para poder responder.",
+    "messageHint": "Con una o dos frases basta.",
+    "consent": "He leído el Aviso de Privacidad y autorizo a Forcelis a usar estos datos para responderme.",
     "consentLink": "Aviso de Privacidad",
     "submit": "Enviar",
     "submitting": "Enviando…",
-    "required": "Obligatorio",
     "successTitle": "Mensaje enviado.",
-    "successBody": "Gracias. Te respondemos al correo que nos dejaste.",
+    "successBody": "Gracias. Te respondo al correo que me dejaste.",
     "errorTitle": "No se pudo enviar el mensaje.",
-    "errorBody": "Algo falló en el camino. Vuelve a intentarlo en unos minutos.",
+    "errorBody": "Algo falló en el camino. Vuelve a intentarlo en unos minutos o agenda directo en el calendario.",
     "unconfiguredTitle": "El formulario todavía no está conectado.",
-    "unconfiguredBody": "Este sitio no tiene configurado un endpoint de formulario, así que nada se entregaría. Define PUBLIC_FORM_ENDPOINT antes de publicar — está en el README.",
+    "unconfiguredBody": "Este sitio no tiene configurado un servicio de formularios, así que nada se entregaría. Mientras tanto, agenda directo en el calendario.",
     "errors": {
       "required": "Este campo es obligatorio.",
-      "intent": "Elige qué estás buscando.",
-      "email": "Escribe un correo válido — por ejemplo, nombre@empresa.com",
+      "intent": "Elige qué te interesa.",
+      "email": "Escribe un correo válido — por ejemplo, nombre@negocio.com",
       "emailTypo": "¿Quisiste decir {suggestion}?",
       "emailTypoAction": "Usarlo",
       "minLength": "Escribe un poco más — al menos {min} caracteres.",
-      "url": "Escribe una dirección web como empresa.com, o deja el campo vacío.",
       "consent": "Acepta el Aviso de Privacidad para continuar.",
       "summaryOne": "Hay un campo por revisar.",
       "summaryMany": "Hay {n} campos por revisar.",
       "tooFast": "Un momento: vuelve a pulsar Enviar en un par de segundos.",
       "branches": "Escribe un número de 0 o más."
-    },
-    "business": "Nombre del negocio",
-    "sector": "Giro",
-    "sectorPlaceholder": "Comida, belleza, educación, comercio, servicios…",
-    "branches": "Número de sucursales",
-    "city": "Ciudad"
+    }
   },
   "next": {
     "title": "Qué sigue",
     "steps": [
-      {
-        "title": "Lo leo yo",
-        "body": "No hay regla de ruteo ni asistente. Lo leo yo y te contesto yo."
-      },
-      {
-        "title": "20 minutos",
-        "body": "Una llamada corta para entender el negocio y lo que quieres lograr."
-      },
-      {
-        "title": "Una respuesta honesta",
-        "body": "Te digo cuál servicio tiene sentido, o que ninguno lo tiene."
-      }
+      { "title": "Lo leo yo", "body": "No hay asistente ni regla de ruteo. Lo leo yo y te contesto yo." },
+      { "title": "20 minutos", "body": "Una llamada corta para entender tu negocio y lo que quieres lograr." },
+      { "title": "Una respuesta honesta", "body": "Te digo qué servicio tiene sentido, o que ninguno lo tiene." }
     ]
   },
   "assurance": {
     "title": "Antes de escribir",
     "items": [
-      {
-        "title": "Sin credenciales",
-        "body": "Nunca pido tu e.firma ni contraseñas de ningún portal."
-      },
-      {
-        "title": "Sin costo",
-        "body": "La primera llamada no se cobra y no compromete a nada."
-      },
-      {
-        "title": "Confidencial",
-        "body": "Lo que me cuentes se queda entre nosotros, haya proyecto o no."
-      }
+      { "title": "Sin credenciales", "body": "Nunca pido tu e.firma ni contraseñas del SAT o del banco." },
+      { "title": "Sin costo", "body": "La primera llamada no se cobra y no te compromete a nada." },
+      { "title": "Confidencial", "body": "Lo que me cuentes se queda entre nosotros, haya proyecto o no." }
     ]
-  },
-  "schedule": {
-    "title": "Lo más rápido: agenda directo",
-    "body": "Elige un horario en mi calendario y hablamos. No necesitas preparar nada.",
-    "cta": "Agenda una llamada de 20 minutos"
-  },
-  "formIntro": {
-    "title": "O escríbeme",
-    "body": "Si prefieres contarme antes por escrito, llena esto y te respondo en menos de un día hábil."
   }
 }

@@ -1,19 +1,28 @@
 {
   "meta": {
-    "title": "Para contadores y consultores — Asesoría con los CFDI de tus clientes",
-    "description": "Reportes y tableros para todas las empresas que atiendes, a partir de los XML que ya descargas. Sin credenciales del SAT ni del banco."
+    "title": "Para asesores — La herramienta que usa Forcelis, para tu despacho",
+    "description": "Convierte los CFDI que ya descargas en reportes gerenciales y tableros para cada cliente. {months} meses gratis del plan {plan} para los primeros {n} asesores."
   },
   "hero": {
     "eyebrow": "Para contadores, despachos y consultores",
-    "title": "Tus clientes ya te dan sus CFDI. Conviértelos en asesoría que puedes cobrar.",
-    "subtitle": "Forcelis convierte los XML que ya descargas en reportes gerenciales y tableros para todas las empresas que atiendes, desde un solo lugar.",
-    "primary": "Solicitar una demostración",
-    "secondary": "Ver planes"
+    "title": "La herramienta que usa Forcelis, ahora para tu despacho.",
+    "subtitle": "Convierte los CFDI que ya descargas en reportes gerenciales y tableros para cada cliente, y cobra asesoría, no solo cumplimiento fiscal.",
+    "primary": "Quiero mis {months} meses gratis",
+    "secondary": "Ver planes y precios"
   },
-  "problem": {
-    "eyebrow": "El problema",
-    "title": "Tus clientes te preguntan cómo va su negocio, no solo cuánto pagan de impuestos.",
-    "body": "Contestarlo a mano en Excel, cliente por cliente, no escala."
+  "offer": {
+    "eyebrow": "Oferta de lanzamiento",
+    "title": "{months} meses gratis del plan {plan}.",
+    "body": "Para los primeros {n} asesores. Prueba Forcelis con tus clientes reales, sin costo.",
+    "more": "Condiciones de la oferta"
+  },
+  "audience": {
+    "eyebrow": "Para quién",
+    "items": [
+      { "title": "Contadores independientes", "body": "Con 5 a 10 clientes que ya te piden algo más que la declaración." },
+      { "title": "Despachos pequeños y medianos", "body": "Que quieren ofrecer reportes gerenciales a toda su cartera sin armarlos a mano." },
+      { "title": "Consultores de negocio", "body": "Que asesoran PyMEs y necesitan números confiables para cada recomendación." }
+    ]
   },
   "how": {
     "eyebrow": "Cómo funciona",
@@ -49,7 +58,8 @@
       "Multi-empresa en una sola cuenta",
       "Cuentas con segundo factor de autenticación",
       "Nunca credenciales del SAT ni del banco"
-    ]
+    ],
+    "platform": "Cómo funciona la plataforma por dentro"
   },
   "calculator": {
     "eyebrow": "Tu margen",
@@ -59,8 +69,7 @@
       "companies": "Empresas que administras",
       "companiesHint": "De 1 a 500",
       "paying": "Clientes que pagarían un reporte mensual",
-      "price": "Lo que cobras por reporte",
-      "founder": "Precio fundador (50% durante 6 meses)"
+      "price": "Lo que cobras por reporte"
     },
     "results": {
       "plan": "Plan recomendado",
@@ -68,7 +77,9 @@
       "revenue": "Tu ingreso al mes",
       "margin": "Tu margen al mes",
       "volume": "Con más de 100 empresas, pide una cotización Enterprise.",
-      "tax": "Todas las cifras, más IVA."
+      "tax": "Todas las cifras, más IVA. El margen de los meses gratis no descuenta tus propios costos.",
+      "trial": "Durante los {months} meses gratis del plan {plan}, tu margen es {margin} al mes.",
+      "trialOver": "La oferta cubre el plan {plan}, hasta {n} empresas. Con más empresas aplica el plan de arriba."
     },
     "errors": {
       "companies": "Escribe un número entero entre 1 y 500.",
@@ -78,19 +89,17 @@
   },
   "plans": {
     "eyebrow": "Planes",
-    "title": "Elige el que va con cuántas empresas atiendes.",
-    "intro": "Los tres planes cambian en cuántas empresas incluyen. La entrega con tu marca está por confirmar.",
-    "extra": "Cada empresa que pase de las incluidas se suma a tu mensualidad.",
-    "fairUse": "Uso justo: hasta {n} CFDI por empresa al mes.",
-    "volume": "¿Más de 100 empresas o muchísimos CFDI? Enterprise se cotiza a la medida.",
-    "volumeCta": "Solicitar cotización",
-    "compare": "Comparar todos los planes"
+    "title": "Elige según cuántas empresas atiendes.",
+    "intro": "Los tres planes cambian en cuántas empresas incluyen. Al terminar los meses gratis, eliges el que te toca.",
+    "compare": "Comparar todos los planes",
+    "volume": "¿Más de 100 empresas? Enterprise se cotiza a la medida.",
+    "volumeCta": "Solicitar cotización"
   },
-  "founders": {
-    "eyebrow": "Programa Fundadores",
-    "title": "Los primeros {n} asesores pagan la mitad durante {months} meses.",
-    "body": "Además reciben una sesión de arranque. A cambio, nos dan retroalimentación cada mes, un testimonio y la autorización de sus clientes para el benchmark anónimo.",
-    "cta": "Aplica al programa"
+  "referral": {
+    "eyebrow": "Y si un cliente necesita más",
+    "title": "Refiérelo a Forcelis. Tu cliente sigue siendo tuyo.",
+    "body": "Si un cliente tuyo necesita algo complejo —abrir sucursales, franquiciar o un rescate—, puedes referirlo a la consultoría de Forcelis. Nosotros hacemos ese proyecto; la relación con tu cliente, la contabilidad y lo fiscal siguen contigo.",
+    "cta": "Ver los servicios de consultoría"
   },
   "faq": {
     "title": "Lo que estás a punto de preguntar",
@@ -101,7 +110,7 @@
       },
       {
         "q": "¿Mis clientes ven la marca Forcelis?",
-        "a": "Todavía no podemos confirmarlo: la entrega con la marca del asesor está en verificación. En la demostración te mostramos cómo salen hoy los entregables."
+        "a": "Todavía no podemos confirmarlo: la entrega con la marca del asesor está en verificación. En la llamada de arranque te mostramos cómo salen hoy los entregables."
       },
       {
         "q": "¿Forcelis le va a vender contabilidad a mis clientes?",
@@ -113,13 +122,14 @@
       },
       {
         "q": "¿Puedo empezar con pocos clientes?",
-        "a": "Sí. El plan Profesional cubre hasta 10 empresas, y cada adicional se suma a tu mensualidad."
+        "a": "Sí. El plan Profesional cubre hasta 10 empresas, y es el que viene con los {months} meses gratis."
       }
     ]
   },
   "closing": {
-    "title": "Pruébalo con uno de tus propios clientes.",
-    "body": "Solicita una demostración adaptada a las necesidades de tu negocio. Si puedes, trae los XML de una empresa que ya atiendes.",
-    "cta": "Solicitar una demostración"
+    "title": "Pruébalo con tus propios clientes.",
+    "body": "{months} meses del plan {plan}, sin costo. Si quieres, te acompañamos en una llamada de arranque.",
+    "primary": "Quiero mis {months} meses gratis",
+    "secondary": "Ver la plataforma"
   }
 }

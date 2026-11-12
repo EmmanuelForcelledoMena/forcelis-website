@@ -41,6 +41,14 @@ const htmls = [];
 })(DIST);
 
 const problems = [];
+
+// Las URL que redirigen: las páginas que Astro generó con `meta refresh`.
+const redirigidas = new Set(
+  htmls
+    .filter((f) => /<meta http-equiv="refresh"/i.test(readFileSync(f, 'utf8')))
+    .map((f) => '/' + relative(DIST, f).replace(/\\/g, '/').replace(/index\.html$/, ''))
+    .filter((r) => r !== '/'),
+);
 const note = (file, kind, detail) => problems.push({ file: relative(DIST, file), kind, detail });
 
 for (const file of htmls) {
@@ -55,7 +63,22 @@ for (const file of htmls) {
   // marcado de ejemplo —este proyecto los tiene, explicando por que un control
   // NO es un select— y leerlo como marcado real produce hallazgos fantasma que
   // nadie puede arreglar porque no existen en la pagina.
-  const html = crudo.replace(/<!--[sS]*?-->/g, '');
+  const html = crudo.replace(/<!--[\s\S]*?-->/g, '');
+
+  // --- textos que no pueden publicarse ----------------------------------------
+  // Marcadores, relleno y lo que el rebranding retiró. Se busca en el texto
+  // visible (sin scripts), no en atributos técnicos.
+  const visible = html.replace(/<script[\s\S]*?<\/script>/g, '').replace(/<style[\s\S]*?<\/style>/g, '');
+  for (const prohibido of [/\bTODO\b/, /lorem ipsum/i, /No hay plan gratis/i, /Programa Fundadores/i, /\bJulian\b/]) {
+    if (prohibido.test(visible)) note(file, 'texto prohibido', String(prohibido));
+  }
+
+  // --- enlaces a URL viejas ----------------------------------------------------
+  // Una URL que redirige funciona, pero enlazarla desde el propio sitio es un
+  // salto de más y la mantiene viva. Ningún enlace interno apunta a una.
+  for (const m of html.matchAll(/href="(\/[^"#?]*)/g)) {
+    if (redirigidas.has(m[1])) note(file, 'enlace a URL vieja', m[1]);
+  }
 
   // --- enlaces internos que no resuelven a un archivo del build ---------------
   for (const m of html.matchAll(/href="(\/[^"#?]*)"/g)) {

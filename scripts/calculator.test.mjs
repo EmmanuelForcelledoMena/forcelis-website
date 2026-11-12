@@ -18,11 +18,21 @@ import { strict as assert } from 'node:assert';
 import { negocio, planRecomendado } from '../src/config/negocio.ts';
 
 /** Lo que enseña la calculadora para unas entradas dadas. */
-function resultado(N, n, p, fundador = false) {
+function resultado(N, n, p) {
   const { plan, costo } = planRecomendado(N);
-  const costoFinal = fundador ? costo * negocio.fundadores.descuento : costo;
   const ingreso = n * p;
-  return { plan: plan.id, costo: costoFinal, ingreso, margen: ingreso - costoFinal };
+  return { plan: plan.id, costo, ingreso, margen: ingreso - costo };
+}
+
+/**
+ * La línea de la oferta de lanzamiento: con las empresas que caben en el plan
+ * de la oferta, el margen de esos meses es todo el ingreso; con más, no se
+ * calcula (la calculadora lo dice con texto).
+ */
+function margenPrueba(N, n, p) {
+  const o = negocio.oferta_lanzamiento;
+  const incluidas = negocio.planes.find((pl) => pl.id === o.plan).empresas;
+  return N <= incluidas ? n * p : null;
 }
 
 // N, n, p, plan esperado, costo, ingreso, margen
@@ -56,15 +66,18 @@ for (const [N, n, p, plan, costo, ingreso, margen] of casos) {
   comprobar(`N=${N} n=${n} p=${p}`, resultado(N, n, p), { plan, costo, ingreso, margen });
 }
 
-comprobar('N=40 n=15 p=500 con precio de fundador', resultado(40, 15, 500, true), {
-  plan: 'despacho',
-  costo: 995,
-  ingreso: 7500,
-  margen: 6505,
-});
+const comprobarPrueba = (etiqueta, obtenido, esperado) => {
+  if (obtenido === esperado) console.log(`  ok    ${etiqueta}`);
+  else {
+    console.log(`  FALLA ${etiqueta}: esperado ${esperado}, obtenido ${obtenido}`);
+    fallos++;
+  }
+};
+comprobarPrueba('oferta: N=10 n=4 p=500, margen 2000 en los meses gratis', margenPrueba(10, 4, 500), 2000);
+comprobarPrueba('oferta: N=11, fuera del plan de la oferta', margenPrueba(11, 4, 500), null);
 
 if (fallos) {
   console.log(`\n${fallos} caso(s) fallando.`);
   process.exit(1);
 }
-console.log(`\nLos ${casos.length + 1} casos pasan.`);
+console.log(`\nLos ${casos.length + 2} casos pasan.`);

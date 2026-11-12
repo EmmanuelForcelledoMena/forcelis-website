@@ -1,214 +1,49 @@
 {
   "meta": {
-    "title": "Services — Forcelis consulting and advisory",
-    "description": "Diagnostic, consulting sessions, monthly advisory, projects, Monitoring and Managed Services. Contracted separately from any plan."
+    "title": "Services — Mexico market entry, site selection and advisory | Forcelis",
+    "description": "Mexico Market Snapshot from USD 1,500, Market Entry Study, Site Selection and Nearshoring comparisons, and an Advisory Retainer during entry."
   },
   "hero": {
-    "eyebrow": "Professional services",
-    "title": "Human judgment, separate from the platform.",
-    "subtitle": "Every service is contracted separately from any plan, and you don't need one to use Forcelis. The Forcelis team delivers them."
-  },
-  "guide": {
-    "title": "What do you need?",
-    "intro": "Choose by what you want to solve, not by the name of the service.",
-    "items": [
-      {
-        "need": "A one-off answer about your company",
-        "id": "diagnostico"
-      },
-      {
-        "need": "Answers to specific questions about your indicators",
-        "id": "sesion"
-      },
-      {
-        "need": "Guidance for your decisions, month after month",
-        "id": "acompanamiento"
-      },
-      {
-        "need": "A piece of work with defined deliverables",
-        "id": "proyecto"
-      },
-      {
-        "need": "Tracking your indicators every month, with a quarterly review",
-        "id": "monitoreo"
-      },
-      {
-        "need": "Forcelis doing the analytical work for you, every month",
-        "id": "gestionado"
-      }
-    ]
+    "eyebrow": "Services",
+    "title": "Four ways to make the call on Mexico.",
+    "subtitle": "Every project is scoped to your sector and the regions you're considering. Start small with a snapshot, or go straight to a full study."
   },
   "labels": {
-    "for": "Who it is for",
-    "problem": "What it solves",
-    "includes": "What it includes",
-    "limits": "Limits",
-    "duration": "Duration",
-    "from": "From {price}",
-    "perSession": "per session",
-    "perMonth": "per month",
-    "perProject": "per project",
-    "pending": "Pending approval",
-    "limited": "Limited places",
-    "packages": "What each package includes",
-    "advisors": "Advisor version, under your brand: {price}"
+    "includes": "What's included",
+    "timing": "Timing",
+    "price": "Price",
+    "from": "From",
+    "quote": "Quote",
+    "cta": "Book a call",
+    "write": "Ask for a quote"
   },
   "items": {
-    "diagnostico": {
-      "name": "Business Diagnostic",
-      "modality": "one-off payment",
-      "for": "Businesses that want a one-off answer about where they stand.",
-      "problem": "Knowing where the business stands, which findings matter and what to address first.",
-      "includes": [
-        "Business Score and a six-section report",
-        "A 60-minute session on the findings",
-        "The Complete package adds operational analysis using trial balance or ledgers, inventory and sales by customer and product"
-      ],
-      "limits": [
-        "Requires 24 months of CFDI; with fewer, trend indicators are reported as unavailable."
-      ],
-      "duration": "One-off",
-      "cta": "Request a diagnostic",
-      "esencial": "Essential",
-      "completo": "Complete"
+    "snapshot": {
+      "name": "Mexico Market Snapshot",
+      "includes": "A quick view of a sector or product: market size, competition and the most attractive regions.",
+      "timing": "1–2 weeks"
     },
-    "sesion": {
-      "name": "Consulting session",
-      "modality": "pay per session",
-      "for": "Businesses or advisors with a specific question about their numbers.",
-      "problem": "Interpreting indicators, answering financial questions or guiding a specific decision.",
-      "includes": [
-        "One 60 to 90-minute session",
-        "Objective and agenda agreed before the session",
-        "Concrete recommendations on the agenda topics"
-      ],
-      "limits": [
-        "Does not include work after the session or written deliverables, unless agreed separately."
-      ],
-      "duration": "60 to 90 minutes",
-      "cta": "Request a session"
+    "entry": {
+      "name": "Market Entry Study",
+      "includes": "A full study: demand by region, competition, channels, basic regulation, and a recommendation on where and how to enter.",
+      "timing": "3–6 weeks"
     },
-    "acompanamiento": {
-      "name": "Monthly advisory",
-      "modality": "monthly fee",
-      "for": "Management teams that want ongoing guidance for their decisions.",
-      "problem": "Interpreting results, reviewing indicators and guiding financial or operational decisions, month after month.",
-      "includes": [
-        "Guidance to interpret results and review indicators",
-        "Review sessions with the Forcelis team",
-        "Support for financial or operational decisions"
-      ],
-      "limits": [
-        "Forcelis guides; your team does the work. If you want Forcelis to do it, there is Managed Services.",
-        "How many sessions a month, how long they last, which channels and which deliverables are set in writing in the proposal, before starting."
-      ],
-      "duration": "Monthly",
-      "cta": "Request advisory"
+    "site": {
+      "name": "Site Selection / Nearshoring",
+      "includes": "A comparison of 3–5 Mexican cities on labor, suppliers, costs and infrastructure.",
+      "timing": "3–5 weeks"
     },
-    "proyecto": {
-      "name": "Project consulting",
-      "modality": "per project",
-      "for": "Businesses with a specific need that calls for work with defined deliverables.",
-      "problem": "Solving a specific profitability or cost question, with defined deliverables.",
-      "pending": "Other specialties — financial planning, supply chain, finance processes and automation — are pending validation. Ask us before counting on them.",
-      "includes": [
-        "A proposal with scope, deliverables and timeline",
-        "The work described in that proposal"
-      ],
-      "limits": [
-        "The final price depends on the deliverables, the quality of the available data and the complexity.",
-        "It is work by the Forcelis team, not a platform feature."
-      ],
-      "duration": "Depends on scope; the timeline is agreed in the proposal",
-      "cta": "Request a proposal"
-    },
-    "monitoreo": {
-      "name": "Monthly Monitoring",
-      "modality": "monthly fee",
-      "for": "Businesses that want periodic tracking of their indicators, without ongoing guidance.",
-      "problem": "Knowing every month how your indicators are moving, and reviewing the findings with the Forcelis team every quarter.",
-      "pending": "The description and scope are under review so they do not duplicate what the subscription already includes. Before you sign up, we confirm in writing what it includes.",
-      "includes": [
-        "A dashboard and a management report every month",
-        "A 60-minute quarterly review"
-      ],
-      "limits": [
-        "Limited places.",
-        "Only what is on this list is included. For month-to-month guidance there is advisory; for Forcelis to do the work, Managed Services."
-      ],
-      "duration": "Monthly",
-      "cta": "Ask about Monitoring"
-    },
-    "gestionado": {
-      "name": "Managed Services",
-      "modality": "monthly fee under contract",
-      "for": "Businesses that want to delegate recurring analytical or operational work.",
-      "problem": "Having Forcelis do the agreed analytical or operational work every month and deliver what was agreed.",
-      "includes": [
-        "Recurring analytical or operational work, done by the Forcelis team",
-        "Scope, deliverables and capacity agreed in the contract"
-      ],
-      "limits": [
-        "Capacity is not unlimited: every proposal sets deliverables, frequency, work capacity, client responsibilities, response times and renewal terms."
-      ],
-      "duration": "Recurring, under contract",
-      "cta": "Request a Managed Services proposal"
+    "retainer": {
+      "name": "Advisory Retainer",
+      "includes": "Monthly support during entry: suppliers, partners and follow-up.",
+      "timing": "3-month minimum"
     }
   },
-  "monthly": {
-    "title": "Three monthly services, three different things",
-    "caption": "Differences between the monthly services",
-    "rows": {
-      "what": "What you get",
-      "who": "Who does the work",
-      "sessions": "Sessions with Forcelis",
-      "scope": "Scope",
-      "price": "Price, before VAT"
-    },
-    "values": {
-      "monitoreo": {
-        "what": "Periodic tracking of your indicators; description pending approval",
-        "who": "The Forcelis team does the tracking; the decisions are yours",
-        "sessions": "One 60-minute quarterly review",
-        "scope": "Pending approval. Limited places"
-      },
-      "acompanamiento": {
-        "what": "Guidance, review sessions and support to interpret results",
-        "who": "Your team; Forcelis guides",
-        "sessions": "Number and length, per the proposal",
-        "scope": "Guidance, not execution. Limits and channels, per the proposal"
-      },
-      "gestionado": {
-        "what": "Recurring analytical or operational work and the agreed deliverables",
-        "who": "Forcelis, within the contracted capacity",
-        "sessions": "Per the contract",
-        "scope": "Scope, deliverables and capacity, by contract"
-      }
-    }
-  },
-  "process": {
-    "title": "How to contract a service",
-    "intro": "Sign-up is not online. A person reviews every request.",
-    "steps": [
-      {
-        "title": "You send the request",
-        "body": "From the service you are interested in. The form already says which one."
-      },
-      {
-        "title": "We get back to you",
-        "body": "To understand what you need and confirm the service fits."
-      },
-      {
-        "title": "You receive a proposal",
-        "body": "With scope and price. The service starts when you accept it."
-      }
-    ]
-  },
-  "tax": "Prices in Mexican pesos, before VAT.",
+  "note": "All projects are scoped individually. We don't provide legal, tax or immigration advice; we work with local partners when needed.",
   "closing": {
-    "title": "Not sure which one you need?",
-    "body": "Tell us what you want to solve. We will say which service fits, or whether the platform is enough.",
-    "primary": "Contact us",
-    "secondary": "View plans and pricing"
+    "title": "Not sure which one fits?",
+    "body": "Tell me what you're evaluating in 20 minutes, and I'll tell you which study makes sense, or whether none does yet.",
+    "primary": "Book a call",
+    "secondary": "Write to us"
   }
 }

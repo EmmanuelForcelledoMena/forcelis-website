@@ -1,5 +1,16 @@
 ---
+/**
+ * Pie de página.
+ *
+ * Lista las páginas vigentes de cada idioma, agrupadas por línea de negocio.
+ * Lo que redirige (las URL de la etapa anterior) no se enlaza: un enlace a un
+ * reenvío es un clic perdido.
+ *
+ * Arriba lleva la franja del patrón de la marca: es uno de los dos lugares
+ * donde la marca la permite (el otro, los encabezados de sección).
+ */
 import Wordmark from './Wordmark.astro';
+import LanguageSwitcher from './LanguageSwitcher.astro';
 import { path, type Lang, type PageKey } from '../i18n/routes';
 import { common } from '../i18n';
 
@@ -11,54 +22,53 @@ interface Props {
 const { lang } = Astro.props;
 const c = common(lang);
 
-// El pie lista TODAS las páginas que existen, también las que salieron del
-// menú —el diagnóstico y las industrias—: un menú se poda para que se entienda,
-// un pie se completa para que se encuentre.
-const columns: { heading: string; links: PageKey[] }[] = [
-  // Precios entra con la misma condición que en el menú y en el sitemap.
-  // El pie lista lo que el sitio ofrece HOY. Las páginas de la etapa de
-  // software siguen publicadas, pero enlazarlas desde aquí las devolvería a la
-  // circulación: alguien llegaría a una tabla de suscripciones desde un sitio
-  // que dice que Forcelis no vende software. Se llega a ellas solo por su URL.
-  { heading: c.footer.navHeading, links: ['services', 'expansion'] },
-  { heading: c.footer.companyHeading, links: ['about', 'contact'] },
-];
+const columns: { heading: string; links: PageKey[] }[] =
+  lang === 'es'
+    ? [
+        { heading: c.footer.navHeading, links: ['services', 'expansion'] },
+        { heading: c.footer.advisorsHeading, links: ['advisors', 'pricing', 'platform'] },
+        { heading: c.footer.companyHeading, links: ['about', 'contact'] },
+      ]
+    : [
+        { heading: c.footer.navHeading, links: ['services'] },
+        { heading: c.footer.companyHeading, links: ['about', 'contact'] },
+      ];
 
 const legalLinks: { key: PageKey; label: string }[] = [
   { key: 'privacy', label: c.footer.privacy },
   { key: 'terms', label: c.footer.terms },
 ];
 
-const navLabels: Record<string, string> = {
-  services: c.nav.services,
-  expansion: c.nav.expansion,
-  about: c.nav.about,
-  contact: c.nav.contact,
-};
+const label = (key: PageKey) => c.nav[key as keyof typeof c.nav] as string;
+const enlace = 'text-sm text-on-ink-muted transition-colors hover:text-on-ink';
+const encabezado = 'text-[0.6875rem] font-semibold tracking-[0.16em] text-on-ink-muted uppercase';
 ---
 
 <footer class="on-ink bg-ink text-on-ink">
+  <div aria-hidden="true" class="franja-marca"></div>
   <div class="container-page py-16 lg:py-20">
-    <div class="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
-      <div class="max-w-sm">
-        <Wordmark tone="light" />
-        <p class="mt-5 text-sm text-on-ink-muted">{c.footer.blurb}</p>
+    <div
+      class:list={[
+        'grid gap-12',
+        lang === 'es' ? 'sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr_1fr]' : 'sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr]',
+      ]}
+    >
+      <div class="max-w-sm sm:col-span-2 lg:col-span-1">
+        <a href={path('home', lang)} aria-label={`${c.brand.name} — ${c.nav.home}`} class="inline-block">
+          <Wordmark tone="light" height={42} />
+        </a>
+        <p class="mt-6 text-sm leading-relaxed text-on-ink-muted">{c.footer.blurb}</p>
       </div>
 
       {
         columns.map((column) => (
           <nav aria-label={column.heading}>
-            <h2 class="text-[0.6875rem] font-semibold tracking-[0.16em] text-on-ink-muted uppercase">
-              {column.heading}
-            </h2>
+            <h2 class={encabezado}>{column.heading}</h2>
             <ul class="mt-5 space-y-3">
               {column.links.map((key) => (
                 <li>
-                  <a
-                    href={path(key, lang)}
-                    class="text-sm text-on-ink-muted transition-colors hover:text-on-ink"
-                  >
-                    {navLabels[key]}
+                  <a href={path(key, lang)} class={enlace}>
+                    {label(key)}
                   </a>
                 </li>
               ))}
@@ -68,17 +78,12 @@ const navLabels: Record<string, string> = {
       }
 
       <nav aria-label={c.footer.legalHeading}>
-        <h2 class="text-[0.6875rem] font-semibold tracking-[0.16em] text-on-ink-muted uppercase">
-          {c.footer.legalHeading}
-        </h2>
+        <h2 class={encabezado}>{c.footer.legalHeading}</h2>
         <ul class="mt-5 space-y-3">
           {
             legalLinks.map((link) => (
               <li>
-                <a
-                  href={path(link.key, lang)}
-                  class="text-sm text-on-ink-muted transition-colors hover:text-on-ink"
-                >
+                <a href={path(link.key, lang)} class={enlace}>
                   {link.label}
                 </a>
               </li>
@@ -89,13 +94,10 @@ const navLabels: Record<string, string> = {
     </div>
 
     <div class="mt-14 border-t border-line-ink pt-8">
-      <p class="max-w-3xl text-xs leading-relaxed text-on-ink-muted">
-        {c.footer.disclaimer}
-      </p>
-      <div
-        class="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
-      >
+      <p class="max-w-3xl text-xs leading-relaxed text-on-ink-muted">{c.footer.disclaimer}</p>
+      <div class="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <p class="text-xs text-on-ink-muted">{c.footer.copyright}</p>
+        <LanguageSwitcher lang={lang} tone="light" ubicacion="pie" />
       </div>
     </div>
   </div>

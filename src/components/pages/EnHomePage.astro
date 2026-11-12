@@ -1,0 +1,110 @@
+---
+/**
+ * Portada en inglés (`/en/`): la línea de consultoría internacional, para
+ * empresas extranjeras que quieren entrar o crecer en México.
+ *
+ * NO es la traducción de `/es/`. Le habla a otro cliente, con otros servicios
+ * y otros precios (en dólares, en `negocio.servicios_internacionales`). Lleva
+ * el estilo oscuro que la marca permite para esta línea.
+ */
+import Base from '../../layouts/Base.astro';
+import Section from '../Section.astro';
+import SectionHeader from '../SectionHeader.astro';
+import Button from '../Button.astro';
+import PageHero from '../PageHero.astro';
+import Cta from '../Cta.astro';
+import { negocio, precioInternacional } from '../../config/negocio';
+import { agenda } from '../../config/enlaces';
+import { path } from '../../i18n/routes';
+import { en } from '../../i18n';
+
+const lang = 'en';
+const h = en('home');
+const s = en('services');
+const agendaHref = agenda(lang);
+const servicios = negocio.servicios_internacionales;
+---
+
+<Base lang={lang} pageKey="home" title={h.meta.title} description={h.meta.description}>
+  <PageHero
+    tone="dark"
+    size="tall"
+    photoKey="en-home"
+    eyebrow={h.hero.eyebrow}
+    title={h.hero.titleLead}
+    titleAccent={h.hero.titleAccent}
+    intro={h.hero.subtitle}
+  >
+    <Fragment slot="actions">
+      <Button href={agendaHref} variant="onInk" size="lg">{h.hero.primary}</Button>
+      <Button href={path('services', lang)} variant="onInkGhost" size="lg">{h.hero.secondary}</Button>
+    </Fragment>
+  </PageHero>
+
+  <!-- ================================================================ PROOF -->
+  <Section tone="ground">
+    <div class="reveal">
+      <SectionHeader eyebrow={h.proof.eyebrow} title={h.proof.title} />
+    </div>
+    <ul class="mt-12 grid gap-6 md:grid-cols-3">
+      {
+        h.proof.items.map((item, i) => (
+          <li class="reveal rounded-card border border-line bg-panel p-7" data-reveal-delay={i * 80}>
+            <span aria-hidden="true" class="block h-1 w-10 rounded-full bg-brand" />
+            <h3 class="mt-5 text-xl leading-snug font-medium text-ink">{item.title}</h3>
+            <p class="mt-3 text-[0.9375rem] leading-relaxed text-muted">{item.body}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </Section>
+
+  <!-- ================================================================== WHO -->
+  <Section tone="ink">
+    <div class="reveal">
+      <SectionHeader eyebrow={h.who.eyebrow} title={h.who.title} tone="light" />
+    </div>
+    <ol class="mt-12 grid gap-6 md:grid-cols-3">
+      {
+        h.who.items.map((item, i) => (
+          <li class="reveal rounded-card border border-line-ink bg-ink-soft p-7" data-reveal-delay={i * 80}>
+            <span class="tnum text-sm font-semibold text-on-ink-muted">{String(i + 1).padStart(2, '0')}</span>
+            <h3 class="mt-4 text-xl leading-snug font-medium text-on-ink">{item.title}</h3>
+            <p class="mt-3 text-[0.9375rem] leading-relaxed text-on-ink-muted">{item.body}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </Section>
+
+  <!-- ============================================================= SERVICES -->
+  <Section tone="ground">
+    <div class="reveal grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end">
+      <SectionHeader eyebrow={h.services.eyebrow} title={h.services.title} intro={h.services.intro} />
+      <Button href={path('services', lang)} variant="secondary">{h.services.cta}</Button>
+    </div>
+    <ul class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        servicios.map((sv, i) => {
+          const importe = precioInternacional(sv);
+          return (
+            <li class="reveal" data-reveal-delay={i * 60}>
+              <a
+                href={`${path('services', lang)}#${sv.id}`}
+                class="flex h-full flex-col rounded-card border border-line bg-panel p-6 transition-colors hover:border-brand"
+              >
+                <span class="text-lg leading-snug font-medium text-ink">{s.items[sv.id].name}</span>
+                <span class="mt-2 text-sm text-muted">{s.items[sv.id].timing}</span>
+                <span class="tnum mt-auto pt-6 text-base font-semibold text-ink">
+                  {importe ? `${s.labels.from} ${importe}` : s.labels.quote}
+                </span>
+              </a>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </Section>
+
+  <Cta tone="dark" title={h.closing.title} body={h.closing.body} primary={{ href: agendaHref, label: h.closing.primary }} />
+</Base>

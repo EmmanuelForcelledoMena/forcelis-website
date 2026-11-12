@@ -1,94 +1,86 @@
 {
   "meta": {
-    "title": "Contact — Let's understand the business",
-    "description": "Tell us what you want to understand about your business. A person reads it and gives you a straight answer on whether Forcelis can help."
+    "title": "Contact — Let's talk about Mexico | Forcelis",
+    "description": "Book a 20-minute call or tell us what you're evaluating in Mexico. We'll reply within one business day."
   },
   "hero": {
     "eyebrow": "Contact",
-    "title": "Let's understand the business.",
-    "subtitle": "Tell us what you're trying to understand. We'll tell you whether Forcelis can help."
+    "title": "Let's talk about Mexico.",
+    "subtitle": "20 minutes, no cost. Tell me what you're evaluating and I'll tell you honestly whether a study makes sense."
+  },
+  "schedule": {
+    "title": "Fastest: pick a time",
+    "body": "Open the calendar, choose a 20-minute slot and we'll talk. No preparation needed.",
+    "cta": "Book a call"
+  },
+  "formIntro": {
+    "title": "Or write to me",
+    "body": "If you'd rather share some context first, fill this in and I'll reply within one business day."
   },
   "form": {
-    "legend": "Your details",
+    "legend": "Your company",
     "name": "Name",
     "email": "Work email",
+    "emailPlaceholder": "name@company.com",
     "company": "Company",
-    "website": "Website",
-    "websiteOptional": "Optional",
-    "intent": "What are you looking for?",
-    "intentHint": "Pick the one closest to your case. It changes who answers you.",
-    "planSelected": "Plan you are interested in: {plan}. You can change it in your message.",
-    "serviceSelected": "Service you are interested in: {service}. You can change it in your message.",
-    "enterpriseNote": "To quote, tell us in your message how many companies, the approximate monthly CFDI volume, the support you need and the scope you are looking for.",
+    "sector": "Industry",
+    "sectorPlaceholder": "Manufacturing, retail, food, services…",
+    "branches": "Number of locations",
+    "city": "City",
+    "country": "Country",
+    "intent": "What are you interested in?",
+    "intentHint": "Pick the closest one.",
+    "planSelected": "Plan you're interested in: {plan}.",
+    "serviceSelected": "Service you're interested in: {service}.",
     "intentOptions": {
-      "demo": "I want to see a product demo",
-      "asesor": "I advise businesses (accountant, practice or consultant)",
-      "fundador": "I want the Founders programme",
-      "individual": "I have a business: Individual plan",
-        "enterprise": "I want an Enterprise quote",
-      "diagnostico": "I want a diagnostic",
-      "monitoreo": "I am interested in Monthly Monitoring",
-        "servicio": "I am interested in a professional service"
+      "diagnostico": "Business Diagnostic",
+      "expansion": "Expansion Study",
+      "mercado": "Market Study",
+      "asesor": "Platform for advisors",
+      "prueba": "Free trial for advisors",
+      "otro": "Something else",
+      "internacional": "Entering Mexico"
     },
-    "message": "What are you trying to understand?",
-    "messageHint": "A specific question makes the first conversation more useful. One or two sentences are enough.",
-    "consent": "I have read the Privacy Policy and consent to Forcelis processing this information in order to respond.",
-    "consentLink": "Privacy Policy",
+    "message": "What are you evaluating in Mexico?",
+    "messageHint": "A sentence or two is enough: the product or sector, and the decision you need to make.",
+    "consent": "I have read the Privacy Notice and agree that Forcelis may use this information to reply.",
+    "consentLink": "Privacy Notice",
     "submit": "Send",
     "submitting": "Sending…",
-    "required": "Required",
     "successTitle": "Message sent.",
-    "successBody": "Thank you. We will get back to you at the email address you provided.",
-    "errorTitle": "The message could not be sent.",
-    "errorBody": "Something went wrong on the way. Please try again in a few minutes.",
-    "unconfiguredTitle": "The form is not connected yet.",
-    "unconfiguredBody": "This site has no form endpoint configured, so nothing would be delivered. Set PUBLIC_FORM_ENDPOINT before publishing — see the README.",
+    "successBody": "Thank you. I'll reply to the email you left.",
+    "errorTitle": "The message couldn't be sent.",
+    "errorBody": "Something went wrong on the way. Try again in a few minutes, or book a time in the calendar.",
+    "unconfiguredTitle": "The form isn't connected yet.",
+    "unconfiguredBody": "This site has no form service configured, so nothing would be delivered. In the meantime, book a time in the calendar.",
     "errors": {
       "required": "This field is required.",
-      "intent": "Pick what you are looking for.",
-      "email": "Enter a valid email address — for example, name@company.com",
+      "intent": "Choose what you're interested in.",
+      "email": "Enter a valid email — for example, name@company.com",
       "emailTypo": "Did you mean {suggestion}?",
       "emailTypoAction": "Use it",
       "minLength": "Please write a little more — at least {min} characters.",
-      "url": "Enter a website address like company.com, or leave the field empty.",
-      "consent": "Accept the Privacy Policy to continue.",
+      "consent": "Accept the Privacy Notice to continue.",
       "summaryOne": "One field needs your attention.",
       "summaryMany": "{n} fields need your attention.",
-      "tooFast": "One moment: press Send again in a couple of seconds."
+      "tooFast": "One moment: press Send again in a couple of seconds.",
+      "branches": "Enter a number of 0 or more."
     }
   },
   "next": {
     "title": "What happens next",
     "steps": [
-      {
-        "title": "We read it",
-        "body": "A person reviews your message, not a routing rule."
-      },
-      {
-        "title": "A conversation tailored to you",
-        "body": "To understand the business and the question. How long it takes depends on the type of client. No preparation needed."
-      },
-      {
-        "title": "Concrete next step",
-        "body": "Scope and approach based on the discussion, not on a standard package."
-      }
+      { "title": "I read it myself", "body": "No assistant, no routing rules. I read it and I reply." },
+      { "title": "20 minutes", "body": "A short call to understand your company and the decision you're facing." },
+      { "title": "An honest answer", "body": "I'll tell you which study makes sense, or that none does." }
     ]
   },
   "assurance": {
     "title": "Before you write",
     "items": [
-      {
-        "title": "No tax credentials",
-        "body": "Forcelis never asks for tax portal access."
-      },
-      {
-        "title": "No banking credentials",
-        "body": "Analysis works from files you export yourself."
-      },
-      {
-        "title": "No obligation",
-        "body": "A first conversation is confidential, whether or not an engagement follows."
-      }
+      { "title": "No obligation", "body": "The first call is free and commits you to nothing." },
+      { "title": "Confidential", "body": "What you share stays between us, whether or not there's a project." },
+      { "title": "Your language", "body": "English, Spanish or Portuguese; Italian and Japanese too." }
     ]
   }
 }
