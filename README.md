@@ -1,18 +1,26 @@
 # Forcelis Group — sitio web
 
-Sitio corporativo bilingüe (inglés y español) de **Forcelis Group**, estático y
-publicado en GitHub Pages sobre el dominio `forcelis-group.com`.
+Sitio de **Forcelis**, estático y publicado en GitHub Pages sobre el dominio
+`forcelis-group.com`.
 
-Once páginas por idioma: portada, para contadores y consultores, para
-empresas, plataforma, precios, diagnóstico empresarial, industrias, nosotros,
-contacto, gracias, aviso de privacidad y términos.
+Desde el rebranding de noviembre de 2026 el sitio se organiza en **tres líneas
+de negocio**, cada una en su idioma:
 
-**El cliente principal son los asesores** —contadores, despachos y
-consultores— que usan Forcelis con su propia marca para vender asesoría a sus
-clientes. Los secundarios son el emprendedor que quiere ver su empresa (plan
-Individual) y la empresa que compra un diagnóstico o el Monitoreo Mensual.
+| Línea | Cliente | Dónde vive |
+|---|---|---|
+| Consultoría México | Pequeños negocios y PyMEs mexicanas | `/es/`, `/es/servicios/`, `/es/estudio-de-expansion/` |
+| Plataforma para asesores | Contadores, despachos y consultores | `/es/para-asesores/`, `/es/precios/`, `/es/plataforma/` |
+| Consultoría internacional | Empresas extranjeras que entran a México | `/en/`, `/en/services/`, `/en/about/`, `/en/contact/` |
+
+**El inglés no es una traducción del español.** Le habla a otro cliente, con
+otros servicios y otros precios. Lo único que comparten los dos idiomas es la
+barra, el pie, el formulario, la página de gracias y los legales.
+
 Forcelis no hace contabilidad ni declaraciones, y eso se dice en el pie de
 todas las páginas.
+
+El registro del rebranding está en [`CHANGELOG-rebranding.md`](CHANGELOG-rebranding.md)
+y lo que falta por resolver en [`PENDIENTES.md`](PENDIENTES.md).
 
 ---
 
@@ -26,28 +34,29 @@ npm install
 npm run dev
 ```
 
-`http://localhost:4321` — la raíz reenvía a `/en/` o a `/es/` según la
-preferencia guardada y, si no hay ninguna, según el idioma del navegador.
+`http://localhost:4321` — la raíz reenvía a `/es/` (o a `/en/` si la persona
+eligió el inglés con el selector).
 
 ```bash
 npm run build          # genera dist/
 npm run preview        # sirve dist/ como lo hará GitHub Pages
 npm run check          # tipos de TypeScript y de las plantillas Astro
-npm run i18n:check     # paridad de claves entre inglés y español
-npm run test:calc      # los 8 casos de la calculadora de margen
-npm run audit          # revisa dist/: enlaces, encabezados, alt, metadatos
-npm run check:precios  # coherencia del interruptor de precios
+npm run i18n:check     # paridad de los diccionarios compartidos y texto del otro idioma
+npm run test:calc      # los casos de la calculadora de margen y de la oferta
+npm run audit          # revisa dist/: enlaces, URL viejas, encabezados, alt, textos prohibidos
+npm run check:precios  # precios de negocio.ts contra lo aprobado y contra el build
+npm run build:brand    # regenera símbolo, logotipos, patrón, favicon y og-image
+npm run build:linkedin # regenera los recursos de LinkedIn
 ```
 
-Las seis de golpe, en el orden correcto:
+Las seis primeras de golpe, en el orden correcto:
 
 ```bash
 npm run verify
 ```
 
 `npm run check` tiene que salir en **0 errores, 0 avisos, 0 sugerencias** antes
-de subir nada, y `npm run i18n:check` es lo que atrapa que una traducción
-perdió una clave.
+de subir nada.
 
 ---
 
@@ -56,96 +65,93 @@ perdió una clave.
 ```
 src/
 ├── config/
-│   ├── negocio.ts    PRECIOS, interruptores, ligas e IDs de analítica — archivo único
-│   └── enlaces.ts    resuelve los botones de agenda y registro, con su `?tipo=`
+│   ├── negocio.ts    PRECIOS, oferta de lanzamiento, ligas e IDs — archivo único
+│   └── enlaces.ts    resuelve los botones de agenda y contacto, con su `?tipo=`
 ├── i18n/
-│   ├── routes.ts     mapa página → slug por idioma; lo usa el selector de idioma
-│   └── index.ts      carga de diccionarios, con el tipo anclado al inglés
+│   ├── routes.ts     páginas por idioma, menús, páginas equivalentes (hreflang)
+│   ├── index.ts      diccionarios: t() para los compartidos, es()/en() para los propios
+│   └── servicios.ts  el catálogo de consultoría con sus importes ya resueltos
 ├── locales/
-│   ├── en/           un JSON por página
-│   └── es/           mismas claves, mismo orden
+│   ├── es/           un JSON por página en español
+│   └── en/           un JSON por página en inglés (common, contact, thanks y legal
+│                     tienen la misma forma que en español)
 ├── components/
-│   ├── pages/        el cuerpo de cada página, compartido por los dos idiomas
-│   └── *.astro       navegación, pie, tarjetas, tablero, diagramas, formulario
+│   ├── pages/        el cuerpo de cada página
+│   └── *.astro       barra, pie, logotipo, cabecera, tarjetas, diagramas, formulario
 ├── layouts/Base.astro  <head> completo: SEO, hreflang, Open Graph, JSON-LD
 ├── pages/
-│   ├── index.astro   raíz: reenvía a un idioma
+│   ├── index.astro   raíz: reenvía a /es/
 │   ├── 404.astro     bilingüe, porque GitHub Pages sirve una sola para todo
-│   ├── en/*.astro    slugs en inglés
-│   └── es/*.astro    slugs en español
-└── styles/global.css tokens de color y tipografía
+│   ├── es/*.astro    rutas en español
+│   └── en/*.astro    rutas en inglés
+└── styles/global.css paleta de marca (--fc-*), tokens del sitio y tipografía
 
-public/               CNAME, favicons, og-image.png, tipografías Montserrat e Inter
-src/assets/heroes/    fotografía de cabecera por página (ver su README)
-src/assets/industries/ fotografía por sector (ver su README)
-scripts/build-og.mjs       regenera og-image.png, apple-touch-icon.png y los favicons
-scripts/build-linkedin.mjs recursos de la página de empresa en LinkedIn
-scripts/i18n-check.mjs     comprueba que los JSON en español tengan las claves del inglés
-scripts/audit.mjs          revisa el build: enlaces, encabezados, alt, metadatos
-scripts/calculator.test.mjs los casos de la calculadora de margen
-scripts/check-precios.mjs  comprueba el interruptor de precios contra el build
+public/brand/         simbolo.svg, logo-horizontal.svg, logo-horizontal-blanco.svg, patron.svg
+public/fonts/         Jost y Montserrat, servidas desde el propio dominio
+public/               CNAME, favicons, og-image.png
+src/assets/heroes/    fotografía de cabecera por página (opcional, ver su README)
+src/assets/equipo/    foto del fundador (opcional, ver su README)
+brand/linkedin/       recursos para la página de empresa en LinkedIn
+docs/capturas-rebranding/  capturas del sitio en producción a 375, 768 y 1280 px
 ```
 
-### Las dos reglas de este repositorio
+### Las reglas de este repositorio
 
-**1. Inglés y español no son dos sitios.** Son dos versiones localizadas del
-mismo. La maquetación vive una sola vez en `src/components/pages/`; lo único que
-cambia es el diccionario que recibe. Si te encuentras copiando una plantilla
-para cambiarle el texto, algo se hizo mal.
+**1. Ningún precio fuera de `negocio.ts`.** Ni en una plantilla ni en un
+diccionario. `npm run check:precios` falla si una página publica un importe que
+no sale de ese archivo, y también si el archivo deja de coincidir con la lista
+aprobada (que vive en el propio script: cambiar un precio es una decisión en
+dos sitios, nunca un dedazo en uno).
 
 **2. Ningún texto vive en una plantilla.** Todo el copy está en
-`src/locales/`. Un texto escrito directamente en un `.astro` es un texto que
-existe en un idioma y no en el otro, y eso no falla: simplemente sale en inglés
-en la versión en español.
+`src/locales/`. Las cifras de la oferta («3 meses», «50 asesores») se escriben
+en el texto como `{months}` y `{n}` y las rellena la página desde `negocio.ts`.
+
+**3. Nada inventado.** Ni clientes, ni testimonios, ni cifras. Todo tablero o
+reporte de ejemplo lleva la etiqueta «Datos ilustrativos». Si falta un dato que
+solo tiene el dueño (foto, LinkedIn, correo), la página funciona sin él y el
+pendiente va a `PENDIENTES.md`; nunca un «TODO» publicado. `npm run audit`
+busca esos marcadores en el build.
 
 ### Agregar una página
 
-1. Añade la clave a `PageKey` y su par de slugs a `SLUGS`, en `src/i18n/routes.ts`.
-2. Crea `src/locales/en/<pagina>.json` y `src/locales/es/<pagina>.json`.
-3. Regístralos en `DICTIONARIES`, en `src/i18n/index.ts`.
-4. Crea el cuerpo en `src/components/pages/<Pagina>Page.astro`.
-5. Crea los dos archivos de ruta: `src/pages/en/<slug-en>.astro` y
-   `src/pages/es/<slug-es>.astro`, cada uno de tres líneas.
+1. Añade la clave a `PageKey` y su slug a `SLUGS` en `src/i18n/routes.ts`, solo
+   en el idioma o idiomas donde exista.
+2. Crea su JSON en `src/locales/<idioma>/` y regístralo en `src/i18n/index.ts`.
+3. Crea el cuerpo en `src/components/pages/` y la ruta en `src/pages/<idioma>/`.
+4. Si debe ir en el menú, añádela a `NAV_PAGES[idioma]`. Si es la misma página
+   en los dos idiomas (una traducción de verdad), añádela a `EQUIVALENT_PAGES`
+   para que lleve `hreflang`.
 
-El selector de idioma, el `hreflang`, el canónico y el sitemap salen solos del
-paso 1. Si la agregas a `NAV_PAGES` también aparece en la navegación.
+`path()` falla en la build si se le pide una página que no existe en ese idioma:
+un enlace roto es un error de compilación.
 
-### Traducir
+### Retirar una página
 
-Los dos JSON de una página tienen **las mismas claves**. El tipo de retorno de
-`t()` está anclado al inglés a propósito, pero un `as` no detecta una clave
-que falte en español; para eso está `npm run i18n:check`, que compara los dos
-árboles clave por clave (y la longitud de cada lista) y falla si difieren.
-
-El español es de México y no una traducción literal. «Turn business data into
-better decisions» es «Convierte los datos de tu empresa en mejores decisiones»,
-no «Convierte datos de negocio en mejores decisiones».
+No se borra la URL: se añade a `redirects` en `astro.config.mjs`, apuntando a la
+página que hoy cubre lo mismo. Astro genera el reenvío (meta refresh + canónica
++ enlace visible) y `npm run audit` avisa si algún enlace interno sigue
+apuntando a la URL vieja.
 
 ---
 
-## El interruptor de precios
+## Precios y oferta
 
-Todo el dinero del sitio vive en `src/config/negocio.ts`. Para publicar los
-precios:
+Todo el dinero del sitio vive en `src/config/negocio.ts`: los seis servicios de
+consultoría (pesos más IVA), los planes de la plataforma y la empresa adicional,
+la oferta de lanzamiento (`oferta_lanzamiento`: plan, meses gratis, cupo y el
+descuento posterior) y los servicios internacionales (dólares).
 
-1. Abre `src/config/negocio.ts`.
-2. Cambia `mostrar_precios: false` por `mostrar_precios: true`.
-3. `git commit` y `git push`. El despliegue es automático.
-
-Eso es todo. No hay nada más que tocar. Con el interruptor encendido aparecen
-los precios en todas las páginas, la calculadora de margen en «Para contadores
-y consultores», y la página de Precios entra al menú y al sitemap y deja de
-servirse con `noindex`. Apagado, no hay **ni un importe** en ninguna de las dos
-versiones del sitio — y eso lo comprueba `npm run check:precios` contra el HTML
-construido, no contra la intención.
+`mostrar_precios: false` apaga los importes de la plataforma (planes y
+calculadora) en todas las páginas; los servicios de consultoría se siguen
+mostrando porque su precio es parte de la oferta.
 
 Los demás valores del mismo archivo:
 
-| Clave | Qué hace si está vacía o en `false` |
+| Clave | Qué hace si está vacía |
 |---|---|
-| `prueba_disponible` | No se menciona la prueba de 14 días |
-| `url_agenda` | «Agenda una llamada» cae al formulario con `?tipo=asesor` |
-| `url_registro` | «Lo quiero» del plan Individual cae al formulario con `?tipo=individual` |
+| `url_agenda` | «Agenda una llamada» cae al formulario de contacto con su `?tipo=` |
+| `url_linkedin` | No se enlaza LinkedIn en Nosotros ni en Contacto |
 | `url_app` | No se muestra el enlace «Entrar» en la barra |
 | `ga4_id`, `meta_pixel_id`, `google_ads_id` | Ese script no se carga, y si los tres están vacíos no sale el banner de cookies |
 
@@ -156,8 +162,8 @@ Los demás valores del mismo archivo:
 **Ningún script de tercero se carga sin consentimiento.** El banner de
 `CookieNotice.astro` tiene rechazo por omisión y dos botones del mismo peso;
 hasta que alguien pulsa «Aceptar» no se pide nada a ningún dominio externo,
-Google Analytics incluido. Es lo que exige el RGPD, que es la norma aplicable
-mientras la sociedad esté domiciliada en la UE.
+Google Analytics incluido. Es lo que exigen las normas de protección de datos
+más estrictas que le aplican a un sitio con visitantes de varios países.
 
 **Antes de poner un identificador de analítica hay que actualizar el aviso de
 privacidad**, que hoy dice que no hay ningún servicio activo. Esa frase deja de
@@ -307,9 +313,10 @@ Evita que otra cuenta reclame el dominio en Pages:
 ## Antes de publicar
 
 - [ ] `npm run verify` — las seis comprobaciones, sin hallazgos
-- [ ] `npm run preview` — recorrer las dos versiones
+- [ ] `npm run preview` — recorrer las tres líneas (consultoría, asesores, inglés)
 - [ ] `PUBLIC_FORM_ENDPOINT` configurada y **probada con un envío real de cada
-      uno de los cinco tipos**, comprobando que el correo llega con su tipo y
+      uno de los tipos** (diagnostico, expansion, mercado, asesor, prueba,
+      internacional), comprobando que el correo llega con su tipo y
       sus `utm_*`
 - [ ] Aviso de privacidad y términos revisados por alguien de legal
 - [ ] **Antes de poner un identificador de analítica**, actualizar el apartado
@@ -321,84 +328,51 @@ Evita que otra cuenta reclame el dominio en Pages:
 
 ## Decisiones que conviene conocer antes de tocar el código
 
-**Cada página responde una sola pregunta, y el orden de sus secciones es el de
-esa respuesta.** Portada: «¿qué es Forcelis y para quién?». Para contadores:
-«¿cómo gano dinero con esto?». Para empresas: «¿qué puedo comprar?».
-Plataforma: «¿cómo funciona la tecnología?». Diagnóstico: «¿qué recibo
-exactamente?». Industrias: «¿es para mi negocio?». Nosotros: «¿por qué existe y
-por qué confiar?». Contacto: «¿qué pasa si escribo?». Antes de añadir una
-sección, pregúntate a cuál de esas preguntas contribuye; si a ninguna, va en
-otra página o no va.
+**Un estilo por audiencia.** Las páginas para dueños de negocio en México van
+en blanco cálido, texto negro y rojo de acento: cercanas, no corporativas. Las
+de asesores (Para asesores, Precios, Plataforma) y toda la versión en inglés
+abren con una cabecera negra con el símbolo en rojo, más tecnológica. Lo decide
+la prop `tone` de `PageHero.astro` y `Cta.astro`.
 
-**La portada reparte, no vende.** Hay dos públicos con preguntas distintas, y
-lo único que tiene que hacer la portada es llevar a cada uno a su página en el
-primer clic. De ahí los dos botones del hero y las dos tarjetas del centro.
+**La marca sale de un solo lugar.** Los cinco colores están en `:root` de
+`src/styles/global.css` como `--fc-vino`, `--fc-rojo`, `--fc-negro`,
+`--fc-blanco` y `--fc-arena`, y el tema de Tailwind los lee de ahí. El símbolo y
+el logotipo salen de los vectores del PDF de marca y los genera
+`scripts/build-brand.mjs`; `Wordmark.astro` lee los trazos del SVG generado, así
+que cambiar la marca es correr ese script.
 
-**Lo largo se pliega, no se borra.** El detalle técnico de la plataforma, las
-nueve capacidades, los seis bloques de soluciones, los 25 indicadores del
-diagnóstico, la historia completa de la empresa: todo sigue en la página, dentro
-de un `<details>` (`Disclosure.astro`). Es HTML nativo —funciona sin script,
-Ctrl+F lo abre— y un enlace con ancla a un bloque plegado lo abre al aterrizar
-(script en `Base.astro`). La regla para decidir qué se pliega: lo que hace
-falta para DECIDIR va a la vista; lo que hace falta para VERIFICAR va plegado.
+**Reglas de contraste, medidas y no negociables:**
 
-**Los cinco valores del score viven en `common.json`** (`scores`), no por
-página: la portada y el diagnóstico enseñan el mismo tablero y no pueden
-diferir. La calificación global es su media redondeada (72), calculada en
-`ScorePanel.astro` y en el informe dibujado de `ReportPreview.astro`; no es
-un número que se escriba a mano en ningún sitio.
+- Texto blanco sobre rojo (6.3:1) y negro sobre blanco o arena: sí.
+- **Rojo y vino sobre negro: nunca como texto** (2.5:1 y 1.7:1). Sobre fondo
+  oscuro el acento de texto es la arena (8.8:1); el rojo solo va en el símbolo
+  o en formas grandes que no son texto.
+- Rojo sobre blanco, solo en títulos grandes. El texto pequeño de acento sobre
+  claro va en vino (9.5:1).
+- La arena no es texto sobre claro (1.9:1): solo superficie o separador.
 
-**La paleta y la tipografía vienen del manual de marca.** Seis colores —fondo
-`#f7f6f4`, taupe `#c7c3a9`, tinta `#1a1a1a`, gris `#5a5a5a`, rojo `#c02626` y
-rojo oscuro `#8b1e1e`— y dos familias: Montserrat para titulares y la marca
-denominativa, Inter para el texto. Los grises de tarjeta y línea son derivados.
-Todo está en `src/styles/global.css`, con el contraste de cada par medido y
-anotado. Dos reglas salen de esas medidas y no se negocian:
+**El patrón es un detalle.** Las barras diagonales van como franja fina
+(`franja-marca`): bajo las cabeceras claras, sobre el pie y en los cierres.
+Nunca como fondo detrás de texto.
 
-- **El rojo es texto solo sobre claro.** Da 5.5:1 sobre el fondo (AA) — por eso
-  el remate del titular del hero puede ir en rojo — pero **2.94:1 sobre tinta**,
-  que falla incluso como texto grande. Sobre superficies oscuras el acento es el
-  **taupe** (9.8:1), que es también lo que hace el logotipo en su versión oscura.
-  Por lo mismo, los botones son rojos sobre claro y taupe sobre tinta.
-- **El taupe no es texto sobre claro** (1.65:1): ahí solo es relleno.
-
-El gris del manual da 6.4:1 sobre fondo: AA, no AAA. Es una decisión de marca
-tomada a sabiendas; la paleta anterior, heredada del producto, estaba en 7:1.
-
-**El logotipo vive en tres archivos** y cambiarlo es cambiar los tres:
-`src/components/Wordmark.astro` (lockup de la barra y el pie),
-`public/favicon.svg` y `scripts/build-og.mjs` (tarjeta social e icono de iOS,
-regenerados con `npm run build:og`). El glifo está redibujado en vectores a
-partir del manual; los ajustes respecto a él son de espaciado. Los recursos
-para la página de LinkedIn (logotipo, portada, textos de cada campo) están en
-`brand/linkedin/` y se regeneran con `npm run build:linkedin`.
+**Tipografía con la licencia en espera.** Las pilas son
+`"Futura", "Jost"` y `"Gotham", "Montserrat"`. Jost y Montserrat se sirven desde
+el propio dominio; si se compran las licencias de Futura y Gotham, se añaden sus
+`@font-face` en `global.css` y no cambia nada más.
 
 **Nada depende de JavaScript para poder leerse.** La animación de entrada se
 apaga sola si el observador del navegador no responde en dos segundos; el panel
 del score ya trae escritos el número y el ancho finales antes de animarse; el
-formulario funciona con un POST normal si el script no carga. Es la diferencia
-entre una animación y una página en blanco.
+formulario funciona con un POST normal si el script no carga.
 
-**Las cifras de los tableros son inventadas, van etiquetadas y cuadran entre
-sí.** Las doce barras de la gráfica de la página de plataforma suman los 184.2M
-del indicador de ingresos, y la media de la línea de margen es el 31.6% de su
-tarjeta. Si cambias una, cambia la otra: el público de este sitio son personas
-que trabajan con números y notan un tablero que no cuadra.
+**La página de plataforma separa lo que funciona de lo que no.** Lo que está en
+«Qué incluye» y en las capacidades técnicas está corriendo en el producto. La
+«Hoja de ruta» lista solo lo que está en desarrollo, con su etiqueta. Antes de
+mover algo de lista, verifícalo en el repositorio de la plataforma.
 
-**La página de plataforma separa lo que funciona de lo que no.** Las nueve
-capacidades plegadas bajo «ver capacidades técnicas» están corriendo en el
-producto. La sección «Hoja de ruta», al final y con la etiqueta «En desarrollo»
-en cada entrada, lista solo dos cosas: la comparación sectorial con datos de
-INEGI y el benchmark anónimo. Los conectores directos a banca NO están ahí a
-propósito: contradicen la promesa de no pedir credenciales bancarias, que es
-de las pocas afirmaciones que el sitio repite en cuatro páginas. Antes de mover
-algo de lista, verifícalo en el repositorio de la plataforma; esa distinción es
-la mitad de la credibilidad de la página.
-
-**Sin logotipos de clientes, sin años de experiencia, sin premios.** Forcelis es
-una empresa nueva y el sitio lo dice en la página «Nosotros». La confianza la
-construyen el método y el producto, que están descritos con suficiente detalle
-para poder evaluarlos.
+**La marca propia del asesor está «por confirmar».** Mientras no se verifique en
+el producto, ninguna página promete que los entregables salen con la marca del
+asesor.
 
 ---
 
@@ -407,8 +381,8 @@ para poder evaluarlos.
 Astro 5 · TypeScript en modo estricto · Tailwind CSS 4 · sin framework de
 componentes en el cliente.
 
-Todo el JavaScript que llega al navegador son tres bloques cortos: el menú
-móvil, el revelado al hacer scroll y el envío del formulario. No hay biblioteca
-de animación, no hay biblioteca de gráficas —el tablero es SVG generado en la
-build— y no hay peticiones a dominios de terceros: Montserrat e Inter se sirven
+Todo el JavaScript que llega al navegador son bloques cortos: el menú móvil, el
+revelado al hacer scroll, la calculadora de margen y el envío del formulario. No
+hay biblioteca de animación ni de gráficas —los tableros son SVG generados en la
+build— y no hay peticiones a dominios de terceros: las tipografías se sirven
 desde el propio sitio.
