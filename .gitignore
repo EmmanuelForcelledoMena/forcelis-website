@@ -33,3 +33,6 @@ npm-debug.log*
 docs/internos/
 **/*Master_Prompt*.md
 **/*.xml.cfdi
+
+# Carpeta de trabajo temporal (visor del PDF de marca)
+public/_tmp/

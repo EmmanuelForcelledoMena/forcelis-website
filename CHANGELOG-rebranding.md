@@ -112,3 +112,21 @@ Si aun así se quiere hacer, los pasos están en PENDIENTES.
 ## 3. Decisiones tomadas
 
 (Se van anotando conforme se toman.)
+
+- **Símbolo extraído de los vectores del PDF**, no redibujado: vértices exactos
+  leídos con pdf.js. La barra izquierda es `#C63030`, un rojo que no está en la
+  tabla de la paleta pero sí en el PDF; se respeta tal cual.
+- **Recursos de marca en `public/brand/`** y no en `assets/brand/`: en Astro,
+  `public/` es lo que se sirve, así los SVG tienen URL propia
+  (`/brand/logo-horizontal.svg`, etc.).
+- **Logotipo a trazos con Jost 500** ajustado a la caja medida en el PDF (mismo
+  alto de mayúsculas, ancho y separación del símbolo). Si se compra Futura, se
+  cambia una ruta en `scripts/build-brand.mjs` y se vuelve a generar.
+- **Fuentes servidas desde el propio dominio** (no desde Google Fonts): ninguna
+  IP de visitante sale a terceros. Mismo criterio que ya tenía el sitio.
+- **`og-image.png` sin frase**: fondo negro, logotipo y dominio, con una franja
+  del patrón. Sirve igual para la página en español y en inglés.
+- **Un solo generador** (`npm run build:brand`) para símbolo, logotipos,
+  patrón, favicon (SVG, PNG, ICO), icono de iOS e imagen para redes; sustituye
+  a `scripts/build-og.mjs`, que dibujaba la marca anterior.
+- **Historial de git no reescrito**: ver sección 1.
