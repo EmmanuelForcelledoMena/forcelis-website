@@ -40,5 +40,6 @@ sesión nueva puede integrarlo con estas instrucciones.
 | Pendiente | Estado |
 |---|---|
 | **Datos de la sociedad** (denominación social, domicilio, número de registro) | Sin ellos, el aviso de privacidad y los términos no pueden decir con precisión quién es el responsable. Los textos ya cubren la consultoría, la plataforma y la oferta gratuita; falta esa identificación |
+| **Ley aplicable** | La cláusula «se rigen por las leyes de los Estados Unidos Mexicanos» y la referencia a derechos ARCO vienen del sitio anterior y suponen ley mexicana. Confírmalo con el abogado según dónde esté constituida la sociedad y cámbialo en `src/locales/*/legal.json` |
 | **Revisión por un abogado** | De los dos legales en ambos idiomas, y de las condiciones de la oferta de lanzamiento, antes de cobrar el primer servicio |
 | **Analítica** | Antes de poner un `ga4_id` (u otro) en `negocio.ts`, actualizar «Cookies y analítica» del aviso de privacidad, que hoy dice que no hay ningún servicio activo |
