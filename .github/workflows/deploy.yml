@@ -46,7 +46,7 @@ jobs:
           # PUBLIC_CONTACT_EMAIL deliberadamente NO se inyecta.
           #
           # Publicar una dirección personal en un sitio corporativo la expone a
-          # los rastreadores de correo, y aquí era `emena@…`, un buzón de
+          # los rastreadores de correo, y aquí era un buzón de
           # persona y no de empresa. Sin esta variable, la página de contacto no
           # imprime ningún correo y el aviso de privacidad enlaza el formulario.
           #
