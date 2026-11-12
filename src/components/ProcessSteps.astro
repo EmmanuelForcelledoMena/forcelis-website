@@ -17,7 +17,11 @@ interface Props {
 
 const { items, tone = 'ink', columns, class: className = '' }: Props = Astro.props;
 
-const cols = (columns ?? (items.length === 3 ? 3 : 4)) === 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-4';
+// Tres pasos se ponen en tres columnas desde `md`: en dos columnas el tercero
+// quedaba huérfano debajo, que se lee como un paso aparte. Cuatro, desde `lg`.
+const tres = (columns ?? (items.length === 3 ? 3 : 4)) === 3;
+const cols = tres ? 'md:grid-cols-3' : 'sm:grid-cols-2 lg:grid-cols-4';
+const divisor = tres ? 'md:border-r' : 'lg:border-r';
 
 const light = tone === 'light';
 // Taupe sobre tinta, no rojo: ver la regla 2 de los tokens en global.css.
@@ -25,16 +29,16 @@ const numColor = light ? 'text-on-ink-muted' : 'text-brand-text';
 const titleColor = light ? 'text-on-ink' : 'text-ink';
 const bodyColor = light ? 'text-on-ink-muted' : 'text-muted';
 const topRule = light ? 'border-line-ink' : 'border-ink';
-const divider = light ? 'lg:border-line-ink' : 'lg:border-line';
+const divider = light ? 'border-line-ink' : 'border-line';
 ---
 
-<ol class:list={['grid border-t-2 sm:grid-cols-2', cols, topRule, className]}>
+<ol class:list={['grid border-t-2', cols, topRule, className]}>
   {
     items.map((item, i) => (
       <li
         class:list={[
-          'reveal pt-6 pb-2 pr-6 lg:pr-8',
-          i < items.length - 1 && ['lg:border-r', divider],
+          'reveal pt-6 pb-2 pr-6 md:pl-6 md:first:pl-0 lg:pr-8',
+          i < items.length - 1 && [divisor, divider],
         ]}
         data-reveal-delay={i * 70}
       >

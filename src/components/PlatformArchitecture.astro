@@ -36,14 +36,14 @@ const { sourcesLabel, sources, platformLabel, steps, outcomeLabel, outcomeSub, d
   <p class="sr-only">{diagramAlt}</p>
 
   <div aria-hidden="true">
-    <div class="border border-line bg-panel p-6 lg:p-7">
+    <div class="rounded-card border border-line bg-panel p-6 lg:p-7">
       <p class="text-[0.6875rem] font-semibold tracking-[0.16em] text-muted uppercase">
         {sourcesLabel}
       </p>
       <ul class="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
         {
           sources.map((source) => (
-            <li class="border border-line bg-ground px-3 py-2.5 text-center text-[0.8125rem] font-medium tracking-[0.04em] text-muted uppercase">
+            <li class="rounded-control border border-line bg-ground px-3 py-2.5 text-center text-[0.8125rem] font-medium tracking-[0.04em] text-muted uppercase">
               {source}
             </li>
           ))
@@ -57,7 +57,7 @@ const { sourcesLabel, sources, platformLabel, steps, outcomeLabel, outcomeSub, d
       </svg>
     </div>
 
-    <div class="border border-ink bg-ink p-6 lg:p-7">
+    <div class="rounded-card border border-ink bg-ink p-6 lg:p-7">
       <p class="text-center text-lg font-semibold tracking-[0.06em] text-on-ink uppercase">
         {platformLabel}
       </p>
@@ -82,7 +82,7 @@ const { sourcesLabel, sources, platformLabel, steps, outcomeLabel, outcomeSub, d
       </svg>
     </div>
 
-    <div class="border-2 border-brand bg-ground px-6 py-6 text-center">
+    <div class="rounded-card border-2 border-brand bg-ground px-6 py-6 text-center">
       <p class="text-base font-semibold tracking-[0.06em] text-ink uppercase">{outcomeLabel}</p>
       <p class="mt-1.5 text-sm text-muted">{outcomeSub}</p>
     </div>

@@ -94,7 +94,7 @@ const gridLines = [0, 0.25, 0.5, 0.75, 1].map((ratio) => ({
      de la página. Dos capas —un filo de contacto y una difusa y muy abierta—
      porque una sola sombra fuerte se ve barata sobre un fondo cálido. -->
 <figure
-  class="border border-line bg-panel shadow-[0_1px_2px_rgba(32,30,29,0.05),0_16px_40px_-16px_rgba(32,30,29,0.22)]"
+  class="overflow-hidden rounded-card border border-line bg-panel shadow-[0_1px_2px_rgba(32,30,29,0.05),0_16px_40px_-16px_rgba(32,30,29,0.22)]"
 >
   <figcaption
     class="flex items-center justify-between gap-4 border-b border-line px-5 py-4 sm:px-6"
@@ -145,7 +145,7 @@ const gridLines = [0, 0.25, 0.5, 0.75, 1].map((ratio) => ({
       <p class="text-xs font-medium text-ink">{chartTitle}</p>
       <ul class="flex items-center gap-4 text-[0.6875rem] text-muted">
         <li class="flex items-center gap-1.5">
-          <span aria-hidden="true" class="h-2.5 w-2.5 bg-[var(--color-data-blue)]"></span>
+          <span aria-hidden="true" class="h-2.5 w-2.5 rounded-sm bg-ink"></span>
           {seriesLabels.revenue}
         </li>
         <li class="flex items-center gap-1.5">
@@ -202,7 +202,7 @@ const gridLines = [0, 0.25, 0.5, 0.75, 1].map((ratio) => ({
             y={bar.y}
             width={bar.width}
             height={bar.height}
-            fill="var(--color-data-blue)"
+            fill="var(--color-ink)"
             opacity="0.9"
           />
         ))
