@@ -15,3 +15,21 @@ node_modules/
 Thumbs.db
 *.log
 npm-debug.log*
+
+# Documentos internos y archivos sensibles — nunca en este repositorio, que es
+# público (GitHub Pages gratuito lo exige). Los documentos internos viven en el
+# repositorio privado `forcelis-private`.
+.env*
+!.env.example
+*.key
+*.pem
+*.cer
+*.p12
+*.pfx
+*.xlsx
+*.xls
+*.docx
+*.pdf
+docs/internos/
+**/*Master_Prompt*.md
+**/*.xml.cfdi
